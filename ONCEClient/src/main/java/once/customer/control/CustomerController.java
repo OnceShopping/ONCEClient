@@ -37,13 +37,13 @@ public class CustomerController {
 		return mav;
 	}
 	
-	   @RequestMapping(value="/mypage/mypageMain" )
+	   @RequestMapping(value="/mypage/mypageMain")
 	   public String mypage() {
-	      return "/mypage/mypageMain";
+	      return "mypage/mypageMain";
 	   }
 	   
 	   @RequestMapping("/mypage/faq")
 	   public String faq() {
-		   return "/mypage/faq";
+		   return "mypage/faq";
 	   }
 }
