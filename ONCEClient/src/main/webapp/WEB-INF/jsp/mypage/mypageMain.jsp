@@ -40,7 +40,7 @@
 						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
 				</div>
 				<div class="site-title">
-					<a href="index.html" class="logo"><h1>ONCE</h1></a>
+					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
 				</div>
 				<div class="panel-control-right">
 					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
@@ -56,7 +56,7 @@
 				<li>
 					<div class="photos">
 						<img src="${pageContext.request.contextPath}/resources/img/photos.png" alt="">
-						<h3>Mario Doe</h3>
+						<h3>경준이</h3>
 					</div>
 				</li>
 				<li>
@@ -112,7 +112,7 @@
 					</tr>
 					<tr>
 						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>
-						<td><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</td>
+						<td><a href="${pageContext.request.contextPath}/mypage/faq"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</a></td>
 					</tr>
 					<tr>
 						<td><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</td>
