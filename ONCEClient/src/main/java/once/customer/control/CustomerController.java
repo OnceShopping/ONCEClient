@@ -46,4 +46,9 @@ public class CustomerController {
 	   public String faq() {
 		   return "mypage/faq";
 	   }
+	   
+	   @RequestMapping("/menu/1F")
+	   public String firstfloor() {
+		   return "menu/1F";
+	   }
 }

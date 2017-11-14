@@ -10,30 +10,30 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="HandheldFriendly" content="True">
 
-<link rel="shortcut icon" href="resources/img/favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 
-<link rel="stylesheet" href="resources/css/font-awesome.min.css">
-<link rel="stylesheet" href="resources/css/materialize.min.css">
-<link rel="stylesheet" href="resources/css/slick.css">
-<link rel="stylesheet" href="resources/css/slick-theme.css">
-<link rel="stylesheet" href="resources/css/owl.carousel.css">
-<link rel="stylesheet" href="resources/css/owl.theme.css">
-<link rel="stylesheet" href="resources/css/owl.transitions.css">
-<link rel="stylesheet" href="resources/css/lightbox.min.css">
-<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <script src="resources/js/jquery.min.js"></script>
-	<script src="resources/js/materialize.min.js"></script>
-	<script src="resources/js/slick.min.js"></script>
-	<script src="resources/js/owl.carousel.min.js"></script>
-	<script src="resources/js/custom.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </head>
-<body>
 
+<body>
 <header>
+
 		<div class="navbar">
 			<div class="container">
 				<div class="panel-control-left">
@@ -41,22 +41,22 @@
 						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
 				</div>
 				<div class="site-title">
-					<a href="index.html" class="logo"><h1>ONCE</h1></a>
+					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
 				</div>
 				<div class="panel-control-right">
 					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
 				</div>
 			</div>
 		</div>
-		<!-- 상단 navbar 끝 -->
 
-		<!-- 좌측 메뉴패널 -->
 		<div class="panel-control-right">
 			<ul id="slide-out-left" class="side-nav collapsible"
 				data-collapsible="accordion">
 				<li>
 					<div class="photos">
-						<img src="${pageContext.request.contextPath}/resources/img/photos.png" alt="">
+						<img
+							src="${pageContext.request.contextPath}/resources/img/photos.png"
+							alt="">
 						<h3>경준이</h3>
 					</div>
 				</li>
@@ -93,12 +93,47 @@
 	</header>
 	
 	<section>
-	<div class="page-404 app-pages app-section">
+	 <div class="team-app app-pages app-section">
 		<div class="container">
-			<h3>4<span>0</span>4</h3>
-			<h6>ㅈㅅ 페이지 못찾겠음 ㅋㅋㅋ</h6>
-			<p>최대한 빨리 정상화 하도록 노력은 해보겠음 ㅎ</p>
-			<a class="button" href="index.jsp">홈으로</a>
+			<div class="pages-title">
+				<h3>1층</h3>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<div class="entry">
+						<head>
+							<img src="${pageContext.request.contextPath}/resources/img/logo1.jpg" alt="">
+						</head>
+						<div class="content">
+							<h6>MLB</h6>
+							<p>스포츠의류</p>
+							<ul>
+								<ll><a href=""><i class="fa fa-facebook"></i></a></ll>
+								<ll><a href=""><i class="fa fa-twitter"></i></a></ll>
+								<ll><a href=""><i class="fa fa-google"></i></a></ll>
+								<ll><a href=""><i class="fa fa-linkedin"></i></a></ll>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="entry">
+						<head>
+							<img src="${pageContext.request.contextPath}/resources/img/logo2.jpg" alt="">
+						</head>
+						<div class="content">
+							<h6>NIKE</h6>
+							<p>스포츠의류</p>
+							<ul>
+								<ll><a href=""><i class="fa fa-facebook"></i></a></ll>
+								<ll><a href=""><i class="fa fa-twitter"></i></a></ll>
+								<ll><a href=""><i class="fa fa-google"></i></a></ll>
+								<ll><a href=""><i class="fa fa-linkedin"></i></a></ll>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	</section>
@@ -125,6 +160,5 @@
 			<span>Copyright © 2017 All Rights Reserved </span>
 		</div>
 	</footer>
-
 </body>
 </html>
