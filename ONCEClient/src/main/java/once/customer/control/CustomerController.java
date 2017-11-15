@@ -108,8 +108,4 @@ public class CustomerController {
 	    return "mypage/mypageMain";
 	}
 	   
-	@RequestMapping("/mypage/faq")
-	public String faq() {
-	  return "mypage/faq";
-	}
 }
