@@ -32,6 +32,7 @@
 </head>
 
 <body>
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp" flush="false"></jsp:include>
 	
 	<section>
 	
@@ -74,8 +75,12 @@
 		</div>
 	</div>
 	<!-- end login -->
-	
 	</section>
+	
+	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
+	
+	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp" flush="false"></jsp:include>
 	
 </body>
 </html>
+
