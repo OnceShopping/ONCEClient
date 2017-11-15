@@ -111,11 +111,10 @@ public class CustomerController {
 	@RequestMapping("/mypage/faq")
 	   public String faq() {
 		   return "mypage/faq";
-	 }
+	   }
 	   
-	 @RequestMapping("/menu/1F")
-	 public String firstfloor() {
-		  return "menu/1F";
-	 }
-	   
+	   @RequestMapping("/menu/1F")
+	   public String firstfloor() {
+		   return "menu/1F";
+	   }
 }
