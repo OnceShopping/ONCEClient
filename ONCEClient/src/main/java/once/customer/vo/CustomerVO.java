@@ -13,5 +13,7 @@ public class CustomerVO {
 	private int memNo;
 	private String date;
 	private int orderPassword;
-	
+
+	private boolean autoLogin;
+	private boolean saveId;
 }
