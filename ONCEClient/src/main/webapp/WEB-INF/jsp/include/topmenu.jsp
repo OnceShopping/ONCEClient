@@ -41,10 +41,9 @@
 					</div>
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
-							<li><a href="">1F</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
 							<li><a href="">2F</a></li>
 							<li><a href="">3F</a></li>
-							<li><a href="">4F</a></li>
 						</ul>
 					</div>
 				</li>
