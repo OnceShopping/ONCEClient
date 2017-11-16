@@ -42,6 +42,67 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+	<script type="text/javascript">
+		var pwdCheck = 0;
+		var pwdOrCheck = 0;
+		
+		 function checkPwd() {
+		        var pass = $('#password').val();
+		        var nonpass = $('#pwChk').val();
+		        if(nonpass=="" && (pass != nonpass || pass == nonpass)){
+		            $("#udtBtn").prop("disabled", true);
+		            $("#udtBtn").css("background-color", "#aaaaaa");
+		            $("#pwChk").css("background-color", "#FFCECE");
+		        }
+		        else if (pass == nonpass) {
+		            $("#pwChk").css("background-color", "#CEFBC9");
+		            pwdCheck = 1;
+		            if(pwdCheck == 1) {
+		                $("#udtBtn").prop("disabled", false);
+		                $("#pwChk").css("background-color", "#CEFBC9");
+		            }
+		        } else if (pass != nonpass) {
+		            pwdCheck = 0;
+		            $("#udtBtn").prop("disabled", true);
+		            $("#udtBtn").css("background-color", "#177bbb");
+		            $("#pwChk").css("background-color", "#FFCECE");
+		        } else if (pass == null || nonpass == null) {
+		        	pwdCheck = 0;
+		        	$("#udtBtn").prop("disabled", true);
+		            $("#udtBtn").css("background-color", "#aaaaaa");
+		            $("#pwChk").css("background-color", "#FFCECE");
+		        }
+		    }
+	
+		 function checkOdPwd() {
+		        var pass = $('#orderPassword').val();
+		        var nonpass = $('#pwOdChk').val();
+		        if(nonpass=="" && (pass != nonpass || pass == nonpass)){
+		            $("#udtBtn").prop("disabled", true);
+		            $("#udtBtn").css("background-color", "#aaaaaa");
+		            $("#pwOdChk").css("background-color", "#FFCECE");
+		        }
+		        else if (pass == nonpass) {
+		            $("#pwOdChk").css("background-color", "#CEFBC9");
+		            pwdOrCheck = 1;
+		            if(pwdOrCheck == 1) {
+		                $("#udtBtn").prop("disabled", false);
+		                $("#pwOdChk").css("background-color", "#CEFBC9");
+		            }
+		        } else if (pass != nonpass) {
+		        	pwdOrCheck = 0;
+		            $("#udtBtn").prop("disabled", true);
+		            $("#udtBtn").css("background-color", "#177bbb");
+		            $("#pwOdChk").css("background-color", "#FFCECE");
+		        } else if (pass == null || nonpass == null) {
+		        	pwdOrCheck = 0;
+		        	$("#udtBtn").prop("disabled", true);
+		            $("#udtBtn").css("background-color", "#aaaaaa");
+		            $("#pwOdChk").css("background-color", "#FFCECE");
+		        }
+		    }
+	
+</script>
 </head>
 <body>
 	<header>
@@ -114,12 +175,12 @@
 				</div>
 				<form action="${pageContext.request.contextPath}/mypage/detail/${customerVO.id}" method="get">
 					<input type="text" name="id" id="id" disabled="disabled" value="${customerVO.id}"/><br/>
-					<input type="password" name="password" id="password"/><br/>
-					<input type="password" name="pwChk" id="pwChk"/><br/>
+					<input type="password" name="password" id="password" oninput="checkPwd()"/><br/>
+					<input type="password" name="pwChk" id="pwChk" oninput="checkPwd()"/><br/>
 					<input type="text" name="telephone" id="telephone" value="${customerVO.telephone}"/><br/>
-					<input type="text" name="orderPassword" id="orderPassword"/><br/>
-					<input type="text" name="orPwChk" id="orPwChk"/><br/>
-					<input type="submit" value="수정"/><br/>
+					<input type="text" name="orderPassword" id="orderPassword" oninput="checkOdPwd()"/><br/>
+					<input type="text" name="pwOdChk" id="pwOdChk" oninput="checkOdPwd()"/><br/>
+					<input type="submit" id="udtBtn" value="수정"/><br/>
 				</form>
 				<a href="${pageContext.request.contextPath}/mypage/delete">회원 탈퇴</a>
 			</div>

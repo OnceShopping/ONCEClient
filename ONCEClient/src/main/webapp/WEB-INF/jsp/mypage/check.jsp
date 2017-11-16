@@ -112,10 +112,10 @@
 				<div class="pages-title">
 					<h3>회원 정보 수정/탈퇴</h3>
 				</div>
-				<p>본인 확인을 위해서 비밀번호를 한 번 더 입력해 주세요</p>
+				<p>본인 확인을 위해서 비밀번호를 한 번 더 입력해 주세요.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/check"
 					method="post">
-					<input type="password" name="password" id="password" /> <input
+					<input type="password" name="password" id="password"/> <input
 						type="submit" value="확인" />
 				</form>
 			</div>
