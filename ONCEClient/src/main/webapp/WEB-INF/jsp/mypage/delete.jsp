@@ -1,37 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Creative - Multipurpose Mobile Template</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="HandheldFriendly" content="True">
 	
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
+	<link rel="shortcut icon"
+		href="${pageContext.request.contextPath}/resources/img/favicon.png">
 	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/slick.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/resources/css/style.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
 </head>
-
 <body>
-<header>
+	<header>
 		<!-- 상단 navbar -->
 		<div class="navbar">
 			<div class="container">
@@ -48,14 +61,15 @@
 			</div>
 		</div>
 		<!-- 상단 navbar 끝 -->
-
 		<!-- 좌측 메뉴패널 -->
 		<div class="panel-control-right">
 			<ul id="slide-out-left" class="side-nav collapsible"
 				data-collapsible="accordion">
 				<li>
 					<div class="photos">
-						<img src="${pageContext.request.contextPath}/resources/img/photos.png" alt="">
+						<img
+							src="${pageContext.request.contextPath}/resources/img/photos.png"
+							alt="">
 						<h3>경준이</h3>
 					</div>
 				</li>
@@ -93,37 +107,21 @@
 	</header>
 	
 	<section>
-	
-	<div class="table-app app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-				<h3>My Page</h3>
+		<div class="table-app app-pages app-section">
+			<div class="container">
+				<div class="pages-title">
+					<h3>회원 탈퇴</h3>
+				</div>
+				<p>회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
+				<form action="${ pageContext.request.contextPath }/mypage/delete" method="post">
+				<input type="hidden" name="id" value="${customerVO.id}"/>
+				<input type="submit" value="확인"/>
+				</form>
 			</div>
-			<table class="">
-				<tbody>
-				<tr>
-						<td><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</td>
-						<td><a href="${pageContext.request.contextPath}/mypage/check"><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-shopping-basket"></i>&nbsp;&nbsp;장바구니</td>
-						<td><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>
-						<td><a href="${pageContext.request.contextPath}/mypage/faq"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
-	</div>
 	</section>
 	
-	<footer>
+		<footer>
 		<div class="container">
 			<h6>Find & follow us</h6>
 			<ul class="icon-social">
@@ -158,8 +156,5 @@
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
-	
-
-
 </body>
 </html>
