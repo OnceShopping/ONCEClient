@@ -167,7 +167,7 @@ public class CustomerController {
 	@RequestMapping(value = "/mypage/delete", method = RequestMethod.POST)
 	public String delete(@ModelAttribute @Valid CustomerVO customer, Model model) {
 		service.deleteCustomer(customer.getId());
-		model.addAttribute("message", "회원 탈퇴가 성공적으로 완료되었습니다.\n이용해 주셔서 감사합니다.");
+		model.addAttribute("message", "회원 탈퇴가 성공적으로 완료되었습니다. 지금까지 이용해 주셔서 감사합니다.");
 		System.out.println("111111");
 		return "mypage/deleteProcess";
 	}
