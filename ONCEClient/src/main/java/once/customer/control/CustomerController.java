@@ -142,20 +142,15 @@ public class CustomerController {
 
 		// 회원 정보 상세 페이지
 		service.selectById(id);
-
 		model.addAttribute("customerVO", customer);
-
 		return "mypage/detail";
 	}
 
 	// 회원 정보 수정 처리
 	@RequestMapping(value = "/mypage/detail/{id}", method = RequestMethod.GET)
 	public String modify(@PathVariable String id, @ModelAttribute @Valid CustomerVO customer, Model model) {
-
-		service.modifyCustomer(customer.getId(), customer.getPassword(), customer.getTelephone(),
-				customer.getOrderPassword());
-
-		model.addAttribute("managerVO", customer);
+		service.modifyCustomer(customer.getId(), customer.getPassword(), customer.getTelephone(), customer.getOrderPassword());
+		model.addAttribute("customerVO", customer);
 		model.addAttribute("message", "회원 정보 수정이 성공적으로 완료되었습니다.");
 
 		return "mypage/modifyProcess";
@@ -163,17 +158,17 @@ public class CustomerController {
 	
 	//회원 정보 탈퇴 페이지
 	@RequestMapping(value = "/mypage/delete", method = RequestMethod.GET)
-	public String deleteForm() {
+	public String deleteForm(@ModelAttribute("loginVO") CustomerVO customer, Model model) {
+		model.addAttribute("customerVO", customer);
 		return "mypage/delete";
 	}
 
 	// 회원 정보 탈퇴 처리
-	@RequestMapping(value = "/mypage/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/mypage/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable String id, @ModelAttribute @Valid CustomerVO customer, Model model) {
-
 		service.deleteCustomer(customer.getId(), customer.getPassword());
-
-		model.addAttribute("managerVO", customer);
+		
+		model.addAttribute("customerVO", customer);
 		model.addAttribute("message", "회원 탈퇴가 성공적으로 완료되었습니다./n이용해 주셔서 감사합니다. ");
 
 		return "mypage/deleteProcess";
