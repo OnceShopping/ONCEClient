@@ -18,6 +18,6 @@ public interface CustomerDAO {
 
 	void modifyCustomer(String id, String password, String telephone, String orderPassword);
 
-	void deleteCustomer(String id, String password);
+	void deleteCustomer(String id);
 	
 }

@@ -45,9 +45,9 @@
  	</update>
  	
   	<!-- 회원 탈퇴 -->	
- 	<delete id="deleteCustomer" parameterType="java.util.Map">
+ 	<delete id="deleteCustomer" parameterType="String">
  		delete from Customer
- 		where id = #{id} and password = #{password}
+ 		where id = #{id}
  	</delete> 	
  	
 </mapper>

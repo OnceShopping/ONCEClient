@@ -9,9 +9,9 @@
 <body>
 	<h3>회원 탈퇴</h3>
 	<p>회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
-	<form action="${pageContext.request.contextPath}/mypage/delete/${customerVO.id}" method="get">
+	<form action="${ pageContext.request.contextPath }/mypage/delete" method="post">
+		<input type="hidden" name="id" value="${customerVO.id}"/>
 		<input type="submit" value="확인"/>
 	</form>
-	<input type="button" value="취소" onclick="${pageContext.request.contextPath}/mypage/detail/${customerVO.id}"/>
 </body>
 </html>

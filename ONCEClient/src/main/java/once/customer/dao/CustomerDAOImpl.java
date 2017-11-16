@@ -78,11 +78,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public void deleteCustomer(String id, String password) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", id);
-		map.put("password", password);
-		
-		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", map);
+	public void deleteCustomer(String id) {
+		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", id);
 	}
 }
