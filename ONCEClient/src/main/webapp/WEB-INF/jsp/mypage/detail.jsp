@@ -9,13 +9,13 @@
 <body>
 	<h3>${customerVO.name} 님의 회원 정보</h3>
 	<div>
-		<form action="${pageContext.request.contextPath}/mypage/modify/${customerVO.id}" method="post">
+		<form action="${pageContext.request.contextPath}/mypage/detail/${customerVO.id}" method="get">
 			<input type="text" name="id" id="id" disabled="disabled" value="${customerVO.id}"/><br/>
 			<input type="password" name="password" id="password"/><br/>
-			<input type="password" name="password" id="pwChk"/><br/>
+			<input type="password" name="pwChk" id="pwChk"/><br/>
 			<input type="text" name="telephone" id="telephone" value="${customerVO.telephone}"/><br/>
 			<input type="text" name="orderPassword" id="orderPassword"/><br/>
-			<input type="text" name="orderPassword" id="orPwChk"/><br/>
+			<input type="text" name="orPwChk" id="orPwChk"/><br/>
 			<input type="submit" value="수정"/><br/>
 		</form>
 		<a href="${pageContext.request.contextPath}/mypage/delete">회원 탈퇴</a>

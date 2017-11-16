@@ -160,7 +160,7 @@ public class CustomerController {
 	@RequestMapping(value = "/mypage/delete", method = RequestMethod.GET)
 	public String deleteForm(@ModelAttribute("loginVO") CustomerVO customer, Model model) {
 		model.addAttribute("customerVO", customer);
-		return "mypage/delete";
+		return "mypage/delete" + customer.getId();
 	}
 
 	// 회원 정보 탈퇴 처리
