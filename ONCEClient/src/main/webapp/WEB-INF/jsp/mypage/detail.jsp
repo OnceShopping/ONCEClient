@@ -33,6 +33,27 @@
 		href="${pageContext.request.contextPath}/resources/css/style.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
+	<link rel="stylesheet"
+	href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
+	<style type="text/css">
+		.normal {
+			font-weight: 400
+		}
+		
+		.bold {
+			font-weight: 700
+		}
+		
+		.bolder {
+			font-weight: 800
+		}
+		
+		.light {
+			font-weight: 300
+		}
+	</style>
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
@@ -101,6 +122,12 @@
 		            $("#pwOdChk").css("background-color", "#FFCECE");
 		        }
 		    }
+		 
+			$(document).ready(function() {
+				$('#backBtn').click(function() {
+					location.href = '${pageContext.request.contextPath}';
+				});
+			});
 	
 </script>
 </head>
@@ -171,18 +198,43 @@
 		<div class="table-app app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3>${customerVO.name} 님의 회원 정보</h3>
+					<h3 class="bold">${customerVO.name} 님의 회원 정보</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
 				<form action="${pageContext.request.contextPath}/mypage/detail/${customerVO.id}" method="get">
-					<input type="text" name="id" id="id" disabled="disabled" value="${customerVO.id}"/><br/>
-					<input type="password" name="password" id="password" oninput="checkPwd()"/><br/>
-					<input type="password" name="pwChk" id="pwChk" oninput="checkPwd()"/><br/>
-					<input type="text" name="telephone" id="telephone" value="${customerVO.telephone}"/><br/>
-					<input type="text" name="orderPassword" id="orderPassword" oninput="checkOdPwd()"/><br/>
-					<input type="text" name="pwOdChk" id="pwOdChk" oninput="checkOdPwd()"/><br/>
-					<input type="submit" id="udtBtn" value="수정"/><br/>
+					<div class="input-field">
+						<input type="text" name="id" id="id" class="validate" disabled="disabled" value="${customerVO.id}"/>
+						<label for="id">id</label>
+					</div>
+					<div class="input-field">
+						<input type="password" name="password" id="password" class="validate" oninput="checkPwd()"/>
+						<label for="password">password</label>
+					</div>
+					<div class="input-field">
+						<input type="password" name="pwChk" id="pwChk" class="validate" oninput="checkPwd()"/>
+						<label for="pwChk">password again</label>
+					</div>
+					<div class="input-field">
+						<input type="text" name="telephone" id="telephone" class="validate" value="${customerVO.telephone}"/>
+						<label for="telephone">telephone</label>
+					</div>
+					<div class="input-field">
+						<input type="text" name="orderPassword" id="orderPassword" class="validate" oninput="checkOdPwd()"/>
+						<label for="orderPassword">order password</label>
+					</div>
+					<div class="input-field">
+						<input type="text" name="pwOdChk" id="pwOdChk" class="validate" oninput="checkOdPwd()"/>
+						<label for="pwOdChk">order password again</label>
+					</div>
+					<div style="text-align: center">
+						<input type="submit" id="udtBtn" class="button" value="수정" style="width: 20%"/>
+						<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
+					</div>
 				</form>
+				<br/><br/>
+				<div style="text-align: right; margin-right: 5%;">
 				<a href="${pageContext.request.contextPath}/mypage/delete">회원 탈퇴</a>
+				</div>
 			</div>
 		</div>
 	</section>
