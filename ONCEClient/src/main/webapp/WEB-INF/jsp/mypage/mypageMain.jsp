@@ -103,7 +103,7 @@
 				<tbody>
 				<tr>
 						<td><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</td>
-						<td><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</td>
+						<td><a href="${pageContext.request.contextPath}/mypage/check"><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</a></td>
 					</tr>
 					<tr>
 						<td><i class="fa fa-shopping-basket"></i>&nbsp;&nbsp;장바구니</td>

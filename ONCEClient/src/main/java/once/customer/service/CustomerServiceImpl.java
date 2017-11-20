@@ -26,4 +26,25 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return list;
 	}
+	
+	@Override
+	public boolean checkPassword(String id, String password) {
+		return dao.checkPassword(id, password);
+	}
+
+	@Override
+	public void selectById(String id) {
+		dao.selectById(id);
+	}
+
+	@Override
+	public void modifyCustomer(String id, String password, String telephone, String orderPassword) {
+		dao.modifyCustomer(id, password, telephone, orderPassword);
+	}
+
+	@Override
+	public void deleteCustomer(String id) {
+		dao.deleteCustomer(id);
+	}
+
 }
