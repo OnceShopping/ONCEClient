@@ -66,21 +66,22 @@
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
 							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/2F">2F</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/3F">3F</a></li>
 						</ul>
 					</div>
 				</li>
 				<li>
 					<div class="collapsible-header">
+					
 						<i class=""></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
 					</div>
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/men">남성의류</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/women">여성의류</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/kids">아동복</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/shoes">신발</a></li>
 						</ul>
 					</div>
 				</li>
@@ -123,7 +124,7 @@
                      <div class="collapsible-header faq-collapsible">
                         (주문)매장 외 다른 곳에서도 주문이 가능한가요? <i class="fa fa-plus"></i>
                      </div>
-                     <div class="collapsible-body">
+                      <div class="collapsible-body">
                         <p>네, 매장 영업시간 내라면 언제든 주문 가능합니다. 단 최대한 빠르게 상품을 수령하시는것을 권장합니다.</p>
                      </div>
                   </li>

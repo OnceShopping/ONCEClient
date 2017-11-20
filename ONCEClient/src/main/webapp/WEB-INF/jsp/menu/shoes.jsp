@@ -27,13 +27,14 @@
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lightbox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.filterizr.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom-portfolio.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
 </head>
-
 <body>
-<header>
 
+<header>
 		<div class="navbar">
 			<div class="container">
 				<div class="panel-control-left">
@@ -93,38 +94,52 @@
 	</header>
 	
 	<section>
-	 <div class="team-app app-pages app-section">
+	<div class="portfolio portfolio-card column2 app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>1층</h3>
+				<h3>신발</h3>
 			</div>
-			<div class="row">
-				<div class="col s6">
-					<div class="entry">
-						<head>
-							<img src="${pageContext.request.contextPath}/resources/img/logo1.jpg" alt="">
-						</head>
-						<div class="content">
-							<h6>MLB</h6>
-							<p>스포츠의류</p>
-							<ul>
-								<ll><i class="fa fa-phone-square"></i>:02-1234-5678</ll>
-							</ul>
-						</div>
+			<ul class="portfolio-filter">
+				<li data-filter="all" class="active">전체</li>
+				<li data-filter="1">나이키</li>
+				<li data-filter="2">아디다스</li>
+				<li data-filter="3">반스</li>
+			</ul>
+			<div class="portfolio-item">
+				<div class="row">
+					<div class="col s6 filtr-item" data-category="1">
+						<a href="${pageContext.request.contextPath}/resources/img/shoe4.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/shoe4.jpg" alt=""></a>
+						<h5>나이키 신발1</h5>
+						<p>75,400원</p>
+					</div>
+					<div class="col s6 filtr-item" data-category="1">
+						<a href="${pageContext.request.contextPath}/resources/img/shoe5.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/shoe5.jpg" alt=""></a>
+						<h5>나이키 신발2</h5>
+						<p>67,800원</p>
 					</div>
 				</div>
-				<div class="col s6">
-					<div class="entry">
-						<head>
-							<img src="${pageContext.request.contextPath}/resources/img/logo2.jpg" alt="">
-						</head>
-						<div class="content">
-							<h6>NIKE</h6>
-							<p>스포츠의류</p>
-							<ul>
-								<ll><i class="fa fa-phone-square"></i>:02-1111-2222</ll>
-							</ul>
-						</div>
+				<div class="row">
+					<div class="col s6 filtr-item" data-category="2">
+						<a href="${pageContext.request.contextPath}/resources/img/shoe6.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/shoe6.jpg" alt=""></a>
+						<h5>아디다스 1</h5>
+						<p>109,000원</p>
+					</div>
+					<div class="col s6 filtr-item" data-category="2">
+						<a href="${pageContext.request.contextPath}/resources/img/shoe7.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/shoe7.jpg" alt=""></a>
+						<h5>아디다스 2</h5>
+						<p>98,000원</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s6 filtr-item" data-category="3">
+						<a href="${pageContext.request.contextPath}/resources/img/shoe8.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/shoe8.jpg" alt=""></a>
+						<h5>반스 신발1</h5>
+						<p>59,000원</p>
+					</div>
+					<div class="col s6 filtr-item" data-category="3">
+						<a href="${pageContext.request.contextPath}/resources/img/shoe9.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/shoe9.jpg" alt=""></a>
+						<h5>반스 신발2</h5>
+						<p>69,000원</p>
 					</div>
 				</div>
 			</div>
@@ -154,5 +169,6 @@
 			<span>Copyright © 2017 All Rights Reserved </span>
 		</div>
 	</footer>
+
 </body>
 </html>

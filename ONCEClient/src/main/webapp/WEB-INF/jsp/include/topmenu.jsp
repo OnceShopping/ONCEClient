@@ -51,8 +51,8 @@
 				<div class="collapsible-body">
 					<ul class="side-nav-panel">
 						<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-						<li><a href="">2F</a></li>
-						<li><a href="">3F</a></li>
+						<li><a href="${pageContext.request.contextPath}/menu/2F">2F</a></li>
+						<li><a href="${pageContext.request.contextPath}/menu/3F">3F</a></li>
 					</ul>
 				</div>
 			</li>
@@ -68,10 +68,10 @@
 						<li class="tileList">
 							<table>
 								<tr>
-									<td><a href="" class="tileMenu"><i class="fa fa-male"></i><br/>남성
+									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성
 											의류</a></td>
 									<td class="menuSpace"></td>
-									<td><a href="" class="tileMenu"><i class="fa fa-female"></i><br/>여성 의류</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/women" class="tileMenu"><i class="fa fa-female"></i><br/>여성 의류</a></td>
 								</tr>
 							</table>
 						</li>
@@ -81,7 +81,7 @@
 						<li class="tileList">
 							<table class="tileMenu">
 								<tr>
-									<td><a href="" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
 									<td class="menuSpace"></td>
 									<td><a href="" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
 								</tr>
@@ -102,6 +102,5 @@
 		</ul>
 	</div>
 	<!-- 좌측 메뉴패널 끝 -->
-
 </body>
 </html>
