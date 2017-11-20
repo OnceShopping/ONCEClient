@@ -28,10 +28,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-
 </head>
-
 <body>
+
 <header>
 
 		<div class="navbar">
@@ -96,19 +95,19 @@
 	 <div class="team-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>1층</h3>
+				<h3>2층</h3>
 			</div>
 			<div class="row">
 				<div class="col s6">
 					<div class="entry">
 						<head>
-							<img src="${pageContext.request.contextPath}/resources/img/logo1.jpg" alt="">
+							<img src="${pageContext.request.contextPath}/resources/img/logo3.jpg" alt="">
 						</head>
 						<div class="content">
-							<h6>MLB</h6>
-							<p>스포츠의류</p>
+							<h6>디키즈</h6>
+							<p>캐주얼</p>
 							<ul>
-								<ll><i class="fa fa-phone-square"></i>:02-1234-5678</ll>
+								<ll><i class="fa fa-phone-square"></i>:02-2222-3333</ll>
 							</ul>
 						</div>
 					</div>
@@ -116,13 +115,13 @@
 				<div class="col s6">
 					<div class="entry">
 						<head>
-							<img src="${pageContext.request.contextPath}/resources/img/logo2.jpg" alt="">
+							<img src="${pageContext.request.contextPath}/resources/img/logo4.jpg" alt="">
 						</head>
 						<div class="content">
-							<h6>NIKE</h6>
-							<p>스포츠의류</p>
+							<h6>팬콧</h6>
+							<p>캐주얼</p>
 							<ul>
-								<ll><i class="fa fa-phone-square"></i>:02-1111-2222</ll>
+								<ll><i class="fa fa-phone-square"></i>:02-3333-4444</ll>
 							</ul>
 						</div>
 					</div>
@@ -154,5 +153,6 @@
 			<span>Copyright © 2017 All Rights Reserved </span>
 		</div>
 	</footer>
+
 </body>
 </html>

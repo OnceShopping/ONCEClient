@@ -42,8 +42,8 @@
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
 							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/2F">2F</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/3F">3F</a></li>
 						</ul>
 					</div>
 				</li>
@@ -53,10 +53,10 @@
 					</div>
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/men">남성의류</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/women">여성의류</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/kids">아동복</a></li>
+							<li><a href="${pageContext.request.contextPath}/menu/shoes">신발</a></li>
 						</ul>
 					</div>
 				</li>

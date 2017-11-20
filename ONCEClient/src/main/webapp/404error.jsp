@@ -41,7 +41,7 @@
 						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
 				</div>
 				<div class="site-title">
-					<a href="index.html" class="logo"><h1>ONCE</h1></a>
+					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
 				</div>
 				<div class="panel-control-right">
 					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
@@ -56,7 +56,7 @@
 				data-collapsible="accordion">
 				<li>
 					<div class="photos">
-						<img src="${pageContext.request.contextPath}/resources/img/photos.png" alt="">
+						<img src="resources/img/photos.png" alt="">
 						<h3>경준이</h3>
 					</div>
 				</li>
@@ -66,9 +66,9 @@
 					</div>
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
-							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
+							<li><a href="menu/1F">1F</a></li>
+							<li><a href="menu/2F">2F</a></li>
+							<li><a href="menu/3F">3F</a></li>
 						</ul>
 					</div>
 				</li>
@@ -78,10 +78,10 @@
 					</div>
 					<div class="collapsible-body">
 						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
+							<li><a href="menu/men">남성의류</a></li>
+							<li><a href="menu/women">여성의류</a></li>
+							<li><a href="menu/kids">아동복</a></li>
+							<li><a href="menu/shoes">신발</a></li>
 						</ul>
 					</div>
 				</li>
@@ -96,8 +96,8 @@
 	<div class="page-404 app-pages app-section">
 		<div class="container">
 			<h3>4<span>0</span>4</h3>
-			<h6>ㅈㅅ 페이지 못찾겠음 ㅋㅋㅋ</h6>
-			<p>최대한 빨리 정상화 하도록 노력은 해보겠음 ㅎ</p>
+			<h6>페이지를 찾을수 없습니다.</h6>
+			<p>최대한 빨리 정상화 하도록 노력하겠습니다.</p>
 			<a class="button" href="index.jsp">홈으로</a>
 		</div>
 	</div>

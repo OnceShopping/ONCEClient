@@ -117,5 +117,35 @@ public class CustomerController {
 	   public String firstfloor() {
 		   return "menu/1F";
 	   }
+	   
+	   @RequestMapping("/menu/2F")
+	   public String secondfloor() {
+		   return "menu/2F";
+	   }
+	   
+	   @RequestMapping("/menu/3F")
+	   public String thirdfloor() {
+		   return "menu/3F";
+	   }
+	   
+	   @RequestMapping("/menu/men")
+	   public String men() {
+		   return "menu/men";
+	   }
+	   
+	   @RequestMapping("/menu/women")
+	   public String women() {
+		   return "menu/women";
+	   }
+	   
+	   @RequestMapping("/menu/kids")
+	   public String kids() {
+		   return "menu/kids";
+	   }
+	   
+	   @RequestMapping("/menu/shoes")
+	   public String shoes() {
+		   return "menu/shoes";
+	   }
 
 }
