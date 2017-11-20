@@ -32,6 +32,27 @@
 	<link rel="stylesheet"
 		href="${pageContext.request.contextPath}/resources/css/style.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	<link rel="stylesheet"
+	href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
+	<style type="text/css">
+		.normal {
+			font-weight: 400
+		}
+		
+		.bold {
+			font-weight: 700
+		}
+		
+		.bolder {
+			font-weight: 800
+		}
+		
+		.light {
+			font-weight: 300
+		}
+	</style>
 	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -42,6 +63,14 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#backBtn').click(function() {
+				location.href = '${pageContext.request.contextPath}';
+			});
+		});
+	</script>
 </head>
 <body>
 	<header>
@@ -110,12 +139,16 @@
 		<div class="table-app app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3>회원 탈퇴</h3>
+					<h3 class="bold">회원 탈퇴</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
-				<p>회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
+				<p class="light">회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/delete" method="post">
 				<input type="hidden" name="id" value="${customerVO.id}"/>
-				<input type="submit" value="확인"/>
+				<div style="text-align: center">
+					<input type="submit" class="button" value="확인" style="width: 20%"/>
+					<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
+				</div>
 				</form>
 			</div>
 		</div>

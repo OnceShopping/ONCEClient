@@ -33,6 +33,27 @@
 		href="${pageContext.request.contextPath}/resources/css/style.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
+	<link rel="stylesheet"
+	href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
+	<style type="text/css">
+		.normal {
+			font-weight: 400
+		}
+		
+		.bold {
+			font-weight: 700
+		}
+		
+		.bolder {
+			font-weight: 800
+		}
+		
+		.light {
+			font-weight: 300
+		}
+	</style>
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
@@ -42,6 +63,14 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#backBtn').click(function() {
+				location.href = '${pageContext.request.contextPath}';
+			});
+		});
+	</script>	
 </head>
 <body>
 	<header>
@@ -110,13 +139,20 @@
 		<div class="table-app app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3>회원 정보 수정/탈퇴</h3>
+					<h3 class="bold">회원 정보 수정/탈퇴</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
-				<p>본인 확인을 위해서 비밀번호를 한 번 더 입력해 주세요.</p>
+				<p class="light">본인 확인을 위해서 비밀번호를 한 번 더 입력해 주세요.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/check"
 					method="post">
-					<input type="password" name="password" id="password"/> <input
-						type="submit" value="확인" />
+					<div class="input-field">
+						<input name="password" type="password" class="validate">
+						<label for="password">password</label>
+					</div>
+					<div style="text-align: right; margin-right: 5%;">
+						<input type="submit" value="확인" class="button" style="width: 20%" />
+						<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
+					</div>
 				</form>
 			</div>
 		</div>
