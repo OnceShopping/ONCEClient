@@ -9,11 +9,11 @@
 			<a href="#" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-home"></i></a> 
 			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a>
 			<c:choose>
-				<c:when test="${ empty loginVO }">
-			<a href="${pageContext.request.contextPath}/login/login" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+				<c:when test="${ not empty loginId or not empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
 				</c:when>
 				<c:otherwise>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+					<a href="${pageContext.request.contextPath}/login/login" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
 				</c:otherwise>
 			</c:choose>
 		</div>

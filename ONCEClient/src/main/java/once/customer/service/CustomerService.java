@@ -10,4 +10,6 @@ public interface CustomerService {
 	
 	List<CustomerVO> selectAll();
 	
+	CustomerVO autoLogin(String loginId);
+	
 }

@@ -26,4 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return list;
 	}
+	
+	public CustomerVO autoLogin(String loginId) {
+		return dao.autoLogin(loginId);
+	}
 }

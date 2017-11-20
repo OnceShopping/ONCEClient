@@ -1,7 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+	<% 
+	String loginId = "";
+	
+	try{
+		Cookie[] cookies = request.getCookies();
+	
+		if(cookies!=null){
+			for(int i=0; i<cookies.length; i++){
+				if(cookies[i].getName().equals("autoLogin")){
+					loginId = cookies[i].getValue();
+					session.setAttribute("loginId", loginId);
+				}
+			}
+		}
+	}catch(Exception e){}
+	%>
+</script>
 <header>
-<!-- 상단 navbar -->
+		<!-- 상단 navbar -->
 		<div class="navbar">
 			<div class="container">
 				<div class="panel-control-left">
@@ -53,9 +72,15 @@
 						</ul>
 					</div>
 				</li>
-				<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-				</li>
+				<c:choose>
+					<c:when test="${ not empty loginId or not empty loginVO }">
+						<li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out"></i>로그아웃</a></li>
+					</c:when>
+					<c:otherwise>		
+						<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
+						<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a></li>
+					</c:otherwise>
+			</c:choose>
 			</ul>
 		</div>
 		<!-- 좌측 메뉴패널 끝 -->
