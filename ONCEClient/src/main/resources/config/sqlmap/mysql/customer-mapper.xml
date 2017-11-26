@@ -12,15 +12,42 @@
  	
  	<!-- 로그인 -->
  	<select id="login" parameterType="CustomerVO" resultType="CustomerVO">
- 		select id, password, rank, name, memNo, telephone, orderPassword, to_char (date, 'yyyy-mm-dd') as date
+ 		select id, password, rank, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
  		  from customer
  		 where id = #{id} and password = #{password}
  	</select>
  	
  	<!-- customer 회원 목록 조회 -->
  	<sql id="selectAll">
- 		select id, password, rank, name, memNo, telephone, orderPassword, to_char (date, 'yyyy-mm-dd') as date
+ 		select id, password, rank, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
  		  from customer
- 	</sql> 	
+ 	</sql>
+ 	
+ 	<!-- 패스워드 체크 -->
+ 	<select id="checkPassword" resultType="int">
+ 		select count(*)
+ 		from Customer
+ 		where id = #{id} and password = #{password}
+ 	</select>
+ 	
+ 	<!-- 회원 정보 상세 -->
+ 	<select id="selectOneCustomer" resultType="CustomerVO" parameterType="String">
+ 		select id, password, name, telephone, orderPassword
+ 		from Customer
+ 		where id = #{id}
+ 	</select>
+ 	
+ 	<!-- 회원 정보 수정 -->
+ 	<update id="modifyCustomer" parameterType="java.util.Map">
+ 		update Customer
+ 		set password = #{password}, telephone = #{telephone}, orderPassword = #{orderPassword}
+ 		where id = #{id}
+ 	</update>
+ 	
+  	<!-- 회원 탈퇴 -->	
+ 	<delete id="deleteCustomer" parameterType="String">
+ 		delete from Customer
+ 		where id = #{id}
+ 	</delete> 	
  	
 </mapper>
