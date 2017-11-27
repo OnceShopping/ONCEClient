@@ -20,4 +20,6 @@ public interface CustomerDAO {
 
 	void deleteCustomer(String id);
 	
+	boolean checkId(String id);
+	
 }

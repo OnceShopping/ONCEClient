@@ -81,4 +81,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public void deleteCustomer(String id) {
 		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", id);
 	}
+
+	@Override
+	public boolean checkId(String id) {
+		CustomerVO customer = sqlSession.selectOne("once.customer.dao.CustomerDAO.selectOneCustomer", id);
+		
+		if(customer==null)
+			return false;
+		else
+			return true;
+	}
+	
+
 }
