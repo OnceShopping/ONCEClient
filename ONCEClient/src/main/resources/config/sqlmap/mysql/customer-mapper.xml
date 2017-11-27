@@ -6,8 +6,8 @@
  
  	<!-- 회원 가입 -->
  	<insert id="join" parameterType="CustomerVO">
- 		insert into customer(memeNo, id, password, name, telephone, orderPassword ) 
- 		values (seq_customer_no.nextval, #{id}, #{password}, #{name}, #{telephone}, #{orderPassword} )
+ 		insert into customer( id, password, name, telephone, orderPassword, date) 
+ 		values (#{id}, #{password}, #{name}, #{telephone}, #{orderPassword}, now())
  	</insert>
  	
  	<!-- 로그인 -->
@@ -49,5 +49,11 @@
  		delete from Customer
  		where id = #{id}
  	</delete> 	
- 	
+	
+	<!-- 아이디 중복 체크 -->
+ 	<!-- <select id="checkId" resultType="int">
+ 		select count(*)
+ 		from Customer
+ 		where id = #{id}
+ 	</select> -->
 </mapper>

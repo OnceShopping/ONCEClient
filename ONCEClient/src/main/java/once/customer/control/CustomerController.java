@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -201,4 +203,63 @@ public class CustomerController {
 		System.out.println("111111");
 		return "mypage/deleteProcess";
 	}
+
+	// 회원가입 - 약관동의
+	@RequestMapping("/signup/terms")
+	public String terms() {
+		return "signup/terms";
+	}
+
+	// 회원가입 - 입력창
+	@RequestMapping(value = "/signup/signupMain", method=RequestMethod.GET)
+	public String signupMainForm(Model model) {
+		CustomerVO customerVO = new CustomerVO();
+		model.addAttribute("customerVO", customerVO);
+		return "signup/signupMain";
+	}
+	
+	@RequestMapping(value = "/signup/signupMain", method=RequestMethod.POST)
+	public String signupMain(@Valid CustomerVO customerVO) {
+		System.out.println("customer테스트 " +customerVO);
+		service.join(customerVO);
+		return "signup/signupSuccess";
+	}
+	
+	// 회원가입 - 가입 완료
+	@RequestMapping("/signup/signupSuccess")
+	public String signupSuccess() {
+		return "signup/signupSuccess";
+	}
+	
+	// 회원가입 - 가입 완료
+	@RequestMapping("/signup/findId")
+	public String findId() {
+		return "signup/findId";
+	}
+	
+	// 회원가입 - 아이디 중복 체크
+	@RequestMapping(value = "/signup/checkId", method=RequestMethod.GET)
+	@ResponseBody
+	public boolean checkId(@RequestParam(value="id") String id) {
+		System.out.println(id);
+		return service.checkId(id);
+	}
+	/*
+	// email
+	@RequestMapping(value="emailConfirm", method=RequestMethod.GET)
+	    public String emailConfirm(String key, Model model){
+	        try {
+	            service.emailConfirm(customerVO);
+	            model.addAttribute("check", true);
+	        } catch (Exception e) {
+	            model.addAttribute("check", false);
+	        }
+	        return "emailConfirm";
+	    }*/
+
 }
+
+
+
+
+
