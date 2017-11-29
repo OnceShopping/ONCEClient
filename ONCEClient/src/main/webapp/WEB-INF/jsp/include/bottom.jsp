@@ -13,7 +13,7 @@
 			<div class="tel-fax-mail">
 				<ul>
 					<li><span>회사명:</span> (주)ONCE</li>
-					<li><span>대표이사:</span> ㅇㅇㅇ</li>
+					<li><span>대표이사:</span> 장경준</li>
 					<li><span>사업자등록번호:</span> 000-0000-00000<li>
 				</ul>
 			</div>

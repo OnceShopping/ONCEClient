@@ -1,45 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Creative - Multipurpose Mobile Template</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="HandheldFriendly" content="True">
-	
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
-	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	
-	<style type="text/css">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="HandheldFriendly" content="True">
+
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/lightbox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.filterizr.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom-portfolio.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+
+<style type="text/css">
 .menuSpace {
 	padding: 2px;
 	background-color: #e5e5e5;
 }
 </style>
-
 </head>
-
 <body>
-<header>
-		<!-- 상단 navbar -->
+<header> 
 		<div class="navbar">
 		<div class="container">
 			<div class="panel-control-left">
@@ -118,7 +119,7 @@
 			<li>
 				<div class="menuSpace"></div>
 			</li>
-			<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
+			<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
 			<li>
 				<div class="menuSpace"></div>
 			</li>
@@ -126,36 +127,45 @@
 			</li>
 		</ul>
 	</div>
-		<!-- 좌측 메뉴패널 끝 -->
 	</header>
 	
 	<section>
-	
-	<div class="table-app app-pages app-section">
+	<div class="portfolio portfolio-card column2 app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>My Page</h3>
+				<h3>패션잡화</h3>
 			</div>
-			<table class="">
-				<tbody>
-				<tr>
-						<td><a href="${pageContext.request.contextPath}/mypage/likeStore"><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</a></td>
-						<td><a href="${pageContext.request.contextPath}/mypage/check"><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-shopping-basket"></i>&nbsp;&nbsp;장바구니</td>
-						<td><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>
-						<td><a href="${pageContext.request.contextPath}/mypage/faq"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
+			<ul class="portfolio-filter">
+				<li data-filter="all" class="active">전체</li>
+				<li data-filter="1">가방</li>
+				<li data-filter="2">지갑</li>
+			</ul>
+			<div class="portfolio-item">
+				<div class="row">
+					<div class="col s6 filtr-item" data-category="1">
+						<a href="${pageContext.request.contextPath}/resources/img/general1.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general1.jpg" alt=""></a>
+						<h5>토트 백</h5>
+						<p>349,900원</p>
+					</div>
+					<div class="col s6 filtr-item" data-category="1">
+						<a href="${pageContext.request.contextPath}/resources/img/general2.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general2.jpg" alt=""></a>
+						<h5>오피스 백팩</h5>
+						<p>168,000원</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s6 filtr-item" data-category="2">
+						<a href="${pageContext.request.contextPath}/resources/img/general3.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general3.jpg" alt=""></a>
+						<h5>중지갑</h5>
+						<p>128,000원</p>
+					</div>
+					<div class="col s6 filtr-item" data-category="2">
+						<a href="${pageContext.request.contextPath}/resources/img/general4.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general4.jpg" alt=""></a>
+						<h5>반지갑</h5>
+						<p>133,000원</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	</section>
@@ -175,8 +185,7 @@
 			<span>Copyright © 2017 All Rights Reserved </span>
 		</div>
 	</footer>
-	<!-- footer 끝 -->
-
+	
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
 		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
@@ -184,12 +193,9 @@
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
-	<!-- 하단 navbar 끝 -->
-	
-
-
+	<!-- 하단 navbar 끝 -->	
 </body>
 </html>
