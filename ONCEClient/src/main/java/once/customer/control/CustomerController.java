@@ -104,7 +104,7 @@ public class CustomerController {
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
 		}
-
+ 
 		System.out.println("로그아웃 성공");
 
 		return "redirect:/";
@@ -119,22 +119,8 @@ public class CustomerController {
 	   public String faq() {
 		   return "mypage/faq";
 	   }
-	   
-	   @RequestMapping("/menu/1F")
-	   public String firstfloor() {
-		   return "menu/1F";
-	   }
-	   
-	   @RequestMapping("/menu/2F")
-	   public String secondfloor() {
-		   return "menu/2F";
-	   }
-	   
-	   @RequestMapping("/menu/3F")
-	   public String thirdfloor() {
-		   return "menu/3F";
-	   }
-	   
+	
+
 	   @RequestMapping("/menu/men")
 	   public String men() {
 		   return "menu/men";
@@ -150,9 +136,9 @@ public class CustomerController {
 		   return "menu/kids";
 	   }
 	   
-	   @RequestMapping("/menu/shoes")
-	   public String shoes() {
-		   return "menu/shoes";
+	   @RequestMapping("/menu/general")
+	   public String general() {
+		   return "menu/general";
 	   }
   
   	// 패스워드 체크 페이지

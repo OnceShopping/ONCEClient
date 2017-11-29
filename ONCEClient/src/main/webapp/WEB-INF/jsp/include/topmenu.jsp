@@ -68,8 +68,7 @@
 						<li class="tileList">
 							<table>
 								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성
-											의류</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성 의류</a></td>
 									<td class="menuSpace"></td>
 									<td><a href="${pageContext.request.contextPath}/menu/women" class="tileMenu"><i class="fa fa-female"></i><br/>여성 의류</a></td>
 								</tr>
@@ -83,7 +82,7 @@
 								<tr>
 									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
 									<td class="menuSpace"></td>
-									<td><a href="" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/general" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
 								</tr>
 							</table>
 						</li>
@@ -93,7 +92,7 @@
 			<li>
 				<div class="menuSpace"></div>
 			</li>
-			<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
+			<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
 			<li>
 				<div class="menuSpace"></div>
 			</li>
