@@ -7,9 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <footer>
-<div class="container">
+		<div class="container">
 			<h6>About us</h6>
 			<div class="tel-fax-mail">
 				<ul>
@@ -21,6 +20,7 @@
 			<div class="ft-bottom">
 				<span>Copyright © 2017 All Rights Reserved </span>
 			</div>
+		</div>
 	</footer>
 </body>
 </html>

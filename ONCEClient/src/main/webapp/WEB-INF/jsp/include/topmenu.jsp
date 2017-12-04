@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.menuSpace {
+	padding: 2px;
+	background-color: #e5e5e5;
+}
+</style>
 <script type="text/javascript">
 	function logout(){
 		sessionStorage.removeItem('loginVO');
@@ -7,17 +18,6 @@
 		sessionStorage.removeItem('listJSON');
 	}	
 </script>
-<style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
-}
-</style>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 
@@ -100,16 +100,16 @@
 				<div class="menuSpace"></div>
 			</li>
       <c:choose>
-					<c:when test="${ not empty loginId or not empty loginVO }">
+		<c:when test="${ not empty loginId or not empty loginVO }">
 			<li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out"></i>로그아웃</a></li>
-					</c:when>
-					<c:otherwise>		
-				<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
+		</c:when>
+		<c:otherwise>		
+			<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
         <li>
-				  <div class="menuSpace"></div>
-			  </li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a></li>
-					</c:otherwise>
+		<div class="menuSpace"></div>
+		</li>
+			<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a></li>
+		</c:otherwise>
 			</c:choose>
 		</ul>
 	</div>

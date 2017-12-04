@@ -116,15 +116,16 @@ public class CustomerController {
 
 		// 2. session에 남아있음
 		Object obj = session.getAttribute("loginVO");
-
-		CustomerVO loginVO;
+		
+		CustomerVO loginVO=null;
 
 		Cookie[] cookies = request.getCookies();
 
 		if (obj != null) {
 			loginVO = (CustomerVO) obj;
+			System.out.println("session OBJ"+obj);
 
-			if (loginVO.isSaveId()) {
+			if (loginVO.isSaveId()) {	//saveId 체크 O
 
 				for (int i = 0; i < cookies.length; i++) {
 
@@ -151,7 +152,7 @@ public class CustomerController {
 					System.out.println(cookies[i] + "쿠키 전체 삭제");
 
 				}
-			} else {
+			} else {	//saveId 체크 X
 
 				for (int i = 0; i < cookies.length; i++) {
 					cookies[i].setValue("");
@@ -160,15 +161,8 @@ public class CustomerController {
 
 					response.addCookie(cookies[i]);
 
-					System.out.println(cookies[i] + "쿠키 전체 삭제");
-
 				}
 			}
-
-			session.removeAttribute("loginVO");
-			session.removeAttribute("productList");
-			session.removeAttribute("listJSON");
-			session.invalidate();
 
 		} else {
 			System.out.println("로그인 되어 있지 않음");
@@ -181,7 +175,11 @@ public class CustomerController {
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
 		}
-
+		session.removeAttribute("loginVO");
+		session.removeAttribute("productList");
+		session.removeAttribute("listJSON");
+		session.invalidate();
+		
 		System.out.println("로그아웃 성공");
 
 		return "redirect:/";
