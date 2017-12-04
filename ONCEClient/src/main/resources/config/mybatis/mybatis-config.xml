@@ -22,5 +22,6 @@
   		<typeAlias type="once.store.vo.StoreImgVO" alias="StoreImgVO"/>  		
   		<typeAlias type="once.tagSticker.vo.TagStickerVO" alias="TagStickerVO"/>
   		<typeAlias type="once.warehouse.vo.WarehouseVO" alias="WarehouseVO"/>
+  		<typeAlias type="once.item.vo.ItemContentsVO" alias="ItemContentsVO"/>
   	</typeAliases>
 </configuration>
