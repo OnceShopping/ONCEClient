@@ -148,8 +148,8 @@ p {
 	height: 60px;
 	padding: 15px 0;
 	z-index: 9;
-	background: #fff;
-	border-bottom: 2px solid #f4f4f4;
+	background: #cbbcff;
+	border-bottom: 2px solid #d0c0e8;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -168,13 +168,15 @@ p {
 }
 
 .site-title h1 {
-	font-size: 24px;
+	font-size: 27px;
+	font-style: italic;
 	padding: 0;
 	margin: 0;
-	font-weight: 600;
-	color: #000;
+	font-weight: 800;
+	color: #fff9d6;
+	-webkit-text-stroke: 1px #f2d19b;
 	position: relative;
-	top: 2px;
+	top: 1px;
 }
 
 .side-nav {
@@ -218,10 +220,11 @@ p {
 .panel-control-right ul {
 	padding: 0;
 	border: none;
+	background-color: #e5e5e5;
 }
 
 .panel-control-right ul li {
-	
+	background-color: white;
 }
 
 .panel-control-right ul li:last-child {
@@ -251,8 +254,8 @@ p {
 	vertical-align: top;
 	position: relative;
 	text-align: center;
-	padding: 35px 0 25px 0;
-	margin-bottom: 15px;
+	padding: 18px;
+	margin-bottom: 1px;
 }
 
 .panel-control-right ul li .photos * {
@@ -268,18 +271,12 @@ p {
 	height: 100%;
 	display: block;
 	z-index: 0;
-	background: rgba(128, 214, 207, 0.93);
-}
-
-.panel-control-right ul li .photos img {
-	width: 90px;
-	height: 90px;
-	border-radius: 50%;
+	background: #fff;
 }
 
 .panel-control-right ul li .photos h3 {
 	font-size: 20px;
-	color: #fff;
+	color: #000;
 	font-weight: 500;
 	display: block;
 	margin: 0;
@@ -326,6 +323,26 @@ p {
 	padding-left: 45px;
 	height: 40px;
 	line-height: 40px;
+}
+
+.panel-control-right .collapsible-body .side-nav-panel .tileList {
+	height: 100px;
+}
+
+.panel-control-right .collapsible-body .side-nav-panel li table td {
+	text-align: center;
+	padding-bottom: 100px;
+	height: 100px;
+}
+
+.panel-control-right .collapsible-body .side-nav-panel li .tileMenu {
+	padding: 0px;
+	font-size: 8pt;
+}
+
+.panel-control-right .collapsible-body .side-nav-panel li .tileMenu i {
+	padding: 0px;
+	font-size: 25pt;
 }
 
 .panel-control-right .categories-in li {
@@ -2359,63 +2376,28 @@ footer {
 	height: 100%;
 	vertical-align: top;
 	position: relative;
-	background: #111;
-	color: #eee;
+	background: #59a08e;
+	color: #fff;
 }
 
 footer h6 {
-	color: #eee;
+	color: #fff;
 	font-size: 20px;
 }
 
-footer .icon-social {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	margin-top: 20px;
-	margin-bottom: 15px;
+footer ul li {
+	text-align: left;
 }
-
-footer .icon-social li {
-	display: inline-block;
-	width: 30px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-	margin: 0 3px;
-	border-radius: 100%;
-}
-
-footer .icon-social .facebook {
-	background: #3b5998;
-}
-
-footer .icon-social .twitter {
-	background: #00aced;
-}
-
-footer .icon-social .google {
-	background: #dd4b39;
-}
-
-footer .icon-social .instagram {
-	background: #517fa6;
-}
-
-footer .icon-social .rss {
-	background: #fe7e00;
-
-}
-
 footer ul li a {
 	color: #fff;
+	text-align: left;
 }
 
 footer .tel-fax-mail ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	color: #eee;
+	color: #fff;
 }
 
 footer .tel-fax-mail ul li {
@@ -2429,11 +2411,10 @@ footer .tel-fax-mail ul li span {
 }
 
 footer .ft-bottom {
-	border-top: dotted 1px #888;
-	background: #111;
+	background: #59a08e;
 	margin-top: 20px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	color: #eee;
+	color: #fff;
 }
 

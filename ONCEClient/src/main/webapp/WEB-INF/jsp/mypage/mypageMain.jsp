@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Creative - Multipurpose Mobile Template</title>
@@ -27,6 +27,13 @@
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+	
+	<style type="text/css">
+.menuSpace {
+	padding: 2px;
+	background-color: #e5e5e5;
+}
+</style>
 
 </head>
 
@@ -35,7 +42,7 @@
 	<!-- navbar -->
 	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
 	<!-- end navbar -->
-	
+
 	<section>
 	
 	<div class="table-app app-pages app-section">
@@ -46,8 +53,8 @@
 			<table class="">
 				<tbody>
 				<tr>
-						<td><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</td>
-						<td><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</td>
+						<td><a href="${pageContext.request.contextPath}/mypage/likeStore"><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</a></td>
+						<td><a href="${pageContext.request.contextPath}/mypage/check"><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</a></td>
 					</tr>
 					<tr>
 						<td><a href="${pageContext.request.contextPath}/mypage/shoppingCart"><i class="fa fa-shopping-basket"></i>&nbsp;&nbsp;장바구니</a></td>
@@ -71,11 +78,23 @@
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	
-	<!-- navbar -->
-	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp"></jsp:include>
-	<!-- end navbar -->
-	
-
-
+	<!-- 하단 navbar -->
+	<div class="w3-bottom">
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
+      <c:choose>
+				<c:when test="${ not empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/login/login" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose>      
+		</div>
+	</div>
+	<!-- 하단 navbar 끝 -->
 </body>
 </html>

@@ -1,6 +1,8 @@
 package once.customer.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +53,53 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 		return list;
 	}
+	
+	@Override
+	public boolean checkPassword(String id, String password) {
+		boolean result = false;
+		
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        map.put("password", password);
+        
+        int count = sqlSession.selectOne("once.customer.dao.CustomerDAO.checkPassword", map);
+        if(count == 1) {
+        	result= true;
+        }
+        
+        return result;
+	}
+
+	@Override
+	public void selectById(String id) {
+		sqlSession.selectOne("once.customer.dao.CustomerDAO.selectOneCustomer", id);
+	}
+
+	@Override
+	public void modifyCustomer(String id, String password, String telephone, String orderPassword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("password", password);
+		map.put("telephone", telephone);
+		map.put("orderPassword", orderPassword);
+		
+		sqlSession.update("once.customer.dao.CustomerDAO.modifyCustomer", map);
+	}
+
+	@Override
+	public void deleteCustomer(String id) {
+		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", id);
+	}
+
+	@Override
+	public boolean checkId(String id) {
+		CustomerVO customer = sqlSession.selectOne("once.customer.dao.CustomerDAO.selectOneCustomer", id);
+		
+		if(customer==null)
+			return false;
+		else
+			return true;
+	}
+	
+
 }

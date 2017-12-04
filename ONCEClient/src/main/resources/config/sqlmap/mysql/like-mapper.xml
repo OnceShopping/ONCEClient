@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="once.like.dao.LikeDAO">
+  
+ 	<select id="selectMemNo" parameterType="likeStoreVO" resultType="int">
+ 		select memno from customer where id = #{id}
+ 	</select>
+ 	
+ 	<select id="selectStoreNo" parameterType="likeStoreVO" resultType="String">
+ 	    select storeNo from store where storeName = #{storeName}
+ 	</select>
+ 	
+ 	<!-- 매장 즐겨찾기 등록  -->
+ 	<insert id="insertlike" parameterType="likeStoreVO">
+ 		insert into likestore(storeNo, memNo)
+ 		 values (#{storeNo}, #{memNo})
+ 	</insert>
+ 	
+ 	<delete id="deletelike" parameterType="LikeStoreVO">
+ 	    delete from likestore where storeNo = #{storeNo} and memNo = #{memNo}
+ 	</delete>
+ 	
+ 	<select id="selectLikeStore" parameterType="int" resultType="LikeStoreVO">
+ 		select A.storeName as storeName, A.phone as phone from store A,likestore B where B.storeNo = A.storeNo and B.memNo = #{memNo};
+ 	</select>
+
+</mapper>
+
+
+
+
+
+
+
