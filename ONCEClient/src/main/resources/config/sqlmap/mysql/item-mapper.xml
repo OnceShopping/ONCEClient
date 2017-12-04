@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="once.item.dao.ItemDAO">
+
+	<!-- 상품 선택 -->
+	<select id="getItem" parameterType="Integer" resultType="itemVO">
+		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
+		price, saleTag, salePrice, startDate, endDate, detail
+		from item
+		where num = #{ num };
+	</select>
+
+	<!-- 상품 colorList 선택 -->
+	<select id="getColorList" parameterType="itemVO" resultType="String">
+		select distinct color from itemcontents where num = #{ num };
+	</select>
+
+	<!-- 상품 sizeList 선택 -->
+	<select id="getSizeList" parameterType="itemVO" resultType="String">
+		select distinct size from itemcontents where num = #{ num };
+	</select>
+
+	<!-- 장바구니 상품 선택 -->
+	<select id="addCartItem" parameterType="itemContentsVO"
+		resultType="itemContentsVO">
+		select num, storeNo, itemName, price, salePrice, startDate, endDate, color, size,
+		imgSaveName, imgSize, imgOriName
+		from itemContents
+		where num = #{ num } and color=#{ color } and size=#{ size };
+	</select>
+
+</mapper>
