@@ -32,6 +32,7 @@
 </head>
 
 <body>
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp" flush="false"></jsp:include>
 	
 	<section>
 	
@@ -41,7 +42,7 @@
 			<div class="pages-title">
 				<h3> L o g i n </h3>
 			</div>
-			<form action="${ pageContext.request.contextPath }/login/login" method="post">
+			<form id="customer" action="${ pageContext.request.contextPath }/login/login" method="post">
 				<div class="input-field">
 					<input name="id" value="${customer.id }" type="text" class="validate">
 					<label for="email"> I D </label>
@@ -74,8 +75,12 @@
 		</div>
 	</div>
 	<!-- end login -->
-	
 	</section>
+	
+	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
+	
+	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp" flush="false"></jsp:include>
 	
 </body>
 </html>
+
