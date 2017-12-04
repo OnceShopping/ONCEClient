@@ -7,6 +7,7 @@ public class ItemContentsVO {
 	
 	private String storeNo;
 	
+	private int num;
 	private String itemName;
 	private int detailNo;
 	private String itemNo;
