@@ -1,22 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-	<% 
-	String loginId = "";
-	
-	try{
-		Cookie[] cookies = request.getCookies();
-	
-		if(cookies!=null){
-			for(int i=0; i<cookies.length; i++){
-				if(cookies[i].getName().equals("autoLogin")){
-					loginId = cookies[i].getValue();
-					session.setAttribute("loginId", loginId);
-				}
-			}
-		}
-	}catch(Exception e){}
-	%>
+	function logout(){
+		sessionStorage.removeItem('loginVO');
+		sessionStorage.removeItem('productList');
+		sessionStorage.removeItem('listJSON');
+	}	
 </script>
 <style type="text/css">
 .menuSpace {
