@@ -20,4 +20,7 @@ public interface CustomerDAO {
 
 	void deleteCustomer(String id);
 	
+	boolean checkId(String id);
+	
+	CustomerVO autoLogin(String loginId);
 }

@@ -36,6 +36,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 	
 	/**
+	 * customer auto 로그인
+	 */
+	public CustomerVO autoLogin(String loginId) {
+		CustomerVO customerVO = sqlSession.selectOne("once.customer.dao.CustomerDAO.autoLogin", loginId);
+		
+		return customerVO;
+	}
+	
+	/**
 	 * customer 리스트
 	 * @return
 	 */
@@ -81,4 +90,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public void deleteCustomer(String id) {
 		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", id);
 	}
+
+	@Override
+	public boolean checkId(String id) {
+		CustomerVO customer = sqlSession.selectOne("once.customer.dao.CustomerDAO.selectOneCustomer", id);
+		
+		if(customer==null)
+			return false;
+		else
+			return true;
+	}
+	
+
 }

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,13 @@
 	background-color: #e5e5e5;
 }
 </style>
+<script type="text/javascript">
+	function logout(){
+		sessionStorage.removeItem('loginVO');
+		sessionStorage.removeItem('productList');
+		sessionStorage.removeItem('listJSON');
+	}	
+</script>
 </head>
 <body>
 
@@ -68,8 +75,7 @@
 						<li class="tileList">
 							<table>
 								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성
-											의류</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성 의류</a></td>
 									<td class="menuSpace"></td>
 									<td><a href="${pageContext.request.contextPath}/menu/women" class="tileMenu"><i class="fa fa-female"></i><br/>여성 의류</a></td>
 								</tr>
@@ -83,7 +89,7 @@
 								<tr>
 									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
 									<td class="menuSpace"></td>
-									<td><a href="" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/general" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
 								</tr>
 							</table>
 						</li>
@@ -93,12 +99,18 @@
 			<li>
 				<div class="menuSpace"></div>
 			</li>
-			<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-			</li>
+      <c:choose>
+		<c:when test="${ not empty loginId or not empty loginVO }">
+			<li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out"></i>로그아웃</a></li>
+		</c:when>
+		<c:otherwise>		
+			<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
+        <li>
+		<div class="menuSpace"></div>
+		</li>
+			<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a></li>
+		</c:otherwise>
+			</c:choose>
 		</ul>
 	</div>
 	<!-- 좌측 메뉴패널 끝 -->

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="once.store.dao.StoreDAO">
+	
+	<select id="selectAllStore" parameterType="String" resultType="storeVO">
+		select storeName, storeCategory, phone from store where floor = #{floor}
+		and storeCategory not in ('info', '쇼핑센터')
+	</select>
+	
+</mapper>
