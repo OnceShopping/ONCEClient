@@ -88,8 +88,8 @@
 		<div class="login app-pages app-section">
 			<div class="container">
 				<form:form commandName="itemContentsVO"
-					action="${ pageContext.request.contextPath }/shoppingCart/addItem/${itemVO.num}"
-					method="post" onsubmit="return confirmFunc()">
+					action="${ pageContext.request.contextPath }/shoppingCart/addItem/${itemVO.storeNo}/${itemVO.num}"
+					method="post">
 					<div>
 						<label>제 품</label>
 						<form:input path="itemName" id="itemName" type="text"
@@ -102,17 +102,20 @@
 					</div>
 					<div class="col s8">
 						<label>color</label>
-						<form:select path="color" id="color">
+						<form:select class="browser-default" path="color" id="color" >
 							<form:option value="">- [필수] color를 선택해 주세요 -</form:option>
 							<form:options items="${itemVO.colorList}" />
 						</form:select>
 						<label>size</label>
-						<form:select path="size" id="size">
+						<form:select class="browser-default" path="size" id="size" >
 							<form:option value="">- [필수] size를 선택해 주세요 -</form:option>
 							<form:options items="${itemVO.sizeList}" />
 						</form:select>
 					</div>
-					<input id="addCart" type="submit" value="장바구니 담기" class="button" />
+					<div class="col s8">
+						<input class="button" type="submit" id="addCart" value="장바구니 담기" onclick="return confirmFunc()"/>
+						<input class="button" type="button" id="nowOrder" value="구매하기" />
+					</div>
 				</form:form>
 			</div>
 		</div>

@@ -26,6 +26,7 @@ public class ItemController {
 		int num = Integer.parseInt(array[1]);
 		
 		ItemVO itemVO = service.getItem(num);
+		itemVO.setStoreNo(storeNo);
 			
 		String[] colorList = service.getColorList(itemVO);
 		String[] sizeList = service.getSizeList(itemVO);

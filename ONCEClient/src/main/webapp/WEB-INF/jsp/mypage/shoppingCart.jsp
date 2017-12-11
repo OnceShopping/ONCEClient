@@ -34,104 +34,97 @@
 	href="${pageContext.request.contextPath}/resources/css/style.css">
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-
 <script type="text/javascript">
-	$(document).ready(function(){
-			
-		var listJSON = '${sessionScope.listJSON}';
-		var resultList = $.parseJSON(listJSON);
-		var ori_total = 0;
-		var cur_total = 0;
-		var itemCnt = 0;
-		var colorList = null;
-		var sizeList = null;
+	var listJSON = '${sessionScope.listJSON}';
+	var resultList = $.parseJSON(listJSON);
+	var storeJSON = '${sessionScope.storeJSON}';
+	var storeList = $.parseJSON(storeJSON);
 		
-		if (listJSON != null) {
-			$.each(resultList, function(index, item) {
-				itemCnt = item.count;
-				ori_total += item.price*itemCnt;
-			});
-		}
+	var colorList = null;
+	var sizeList = null;
 		
-		if (listJSON != null) {
-			$.each(resultList, function(index, item) {
-				itemCnt = item.count;
-				if(item.salePrice == 0){
-					cur_total += item.price*itemCnt;
-				}else{
-					cur_total += item.salePrice*itemCnt;
-				}
-			});
-		}
+	function getAllTotal(resultList){
 		
-		$('#ori_total').text(ori_total);
-		$('#dis_total').text(ori_total-cur_total);
-		$('#cur_total').text(cur_total);
+		if(listJSON != null){
+			$.each(storeList, function(i, store){
+				var ori_total_storeNo = 0; /* 매장별 상품 총 정상가 */
+				var cur_total_storeNo = 0; /* 매장별 상품 총 금액 */
+				var itemCnt_storeNo = 0; /* 매장별 상품 총 개수 */
 				
+				var storeNo = store.storeNo;
+				
+				$.each(resultList, function(index, item){	/* storeNo 같은 거 끼리 묶기 */
+					
+					if( storeNo == item.storeNo){
+						itemCnt_storeNo = item.count;
+						
+						ori_total_storeNo += item.price*itemCnt_storeNo;
+						
+						if(item.salePrice == 0){
+							cur_total_storeNo += item.price*itemCnt_storeNo;
+						}else{
+							cur_total_storeNo += item.salePrice*itemCnt_storeNo;
+						}
+					}
+					$('#ori_total_'+i).text(ori_total_storeNo);
+					$('#dis_total_'+i).text(ori_total_storeNo - cur_total_storeNo);
+					$('#cur_total_'+i).text(cur_total_storeNo);
+				});
+			});
+		}
+	}
+	
+	$(document).ready(function(){
+	
+		getAllTotal(resultList);
+		
 		$('.changeOption').hide();
 	});
 	
-	function plusCnt(index){
-		var changeCnt = $('#count_'+index).val();
+	function plusCnt(loop, index){
+		var changeCnt = $('#count_'+loop+"_"+index).val();
 		changeCnt++;
-		$('#count_'+index).val(changeCnt);
+		$('#count_'+loop+"_"+index).val(changeCnt);
 	}
 	
-	function minusCnt(index){
-		if($('#count_'+index).val() == 1){
+	function minusCnt(loop, index){
+		if($('#count_'+loop+"_"+index).val() == 1){
 		}else{
-			var changeCnt = $('#count_'+index).val();
+			var changeCnt = $('#count_'+loop+"_"+index).val();
 			changeCnt--;
-			$('#count_'+index).val(changeCnt);
+			$('#count_'+loop+"_"+index).val(changeCnt);
 		}
 	}
-	
-	function deleteFunction(index) {
-
-		$.ajax({
-					url : "${ pageContext.request.contextPath }/shoppingCart/deleteItem",
-					type : "get",
-					data : {
-						'index' : index
-					},
-					dataType : "json",
-					contentType : "application/json; charset=UTF-8",
-					cache : false,
-					success : function(data) {
-						alert("삭제되었습니다.");
-					}
-				});
-	}
-	
-	function oriPriceForm(index){
+		
+	function oriPriceForm(loop, index){
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/oriPriceForm",
 			data : {
 				'index' : index
 			},
 			success : function(data) {
-				$('#oriPrice_'+index).html("");
-				$('#oriPrice_'+index).html(data);
+				$('#oriPrice_'+loop+"_"+index).html("");
+				$('#oriPrice_'+loop+"_"+index).html(data);
 			}
 		});
 	}
 	
-	function salePriceForm(index){
+	function salePriceForm(loop, index){
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/salePriceForm",
 			data : {
 				'index' : index
 			},
 			success : function(data) {
-				$('#salePrice_'+index).html("");
-				$('#salePrice_'+index).html(data);
+				$('#salePrice_'+loop+"_"+index).html("");
+				$('#salePrice_'+loop+"_"+index).html(data);
 			}
 		});
 	}
 	
-	function changeCnt(index){
+	function changeCnt(loop, index){
 		
-		var count = $('#count_'+index).val();
+		var count = $('#count_'+loop+"_"+index).val();
 		
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/changeCnt",
@@ -147,41 +140,20 @@
 				alert("수량이 변경 되었습니다.");
 				var changeList = $.parseJSON(data);
 				
-				oriPriceForm(index);
-				salePriceForm(index);
+				oriPriceForm(loop, index);
+				salePriceForm(loop, index);
 							
-				var ori_total = 0;
-				var cur_total = 0;
-				var itemCnt = 0;
-				
-				if (changeList != null) {
-					$.each(changeList, function(index, item) {
-						itemCnt = item.count;
-						ori_total += item.price*itemCnt;
-					});
-				}
-				
-				if (changeList != null) {
-					$.each(changeList, function(i, item) {
-						itemCnt = item.count;
-						if(item.salePrice == 0){
-							cur_total += item.price*itemCnt;
-						}else{
-							cur_total += item.salePrice*itemCnt;
-						}
-					});
-				}
-				
-				$('#ori_total').text(ori_total);
-				$('#dis_total').text(ori_total-cur_total);
-				$('#cur_total').text(cur_total);
-				
-			}			
+				var ori_total_storeNo = 0;
+				var ori_total_storeNo = 0;
+				var ori_total_storeNo = 0;
+						
+				getAllTotal(changeList);
+			}		
 		});
-			
+					
 	}
 	
-	function showOption(index){	/* 옵션 리스트 보여주게끔 */
+	function showOption(loop, index){	/* 옵션 리스트 보여주게끔 */
 		
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/showOption",
@@ -199,23 +171,22 @@
 				
 				for(var i=0; i<colorList.length; i++){
 					var colors = $("<option>"+colorList[i]+"</option>");
-					$('#colorSelect_'+index).append(colors);
+					$('#colorSelect_'+loop+"_"+index).append(colors);
 				}
-
 				for(var i=0; i<sizeList.length; i++){
 					var sizes = $("<option>"+sizeList[i]+"</option>");
-					$('#sizeSelect_'+index).append(sizes);
+					$('#sizeSelect_'+loop+"_"+index).append(sizes);
 				}
 			}
 		});
 		
-		$('#changeOption_'+index).show();
+		$('#changeOption_'+loop+"_"+index).show();
 	}
 	
-	function changeConfirm(index){ /* 옵션 변경 적용 */
+	function changeConfirm(loop, index){ /* 옵션 변경 적용 */
 		
-		var colorSelect = $('#colorSelect_'+index).val();
-		var sizeSelect = $('#sizeSelect_'+index).val();
+		var colorSelect = $('#colorSelect_'+loop+"_"+index).val();
+		var sizeSelect = $('#sizeSelect_'+loop+"_"+index).val();
 				
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/changeOption",
@@ -230,29 +201,58 @@
 			cache : false,
 			success : function(data) {
 				var newJsonList = $.parseJSON(data);
-				$('#option_'+index).text(newJsonList[index].color+" | "+newJsonList[index].size);
+				$('#option_'+loop+"_"+index).text(newJsonList[index].color+" | "+newJsonList[index].size);
 				
 				alert('변경되었습니다.');
-				$('#changeOption_'+index).hide();
+				$('#changeOption_'+loop+"_"+index).hide();
 			}
 		});
 	}
 	
-	function deleteAll(){
+	function changeCancle(loop, index){
+		alert('취소되었습니다.');
+		$('#changeOption_'+loop+"_"+index).hide();
+	}
+
+	function deleteOne(loop, index) {
+		$.ajax({
+			url : "${ pageContext.request.contextPath }/shoppingCart/deleteOne",
+			type : "get",
+			data : {
+				'loop'  : loop,
+				'index' : index
+			},
+			success : function(data) {
+				alert("삭제되었습니다.");
+				$('#shoppingCart').html("");
+				$('#shoppingCart').html(data);
+			}
+		});
+		/* alert("삭제되었습니다."); */
+	}
+	
+	function deleteAll(loop){
 		
+		var storeName = null;
+		$.each(storeList, function(i, store){
+			if(i==loop){
+				storeName = store.storeName;
+			}
+		});
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/deleteAll",
 			type : "get",
-			dataType : "json",
-			contentType : "application/json; charset=UTF-8",
-			cache : false,
+			data : {
+				'loop' : loop
+			},
 			success : function(data) {
-				alert("장바구니 목록이 삭제 되었습니다.");
-				$('#productList').remove();
-				$('.cart-total').remove();
-				$('#shoppingCart').append('<h6>장바구니에 등록된 상품이 없습니다.</h6>');
+				alert("삭제되었습니다.");
+				alert(storeName + "의 상품들이 모두 삭제되었습니다.");
+				$('#shoppingCart').html("");
+				$('#shoppingCart').html(data);
 			}
 		});
+		
 	}
 </script>
 </head>
@@ -268,148 +268,140 @@
 				<h3>Shopping Cart</h3>
 			</div>
 			<c:choose>
-				<c:when test="${ not empty productList }">
-					<div class="entry" id="productList">
+				<c:when test="${ not empty productList }"><!-- productList에 상품이 1개 이상 -->
+					<c:forEach var="storeVO" items="${ storeList }" varStatus="loop">
+					<div class="entry" id="productList_${ loop.index }">
+						<p style="font-weight: bold;">${ storeVO.storeName }
+						<button id="deleteAll_${ loop.index }" class="button" style="background-color: #86E57F; font-weight: normal;  float: right; margin-bottom: 10px;" onclick="deleteAll(${ loop.index })">장바구니 비우기</button>
+						</p>
 						<c:forEach var="itemContents" items="${productList}" varStatus="status">
-							<div class="cart-title s-title">
+							<c:if test="${ storeVO.storeNo  eq itemContents.storeNo}">
+							<div class="car/t-title s-title">
 								<div class="row">
 									<div class="col s4">
-										<img
-											src="${pageContext.request.contextPath}/upload/${itemContents.imgSaveName}"
-											alt="이미지 준비 중">
+										<img src="${pageContext.request.contextPath}/upload/${itemContents.imgSaveName}" alt="이미지 준비 중">
 									</div>
 									<div class="col s7">
-										<h6>${itemContents.itemName}</h6>
+										<p>${itemContents.itemName}</p>
 									</div>
 									<div class="col s1">
-										<a href="" onclick="deleteFunction('${status.index}')"><i
-											class="fa fa-remove"></i></a>
+										<a href="" onclick="deleteOne(${ loop.index }, ${status.index})">
+										<i class="fa fa-remove"></i></a>
 										<!-- 삭제버튼 -->
 									</div>
 								</div>
 								<div class="row">
 									<div class="col s4">
-										<h6>Count</h6>
+										<p>Count</p>
 									</div>
 									<div class="col s8">
-										<button class="button" onclick="minusCnt(${status.index})">-</button>
-										<input id="count_${status.index}" type="number"
+										<button class="button" onclick="minusCnt(${loop.index}, ${status.index})">-</button>
+										<input id="count_${loop.index}_${status.index}" type="number"
 											value="${itemContents.count}">
-										<button class="button" onclick="plusCnt(${status.index})">+</button>
-										<button class="button" onclick="changeCnt(${status.index})">변경</button>
+										<button class="button" onclick="plusCnt(${loop.index}, ${status.index})">+</button>
+										<button class="button" onclick="changeCnt(${loop.index}, ${status.index})">변경</button>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col s4">
-										<h6>옵션</h6>
+										<p>옵션</p>
 									</div>
-									<div>
-										<div id="option_${status.index}" class="col s4"	style="float: left;">${itemContents.color} | ${itemContents.size}</div>
+									<div class="col s8"	>
+										<p id="option_${loop.index}_${status.index}" style="float: left;">${itemContents.color} | ${itemContents.size} &nbsp;&nbsp;&nbsp;</p>
+										<button id="optionBtn" class="button" onclick="showOption(${loop.index}, ${status.index})">옵션변경</button>
+									</div>
+									<div class="changeOption" id="changeOption_${loop.index}_${status.index}" style="display: table; margin-top: 15px; margin-bottom: 15px; margin-left: auto; margin-right: auto; text-align: center;">
 										<div>
-											<button id="optionBtn" class="button" onclick="showOption(${status.index})">옵션변경</button>
+											<label style="float: left; width: 45px;">color</label> 
+											<select	id="colorSelect_${loop.index}_${status.index}" name="color" class="form-control  browser-default" style="width: 200px;">
+												<option value="" selected="selected" disabled="disabled">color를 선택해 주세요</option>
+												<c:forEach var="color" items="${colorList}">
+												<option value="${color}">${color}</option>
+												</c:forEach>
+											</select>
 										</div>
-
-										<div class="changeOption" id="changeOption_${status.index}"
-											style="display: table; margin-top: 15px; margin-bottom: 15px; margin-left: auto; margin-right: auto; text-align: center;">
-											<div>
-												<label style="float: left">color&nbsp;&nbsp;&nbsp;</label> 
-												<select	id="colorSelect_${status.index}" name="color" class="form-control" style="width: 200px;">
-													<option value="" selected="selected" disabled="disabled">color를 선택해 주세요</option>
-													<c:forEach var="color" items="${colorList}">
-														<option value="${color}">${color}</option>
-													</c:forEach>
-												</select>
-											</div>
-											<div>
-												<label style="float: left">size&nbsp;&nbsp;&nbsp;</label> <select
-													id="sizeSelect_${status.index}" name="size"
-													class="form-control" style="width: 200px;">
-													<option value="" selected="selected" disabled="disabled">size를 선택해주세요 </option>
-													<c:forEach var="size" items="${sizeList}">
-														<option value="${size}">${size}</option>
-													</c:forEach>
-												</select>
-											</div>
-											<div>
-												<input type="hidden" value="${status.index}">
-												<button id="option" class="button"
-													onclick="changeConfirm(${status.index})">변경</button>
-												<button id="option" class="button"
-													onclick="changeCancle(${status.index})">취소</button>
+										<div style="margin-bottom: 10px;">
+											<label style="float: left; width: 45px;">size</label> 
+											<select	id="sizeSelect_${loop.index}_${status.index}" name="size"	class="form-control browser-default" style="width: 200px;">
+												<option value="" selected="selected" disabled="disabled">size를 선택해주세요 </option>
+												<c:forEach var="size" items="${sizeList}">
+												<option value="${size}">${size}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div>
+											<input type="hidden" value="${status.index}">
+											<button id="option" class="button" onclick="changeConfirm(${loop.index}, ${status.index})">변경</button>
+											<button id="option" class="button" onclick="changeCancle(${loop.index}, ${status.index})">취소</button>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col s4">
-										<h6>Price</h6>
-									</div>
-									<div class="col s8" >
-										<div id="oriPrice_${status.index}">
-										<!-- 세일가가 0이 아니면 취소선 되도록 제어 걸기 -->
-										<p style="float: left; margin-left: 10px;">정상가:</p>
+									<div class="row">
+										<div class="col s4">
+											<p>Price</p>
+										</div>
+										<div class="col s8" >
+											<div id="oriPrice_${loop.index}_${status.index}">
+											<p style="float: left; margin-left: 10px;">정상가:</p>
+												<c:choose>
+													<c:when test="${ itemContents.salePrice eq 0 }">
+														<p style="float: left;">${itemContents.price * itemContents.count }</p>
+													</c:when>
+													<c:otherwise>
+														<p style="text-decoration:line-through;">${itemContents.price * itemContents.count }</p>
+													</c:otherwise>
+												</c:choose>		
+											</div>
+											<br/>
+											<div id="salePrice_${loop.index}_${status.index}">
+											<!-- 세일가 0 이면 출력 안되게끔 제어 걸기  -->
 											<c:choose>
-												<c:when test="${ itemContents.salePrice eq 0 }">
-													<p style="float: left;">${itemContents.price * itemContents.count }</p>
-												</c:when>
+												<c:when test="${ itemContents.salePrice eq 0 }" />
 												<c:otherwise>
-													<p style="text-decoration:line-through;">${itemContents.price * itemContents.count }</p>
+													<p style="float: left;  margin-left: 10px; ">할인가:</p>
+													<p style="color:red; float: left;">${itemContents.salePrice * itemContents.count}</p>
 												</c:otherwise>
-											</c:choose>		
-										</div>
-										<br/>
-										<div id="salePrice_${status.index}">
-										<!-- 세일가 0 이면 출력 안되게끔 제어 걸기  -->
-										<c:choose>
-											<c:when test="${ itemContents.salePrice eq 0 }" />
-											<c:otherwise>
-												<p style="float: left;  margin-left: 10px; ">할인가:</p>
-												<p style="color:red; float: left;">${itemContents.salePrice * itemContents.count}</p>
-											</c:otherwise>
-										</c:choose>
+											</c:choose>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</c:if>
 						</c:forEach>
 					</div>
-					<div class="cart-total">
-						<div class="row" style="margin-bottom: 30px">
-							<button id="deleteAll" class="button" onclick="deleteAll()">장바구니 비우기</button>
-						</div>
+					<div class="cart-total" id="cart-total_${ loop.index }">			
 						<div class="row">
 							<div class="col s8">
 								<h6>상품 가격</h6>
 							</div>
 							<div class="col s4">
-								<h6 id="ori_total"></h6>
+								<h6 id="ori_total_${ loop.index }"></h6>
 							</div>
 							<div class="col s8">
 								<h6>할인 금액</h6>
 							</div>
 							<div class="col s4">
-								<h6 id="dis_total"></h6>
+								<h6 id="dis_total_${ loop.index }"></h6>
 							</div>
 							<div class="col s8">
 								<h5>Total</h5>
 							</div>
 							<div class="col s4">
-								<h5 id="cur_total"></h5>
+								<h5 id="cur_total_${ loop.index }"></h5>
 							</div>
 						</div>
-						<div class="col s4">
-								<button class="button" style="background-color: #ffc305; width: 75px; height: 30px; font-size: 12px;">결  제</button>
-							</div>
+						<div class="row">
+							<button class="button" style="background-color: #ffc305; margin-bottom: 10px; font-size: 12px;">결  제 하 기</button>
+						</div>
 					</div>
+					</c:forEach>
 				</c:when>
-				<c:otherwise>
+				
+				<c:otherwise><!-- productList에 아무것도 없을 때  -->
 					<h6>장바구니에 등록된 상품이 없습니다.</h6>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
-
-
 	</div>
 	<!-- end product cart -->
 
