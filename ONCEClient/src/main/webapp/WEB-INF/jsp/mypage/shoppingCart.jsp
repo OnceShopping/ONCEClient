@@ -228,7 +228,6 @@
 				$('#shoppingCart').html(data);
 			}
 		});
-		/* alert("삭제되었습니다."); */
 	}
 	
 	function deleteAll(loop){
