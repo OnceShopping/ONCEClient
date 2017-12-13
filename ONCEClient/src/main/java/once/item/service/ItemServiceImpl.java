@@ -1,6 +1,7 @@
 package once.item.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -135,5 +136,18 @@ public class ItemServiceImpl implements ItemService {
 	public String[] getSizeList(ItemVO itemVO) {
 		String[] sizeList = dao.getSizeList(itemVO);
 		return sizeList;
-  }	
+	}
+
+	@Override
+	public List<ItemVO> selectStoreMainItem(String storeNo) {
+		List<ItemVO> storeItem = dao.selectStoreMainItem(storeNo);
+		return storeItem;
+	}
+
+	@Override
+	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
+		List<ItemVO> storeItem = dao.selectStoreSearchItem(searchItem);
+		return storeItem;
+	}
+	
 }

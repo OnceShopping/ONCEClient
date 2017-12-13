@@ -1,9 +1,14 @@
 package once.item.dao;
 
 import java.util.List;
+import java.util.Map;
 import once.item.vo.ItemVO;
 
 public interface ItemDAO {
+
+	List<ItemVO> selectStoreMainItem(String storeNo);
+
+  List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
 	List<ItemVO> selectItemList();
 

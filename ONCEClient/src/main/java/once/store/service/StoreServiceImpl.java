@@ -23,6 +23,10 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
+	public StoreVO selectOneStore(String storeName) {
+		return dao.selectOneStore(storeName);
+  }
+  
 	public List<StoreVO> selectStoreListQA(Object object) {
 		List<StoreVO> storeListQA = dao.selectStoreListQA();
 		return storeListQA;

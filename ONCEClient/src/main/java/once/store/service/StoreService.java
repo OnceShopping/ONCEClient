@@ -8,6 +8,8 @@ public interface StoreService {
 	
 	List<StoreVO> selectStoreList(String floor);
 
+	StoreVO selectOneStore(String storeName);
+
 	List<StoreVO> selectStoreListQA(Object object);
 
 	List<StoreVO> selectPopStoreList();
