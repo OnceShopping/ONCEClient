@@ -195,15 +195,6 @@ public class CustomerController {
 		return "mypage/faq";
 	}
 
-	@RequestMapping("/menu/men")
-	public String men() {
-		return "menu/men";
-	}
-
-	@RequestMapping("/menu/women")
-	public String women() {
-		return "menu/women";
-	}
     
 	@RequestMapping("/menu/general")
 	 public String general() {
@@ -215,11 +206,6 @@ public class CustomerController {
 	public String checkForm() {
 	 return "mypage/check";
   }
-  
-	@RequestMapping("/menu/kids")
-	public String kids() {
-		return "menu/kids";
-	}
 
 	// 패스워드 체크 처리
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.POST)
