@@ -8,4 +8,6 @@ public interface StoreDAO {
 	
 	List<StoreVO> selectStoreList(String floor);
 
+	StoreVO selectOneStore(String storeName);
+
 }

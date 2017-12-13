@@ -1,6 +1,7 @@
 package once.item.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,17 @@ public class ItemDAOImpl implements ItemDAO {
 		String[] sizeList = getSize.toArray(new String[getSize.size()]);
 		
 		return sizeList;
+	}
+
+	@Override
+	public List<ItemVO> selectStoreMainItem(String storeNo) {
+		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);
+		return storeItem;
+	}
+
+	@Override
+	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
+		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeSelectItem", searchItem);
+		return storeItem;
 	}
 }

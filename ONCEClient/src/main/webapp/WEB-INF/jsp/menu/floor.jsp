@@ -163,7 +163,7 @@
 				<div class="col s6">
 					<div class="entry">
 						<head>
-							<img src="${pageContext.request.contextPath}/resources/img/logo1.jpg" alt="">
+							<a href="${pageContext.request.contextPath}/store/${store.storeName }"><img src="${pageContext.request.contextPath}/resources/img/logo1.jpg" alt=""></a>
 						</head>
 						
 						<div class="content" >

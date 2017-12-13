@@ -9,4 +9,8 @@
 		and storeCategory not in ('info', '쇼핑센터')
 	</select>
 	
+	<select id="selectOneStore" parameterType="String" resultType="storeVO">
+		select ceo, companyNo, phone, storeNo, storeName, storeCategory, floor from store 
+		 where storeName = #{storeName}
+	</select>
 </mapper>

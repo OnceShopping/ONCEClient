@@ -21,4 +21,9 @@ public class StoreDAOImpl implements StoreDAO {
 
 		return storeList;
 	}
+
+	@Override
+	public StoreVO selectOneStore(String storeName) {
+		return sqlSesssion.selectOne("once.store.dao.StoreDAO.selectOneStore", storeName);
+	}
 }
