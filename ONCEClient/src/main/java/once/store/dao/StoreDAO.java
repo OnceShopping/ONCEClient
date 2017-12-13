@@ -8,4 +8,8 @@ public interface StoreDAO {
 	
 	List<StoreVO> selectStoreList(String floor);
 
+	List<StoreVO> selectStoreListQA();
+
+	List<StoreVO> selectPopStoreList();
+
 }

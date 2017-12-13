@@ -23,10 +23,12 @@
  	</select>
  	
  	<!-- 새글 등록  -->
- 	<insert id="insertBoard" parameterType="BoardQAVO">
- 		insert into t_board(no, title, writer, content)
- 		 values(seq_t_board_no.nextval, #{title}, #{writer}, #{content})
+ 	<insert id="insertDeptQA" parameterType="BoardQAVO">
+ 		insert into boardQA(title, writer, content, memNo, category1, category2, category3, regdate, family)
+ 		 values(#{title}, #{writer}, #{content}, #{memNo}, #{category1}, #{category2}, #{category3}, curdate(), (select last_insert_id()+1))
  	</insert>
+ 	
+
  	
  	<!-- 글번호 조회 -->
  	<select id="selectBoardByNo" parameterType="int" 
