@@ -36,6 +36,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 	
 	/**
+	 * customer auto 로그인
+	 */
+	public CustomerVO autoLogin(String loginId) {
+		CustomerVO customerVO = sqlSession.selectOne("once.customer.dao.CustomerDAO.autoLogin", loginId);
+		
+		return customerVO;
+	}
+	
+	/**
 	 * customer 리스트
 	 * @return
 	 */

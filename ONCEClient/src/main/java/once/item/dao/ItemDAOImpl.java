@@ -14,6 +14,7 @@ public class ItemDAOImpl implements ItemDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+
 	@Override
 	public List<ItemVO> selectItemList() {
 
@@ -130,4 +131,25 @@ public class ItemDAOImpl implements ItemDAO {
 		return kidItemList4;
 	}
 
+  @Override
+	public ItemVO getItem(int num) {
+		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
+		return itemVO;
+	}
+	
+	@Override
+	public String[] getColorList(ItemVO itemVO) {
+		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", itemVO);
+		String[] colorList = getColor.toArray(new String[getColor.size()]);
+		
+		return colorList;
+	}
+
+	@Override
+	public String[] getSizeList(ItemVO itemVO) {
+		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", itemVO);
+		String[] sizeList = getSize.toArray(new String[getSize.size()]);
+		
+		return sizeList;
+	}
 }

@@ -27,6 +27,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return list;
 	}
 	
+	public CustomerVO autoLogin(String loginId) {
+		return dao.autoLogin(loginId);
+	}
+
 	@Override
 	public boolean checkPassword(String id, String password) {
 		return dao.checkPassword(id, password);
@@ -94,4 +98,5 @@ public class CustomerServiceImpl implements CustomerService {
         return false;
     }
 */
+
 }

@@ -94,7 +94,5 @@
 	<select id="selectKidItemList4" parameterType="String" resultType="itemVO">
 	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '잡화';
 	</select>
-	
-	
-
+  
 </mapper>

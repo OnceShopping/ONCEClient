@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,19 +32,32 @@ public class CustomerController {
 	private CustomerService service;
 
 	@RequestMapping(value = "/login/login", method = RequestMethod.GET)
-	public String login(CustomerVO customer, @CookieValue(value = "saveId", required = false) Cookie sCookie,
-			Model model) {
+	public String login(CustomerVO customer, HttpSession session, HttpServletRequest request, Model model) {
 
-		String id = "";
+		String loginId = "";
 
-		if (sCookie != null) {
-			id = sCookie.getValue();
-			customer.setSaveId(true);
+		Cookie sCookie = null;
+
+		try {
+			Cookie[] cookies = request.getCookies();
+
+			if (cookies != null && cookies.length > 0) {
+				for (int i = 0; i < cookies.length; i++) {
+					if (cookies[i].getName().equals("saveId")) {
+						System.out.println("save넘어왓니");
+						sCookie = cookies[i];
+					} else {
+					}
+				}
+			}
+		} catch (Exception e) {
 		}
 
-		customer.setId(id);
-		System.out.println(id);
-
+		if (sCookie != null && sCookie.getValue() != null) {
+			loginId = sCookie.getValue();
+			customer.setSaveId(true);
+			customer.setId(loginId);
+		}
 		model.addAttribute("customer", customer);
 		return "login/loginForm";
 	}
@@ -52,33 +66,42 @@ public class CustomerController {
 	public String loginProcess(CustomerVO customer, Model model, HttpServletResponse response, HttpSession session) {
 		String returnURL = "";
 
+		if (session.getAttribute("loginVO") != null) {
+			// 기존에 login이란 세션 값이 존재한다면
+			session.removeAttribute("loginVO"); // 기존값을 제거해 준다.
+		}
 		CustomerVO loginVO = service.login(customer);
 
 		if (loginVO == null) {
-			model.addAttribute("message", "Please check your ID or Password");
 
+			model.addAttribute("message", "Please check your ID or Password");
 			returnURL = "login/loginFail";
+
 		} else {
+			loginVO.setAutoLogin(customer.isAutoLogin());
+			loginVO.setSaveId(customer.isSaveId());
+
 			session.setAttribute("loginVO", loginVO);
 
-			model.addAttribute("loginVO", loginVO);
-			model.addAttribute("message", "환영합니다.");
+			model.addAttribute("message", "로그인이 성공적으로 되었습니다. 환영합니다!");
 
-			Cookie sCookie = new Cookie("saveId", loginVO.getId()); // id저장
-			Cookie aCookie = new Cookie("autoLogin", loginVO.getId()); // 자동로그인
-
-			if (customer.isSaveId()) {
+			if (loginVO.isSaveId()) {
+				Cookie sCookie = new Cookie("saveId", loginVO.getId()); // id저장
 				sCookie.setMaxAge(60 * 60 * 24 * 14); // 단위(s) | 14일
 				sCookie.setPath("/");
-			} else if (customer.isAutoLogin()) {
+				response.addCookie(sCookie);
+			} else if (loginVO.isAutoLogin()) {
+				Cookie aCookie = new Cookie("autoLogin", loginVO.getId()); // 자동로그인
 				aCookie.setMaxAge(60 * 60 * 24 * 31); // 단위(s) | 31일
 				aCookie.setPath("/");
+				response.addCookie(aCookie);
+			} else if (!loginVO.isSaveId()) {
+				Cookie sCookie = new Cookie("saveId", ""); // id저장
+				sCookie.setMaxAge(0); // 단위(s) | 14일
+				sCookie.setPath("/");
+				response.addCookie(sCookie);
 			} else {
-				sCookie.setMaxAge(0);
-				aCookie.setMaxAge(0);
 			}
-			response.addCookie(sCookie);
-			response.addCookie(aCookie);
 			returnURL = "login/loginSuccess";
 		}
 
@@ -88,13 +111,61 @@ public class CustomerController {
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
+		// 1. Cookie 통해 loginId만 있는 경우
+		String loginId = (String) session.getAttribute("loginId");
+
+		// 2. session에 남아있음
 		Object obj = session.getAttribute("loginVO");
+		
+		CustomerVO loginVO=null;
+
+		Cookie[] cookies = request.getCookies();
 
 		if (obj != null) {
-			CustomerVO loginVO = (CustomerVO) obj;
+			loginVO = (CustomerVO) obj;
+			System.out.println("session OBJ"+obj);
 
-			session.removeAttribute("loginVO");
-			session.invalidate();
+			if (loginVO.isSaveId()) {	//saveId 체크 O
+
+				for (int i = 0; i < cookies.length; i++) {
+
+					if (!cookies[i].getName().equals("saveId")) {
+						cookies[i].setValue("");
+						cookies[i].setMaxAge(0);
+						cookies[i].setPath("/");
+
+						response.addCookie(cookies[i]);
+
+						System.out.println(cookies[i] + "save Id  뺴고 쿠키 삭제");
+					}
+				}
+			} else if (loginId != null) {
+				loginVO = service.autoLogin(loginId);
+
+				for (int i = 0; i < cookies.length; i++) {
+					cookies[i].setValue("");
+					cookies[i].setMaxAge(0);
+					cookies[i].setPath("/");
+
+					response.addCookie(cookies[i]);
+
+					System.out.println(cookies[i] + "쿠키 전체 삭제");
+
+				}
+			} else {	//saveId 체크 X
+
+				for (int i = 0; i < cookies.length; i++) {
+					cookies[i].setValue("");
+					cookies[i].setMaxAge(0);
+					cookies[i].setPath("/");
+
+					response.addCookie(cookies[i]);
+
+				}
+			}
+
+		} else {
+			System.out.println("로그인 되어 있지 않음");
 		}
 
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
@@ -104,7 +175,11 @@ public class CustomerController {
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
 		}
- 
+		session.removeAttribute("loginVO");
+		session.removeAttribute("productList");
+		session.removeAttribute("listJSON");
+		session.invalidate();
+		
 		System.out.println("로그아웃 성공");
 
 		return "redirect:/";
@@ -116,21 +191,45 @@ public class CustomerController {
 	}
 
 	@RequestMapping("/mypage/faq")
-	   public String faq() {
-		   return "mypage/faq";
-	   }
-	
+	public String faq() {
+		return "mypage/faq";
+	}
 
-	   
-	   @RequestMapping("/menu/general")
-	   public String general() {
-		   return "menu/general";
-	   }
+	@RequestMapping("/menu/men")
+	public String men() {
+		return "menu/men";
+	}
+
+	@RequestMapping("/menu/women")
+	public String women() {
+		return "menu/women";
+	}
+    
+	@RequestMapping("/menu/general")
+	 public String general() {
+	   return "menu/general";
+	}
   
-  	// 패스워드 체크 페이지
-	  @RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
-	  public String checkForm() {
-		  return "mypage/check";
+  // 패스워드 체크 페이지
+	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
+	public String checkForm() {
+	 return "mypage/check";
+  }
+  
+	@RequestMapping("/menu/kids")
+	public String kids() {
+		return "menu/kids";
+	}
+
+	@RequestMapping("/menu/general")
+	public String general() {
+		return "menu/general";
+	}
+
+	// 패스워드 체크 페이지
+	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
+	public String checkForm() {
+		return "mypage/check";
 	}
 
 	// 패스워드 체크 처리
@@ -153,14 +252,15 @@ public class CustomerController {
 	// 회원 정보 수정 처리
 	@RequestMapping(value = "/mypage/detail/{id}", method = RequestMethod.GET)
 	public String modify(@PathVariable String id, @ModelAttribute @Valid CustomerVO customer, Model model) {
-		service.modifyCustomer(customer.getId(), customer.getPassword(), customer.getTelephone(), customer.getOrderPassword());
+		service.modifyCustomer(customer.getId(), customer.getPassword(), customer.getTelephone(),
+				customer.getOrderPassword());
 		model.addAttribute("customerVO", customer);
 		model.addAttribute("message", "회원 정보 수정이 성공적으로 완료되었습니다.");
 
 		return "mypage/modifyProcess";
 	}
-	
-	//회원 정보 탈퇴 페이지
+
+	// 회원 정보 탈퇴 페이지
 	@RequestMapping(value = "/mypage/delete", method = RequestMethod.GET)
 	public String deleteForm(@ModelAttribute("loginVO") CustomerVO customer, Model model) {
 		model.addAttribute("customerVO", customer);
@@ -183,55 +283,48 @@ public class CustomerController {
 	}
 
 	// 회원가입 - 입력창
-	@RequestMapping(value = "/signup/signupMain", method=RequestMethod.GET)
+	@RequestMapping(value = "/signup/signupMain", method = RequestMethod.GET)
 	public String signupMainForm(Model model) {
 		CustomerVO customerVO = new CustomerVO();
 		model.addAttribute("customerVO", customerVO);
 		return "signup/signupMain";
 	}
-	
-	@RequestMapping(value = "/signup/signupMain", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/signup/signupMain", method = RequestMethod.POST)
 	public String signupMain(@Valid CustomerVO customerVO) {
-		System.out.println("customer테스트 " +customerVO);
+		System.out.println("customer테스트 " + customerVO);
 		service.join(customerVO);
 		return "signup/signupSuccess";
 	}
-	
+
 	// 회원가입 - 가입 완료
 	@RequestMapping("/signup/signupSuccess")
 	public String signupSuccess() {
 		return "signup/signupSuccess";
 	}
-	
+
 	// 회원가입 - 가입 완료
 	@RequestMapping("/signup/findId")
 	public String findId() {
 		return "signup/findId";
 	}
-	
+
 	// 회원가입 - 아이디 중복 체크
-	@RequestMapping(value = "/signup/checkId", method=RequestMethod.GET)
+	@RequestMapping(value = "/signup/checkId", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean checkId(@RequestParam(value="id") String id) {
+	public boolean checkId(@RequestParam(value = "id") String id) {
 		System.out.println(id);
 		return service.checkId(id);
 	}
+	
 	/*
-	// email
-	@RequestMapping(value="emailConfirm", method=RequestMethod.GET)
-	    public String emailConfirm(String key, Model model){
-	        try {
-	            service.emailConfirm(customerVO);
-	            model.addAttribute("check", true);
-	        } catch (Exception e) {
-	            model.addAttribute("check", false);
-	        }
-	        return "emailConfirm";
-	    }*/
+	 * // email
+	 * 
+	 * @RequestMapping(value="emailConfirm", method=RequestMethod.GET) public String
+	 * emailConfirm(String key, Model model){ try {
+	 * service.emailConfirm(customerVO); model.addAttribute("check", true); } catch
+	 * (Exception e) { model.addAttribute("check", false); } return "emailConfirm";
+	 * }
+	 */
 
 }
-
-
-
-
-

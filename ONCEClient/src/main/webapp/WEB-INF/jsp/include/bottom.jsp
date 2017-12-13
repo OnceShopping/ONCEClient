@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<div class="container">
+<footer>
+		<div class="container">
 			<h6>About us</h6>
 			<div class="tel-fax-mail">
 				<ul>
@@ -17,10 +17,10 @@
 					<li><span>사업자등록번호:</span> 000-0000-00000<li>
 				</ul>
 			</div>
+			<div class="ft-bottom">
+				<span>Copyright © 2017 All Rights Reserved </span>
+			</div>
 		</div>
-		<div class="ft-bottom">
-			<span>Copyright © 2017 All Rights Reserved </span>
-		</div>
-
+	</footer>
 </body>
 </html>

@@ -22,6 +22,9 @@ public interface CustomerService {
 
 	boolean checkId(String id);
 	
+	CustomerVO autoLogin(String loginId);
+	
+
 	/** 메일 전송
      *  @param subject 제목
      *  @param text 내용
@@ -29,4 +32,5 @@ public interface CustomerService {
      *  @param to 받는 메일 주소
      *  @param filePath 첨부 파일 경로: 첨부파일 없을시 null **/
    // public boolean send(String subject, String text, String from, String to, String filePath);
+
 }

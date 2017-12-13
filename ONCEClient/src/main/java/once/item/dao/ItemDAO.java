@@ -1,7 +1,6 @@
 package once.item.dao;
 
 import java.util.List;
-
 import once.item.vo.ItemVO;
 
 public interface ItemDAO {
@@ -38,5 +37,10 @@ public interface ItemDAO {
 
 	List<ItemVO> selectKidItemList4();
 
+  ItemVO getItem(int num);
+
+  String[] getColorList(ItemVO itemVO);
+	
+  String[] getSizeList(ItemVO itemVO);
 
 }
