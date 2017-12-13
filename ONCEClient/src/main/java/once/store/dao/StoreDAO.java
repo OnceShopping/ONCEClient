@@ -10,4 +10,8 @@ public interface StoreDAO {
 
 	StoreVO selectOneStore(String storeName);
 
+	List<StoreVO> selectStoreListQA();
+
+	List<StoreVO> selectPopStoreList();
+
 }

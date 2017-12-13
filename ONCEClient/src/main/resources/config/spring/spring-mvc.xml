@@ -16,7 +16,7 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     
-	<context:component-scan base-package="once" />
+	<context:component-scan base-package="once"  />
 	<aop:aspectj-autoproxy />
 	
 	
@@ -80,15 +80,8 @@
     
 	<mvc:default-servlet-handler />
 	
-	
-	
 	<mvc:view-resolvers>
-		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+		<mvc:jsp prefix="/" suffix=".jsp" view-names="index"/>
+		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" view-names="*"/>
 	</mvc:view-resolvers>
 </beans>
-
-
-
-
-
-

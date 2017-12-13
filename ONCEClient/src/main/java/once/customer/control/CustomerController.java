@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import once.customer.service.CustomerService;
@@ -58,7 +59,6 @@ public class CustomerController {
 			customer.setId(loginId);
 		}
 		model.addAttribute("customer", customer);
-
 		return "login/loginForm";
 	}
 
@@ -204,21 +204,21 @@ public class CustomerController {
 	public String women() {
 		return "menu/women";
 	}
-
+    
+	@RequestMapping("/menu/general")
+	 public String general() {
+	   return "menu/general";
+	}
+  
+  // 패스워드 체크 페이지
+	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
+	public String checkForm() {
+	 return "mypage/check";
+  }
+  
 	@RequestMapping("/menu/kids")
 	public String kids() {
 		return "menu/kids";
-	}
-
-	@RequestMapping("/menu/general")
-	public String general() {
-		return "menu/general";
-	}
-
-	// 패스워드 체크 페이지
-	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
-	public String checkForm() {
-		return "mypage/check";
 	}
 
 	// 패스워드 체크 처리

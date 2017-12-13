@@ -68,4 +68,68 @@
 		</if>
 	</select>
 	
+	<select id="selectMenItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1 = '남성';
+	</select>
+	
+	<select id="selectWomenItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1 = '여성';
+	</select>
+	
+	<select id="selectKidItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1 = '유아동';
+	</select>
+	
+	<select id="selectGeneralItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1= '잡화';
+	</select>
+	
+	<select id="selectMenItemList" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성';
+	</select>
+	
+	<select id="selectMenItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '상의';
+	</select>
+	
+	<select id="selectMenItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '하의';
+	</select>
+	
+	<select id="selectMenItemList4" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '잡화';
+	</select>
+	
+	<select id="selectWomenItemList" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성';
+	</select>
+	
+	<select id="selectWomenItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '상의';
+	</select>
+	
+	<select id="selectWomenItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '하의';
+	</select>
+	
+	<select id="selectWomenItemList4" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '잡화';
+	</select>
+	
+	<select id="selectKidItemList" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동';
+	</select>
+	
+	<select id="selectKidItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '상의';
+	</select>
+	
+	<select id="selectKidItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '하의';
+	</select>
+	
+	<select id="selectKidItemList4" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '잡화';
+	</select>
+
 </mapper>

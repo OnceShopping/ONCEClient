@@ -10,14 +10,16 @@ public class BoardQAVO {
 	private String title;
 	private String content;
 	
-	private String id;
-	private String mangerId;
+	private int memNo;
+	private int staffNo;
 	
 	private int viewCnt;
-	private int regDate;
+	private String regDate;
 	
 	private String category1;
 	private String category2;
 	private String category3;
 	
+	private int family;
+	private String writer;
 }
