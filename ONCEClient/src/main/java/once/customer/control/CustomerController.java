@@ -221,17 +221,6 @@ public class CustomerController {
 		return "menu/kids";
 	}
 
-	@RequestMapping("/menu/general")
-	public String general() {
-		return "menu/general";
-	}
-
-	// 패스워드 체크 페이지
-	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
-	public String checkForm() {
-		return "mypage/check";
-	}
-
 	// 패스워드 체크 처리
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.POST)
 	public String check(@ModelAttribute("loginVO") CustomerVO customer, Model model) {
