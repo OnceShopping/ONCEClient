@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="once.item.dao.ItemDAO">
+
+	<!-- 상품 선택 -->
+	<select id="getItem" parameterType="Integer" resultType="itemVO">
+		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
+		price, saleTag, salePrice, startDate, endDate, detail
+		from item
+		where num = #{ num };
+	</select>
+
+	<!-- 상품 colorList 선택 -->
+	<select id="getColorList" parameterType="itemVO" resultType="String">
+		select distinct color from itemcontents where num = #{ num };
+	</select>
+
+	<!-- 상품 sizeList 선택 -->
+	<select id="getSizeList" parameterType="itemVO" resultType="String">
+		select distinct size from itemcontents where num = #{ num };
+	</select>
+
+	<!-- 장바구니 상품 선택 -->
+	<select id="addCartItem" parameterType="itemContentsVO"
+		resultType="itemContentsVO">
+		select num, storeNo, itemName, price, salePrice, startDate, endDate, color, size,
+		imgSaveName, imgSize, imgOriName
+		from itemContents
+		where num = #{ num } and color=#{ color } and size=#{ size };
+	</select>
+	
+	<select id="selectMenItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1 = '남성';
+	</select>
+	
+	<select id="selectWomenItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1 = '여성';
+	</select>
+	
+	<select id="selectKidItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1 = '유아동';
+	</select>
+	
+	<select id="selectGeneralItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price from item where itemCategory1= '잡화';
+	</select>
+	
+	<select id="selectMenItemList" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성';
+	</select>
+	
+	<select id="selectMenItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '상의';
+	</select>
+	
+	<select id="selectMenItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '하의';
+	</select>
+	
+	<select id="selectMenItemList4" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '잡화';
+	</select>
+	
+	<select id="selectWomenItemList" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성';
+	</select>
+	
+	<select id="selectWomenItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '상의';
+	</select>
+	
+	<select id="selectWomenItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '하의';
+	</select>
+	
+	<select id="selectWomenItemList4" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '잡화';
+	</select>
+	
+	<select id="selectKidItemList" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동';
+	</select>
+	
+	<select id="selectKidItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '상의';
+	</select>
+	
+	<select id="selectKidItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '하의';
+	</select>
+	
+	<select id="selectKidItemList4" parameterType="String" resultType="itemVO">
+	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '잡화';
+	</select>
+	
+	
+
+</mapper>

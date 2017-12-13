@@ -21,4 +21,16 @@ public class StoreServiceImpl implements StoreService {
 		
 		return storeList;
 	}
+
+	@Override
+	public List<StoreVO> selectStoreListQA(Object object) {
+		List<StoreVO> storeListQA = dao.selectStoreListQA();
+		return storeListQA;
+	}
+
+	@Override
+	public List<StoreVO> selectPopStoreList() {
+		List<StoreVO> popStoreList = dao.selectPopStoreList();
+		return popStoreList;
+	}
 }

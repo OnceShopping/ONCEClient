@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import once.customer.service.CustomerService;
@@ -44,7 +45,6 @@ public class CustomerController {
 		System.out.println(id);
 
 		model.addAttribute("customer", customer);
-
 		return "login/loginForm";
 	}
 
@@ -121,20 +121,6 @@ public class CustomerController {
 	   }
 	
 
-	   @RequestMapping("/menu/men")
-	   public String men() {
-		   return "menu/men";
-	   }
-	   
-	   @RequestMapping("/menu/women")
-	   public String women() {
-		   return "menu/women";
-	   }
-	   
-	   @RequestMapping("/menu/kids")
-	   public String kids() {
-		   return "menu/kids";
-	   }
 	   
 	   @RequestMapping("/menu/general")
 	   public String general() {

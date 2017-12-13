@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Creative - Multipurpose Mobile Template</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 	<meta name="mobile-web-app-capable" content="yes">
@@ -33,11 +33,17 @@
 	padding: 2px;
 	background-color: #e5e5e5;
 }
+
+.button {
+    text-align: center;
+    line-height: 50px;
+    height: 60px;
+    font-size: 12px;
+}
 </style>
-
 </head>
-
 <body>
+
 <header>
 		<!-- 상단 navbar -->
 		<div class="navbar">
@@ -130,32 +136,17 @@
 	</header>
 	
 	<section>
-	
-	<div class="table-app app-pages app-section">
+	<div class="grid-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>My Page</h3>
+				<h2>1:1 문의</h2>
 			</div>
-			<table class="">
-				<tbody>
-				<tr>
-						<td><a href="${pageContext.request.contextPath}/mypage/likeStore"><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</a></td>
-						<td><a href="${pageContext.request.contextPath}/mypage/check"><i class="fa fa-gear"></i>&nbsp;&nbsp;회원 정보수정</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-shopping-basket"></i>&nbsp;&nbsp;장바구니</td>
-						<td><a href="${pageContext.request.contextPath}/mypage/myqna"><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>
-						<td><a href="${pageContext.request.contextPath}/mypage/faq"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</a></td>
-					</tr>
-					<tr>
-						<td><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
+			<h4>어떤 문의를 하고 싶으세요?</h4>
+			<div class="row">
+				<div class="col s4"><a href="${pageContext.request.contextPath}/mypage/writeForm/Dept"><div class="button">백화점</div></a></div>
+				<div class="col s4"><a href="${pageContext.request.contextPath}/mypage/writeForm/Store"><div class="button">매장</div></a></div>
+				<div class="col s4"><a href="${pageContext.request.contextPath}/mypage/writeForm/Info"><div class="button">주문/수령</div></a></div>
+			</div>
 		</div>
 	</div>
 	</section>
@@ -188,6 +179,6 @@
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
-	
+
 </body>
 </html>
