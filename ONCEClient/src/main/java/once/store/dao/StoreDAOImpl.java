@@ -22,7 +22,7 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public StoreVO selectOneStore(String storeName) {
-		return sqlSesssion.selectOne("once.store.dao.StoreDAO.selectOneStore", storeName);
+		return sqlSession.selectOne("once.store.dao.StoreDAO.selectOneStore", storeName);
   }
   
 	public List<StoreVO> selectStoreListQA() {
