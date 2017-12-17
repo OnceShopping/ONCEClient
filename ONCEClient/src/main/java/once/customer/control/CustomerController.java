@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import once.customer.service.CustomerService;
@@ -204,31 +205,17 @@ public class CustomerController {
 		return "mypage/faq";
 	}
 
-	@RequestMapping("/menu/men")
-	public String men() {
-		return "menu/men";
-	}
-
-	@RequestMapping("/menu/women")
-	public String women() {
-		return "menu/women";
-	}
-
-	@RequestMapping("/menu/kids")
-	public String kids() {
-		return "menu/kids";
-	}
-
+    
 	@RequestMapping("/menu/general")
-	public String general() {
-		return "menu/general";
+	 public String general() {
+	   return "menu/general";
 	}
-
-	// 패스워드 체크 페이지
+  
+  // 패스워드 체크 페이지
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
 	public String checkForm() {
-		return "mypage/check";
-	}
+	 return "mypage/check";
+  }
 
 	// 패스워드 체크 처리
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.POST)

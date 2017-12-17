@@ -12,6 +12,7 @@ public class ItemVO {
 	private String itemCategory2;
 	private String itemCategory3;
 	
+	private String regDate;
 	private int price;
 	private String saleTag;
 	private int salePrice;

@@ -39,22 +39,22 @@ public class LikeController {
 		
 		String msg = null;
 		Map<String, Object> map = new HashMap<>();
-		
 		List<LikeStoreVO> likeStoreList = service.selectLikeStoreList(loginVO.getMemNo());
-		for (int i = 0; i < likeStoreList.size(); i++) {
-			if(storeName.equals(likeStoreList.get(i).getStoreName())) {
-				msg = "이미 즐겨찾기에 추가되었습니다.";
-				break;
-			} else if (i == likeStoreList.size()-1) {
+		int size = likeStoreList.size();
+		for (int i = 0; i <= size; i++) {
+			if (i == likeStoreList.size()) {
 				likeStore.setId(id);
 				likeStore.setStoreName(storeName);
 				
 				service.addStore(likeStore);
 				msg = "즐겨찾기에 추가되었습니다.";
-			}
+			} else if(storeName.equals(likeStoreList.get(i).getStoreName())) {
+				msg = "이미 즐겨찾기에 추가되었습니다.";
+				break;
+			} 
 		}
 		
-		
+		System.out.println(msg);
 		map.put("msg", msg);
 		return map;
 	}
