@@ -58,7 +58,7 @@
 					</tr>
 					<tr>
 						<td><a href="${pageContext.request.contextPath}/mypage/shoppingCart"><i class="fa fa-shopping-basket"></i>&nbsp;&nbsp;장바구니</a></td>
-						<td><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</td>
+            <td><a href="${pageContext.request.contextPath}/mypage/myqna"><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</a></td>
 					</tr>
 					<tr>
 						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>

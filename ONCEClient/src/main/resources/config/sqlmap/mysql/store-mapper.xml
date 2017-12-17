@@ -5,8 +5,10 @@
 <mapper namespace="once.store.dao.StoreDAO">
 	
 	<select id="selectAllStore" parameterType="String" resultType="storeVO">
-		select storeName, storeCategory, phone from store where floor = #{floor}
-		and storeCategory not in ('info', '쇼핑센터')
+		select storeName, storeCategory, phone, storeNo from store 
+		<where> 
+		floor = #{floor} and storeCategory not in ('info', '쇼핑센터')
+		</where>
 	</select>
 	
 	<select id="selectStore" parameterType="String" resultType="storeVO">
@@ -15,4 +17,21 @@
 		where storeNo = #{ storeNo }
 	</select>
 	
+	<select id="selectStoreListQA" parameterType="String" resultType="StoreVO">
+	select storeName, storeNo from store where storeCategory not in ('info', '쇼핑센터');
+	</select>
+	
+	<select id="selectPopStoreList" parameterType="String" resultType="StoreVO">
+	select storeName, phone, floor from store
+	<where>
+	storeCategory not in ('info', '쇼핑센터')
+	</where>
+	order by storeName;
+	</select>
+	
+	<select id="selectOneStore" parameterType="String" resultType="storeVO">
+		select ceo, companyNo, phone, storeNo, storeName, storeCategory, floor from store 
+		 where storeName = #{storeName}
+	</select>
+
 </mapper>
