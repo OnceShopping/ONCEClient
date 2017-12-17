@@ -61,6 +61,8 @@ public class CustomerServiceImpl implements CustomerService {
 	public boolean checkId(String id) {
 		return dao.checkId(id);
 	}
+	
+
 /*
     // org.springframework.mail.javamail.JavaMailSender
     private JavaMailSender javaMailSender;

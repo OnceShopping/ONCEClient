@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import once.item.vo.ItemVO;
+import once.order.vo.OrderDetailVO;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
@@ -155,6 +156,14 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
+	public int checkCnt(OrderDetailVO preOrderDetail) {
+		
+		int count = sqlSession.selectOne("once.item.dao.ItemDAO.checkCnt", preOrderDetail);
+		
+		return count;
+	}
+}
+  @Override
 	public List<ItemVO> selectStoreMainItem(String storeNo) {
 		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);
 		return storeItem;

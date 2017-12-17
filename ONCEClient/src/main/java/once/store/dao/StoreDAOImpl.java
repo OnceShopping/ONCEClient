@@ -35,4 +35,10 @@ public class StoreDAOImpl implements StoreDAO {
 		List<StoreVO> popStoreList = sqlSession.selectList("once.store.dao.StoreDAO.selectPopStoreList");
 		return popStoreList;
 	}
+
+	@Override
+	public StoreVO selectStore(String storeNo) {
+		StoreVO store = sqlSesssion.selectOne("once.store.dao.StoreDAO.selectStore", storeNo);
+		return store;
+	}
 }

@@ -1,8 +1,10 @@
 package once.item.service;
 
 import java.util.List;
+
 import java.util.Map;
 import once.item.vo.ItemVO;
+import once.order.vo.OrderDetailVO;
 
 public interface ItemService {
 
@@ -40,6 +42,8 @@ public interface ItemService {
 
 	ItemVO getItem(int num);
 
+  int checkCnt(OrderDetailVO preOrderDetail);
+  
 	List<ItemVO> selectStoreMainItem(String storeNo);
   
 	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);

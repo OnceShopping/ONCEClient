@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import once.item.dao.ItemDAO;
 import once.item.vo.ItemVO;
+import once.order.vo.OrderDetailVO;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -138,6 +139,12 @@ public class ItemServiceImpl implements ItemService {
 		return sizeList;
 	}
 
+	@Override
+	public int checkCnt(OrderDetailVO preOrderDetail) {
+		
+		return dao.checkCnt(preOrderDetail);
+	}
+  
 	@Override
 	public List<ItemVO> selectStoreMainItem(String storeNo) {
 		List<ItemVO> storeItem = dao.selectStoreMainItem(storeNo);
