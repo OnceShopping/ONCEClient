@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+
 import once.item.service.ItemService;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemVO;
@@ -34,7 +36,11 @@ public class ItemController {
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 
+		Gson gson = new Gson();
+		String itemJSON = gson.toJson(itemVO);
+		
 		model.addAttribute("itemVO", itemVO);
+		model.addAttribute("itemJSON", itemJSON);
 		
 		return "item/itemDetail";
 	}

@@ -1,7 +1,6 @@
 package once.shoppingCart.control;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,7 @@ import com.google.gson.Gson;
 import once.item.service.ItemService;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemVO;
+import once.order.vo.OrderVO;
 import once.shoppingCart.service.ShoppingCartService;
 import once.store.service.StoreService;
 import once.store.vo.StoreVO;
@@ -52,18 +52,19 @@ public class ShoppingCartController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/shoppingCart/addItem/{storeNo}/{num}")
+	@RequestMapping(value = "/shoppingCart/addItem/{storeNo}/{num}", method=RequestMethod.POST)
 	public String addItem(@PathVariable("storeNo") String storeNo, @PathVariable("num") int num,
 			@ModelAttribute ItemVO itemVO, ItemContentsVO itemContentsVO, Model model, HttpSession session) {
-
+		
 		List<ItemContentsVO> productList = null; // 해당 id의 물품목록
 		List<StoreVO> storeList = null;
 
 		itemVO.setColorList(itemService.getColorList(itemVO));
 		itemVO.setSizeList(itemService.getSizeList(itemVO));
-
+		
 		itemContentsVO.setNum(num);
 		ItemContentsVO addItem = service.addCartItem(itemContentsVO);
+		StoreVO addStore = storeService.selectStore(storeNo);
 
 		if (session.getAttribute("loginVO") == null) { // 로그인 안된 경우
 			model.addAttribute("message", "로그인 후 이용해 주세요.");
@@ -75,14 +76,32 @@ public class ShoppingCartController {
 			} else { // 세션에 장바구니가 없는 경우
 				productList = new ArrayList<>();
 			}
-
-			if (session.getAttribute("storeList") != null) { // 세션에 storeList가 있는 경우
-				storeList = (ArrayList<StoreVO>) session.getAttribute("storeList");
-			} else {
-				storeList = new ArrayList<>();
-			}
+			
+			if(addStore!=null) {
+				if (session.getAttribute("storeList") != null) { // 세션에 storeList가 있는 경우
+					storeList = (ArrayList<StoreVO>) session.getAttribute("storeList");
+					
+					boolean exist = false;
+					
+					for (int i = 0; i < storeList.size(); i++) {
+						if (storeNo.equals(storeList.get(i).getStoreNo())) {
+							exist = true;
+							break;
+						}
+					}
+					
+					if(exist==false) {
+						storeList.add(addStore);
+					}
+					
+				} else { // 세션에 storeList가 없는 경우
+					storeList = new ArrayList<>();
+					storeList.add(addStore);
+				}
+			}			
 
 			if (addItem != null) { // 물품이 있는 경우
+				
 				addItem.setCount(itemContentsVO.getCount());
 				productList.add(addItem); // 장바구니에 추가
 
@@ -92,29 +111,14 @@ public class ShoppingCartController {
 
 				return "mypage/error";
 			}
-			if (productList != null) {
-				for (int i = 0; i < productList.size(); i++) {
-					storeNo = productList.get(i).getStoreNo();
-					StoreVO addStore = storeService.selectStore(storeNo);
-
-					if (storeList.size() == 0) {
-						storeList.add(addStore);
-					} else {
-						for (int j = 0; j < storeList.size(); j++) {
-							if (storeNo.equals(storeList.get(j).getStoreNo())) {
-								continue;
-							} else {
-								storeList.add(addStore);
-							}
-						}
-					}
-				}
-			}
-
+			
 		}
 
 		session.setAttribute("productList", productList);
 		session.setAttribute("storeList", storeList);
+		
+		System.out.println("shoppingCart/addItem: "+productList);
+		System.out.println("shoppingCart/addItem: "+storeList);
 
 		return "redirect:/mypage/shoppingCart";
 	}
@@ -127,7 +131,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/mypage/shoppingCart")
-	public String viewCart(Model model, HttpSession session) {
+	public String viewCart(@ModelAttribute(value="orderVO") OrderVO orderVO, Model model, HttpSession session) {
 
 		List<ItemContentsVO> productList = null;
 		List<StoreVO> storeList = null; // 장바구니에 있는 매장 종류
@@ -157,6 +161,9 @@ public class ShoppingCartController {
 			session.setAttribute("storeList", storeList);
 			session.setAttribute("storeJSON", storeJSON);
 		}
+		
+		System.out.println("mypage/shoppingCart: "+productList);
+		System.out.println("mypage/shoppingCart: "+storeList);
 
 		return "mypage/shoppingCart";
 	}

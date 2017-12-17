@@ -14,7 +14,7 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 
 	// 장바구니에 아이템 담기
 	public ItemContentsVO addCartItem(ItemContentsVO detail) {
-				
+		
 		ItemContentsVO addItem = sqlSession.selectOne("once.item.dao.ItemDAO.addCartItem", detail);
 		
 		return addItem;

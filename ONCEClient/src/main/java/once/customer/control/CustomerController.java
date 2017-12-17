@@ -180,15 +180,13 @@ public class CustomerController {
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
 		}
-		
-		/*
+				
 		session.removeAttribute("productList");
 		session.removeAttribute("listJSON");
 		session.removeAttribute("storeList");
 		session.removeAttribute("storeJSON");
 		session.removeAttribute("loginVO");
-		*/
-
+		
 		session.invalidate();
 		
 		System.out.println("로그아웃 성공");
