@@ -162,7 +162,7 @@ public class ItemDAOImpl implements ItemDAO {
 		
 		return count;
 	}
-}
+
   @Override
 	public List<ItemVO> selectStoreMainItem(String storeNo) {
 		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);

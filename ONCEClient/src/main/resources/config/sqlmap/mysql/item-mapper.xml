@@ -33,6 +33,7 @@
 	
 	<select id="checkCnt" parameterType="orderDetailVO" resultType="int">
 		select count from itemContents where detailNo = #{ detailNo }
+	</select>
 
 	<!-- 첫화면 상품 목록 -->
 	<select id="storeMainItem" parameterType="String" resultType="itemVO">
