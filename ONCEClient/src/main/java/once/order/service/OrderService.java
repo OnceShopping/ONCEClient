@@ -1,5 +1,7 @@
 package once.order.service;
 
-public interface OrderService {
+import once.item.vo.ItemContentsVO;
 
+public interface OrderService {
+	
 }

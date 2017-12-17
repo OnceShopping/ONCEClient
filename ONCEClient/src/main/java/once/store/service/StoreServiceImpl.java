@@ -21,4 +21,10 @@ public class StoreServiceImpl implements StoreService {
 		
 		return storeList;
 	}
+
+	@Override
+	public StoreVO selectStore(String storeNo) {
+		StoreVO storeVO = dao.selectStore(storeNo);
+		return storeVO;
+	}
 }

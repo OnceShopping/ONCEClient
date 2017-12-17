@@ -8,4 +8,5 @@ public interface StoreService {
 	
 	List<StoreVO> selectStoreList(String floor);
 
+	StoreVO selectStore(String storeNo);	
 }

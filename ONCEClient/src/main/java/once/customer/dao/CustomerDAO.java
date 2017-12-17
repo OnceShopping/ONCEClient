@@ -23,4 +23,5 @@ public interface CustomerDAO {
 	boolean checkId(String id);
 	
 	CustomerVO autoLogin(String loginId);
+
 }
