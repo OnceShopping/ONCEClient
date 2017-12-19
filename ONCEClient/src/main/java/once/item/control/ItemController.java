@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
@@ -114,6 +115,21 @@ public class ItemController {
 		model.addAttribute("itemJSON", itemJSON);
 		
 		return "item/itemDetail";
+	}
+	
+	@RequestMapping(value="/item/itemDetail", method = RequestMethod.GET)
+	public ModelAndView showSelect(@RequestParam("itemName") String itemName, @RequestParam("sltColor") String sltColor, @RequestParam("sltSize") String sltSize, @RequestParam("idNo") int idNo, Model model) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("item/itemSelect");
+		
+		mav.addObject("sltColor", sltColor);
+		mav.addObject("sltSize", sltSize);
+		mav.addObject("idNo", idNo);
+		mav.addObject("itemName", itemName);
+				
+		return mav;
 	}
 
 }

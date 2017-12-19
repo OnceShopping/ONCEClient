@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 public interface ItemService {
 
@@ -42,14 +43,16 @@ public interface ItemService {
 
 	ItemVO getItem(int num);
 
-  int checkCnt(OrderDetailVO preOrderDetail);
+	int checkCnt(OrderDetailVO preOrderDetail);
+	
+	void minCnt(OrderVO order);
   
 	List<ItemVO> selectStoreMainItem(String storeNo);
   
 	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
-  String[] getColorList(ItemVO itemVO);
+	String[] getColorList(ItemVO itemVO);
 	
-  String[] getSizeList(ItemVO itemVO);
-
+	String[] getSizeList(ItemVO itemVO);
+	
 }
