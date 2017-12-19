@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import once.item.dao.ItemDAO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -155,6 +156,11 @@ public class ItemServiceImpl implements ItemService {
 	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
 		List<ItemVO> storeItem = dao.selectStoreSearchItem(searchItem);
 		return storeItem;
+	}
+	
+	@Override
+	public void minCnt(OrderVO order) {
+		dao.minCnt(order);
 	}
 	
 }

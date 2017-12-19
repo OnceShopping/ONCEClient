@@ -33,30 +33,81 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </head>
 <script>
+
+$(document).ready(function() {
+    var cnt = 0;
+    
+    $('#size').attr('disabled', true);
+    
+    $('#color').change(function() {
+       $('#size').attr('disabled', false);
+    });
+    
+    $('#size').change(function() {
+       var sltColor = $('#color').val();
+       var sltSize = $('#size').val();
+       var itemName = $('#itemName').val();
+       
+       var idNo = cnt;      
+       
+       if(sltColor != '') {
+    	       	   
+    	   $.ajax({
+   			url : "${ pageContext.request.contextPath }/item/itemDetail",
+   			type : "get",
+   			data : {
+   				'itemName'	: itemName,
+   				'sltColor' 	: sltColor,
+   				'sltSize'	: sltSize,
+   				'idNo'	: idNo
+   			},
+   			success : function(data) {
+   				$('#sltItemList').val("");
+   				$('#sltItemList').append(data);
+   				idNo = ++cnt;
+   			}
+   			});
+          
+          //초기화 
+          $('#color').val('');
+          $('#size').val('');
+          $('#size').attr('disabled', true);
+          
+       }
+
+        
+      $('#rmv' + idNo).click(function() {
+    	  $('#delete'+idNo).val('true');
+    	  $(this).closest('li').remove();
+          return false;
+       });
+        
+    });
+});
+    
 	function cartFunc() {		
 		var listJSON = '${sessionScope.listJSON}';
 		var resultList = null;
-		if(listJSON != ''){
+		
+		if(listJSON != '' && listJSON != null){
 			resultList = $.parseJSON(listJSON);
 		}
+		
 		var itemName = document.getElementById('itemName').value;
 		var size = document.getElementById('size').value;
 		var color = document.getElementById('color').value;
 		
-		if (listJSON != null) {
-			
+		if (resultList == null || resultList == '') {	// 장바구니에 물품이 아예 없는 경우
+			var itemJSON = '${itemJSON}';
+			var result = $.parseJSON(itemJSON);
+			var itemForm = document.forms['itemContentsVO'];
+			itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
+			itemForm.submit();
+		}else{
 			var tf = 0;
 			$.each(resultList, function(index, item) {
 				if (item.itemName == itemName && item.color == color && item.size == size) { // 장바구니에 선택한 물품이 이미 있는 경우
@@ -67,10 +118,10 @@
 						tf = 1;
 					}
 				}
-		});
+			});
 			var itemJSON = '${itemJSON}';
 			var result = $.parseJSON(itemJSON);
-			var itemForm = document.forms['itemInfo'];
+			var itemForm = document.forms['itemContentsVO'];
 			
 			if(tf==1){
 				
@@ -78,18 +129,13 @@
 				itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
 				itemForm.submit();
 			}
-		}else{	// 장바구니에 물품이 아예 없는 경우
-			itemInfo.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
-			itemForm.submit();
 		}
 	}
 	
 	function buyFunc(){
-		
 		var itemJSON = '${itemJSON}';
 		var result = $.parseJSON(itemJSON);
-		var itemForm = document.forms['itemInfo'];
-		
+		var itemForm = document.forms['itemContentsVO'];
 		itemForm.action = "${ pageContext.request.contextPath }/orderList/addOneItem/"+result.storeNo+"/"+result.num ;
 		itemForm.submit();
 	}
@@ -103,37 +149,39 @@
 	<section>
 		<div class="login app-pages app-section">
 			<div class="container">
-				<form:form name="itemInfo" commandName="itemContentsVO" method="post">
+				<form id="itemContentsVO" name="itemContentsVO" method="post">
 					<div>
 						<label>제 품</label>
-						<form:input path="itemName" id="itemName" type="text"
-							value="${itemVO.itemName}" />
-					</div>
-					<div class="col s8">
-						<label>count</label>
-						<form:input path="count" id="count" type="number" value="1"
-							class="validate" />
+						<input name="itemName" id="itemName" type="text" value="${itemVO.itemName}" />
 					</div>
 					<div class="col s8">
 						<label>color</label>
-						<form:select class="browser-default" path="color" id="color" >
-							<form:option value="">- [필수] color를 선택해 주세요 -</form:option>
-							<form:options items="${itemVO.colorList}" />
-						</form:select>
+						<select class="browser-default" id="color" >
+							<option value="">- [필수] color를 선택해 주세요 -</option>
+							<c:forEach var="color" items="${itemVO.colorList}">
+							<option value="${color}">${color}</option>
+							</c:forEach>
+						</select>
 						<label>size</label>
-						<form:select class="browser-default" path="size" id="size" >
-							<form:option value="">- [필수] size를 선택해 주세요 -</form:option>
-							<form:options items="${itemVO.sizeList}" />
-						</form:select>
+						<select class="browser-default" id="size" >
+							<option value="">- [필수] size를 선택해 주세요 -</option>
+							<c:forEach var="size" items="${itemVO.sizeList}">
+							<option value="${size}">${size}</option>
+							</c:forEach>
+						</select>
 					</div>
-					<div class="col s8">
+					<div>
+				    	<ul id="sltItemList"> 	
+				        </ul>
+      				</div>
+      				<div class="col s8">
 						<input class="button" type="button" id="shoppingCart" value="장바구니 담기" onclick="cartFunc()"/>
 						<input class="button" type="button" id="orderList" value="구매하기" onclick="buyFunc()" />
 					</div>
-				</form:form>
+					</form>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
@@ -142,5 +190,12 @@
 	<!-- navbar -->
 	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp"></jsp:include>
 	<!-- end navbar -->
+	<script
+	src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </body>
 </html>

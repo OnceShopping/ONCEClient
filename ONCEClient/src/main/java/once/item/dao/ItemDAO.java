@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 public interface ItemDAO {
 
@@ -51,4 +52,5 @@ public interface ItemDAO {
 
 	List<ItemVO> selectKidItemList4();
 
+	void minCnt(OrderVO order);
 }

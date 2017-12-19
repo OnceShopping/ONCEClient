@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="once.order.dao.OrderDAO">
+
+	<!-- order insert -->
+	 <insert id="addOrder" parameterType="OrderVO">
+    	insert into orderList (memNo, count, storeNo, totalPrice, oriPrice, salePrice, date)
+    	values (#{memNo}, #{count}, #{storeNo}, #{totalPrice}, #{oriPrice}, #{salePrice}, curdate())
+    </insert>
+    
+	 <insert id="addOrderDetail" parameterType="OrderDetailVO">
+    	<choose>
+ 			<when test="salePrice != 0">
+		 		insert into OrderDetail (orderNo, price, detailNo, count) values (#{orderNo}, #{salePrice}, #{detailNo}, #{count})
+ 			</when>
+ 			<otherwise>
+ 				insert into OrderDetail (orderNo, price, detailNo, count) values (#{orderNo}, #{price}, #{detailNo}, #{count})
+ 			</otherwise>
+ 		</choose>
+    </insert>
+    
+     <select id="findNum" resultType="INT">
+    	select Max(orderNo)
+    	from orderList
+    </select>
+    
+    <update id="updateFloor" parameterType="OrderVO">
+    	update orderList
+    	set floor = #{floor}
+    	where orderNo = #{orderNo}
+    </update>
+    
+</mapper>

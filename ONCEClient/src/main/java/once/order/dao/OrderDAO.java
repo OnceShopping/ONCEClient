@@ -1,8 +1,11 @@
 package once.order.dao;
 
-import once.item.vo.ItemContentsVO;
+import once.order.vo.OrderVO;
 
 public interface OrderDAO {
 
+	OrderVO addOrder(OrderVO order);
+
+	void updateFloor(OrderVO order);
 
 }

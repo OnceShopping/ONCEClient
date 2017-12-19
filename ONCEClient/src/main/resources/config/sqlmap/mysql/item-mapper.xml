@@ -31,10 +31,18 @@
 		where num = #{ num } and color=#{ color } and size=#{ size };
 	</select>
 	
+	<!-- 재고 확인 -->
 	<select id="checkCnt" parameterType="orderDetailVO" resultType="int">
 		select count from itemContents where detailNo = #{ detailNo }
 	</select>
 
+	 <!-- 주문 후 수량 변경 -->
+	 <update id="minCnt" parameterType="ItemContentsVO">
+    	update itemDetail
+    	set count = #{count}
+    	where detailNo = #{detailNo}
+    </update>
+	
 	<!-- 첫화면 상품 목록 -->
 	<select id="storeMainItem" parameterType="String" resultType="itemVO">
 		select * from item where regDate >= (curdate()-interval 14 day) and storeNo = #{ storeNo }
