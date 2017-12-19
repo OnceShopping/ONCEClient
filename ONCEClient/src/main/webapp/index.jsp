@@ -53,6 +53,7 @@
 	margin-right: auto !important;
 }
 
+
 #mainProduct, #mainShops {
 	margin-top: 0px;
 }
@@ -64,8 +65,8 @@
 <script src="resources/js/slick.min.js"></script>
 <script src="resources/js/owl.carousel.min.js"></script>
 <script src="resources/js/custom.js"></script>
-<script type="text/javascript">
-</script>
+<script type="text/javascript"></script>
+
 </head>
 <body>
 	<header>

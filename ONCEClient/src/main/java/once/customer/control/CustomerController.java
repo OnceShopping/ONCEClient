@@ -204,7 +204,6 @@ public class CustomerController {
 	public String faq() {
 		return "mypage/faq";
 	}
-
     
 	@RequestMapping("/menu/general")
 	 public String general() {

@@ -28,7 +28,14 @@ public class BoardQAController {
 	private StoreService Sservice;
 
 	@RequestMapping("/mypage/myqna")
-	public String myqna() {
+	public String myqna(Model model, HttpSession session) {
+		CustomerVO loginVO = (CustomerVO)session.getAttribute("loginVO");
+		
+		int memNo = loginVO.getMemNo();
+		
+		List<BoardQAVO> qnaList = service.selectQnAList(memNo);
+		model.addAttribute("qnaList", qnaList);
+		System.out.println(qnaList);
 		return "mypage/myqna";
 	}
 
@@ -62,8 +69,18 @@ public class BoardQAController {
 		boardQAVO.setWriter(loginVO.getId());
 		boardQAVO.setMemNo(loginVO.getMemNo());
 		service.insertDeptQA(boardQAVO);
-		return "mypage/myqna";
+		return "redirect:/mypage/myqna";
 	}
 	
+	@RequestMapping("/qnaDetail/{boardNo}")
+	public String selectQnA(@PathVariable int boardNo, Model model) {
+		
+		BoardQAVO boardQAVO = service.selectOneQnA(boardNo);
+		model.addAttribute("boardQAVO", boardQAVO);
+		BoardQAVO boardQAVO2 = service.selectQnAAnswer(boardNo);
+		model.addAttribute("boardQAVO2", boardQAVO2);
+		
+		return "mypage/qnaDetail";
+	}
 	
 }

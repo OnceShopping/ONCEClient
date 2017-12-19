@@ -28,7 +28,20 @@
  		 values(#{title}, #{writer}, #{content}, #{memNo}, #{category1}, #{category2}, #{category3}, curdate(), (select last_insert_id()+1))
  	</insert>
  	
-
+ 	<!-- 질문글 목록 조회  -->
+ 	<select id="selectQnAList" parameterType="int" resultType="BoardQAVO">
+ 	select boardNo, title, content, regDate, category1, category2, category3, staffNo from BoardQA where BoardQA.memNo = #{memNo} order by boardNo;
+ 	</select>
+ 	
+ 	<!-- 질문글 보기 -->
+ 	<select id="selectOneQnA" parameterType="int" resultType="BoardQAVO">
+ 	select boardNo, title, content, regDate, category1, category2, category3 from BoardQA where BoardQA.boardNo = #{boardNo}
+ 	</select>
+ 	
+ 	<!-- 답변보기 -->
+    <select id="selectQnAAnswer" parameterType="int" resultType="BoardQAVO">
+    select boardNo, title, content, regDate, category1, category2, category3, writer from BoardQA where BoardQA.parent = #{boardNo}
+    </select>
  	
  	<!-- 글번호 조회 -->
  	<select id="selectBoardByNo" parameterType="int" 

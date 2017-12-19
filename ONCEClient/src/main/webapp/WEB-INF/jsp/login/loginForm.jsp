@@ -70,7 +70,7 @@
   					<label for="checkbox1">자동 로그인</label>
 				</div>
 				<input type="submit" value="Login" class="button"/>
-				<div class="create-account">아직 회원이 아니신가요?<a href="">회원가입</a></div>
+				<div class="create-account">아직 회원이 아니신가요?<a href="${ pageContext.request.contextPath }/signup/terms">회원가입</a></div>
 			</form>
 		</div>
 	</div>

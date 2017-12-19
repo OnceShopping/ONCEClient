@@ -74,65 +74,9 @@
 </head>
 <body>
 	<header>
-		<!-- 상단 navbar -->
-		<div class="navbar">
-			<div class="container">
-				<div class="panel-control-left">
-					<a href="#" data-activates="slide-out-left"
-						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-				</div>
-				<div class="site-title">
-					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-				</div>
-				<div class="panel-control-right">
-					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-				</div>
-			</div>
-		</div>
-		<!-- 상단 navbar 끝 -->
-		<!-- 좌측 메뉴패널 -->
-		<div class="panel-control-right">
-			<ul id="slide-out-left" class="side-nav collapsible"
-				data-collapsible="accordion">
-				<li>
-					<div class="photos">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/photos.png"
-							alt="">
-						<h3>경준이</h3>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>층별 매장보기<span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 좌측 메뉴패널 끝 -->
+		<!-- navbar -->
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp" flush="false"></jsp:include>
+	<!-- end navbar -->
 	</header>
 	
 	<section>
@@ -155,26 +99,9 @@
 	</section>
 	
 		<footer>
-		<div class="container">
-			<h6>Find & follow us</h6>
-			<ul class="icon-social">
-				<li class="facebook"><a href=""><i class="fa fa-facebook"></i></a></li>
-				<li class="twitter"><a href=""><i class="fa fa-twitter"></i></a></li>
-				<li class="google"><a href=""><i class="fa fa-google"></i></a></li>
-				<li class="instagram"><a href=""><i class="fa fa-instagram"></i></a></li>
-				<li class="rss"><a href=""><i class="fa fa-rss"></i></a></li>
-			</ul>
-			<div class="tel-fax-mail">
-				<ul>
-					<li><span>Tel:</span> 900000002</li>
-					<li><span>Fax:</span> 0400000098</li>
-					<li><span>Email:</span> info@youremail.com</li>
-				</ul>
-			</div>
-		</div>
-		<div class="ft-bottom">
-			<span>Copyright © 2017 All Rights Reserved </span>
-		</div>
+		<!-- footer -->
+	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	<!-- end footer -->
 	</footer>
 	<!-- footer 끝 -->
 
