@@ -22,13 +22,54 @@
 		select distinct size from itemcontents where num = #{ num };
 	</select>
 
-	<!-- 장바구니 상품 선택 -->
+	<!-- 장바구니, 결재 상품 선택 -->
 	<select id="addCartItem" parameterType="itemContentsVO"
 		resultType="itemContentsVO">
-		select num, storeNo, itemName, price, salePrice, startDate, endDate, color, size,
+		select num, storeNo, itemName, price, salePrice, startDate, endDate, color, detailNo, size, count,
 		imgSaveName, imgSize, imgOriName
 		from itemContents
 		where num = #{ num } and color=#{ color } and size=#{ size };
+	</select>
+	
+	<select id="checkCnt" parameterType="orderDetailVO" resultType="int">
+		select count from itemContents where detailNo = #{ detailNo }
+	</select>
+
+	<!-- 첫화면 상품 목록 -->
+	<select id="storeMainItem" parameterType="String" resultType="itemVO">
+		select * from item where regDate >= (curdate()-interval 14 day) and storeNo = #{ storeNo }
+	</select>
+	
+	<!-- 선택 및 검색 -->
+	<select id="storeSelectItem" parameterType="hashMap" resultType="itemVO">
+		select * from item 
+		<where>
+			storeNo = #{ storeNo }
+			<choose>
+				<when test="category1 != null and category2 != null">
+					and itemCategory1 = #{category1} and itemCategory2 = #{category2}
+				</when>
+				<when test="category2 == 'new'">
+					and regDate >= (curdate()-interval 14 day);				
+				</when>
+				<otherwise>
+					and itemName like '%${category2}%'
+				</otherwise>
+			</choose>
+		</where>
+		<if test="order != null">
+			<choose>
+				<when test="order == '신상품순'">
+					order by regdate desc
+				</when>
+				<when test="order == '높은가격순'">
+					order by price desc
+				</when>
+				<when test="order == '낮은가격순'">
+					order by price asc
+				</when>
+			</choose>
+		</if>
 	</select>
 	
 	<select id="selectMenItem" parameterType="String" resultType="itemVO">
@@ -94,5 +135,5 @@
 	<select id="selectKidItemList4" parameterType="String" resultType="itemVO">
 	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '잡화';
 	</select>
-  
+
 </mapper>

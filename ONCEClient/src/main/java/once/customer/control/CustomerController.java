@@ -34,8 +34,7 @@ public class CustomerController {
 	@RequestMapping(value = "/login/login", method = RequestMethod.GET)
 	public String login(CustomerVO customer, HttpSession session, HttpServletRequest request, Model model) {
 
-		String loginId = "";
-
+		String loginId = null;
 		Cookie sCookie = null;
 
 		try {
@@ -58,7 +57,14 @@ public class CustomerController {
 			customer.setSaveId(true);
 			customer.setId(loginId);
 		}
+		
 		model.addAttribute("customer", customer);
+
+		session.removeAttribute("productList");
+		session.removeAttribute("listJSON");
+		session.removeAttribute("storeList");
+		session.removeAttribute("storeJSON");
+		
 		return "login/loginForm";
 	}
 
@@ -175,9 +181,13 @@ public class CustomerController {
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
 		}
-		session.removeAttribute("loginVO");
+				
 		session.removeAttribute("productList");
 		session.removeAttribute("listJSON");
+		session.removeAttribute("storeList");
+		session.removeAttribute("storeJSON");
+		session.removeAttribute("loginVO");
+		
 		session.invalidate();
 		
 		System.out.println("로그아웃 성공");

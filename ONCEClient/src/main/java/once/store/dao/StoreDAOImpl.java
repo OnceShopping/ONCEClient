@@ -16,23 +16,29 @@ public class StoreDAOImpl implements StoreDAO {
 
 	@Override
 	public List<StoreVO> selectStoreList(String floor) {
-
 		List<StoreVO> storeList = sqlSession.selectList("once.store.dao.StoreDAO.selectAllStore", floor);
-
 		return storeList;
 	}
 
 	@Override
+	public StoreVO selectOneStore(String storeName) {
+		return sqlSession.selectOne("once.store.dao.StoreDAO.selectOneStore", storeName);
+  }
+  
 	public List<StoreVO> selectStoreListQA() {
-		
 		List<StoreVO> storeListQA = sqlSession.selectList("once.store.dao.StoreDAO.selectStoreListQA");
 		return storeListQA ;
 	}
 
 	@Override
 	public List<StoreVO> selectPopStoreList() {
-		
 		List<StoreVO> popStoreList = sqlSession.selectList("once.store.dao.StoreDAO.selectPopStoreList");
 		return popStoreList;
+	}
+
+	@Override
+	public StoreVO selectStore(String storeNo) {
+		StoreVO store = sqlSession.selectOne("once.store.dao.StoreDAO.selectStore", storeNo);
+		return store;
 	}
 }
