@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,9 +41,6 @@
     font-size: 12px;
 }
 </style>
-
-
-
 </head>
 <body>
 
@@ -55,52 +51,49 @@
 	</header>
 	
 	<section>
-	<div class="grid-app app-pages app-section">
+	<div class="forumsingle-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h2>1:1 문의</h2>
+				<h3>MyQnA</h3>
 			</div>
-			<h4>어떤 문의를 하고 싶으세요?</h4>
 			<div class="row">
-				<div class="col s4"><a href="${pageContext.request.contextPath}/mypage/writeForm/Dept"><div class="button">백화점</div></a></div>
-				<div class="col s4"><a href="${pageContext.request.contextPath}/mypage/writeForm/Store"><div class="button">매장</div></a></div>
-				<div class="col s4"><a href="${pageContext.request.contextPath}/mypage/writeForm/Info"><div class="button">주문/수령</div></a></div>
+				<div class="col s12">
+					<div class="entry">
+						<div class="head">
+							<div class="title">
+								${ boardQAVO.title }
+							</div>
+							<i class="fa fa-calendar">&nbsp;${ boardQAVO.regDate }</i> 
+							<span>${ boardQAVO.category2 }</span>
+							<span>${ boardQAVO.category3 }</span>
+						</div>
+						<div class="content">
+							<p>${ boardQAVO.content }</p>
+						</div>
+						<div class="entry-forum">
+							<div class="row">
+								<div class="col s12">
+									<div class="entry">
+										<div class="head">
+											<i class="fa fa-user">&nbsp;${ boardQAVO2.writer }</i>
+											<span><i class="fa fa-calendar">&nbsp;${ boardQAVO2.regDate }</i></span>
+										</div>
+										<div class="content">
+											<p>${ boardQAVO2.content }</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	<div class="table-app app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-				<h3>나의 Q&A</h3>
-			</div>
-			<table class="bordered">
-				<thead>
-					<tr>
-						<th>분류</th>
-						<th>제목</th>
-						<th>작성일</th>
-						<!-- <th>상태</th> -->
-					</tr>
-				</thead> 
-				<tbody>
-				  <c:forEach var="boardQA" items="${ qnaList }">
-					<c:if test="${ boardQA.staffNo eq 0}">
-					<tr>
-						<td>${ boardQA.category1 }</td>
-						<td><a href="${pageContext.request.contextPath}/qnaDetail/${boardQA.boardNo}">${ boardQA.title }</a></td>
-						<td>${ boardQA.regDate }</td>
-						<!-- <td id="status"></td> -->
-					</tr>
-				   </c:if>
-			      </c:forEach>
-				</tbody>
-			</table>
 		</div>
 	</div>
 	</section>
 	
 	<footer>
-		<!-- footer -->
+			<!-- footer -->
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	</footer>
@@ -117,6 +110,5 @@
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
-
 </body>
 </html>
