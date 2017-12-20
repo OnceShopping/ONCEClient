@@ -32,4 +32,10 @@ public class OrderVO {
 
 	private String site;
 	
+	//item
+	//private String itemName;
+	
+	//store
+	private String imgSaveName;
+	
 }

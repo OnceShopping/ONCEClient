@@ -1,5 +1,10 @@
 package once.order.control;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -13,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -439,4 +443,107 @@ public class OrderController {
 		return "order/paySuccess";
 	}
 
+	//주문 리스트 보기
+	@RequestMapping(value = "/order/status", method=RequestMethod.GET)
+	public ModelAndView orderList(HttpSession session) {
+		
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
+	
+		
+		List<OrderVO> orderList = new ArrayList<>();
+		List<OrderDetailVO> detailList = new ArrayList<>();
+		//테스트 용
+		orderList = service.showOrderList(2);
+		
+		/*//추후 풀어주어야함
+		if(login!=null)
+			orderList = service.showOrderList(login.getMemNo());
+		*/	
+		
+		//이미지를 일정 경로에 복사
+		for(int i=0; i<orderList.size(); i++)
+			try {
+				copyImg(orderList.get(i).getImgSaveName());
+			} catch (IOException e) {
+				e.printStackTrace();
+			};
+			
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("orderList", orderList);
+		mav.addObject("customer", login);
+		mav.setViewName("mypage/orderReceipt/status");	
+		
+		return mav;
+	}
+	
+	//주문 상세 보기
+	@RequestMapping(value="/order/{orderNo}")
+	public ModelAndView detailOrder(@PathVariable("orderNo") int orderNo, HttpSession session) {
+		
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
+		
+		List<OrderDetailVO> detailList = new ArrayList<>();
+	
+		//테스트용
+		detailList = service.showDetailList(orderNo);
+		
+		/*//추후 풀어주어야함
+		if(login!=null)
+			detailList = service.showDetailList(orderNo);
+		*/ 
+		//이미지를 일정 경로에 복사
+		for(int i=0; i<detailList.size(); i++)
+			try {
+				copyImg(detailList.get(i).getImgSaveName());
+			} catch (IOException e) {
+				e.printStackTrace();
+		};
+					
+			
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("detailList", detailList);
+		mav.addObject("customer", login);
+		
+		mav.setViewName("mypage/orderReceipt/detail");
+		
+		return mav;
+	}
+	
+	//주문 내역
+	@RequestMapping(value="/mypage/orderHistory")
+	public ModelAndView orderHistory(HttpSession session) {
+		
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");	
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("mypage/orderHistory/history");
+		return mav;
+	}
+	
+	//이미지를 일정 경로에 복사
+	public void copyImg(String imageName) throws IOException{
+		String oriName="F:\\1.Bit\\web\\eclipse_work\\wtpwebapps\\ONCEAdmin\\upload\\" + imageName;
+		String replace = "C:\\Once\\image\\" + imageName;
+		
+		InputStream in = new FileInputStream(oriName);
+		OutputStream out = new FileOutputStream(replace);
+		
+		int bData;
+		byte[] buff= new byte[1024]; 
+		
+		while(true){
+			bData = in.read(buff); 
+
+			if(bData==-1){
+				break;
+			}
+			out.write(buff);
+		}
+				
+		in.close(); 
+		out.close(); 
+	}
+	
 }
