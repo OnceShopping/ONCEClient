@@ -135,7 +135,7 @@ public class ItemDAOImpl implements ItemDAO {
 		return kidItemList4;
 	}
 
-  @Override
+	@Override
 	public ItemVO getItem(int num) {
 		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
 		return itemVO;

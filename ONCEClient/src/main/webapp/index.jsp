@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,8 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+<link rel="stylesheet"
+	href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
 <style type="text/css">
 .normal {
@@ -53,7 +54,6 @@
 	margin-right: auto !important;
 }
 
-
 #mainProduct, #mainShops {
 	margin-top: 0px;
 }
@@ -65,8 +65,6 @@
 <script src="resources/js/slick.min.js"></script>
 <script src="resources/js/owl.carousel.min.js"></script>
 <script src="resources/js/custom.js"></script>
-<script type="text/javascript"></script>
-
 </head>
 <body>
 	<header>
@@ -79,7 +77,7 @@
 				<img src="resources/img/main2.png" alt="">
 				<div class="overlay"></div>
 				<div class="caption">
-					<div class="container">-
+					<div class="container">
 						<h2 class="bold">내부 공사 안내</h2>
 						<p class="light">일시: 8/28 ~ 10/14 위치: 2F-A</p>
 						<button class="button">더 보기</button>
@@ -139,67 +137,171 @@
 						<div id="tabs1">
 							<br />
 							<div class="row">
-							 <c:forEach var="menitem" items="${ itemList }">
 								<div class="col s6">
 									<div class="entry">
 										<img src="resources/img/store1.png" alt="">
 										<h6>
-											<a href="">${ menitem.itemName }</a>
+											<a href="${ pageContext.request.contextPath }/item/itemDetail/S3F02_17">플러피후리스풀짚재킷</a>
 										</h6>
 										<div class="price">
-											<h5>${ menitem.price }</h5>
+											<h5>19,900원</h5>
 										</div>
-										<button class="button">ADD TO CART</button>
-										<br/>
+										<button class="button" onclick="location.href='${ pageContext.request.contextPath }/shoppingCart/addItem/17'">ADD TO CART</button>
 									</div>
 								</div>
-								</c:forEach> 
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store2.png" alt="">
+										<h6>
+											<a href="${ pageContext.request.contextPath }/item/itemDetail/S3F02_18">보아스웨트풀짚파카</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button" onclick="location.href='${ pageContext.request.contextPath }/shoppingCart/addItem/18'">ADD TO CART</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store3.png" alt="">
+										<h6>
+											<a href="${ pageContext.request.contextPath }/item/itemDetail/S1F01_1">스트릿 다운 베스트</a>
+										</h6>
+										<div class="price">
+											<h5>19,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store4.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div id="tabs2">
 							<br />
 							<div class="row">
-							<c:forEach var="womenitem" items="${ itemList2 }">
 								<div class="col s6">
 									<div class="entry">
 										<img src="resources/img/store5.png" alt="">
 										<h6>
-											<a href="">${ womenitem.itemName }</a>
+											<a href="">item1</a>
 										</h6>
 										<div class="price">
-											<h5>${ womenitem.price }</h5>
+											<h5>19,900원</h5>
 										</div>
 										<button class="button">ADD TO CART</button>
-										<br/>
 									</div>
 								</div>
-								</c:forEach>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store1.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store2.png" alt="">
+										<h6>
+											<a href="">item1</a>
+										</h6>
+										<div class="price">
+											<h5>19,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store3.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div id="tabs3">
 							<br />
 							<div class="row">
-							<c:forEach var="kiditem" items="${ itemList3 }">
 								<div class="col s6">
 									<div class="entry">
 										<img src="resources/img/store4.png" alt="">
 										<h6>
-											<a href="">${ kiditem.itemName } </a>
+											<a href="">item1</a>
 										</h6>
 										<div class="price">
-											<h5>${ kiditem.price } </h5>
+											<h5>19,900원</h5>
 										</div>
 										<button class="button">ADD TO CART</button>
-										<br/>
 									</div>
 								</div>
-								</c:forEach>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store5.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store1.png" alt="">
+										<h6>
+											<a href="">item1</a>
+										</h6>
+										<div class="price">
+											<h5>19,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store2.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div id="tabs4">
 							<br />
 							<div class="row">
-							<c:forEach var="general" items="${ itemList4 }">
 								<div class="col s6">
 									<div class="entry">
 										<img src="resources/img/store3.png" alt="">
@@ -212,14 +314,52 @@
 										<button class="button">ADD TO CART</button>
 									</div>
 								</div>
-								</c:forEach>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store4.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store5.png" alt="">
+										<h6>
+											<a href="">item1</a>
+										</h6>
+										<div class="price">
+											<h5>19,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
+								<div class="col s6">
+									<div class="entry">
+										<img src="resources/img/store1.png" alt="">
+										<h6>
+											<a href="">item2</a>
+										</h6>
+										<div class="price">
+											<h5>29,900원</h5>
+										</div>
+										<button class="button">ADD TO CART</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		</div>
+		</div>
 		<!-- 인기매장 리스트 -->
 		<div class="collapsible-app app-pages app-section" id="mainShops">
 			<div class="container">
@@ -229,18 +369,40 @@
 					<p class="light" style="text-align: right;">판매량순</p>
 				</div>
 				<div class="entry">
-				<c:forEach var="popStore" items="${ popStoreList }">
 					<ul class="collapsible" data-collapsible="accordion">
 						<li>
 							<div class="collapsible-header acc-collapsible">
-								${ popStore.storeName }  <img src="resources/img/up.gif" width="4%"  style="margin-bottom: 0.5%"><i class="fa fa-caret-down"></i>
+								1 아디다스  <img src="resources/img/up.gif" width="4%"  style="margin-bottom: 0.5%"><i class="fa fa-caret-down"></i>
 							</div>
 							<div class="collapsible-body">
-								<p>위치:${ popStore.floor } &nbsp;&nbsp;&nbsp;&nbsp; 매장 전화번호:${ popStore.phone }</p>
+								<p>위치:2F &nbsp;&nbsp;&nbsp;&nbsp; 매장 전화번호:02-2222-2222</p>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header acc-collapsible">
+								2 빈폴  <img src="resources/img/down.gif" width="4%"  style="margin-bottom: 0.5%"><i class="fa fa-caret-down"></i>
+							</div>
+							<div class="collapsible-body">
+								<p>위치:4F &nbsp;&nbsp;&nbsp;&nbsp; 매장 전화번호:02-1234-1234</p>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header acc-collapsible">
+								3 유니클로 <i class="fa fa-caret-down"></i>
+							</div>
+							<div class="collapsible-body">
+								<p>위치:1F &nbsp;&nbsp;&nbsp;&nbsp; 매장 전화번호:02-1111-1234</p>
+							</div>
+						</li>
+						<li>
+							<div class="collapsible-header acc-collapsible">
+								4 뉴발란스  <img src="resources/img/new.gif" width="7%"  style="margin-bottom: 1%"><i class="fa fa-caret-down"></i>
+							</div>
+							<div class="collapsible-body">
+								<p>위치:5F &nbsp;&nbsp;&nbsp;&nbsp; 매장 전화번호:02-1234-5555</p>
 							</div>
 						</li>
 					</ul>
-					</c:forEach>
 				</div>
 			</div>
 
@@ -249,7 +411,6 @@
 	</section>
 
 	<!-- footer -->
-	
 	<footer>
 		<jsp:include page="WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	</footer>
@@ -259,10 +420,17 @@
 	<div class="w3-bottom">
 		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 			<a href="#" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<c:choose>
+					<c:when test="${ empty loginVO }">
+						<a href="${pageContext.request.contextPath}/login/loginForm"  style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/mypage/shoppingCart"  style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+					</c:otherwise>
+				</c:choose>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

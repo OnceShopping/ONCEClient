@@ -32,14 +32,14 @@
 				<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
 			</div>
 			<div class="panel-control-right">
-				<c:choose>
-					<c:when test="${ empty loginVO }">
-						<a href="${pageContext.request.contextPath}/mypage/shoppingCart"><i class="fa fa-shopping-cart"></i></a>
-					</c:when>
-					<c:otherwise>
-						<a onclick="msg()" href="${pageContext.request.contextPath}/login/loginForm"><i class="fa fa-shopping-cart"></i></a>
-					</c:otherwise>
-				</c:choose>
+			<c:choose>
+				<c:when test="${ empty loginVO }">
+				<a onclick="msg()" href="${pageContext.request.contextPath}/login/loginForm"><i class="fa fa-shopping-cart"></i></a>
+				</c:when>
+				<c:otherwise>
+				<a href="${pageContext.request.contextPath}/mypage/shoppingCart"><i class="fa fa-shopping-cart"></i></a>
+				</c:otherwise>
+			</c:choose>
 			</div>
 		</div>
 	</div>
@@ -106,16 +106,16 @@
 			<li>
 				<div class="menuSpace"></div>
 			</li>
-     	<c:choose>
-		<c:when test="${ not empty loginId or not empty loginVO }">
-		<li><a href="${pageContext.request.contextPath}/login/loginForm"><i class="fa fa-sign-in"></i>로그인</a></li>
-        <li><div class="menuSpace"></div></li>
-		<li><a href="${ pageContext.request.contextPath }/signup/terms"><i class="fa fa-user-plus"></i>회원가입</a></li>
-		</c:when>
-		<c:otherwise>		
-		<li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out"></i>로그아웃</a></li>
-		</c:otherwise>
-		</c:choose>
+			<c:choose>
+			<c:when test="${ empty loginVO }">
+				<li><a href="${pageContext.request.contextPath}/login/loginForm"><i class="fa fa-sign-in"></i>로그인</a></li>
+		        <li><div class="menuSpace"></div></li>
+				<li><a href="${ pageContext.request.contextPath }/signup/terms"><i class="fa fa-user-plus"></i>회원가입</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out"></i>로그아웃</a></li>
+			</c:otherwise>
+			</c:choose>	
 		</ul>
 	</div>
 	<!-- 좌측 메뉴패널 끝 -->
