@@ -150,7 +150,7 @@
 						<table style="width: 100%;">
 							<tr>
 								<td rowspan="5" colspan="2" style="width: 55%; height: 150px;">
-								<img name ="HH" src="/image/mlec-0f1afa8b-fc33-427b-bab0-797e8150beb8.jpg" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+								<img name ="HH" src="/image/${ detail.imgSaveName }" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
 								</td>
 								<td><span class="semi">상품 명: ${detail.itemName}</span></td>
 							</tr>

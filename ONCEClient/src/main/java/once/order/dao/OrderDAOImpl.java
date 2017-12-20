@@ -41,6 +41,9 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<OrderVO> showOrderList(int memNo) {
 		List<OrderVO> list = sqlSession.selectList("once.order.dao.OrderDAO.showOrderList", memNo);
+		
+		for(int i=0; i<list.size(); i++)
+			list.get(i).setOrderDetails(showDetailList(list.get(i).getOrderNo()));
 		return list;
 	}
 

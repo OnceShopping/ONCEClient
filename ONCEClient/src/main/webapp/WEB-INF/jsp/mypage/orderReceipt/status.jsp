@@ -53,12 +53,12 @@
 		padding: 3px !important;	
 	}
 	.No{
-		background: #EEE9FE;
-		padding: 5px;
 		font-weight: bold;
 	}
 	.status{
-		padding: 4px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+		font-weight:bold; 
 	}
 	#nothing{
 		font-size: 10px;
@@ -76,7 +76,23 @@
 			if($('#id').value==null){
 				alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
 				//location.href="${pageContext.request.contextPath}/login/login";
-			}		
+			}
+			
+			var statusVal=$('.status').val();
+			
+			if(statusVal=="상품승인완료"){
+				$(this).css("color","#AED4EF");
+			}else if(statusVal=="상품승인완료"){
+				$(this).css("color","#85B8ED");
+			}else if(statusVal=="상품전달완료"){
+				$(this).css("color","#138BE2");
+			}else if(statusVal=="상품준비완료"){
+				$(this).css("color","#EE246C");
+			}else{
+				$(this).css("color","#9085D0");
+			}
+			
+				
 		});
 	</script>
 </head>
@@ -159,13 +175,27 @@
 							<div class="orderTable" onclick="location.href='${pageContext.request.contextPath}/order/'+${order.orderNo}">
 								<table style="width: 100%;">
 									<tr>
-										<td colspan="3" class="No">주문 번호 : ${order.orderNo}</td>
+										<td colspan="2" style="background: #EEE9FE;"><div class="No">주문 번호 : ${order.orderNo}</div></td>
 									</tr>
 									<tr>
-										<td rowspan="4" colspan="2" style="width: 40%;">
-											<img name ="HH" src="'/image/'${order.imgSaveName}" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+										<td rowspan="5" style="width: 60%;">
+											<c:choose>
+												<c:when test="${empty order.imgSaveName}">
+													<img src="/image/${order.imgSaveName}" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+												</c:when>
+												<c:otherwise>
+													<div width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">${ order.storeName }</div>
+												</c:otherwise>
+											</c:choose>
 										</td>
-										<td>상품 제목 : </td>
+										<c:choose>
+											<c:when test="${order.count ne 1}">
+												<td style="width: 40%;">상품 제목 : ${order.orderDetails[0].itemName}외 ${order.count -1}</td>
+											</c:when>
+											<c:otherwise>
+												<td style="width: 40%;">상품 제목 : ${order.orderDetails[0].itemName}</td>
+											</c:otherwise>
+										</c:choose>
 									</tr>
 									<tr>
 										<td>구매 수량 : ${order.count}</td>
@@ -174,10 +204,10 @@
 										<td>구매 일자  : ${order.date}</td>
 									</tr>
 									<tr>
-										<td>주문 금액  : ${order.totalPrice}</td>
+										<td>주문 금액  : ${order.totalPrice} 원</td>
 									</tr>
 									<tr>
-										<td  colspan="3"><div class="status">상태  : ${order.status}</div></td>
+										<td><div class="status">상태  : ${order.status}</div></td>
 									</tr>
 								</table>
 							</div>

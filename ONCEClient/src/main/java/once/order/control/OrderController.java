@@ -449,9 +449,9 @@ public class OrderController {
 		
 		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
 	
-		ModelAndView mav = new ModelAndView();
-		List<OrderVO> orderList = new ArrayList<>();
 		
+		List<OrderVO> orderList = new ArrayList<>();
+		List<OrderDetailVO> detailList = new ArrayList<>();
 		//테스트 용
 		orderList = service.showOrderList(2);
 		
@@ -467,6 +467,8 @@ public class OrderController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			};
+			
+		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("orderList", orderList);
 		mav.addObject("customer", login);
@@ -490,7 +492,15 @@ public class OrderController {
 		if(login!=null)
 			detailList = service.showDetailList(orderNo);
 		*/ 
-		
+		//이미지를 일정 경로에 복사
+		for(int i=0; i<detailList.size(); i++)
+			try {
+				copyImg(detailList.get(i).getImgSaveName());
+			} catch (IOException e) {
+				e.printStackTrace();
+		};
+					
+			
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("detailList", detailList);
@@ -505,9 +515,7 @@ public class OrderController {
 	@RequestMapping(value="/mypage/orderHistory")
 	public ModelAndView orderHistory(HttpSession session) {
 		
-		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
-		
-		
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");	
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("mypage/orderHistory/history");
@@ -517,7 +525,7 @@ public class OrderController {
 	//이미지를 일정 경로에 복사
 	public void copyImg(String imageName) throws IOException{
 		String oriName="F:\\1.Bit\\web\\eclipse_work\\wtpwebapps\\ONCEAdmin\\upload\\" + imageName;
-		String replace = "C:\\Once\\" + imageName;
+		String replace = "C:\\Once\\image\\" + imageName;
 		
 		InputStream in = new FileInputStream(oriName);
 		OutputStream out = new FileOutputStream(replace);

@@ -32,4 +32,19 @@
     	where orderNo = #{orderNo}
     </update>
     
+    <!-- 주문/수령 -->
+    <select id="showOrderList" parameterType="INT" resultType="OrderVO">
+		select orderNo, status, count, storeNo, date_format(date, '%y-%m-%d') as date, totalPrice, imgSaveName, imgSize, itemName, storeName
+ 		from Orders
+ 		where memNo = #{memNo} and  date=curdate();
+	</select>
+	
+	 <!-- 주문/수령_상세정보-->
+	<select id="showDetailList" parameterType="INT" resultType="OrderDetailVO">
+		select itemName, size, color, count, price, imgSaveName, imageSize
+		from detailList
+		where orderNo = #{orderNo}
+	</select>
+	
+	
 </mapper>

@@ -33,7 +33,7 @@ public class OrderVO {
 	private String site;
 	
 	//item
-	private String itemName;
+	//private String itemName;
 	
 	//store
 	private String imgSaveName;
