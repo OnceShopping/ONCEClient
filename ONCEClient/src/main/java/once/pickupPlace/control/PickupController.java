@@ -10,4 +10,5 @@ public class PickupController {
 
 	@Autowired
 	private PickupPlaceService service;
+
 }

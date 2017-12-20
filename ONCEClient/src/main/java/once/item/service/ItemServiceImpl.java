@@ -10,6 +10,8 @@ import once.item.dao.ItemDAO;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
+import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -149,6 +151,16 @@ public class ItemServiceImpl implements ItemService {
 	public List<ItemImgVO> selectByNum(int num) {
 		List<ItemImgVO> imgList = dao.selectByNum(num);
 		return imgList;
+    
+	public int checkCnt(OrderDetailVO preOrderDetail) {
+		
+		return dao.checkCnt(preOrderDetail);
+	}
+  
+	@Override
+	public List<ItemVO> selectStoreMainItem(String storeNo) {
+		List<ItemVO> storeItem = dao.selectStoreMainItem(storeNo);
+		return storeItem;
 	}
 
 	@Override
@@ -171,5 +183,10 @@ public class ItemServiceImpl implements ItemService {
 		return itemVO;
 	}
 */
+	
+	@Override
+	public void minCnt(OrderVO order) {
+		dao.minCnt(order);
+	}
 	
 }

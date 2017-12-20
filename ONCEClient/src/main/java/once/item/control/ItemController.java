@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import once.item.service.ItemService;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemImgVO;
@@ -165,10 +167,16 @@ public class ItemController {
 		int num = Integer.parseInt(array[1]);
 		
 		ItemVO itemVO = service.getItem(num);
+		itemVO.setStoreNo(storeNo);
 			
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
+
+		Gson gson = new Gson();
+		String itemJSON = gson.toJson(itemVO);
+		
 		model.addAttribute("itemVO", itemVO);
+		model.addAttribute("itemJSON", itemJSON);
 		
 		return "item/itemDetail";
 	}

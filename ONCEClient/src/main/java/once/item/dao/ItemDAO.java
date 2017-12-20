@@ -6,9 +6,19 @@ import java.util.Map;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
+import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 public interface ItemDAO {
 
+	ItemVO getItem(int num);
+  
+	String[] getColorList(ItemVO itemVO);
+  
+	String[] getSizeList(ItemVO itemVO);
+  
+	int checkCnt(OrderDetailVO preOrderDetail);
+  
 	List<ItemVO> selectStoreMainItem(String storeNo);
 
   List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
@@ -59,5 +69,7 @@ public interface ItemDAO {
 /*
 	ItemVO getItem(int num);
 */
+  
+	void minCnt(OrderVO order);
 
 }

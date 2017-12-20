@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
+import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
@@ -179,11 +181,40 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 	
 	//경희 거
-/*	
+/*
+	@Override
+	public int checkCnt(OrderDetailVO preOrderDetail) {
+		
+		int count = sqlSession.selectOne("once.item.dao.ItemDAO.checkCnt", preOrderDetail);
+		
+		return count;
+	}
+
+  @Override
+	public List<ItemVO> selectStoreMainItem(String storeNo) {
+		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);
+		return storeItem;
+	}
+
 	@Override
 	public ItemVO getItem(int num) {
 		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
 		return itemVO;
 	}
 */	
+	
+	@Override
+	public void minCnt(OrderVO order) {
+	
+		for(int i=0; i<order.getOrderDetails().size(); i++) {
+			int count = sqlSession.selectOne("once.item.dao.ItemDAO.checkCnt", order.getOrderDetails().get(i));
+			
+			ItemContentsVO detail = new ItemContentsVO();
+			detail.setDetailNo(order.getOrderDetails().get(i).getDetailNo());
+			detail.setCount(count - order.getOrderDetails().get(i).getCount());
+			
+			sqlSession.insert("once.item.dao.ItemDAO.minCnt", detail);
+		}
+	}
+  
 }
