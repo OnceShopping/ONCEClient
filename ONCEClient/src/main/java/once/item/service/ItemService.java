@@ -2,6 +2,9 @@ package once.item.service;
 
 import java.util.List;
 import java.util.Map;
+
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 
 public interface ItemService {
@@ -38,14 +41,23 @@ public interface ItemService {
 
 	List<ItemVO> selectKidItemList4();
 
-	ItemVO getItem(int num);
-
 	List<ItemVO> selectStoreMainItem(String storeNo);
   
 	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
-  String[] getColorList(ItemVO itemVO);
+	ItemContentsVO selectOneItem(int num);
+
+	String selectByStoreNo(String storeNo);
+
+	List<ItemImgVO> selectByNum(int num);
 	
-  String[] getSizeList(ItemVO itemVO);
+	String[] getColorList(int num);
+
+	String[] getSizeList(int num);
+
+	//경희 거
+/*
+	ItemVO getItem(int num);
+*/
 
 }

@@ -2,6 +2,9 @@ package once.item.dao;
 
 import java.util.List;
 import java.util.Map;
+
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 
 public interface ItemDAO {
@@ -42,10 +45,19 @@ public interface ItemDAO {
 
 	List<ItemVO> selectKidItemList4();
 
-  ItemVO getItem(int num);
+	ItemContentsVO selectOneItem(int num);
 
-  String[] getColorList(ItemVO itemVO);
-	
-  String[] getSizeList(ItemVO itemVO);
+	String selectByStoreNo(String storeNo);
+
+	List<ItemImgVO> selectByNum(int num);
+
+	String[] getColorList(int num);
+
+	String[] getSizeList(int num);
+
+	//경희 거
+/*
+	ItemVO getItem(int num);
+*/
 
 }

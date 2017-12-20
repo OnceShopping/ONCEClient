@@ -365,9 +365,11 @@ $(document).ready(function() {
 							<c:forEach items="${ storeItem }" var="itemVO" begin="${ status.index }" end="${ status.count + status.step }">
 									<div class="col s6">
 										<div class="entry">
-											<img src="${pageContext.request.contextPath}/resources/img/store1.png" alt="">
+											<a href="${ pageContext.request.contextPath}/store/item/${itemVO.num}">
+												<img src="${pageContext.request.contextPath}/resources/img/store1.png" alt="">
+											</a>
 											<h6>
-												<a href="">${ itemVO.itemName }</a>
+												<a href="${ pageContext.request.contextPath}/store/item/${itemVO.num}">${ itemVO.itemName }</a>
 											</h6>
 											<div class="price">
 												<h5>${ itemVO.price }원</h5>
