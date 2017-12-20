@@ -68,6 +68,16 @@
 		padding-bottom: auto; 
 		margin-top: 50px;
 	}
+	.noImage{
+		width:120px;
+		height:150px;
+		text-align:center; 
+	 	margin-left: auto; 
+	 	margin-right: auto; 
+	 	display: block;
+	 	border : 1px solid #EBEBEB;
+	 	vertical-align: middle;
+	}
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -180,11 +190,11 @@
 									<tr>
 										<td rowspan="5" style="width: 60%;">
 											<c:choose>
-												<c:when test="${empty order.imgSaveName}">
+												<c:when test="${!empty order.imgSaveName}">
 													<img src="/image/${order.imgSaveName}" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
 												</c:when>
 												<c:otherwise>
-													<div width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">${ order.storeName }</div>
+													<div class="noImage">${ order.storeName }</div>
 												</c:otherwise>
 											</c:choose>
 										</td>
