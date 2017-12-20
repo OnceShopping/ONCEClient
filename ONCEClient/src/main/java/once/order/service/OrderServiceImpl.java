@@ -1,10 +1,12 @@
 package once.order.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import once.item.vo.ItemContentsVO;
 import once.order.dao.OrderDAO;
+import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
 
 @Service
@@ -24,4 +26,15 @@ public class OrderServiceImpl implements OrderService {
 		dao.updateFloor(order);
 	}
 
+	//주문 리스트 보기
+	@Override
+	public List<OrderVO> showOrderList(int memNo) {
+		return dao.showOrderList(memNo);
+	}
+	
+	//주문 상세 정보
+	@Override
+	public List<OrderDetailVO> showDetailList(int orderNo) {
+		return dao.showDetailList(orderNo);
+	}
 }

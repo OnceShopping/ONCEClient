@@ -1,5 +1,7 @@
 package once.order.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +35,19 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("dao_updateFloor: "+order);
 		sqlSession.update("once.order.dao.OrderDAO.updateFloor", order);
 	}
-	
+
+
+	//주문 리스트 보기
+	@Override
+	public List<OrderVO> showOrderList(int memNo) {
+		List<OrderVO> list = sqlSession.selectList("once.order.dao.OrderDAO.showOrderList", memNo);
+		return list;
+	}
+
+	//주문 상세 정보
+	@Override
+	public List<OrderDetailVO> showDetailList(int orderNo) {
+		List<OrderDetailVO> list = sqlSession.selectList("once.order.dao.OrderDAO.showDetailList", orderNo);
+		return list;
+	}
 }
