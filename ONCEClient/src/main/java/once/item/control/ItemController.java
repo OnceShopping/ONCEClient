@@ -5,28 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import com.google.gson.Gson;
 
 import once.item.service.ItemService;
-import once.store.service.StoreService;
-import once.item.vo.ItemVO;
-import once.store.vo.StoreVO;
 import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
+import once.item.vo.ItemVO;
+import once.store.service.StoreService;
+import once.store.vo.StoreVO;
 
 @Controller
 public class ItemController {
 
 	@Autowired
 	private ItemService service;
-	
 
 	@Autowired
 	private StoreService Sservice;
@@ -91,9 +90,77 @@ public class ItemController {
 	}
 
 
-	@RequestMapping(value = "/item/itemDetail/{storeNo_num}", method = RequestMethod.GET)
-	public String view(@PathVariable String storeNo_num, ItemContentsVO itemContentsVO, Model model) {
+	@RequestMapping(value="/item/{num}", method = RequestMethod.GET)
+	public ModelAndView indexItemDetail(@PathVariable int num, ItemContentsVO itemContentsVO) {
+		itemContentsVO = service.selectOneItem(num);
+		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
+		List<ItemImgVO> imgList = service.selectByNum(num);
+		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
+		
+		ItemVO itemVO = new ItemVO();
+		
+		String[] colorList = service.getColorList(num);
+		String[] sizeList = service.getSizeList(num);
+		
+		itemVO.setColorList(colorList);
+		itemVO.setSizeList(sizeList);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("itemContentsVO", itemContentsVO);
+		mav.addObject("itemVO", itemVO);
+		mav.addObject("storeName", storeName);
+		mav.addObject("imgList", imgList);
+		mav.addObject("newItemList", newItemList);
+		mav.setViewName("store/itemDetail");
+		return mav;
+	}
+	
+	@RequestMapping(value="/store/item/{num}", method = RequestMethod.GET)
+	public ModelAndView itemDetail(@PathVariable int num, ItemContentsVO itemContentsVO, Model model) {
+		itemContentsVO = service.selectOneItem(num);
+		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
+		List<ItemImgVO> imgList = service.selectByNum(num);
+		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
+		
+		ItemVO itemVO = new ItemVO();
+		
+		String[] colorList = service.getColorList(num);
+		String[] sizeList = service.getSizeList(num);
+		
+		itemVO.setColorList(colorList);
+		itemVO.setSizeList(sizeList);
 
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("itemContentsVO", itemContentsVO);
+		mav.addObject("itemVO", itemVO);
+		mav.addObject("storeName", storeName);
+		mav.addObject("imgList", imgList);
+		mav.addObject("newItemList", newItemList);
+		mav.setViewName("store/itemDetail");
+		return mav;
+	}
+	
+	@RequestMapping(value="/store/itemDetail", method = RequestMethod.POST)
+	public @ResponseBody ModelAndView showSelect(@RequestParam("itemName") String itemName, @RequestParam("sltColor") String sltColor, @RequestParam("sltSize") String sltSize, @RequestParam("idNo") int idNo, Model model) {
+	  
+	  ModelAndView mav = new ModelAndView();
+	  
+	  mav.setViewName("store/itemSelect");
+	  
+	  mav.addObject("sltColor", sltColor);
+	  mav.addObject("sltSize", sltSize);
+	  mav.addObject("idNo", idNo);
+	  mav.addObject("itemName", itemName);
+	            
+	  return mav;
+	}
+
+	//경희 거
+/*
+  	@RequestMapping(value = "/item/itemDetail/{storeNo_num}", method = RequestMethod.GET)
+	public String view(@PathVariable String storeNo_num, ItemContentsVO itemContentsVO, Model model) {
 		String[] array = storeNo_num.split("_");
 		
 		String storeNo = array[0];
@@ -102,9 +169,6 @@ public class ItemController {
 		ItemVO itemVO = service.getItem(num);
 		itemVO.setStoreNo(storeNo);
 			
-		String[] colorList = service.getColorList(itemVO);
-		String[] sizeList = service.getSizeList(itemVO);
-
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 
@@ -116,20 +180,6 @@ public class ItemController {
 		
 		return "item/itemDetail";
 	}
-	
-	@RequestMapping(value="/item/itemDetail", method = RequestMethod.GET)
-	public ModelAndView showSelect(@RequestParam("itemName") String itemName, @RequestParam("sltColor") String sltColor, @RequestParam("sltSize") String sltSize, @RequestParam("idNo") int idNo, Model model) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("item/itemSelect");
-		
-		mav.addObject("sltColor", sltColor);
-		mav.addObject("sltSize", sltSize);
-		mav.addObject("idNo", idNo);
-		mav.addObject("itemName", itemName);
-				
-		return mav;
-	}
+*/
 
 }

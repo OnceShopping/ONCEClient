@@ -3,6 +3,9 @@ package once.item.service;
 import java.util.List;
 
 import java.util.Map;
+
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
@@ -46,13 +49,27 @@ public interface ItemService {
 	int checkCnt(OrderDetailVO preOrderDetail);
 	
 	void minCnt(OrderVO order);
-  
+
 	List<ItemVO> selectStoreMainItem(String storeNo);
   
 	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
+	ItemContentsVO selectOneItem(int num);
+
+	String selectByStoreNo(String storeNo);
+
+	List<ItemImgVO> selectByNum(int num);
+	
+	String[] getColorList(int num);
+
+	String[] getSizeList(int num);
+
+	//경희 거
+/*
+	ItemVO getItem(int num);
+*/
+
 	String[] getColorList(ItemVO itemVO);
 	
 	String[] getSizeList(ItemVO itemVO);
-	
 }

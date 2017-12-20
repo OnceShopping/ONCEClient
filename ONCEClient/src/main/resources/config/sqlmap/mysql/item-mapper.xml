@@ -4,12 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="once.item.dao.ItemDAO">
 
-	<!-- 상품 선택 -->
-	<select id="getItem" parameterType="Integer" resultType="itemVO">
+	<!-- 아이템 상세 페이지 -->
+	<select id="selectOneItem" parameterType="int" resultType="ItemContentsVO">
 		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
 		price, saleTag, salePrice, startDate, endDate, detail
 		from item
-		where num = #{ num };
+		where num = #{num};
+	</select>
+
+	<!-- 아이템이 해당하는 매장 이름 -->
+	<select id="selectByStoreNo" parameterType="String" resultType="String">
+		select storeName
+		from store
+		where storeNo = #{storeNo};
+	</select>
+	
+	<!-- 아이템이 해당하는 이미지-->
+	<select id="selectByNum" parameterType="int" resultType="ItemImgVO">
+		select imgSaveName
+		from ImageTable
+		where num = #{num};
 	</select>
 
 	<!-- 상품 colorList 선택 -->
@@ -21,6 +35,16 @@
 	<select id="getSizeList" parameterType="itemVO" resultType="String">
 		select distinct size from itemcontents where num = #{ num };
 	</select>
+	
+<!-- 경희 거 
+	상품 선택
+	<select id="getItem" parameterType="Integer" resultType="itemVO">
+		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
+		price, saleTag, salePrice, startDate, endDate, detail
+		from item
+		where num = #{ num };
+	</select>
+ -->
 
 	<!-- 장바구니, 결재 상품 선택 -->
 	<select id="addCartItem" parameterType="itemContentsVO"

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import once.item.dao.ItemDAO;
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
@@ -123,24 +125,33 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemVO> kidItemList4 = dao.selectKidItemList4();
 		return kidItemList4;	}
 
-	public ItemVO getItem(int num) {
-		ItemVO itemVO = dao.getItem(num);
-		return itemVO;
-	}
-	 
 	@Override
-	public String[] getColorList(ItemVO itemVO) {
-		String[] colorList = dao.getColorList(itemVO);
-		return colorList;
+	public List<ItemVO> selectStoreMainItem(String storeNo) {
+		List<ItemVO> storeItem = dao.selectStoreMainItem(storeNo);
+		return storeItem;
 	}
 
 	@Override
-	public String[] getSizeList(ItemVO itemVO) {
-		String[] sizeList = dao.getSizeList(itemVO);
-		return sizeList;
+	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
+		List<ItemVO> storeItem = dao.selectStoreSearchItem(searchItem);
+		return storeItem;
+	}
+	
+	@Override
+	public ItemContentsVO selectOneItem(int num) {
+		return dao.selectOneItem(num);
 	}
 
 	@Override
+	public String selectByStoreNo(String storeNo) {
+		return dao.selectByStoreNo(storeNo);
+	}
+
+	@Override
+	public List<ItemImgVO> selectByNum(int num) {
+		List<ItemImgVO> imgList = dao.selectByNum(num);
+		return imgList;
+    
 	public int checkCnt(OrderDetailVO preOrderDetail) {
 		
 		return dao.checkCnt(preOrderDetail);
@@ -153,10 +164,25 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
-		List<ItemVO> storeItem = dao.selectStoreSearchItem(searchItem);
-		return storeItem;
+	public String[] getColorList(int num) {
+		String[] colorList = dao.getColorList(num);
+		return colorList;
 	}
+	
+	@Override
+	public String[] getSizeList(int num) {
+		String[] sizeList = dao.getSizeList(num);
+		return sizeList;
+	}
+	
+	//경희 거
+/*
+	@Override
+	public ItemVO getItem(int num) {
+		ItemVO itemVO = dao.getItem(num);
+		return itemVO;
+	}
+*/
 	
 	@Override
 	public void minCnt(OrderVO order) {

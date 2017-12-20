@@ -28,6 +28,8 @@ public class ItemContentsVO {
 	
 	private int count;
 	
+	private String detail;
+	
 	private String imgOriName;
 	private String imgSaveName;
 	private int imgSize;

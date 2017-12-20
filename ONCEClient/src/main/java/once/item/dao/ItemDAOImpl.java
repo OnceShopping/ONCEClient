@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
@@ -135,28 +136,52 @@ public class ItemDAOImpl implements ItemDAO {
 		return kidItemList4;
 	}
 
-  @Override
-	public ItemVO getItem(int num) {
-		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
-		return itemVO;
+	@Override
+	public List<ItemVO> selectStoreMainItem(String storeNo) {
+		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);
+		return storeItem;
+	}
+
+	@Override
+	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
+		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeSelectItem", searchItem);
+		return storeItem;
 	}
 	
 	@Override
-	public String[] getColorList(ItemVO itemVO) {
-		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", itemVO);
+	public ItemContentsVO selectOneItem(int num) {
+		return sqlSession.selectOne("once.item.dao.ItemDAO.selectOneItem", num);
+	}
+
+	@Override
+	public String selectByStoreNo(String storeNo) {
+		return sqlSession.selectOne("once.item.dao.ItemDAO.selectByStoreNo", storeNo);
+	}
+
+	@Override
+	public List<ItemImgVO> selectByNum(int num) {
+		List<ItemImgVO> imgList = sqlSession.selectList("once.item.dao.ItemDAO.selectByNum", num);
+		return imgList;
+	}
+	
+	@Override
+	public String[] getColorList(int num) {
+		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", num);
 		String[] colorList = getColor.toArray(new String[getColor.size()]);
 		
 		return colorList;
 	}
-
+	
 	@Override
-	public String[] getSizeList(ItemVO itemVO) {
-		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", itemVO);
+	public String[] getSizeList(int num) {
+		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", num);
 		String[] sizeList = getSize.toArray(new String[getSize.size()]);
 		
 		return sizeList;
 	}
-
+	
+	//경희 거
+/*
 	@Override
 	public int checkCnt(OrderDetailVO preOrderDetail) {
 		
@@ -172,10 +197,11 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
-		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeSelectItem", searchItem);
-		return storeItem;
+	public ItemVO getItem(int num) {
+		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
+		return itemVO;
 	}
+*/	
 	
 	@Override
 	public void minCnt(OrderVO order) {
@@ -190,4 +216,5 @@ public class ItemDAOImpl implements ItemDAO {
 			sqlSession.insert("once.item.dao.ItemDAO.minCnt", detail);
 		}
 	}
+  
 }
