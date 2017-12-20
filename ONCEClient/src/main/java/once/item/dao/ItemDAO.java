@@ -64,12 +64,7 @@ public interface ItemDAO {
 	String[] getColorList(int num);
 
 	String[] getSizeList(int num);
-
-	//경희 거
-/*
-	ItemVO getItem(int num);
-*/
-  
+ 
 	void minCnt(OrderVO order);
 
 }

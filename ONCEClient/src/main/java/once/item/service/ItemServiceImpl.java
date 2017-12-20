@@ -151,16 +151,12 @@ public class ItemServiceImpl implements ItemService {
 	public List<ItemImgVO> selectByNum(int num) {
 		List<ItemImgVO> imgList = dao.selectByNum(num);
 		return imgList;
-    
+	}
+	
+	@Override
 	public int checkCnt(OrderDetailVO preOrderDetail) {
 		
 		return dao.checkCnt(preOrderDetail);
-	}
-  
-	@Override
-	public List<ItemVO> selectStoreMainItem(String storeNo) {
-		List<ItemVO> storeItem = dao.selectStoreMainItem(storeNo);
-		return storeItem;
 	}
 
 	@Override
@@ -187,6 +183,24 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void minCnt(OrderVO order) {
 		dao.minCnt(order);
+	}
+	
+	@Override
+	public ItemVO getItem(int num) {
+	  ItemVO itemVO = dao.getItem(num);
+	  return itemVO;
+	}
+	   
+	@Override
+	public String[] getColorList(ItemVO itemVO) {
+	  String[] colorList = dao.getColorList(itemVO);
+	  return colorList;
+	}
+
+	@Override
+	public String[] getSizeList(ItemVO itemVO) {
+	   String[] sizeList = dao.getSizeList(itemVO);
+	   return sizeList;
 	}
 	
 }

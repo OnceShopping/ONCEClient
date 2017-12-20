@@ -64,11 +64,6 @@ public interface ItemService {
 
 	String[] getSizeList(int num);
 
-	//경희 거
-/*
-	ItemVO getItem(int num);
-*/
-
 	String[] getColorList(ItemVO itemVO);
 	
 	String[] getSizeList(ItemVO itemVO);
