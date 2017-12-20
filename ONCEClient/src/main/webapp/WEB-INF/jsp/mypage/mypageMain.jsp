@@ -61,11 +61,11 @@
             <td><a href="${pageContext.request.contextPath}/mypage/myqna"><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</a></td>
 					</tr>
 					<tr>
-						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>
+						<td><a href="${pageContext.request.contextPath}/order/status"><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</a></td>
 						<td><a href="${pageContext.request.contextPath}/mypage/faq"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</a></td>
 					</tr>
 					<tr>
-						<td><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</td>
+						<td><a href="${pageContext.request.contextPath}/mypage/orderHistory"><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</a></td>
 						<td></td>
 					</tr>
 				</tbody>
