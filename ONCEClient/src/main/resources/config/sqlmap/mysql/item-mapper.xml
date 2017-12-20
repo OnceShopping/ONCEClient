@@ -36,6 +36,16 @@
 		select distinct size from itemcontents where num = #{ num };
 	</select>
 	
+	<!-- 상품 colorList 선택 -->
+	<select id="getColorList_INT" parameterType="INT" resultType="String">
+		select distinct color from itemcontents where num = #{ num };
+	</select>
+
+	<!-- 상품 sizeList 선택 -->
+	<select id="getSizeList_INT" parameterType="INT" resultType="String">
+		select distinct size from itemcontents where num = #{ num };
+	</select>
+		
 <!-- 경희 거 
 	상품 선택
 	<select id="getItem" parameterType="Integer" resultType="itemVO">

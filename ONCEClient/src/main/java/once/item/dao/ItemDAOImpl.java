@@ -166,7 +166,7 @@ public class ItemDAOImpl implements ItemDAO {
 	
 	@Override
 	public String[] getColorList(int num) {
-		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", num);
+		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList_INT", num);
 		String[] colorList = getColor.toArray(new String[getColor.size()]);
 		
 		return colorList;
@@ -174,14 +174,12 @@ public class ItemDAOImpl implements ItemDAO {
 	
 	@Override
 	public String[] getSizeList(int num) {
-		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", num);
+		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList_INT", num);
 		String[] sizeList = getSize.toArray(new String[getSize.size()]);
 		
 		return sizeList;
 	}
 	
-	//경희 거
-/*
 	@Override
 	public int checkCnt(OrderDetailVO preOrderDetail) {
 		
@@ -190,19 +188,28 @@ public class ItemDAOImpl implements ItemDAO {
 		return count;
 	}
 
-  @Override
-	public List<ItemVO> selectStoreMainItem(String storeNo) {
-		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);
-		return storeItem;
-	}
-
 	@Override
 	public ItemVO getItem(int num) {
 		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
 		return itemVO;
 	}
-*/	
 	
+	@Override
+	public String[] getColorList(ItemVO itemVO) {
+		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", itemVO);
+	    String[] colorList = getColor.toArray(new String[getColor.size()]);
+	      
+	    return colorList;
+	}
+
+	@Override
+	public String[] getSizeList(ItemVO itemVO) {
+	   List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", itemVO);
+	   String[] sizeList = getSize.toArray(new String[getSize.size()]);
+	      
+	   return sizeList;
+	}
+	   
 	@Override
 	public void minCnt(OrderVO order) {
 	

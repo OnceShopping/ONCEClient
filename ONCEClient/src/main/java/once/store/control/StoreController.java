@@ -38,7 +38,7 @@ public class StoreController {
 	@RequestMapping("/store/{storeName}")
 	public ModelAndView selectStore(@PathVariable String storeName) {
 		ModelAndView mav = new ModelAndView();
-		
+		System.out.println(storeName);
 		StoreVO storeVO = service.selectOneStore(storeName);
 		
 		List<ItemVO> storeItem = iService.selectStoreMainItem(storeVO.getStoreNo());
