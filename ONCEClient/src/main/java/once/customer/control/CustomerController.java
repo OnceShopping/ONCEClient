@@ -31,7 +31,7 @@ public class CustomerController {
 	@Autowired
 	private CustomerService service;
 
-	@RequestMapping(value = "/login/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login/loginForm", method = RequestMethod.GET)
 	public String login(CustomerVO customer, HttpSession session, HttpServletRequest request, Model model) {
 
 		String loginId = null;
