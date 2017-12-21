@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,17 +28,43 @@
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lightbox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.filterizr.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/custom-portfolio.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
+
 <style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
+.normal {
+   font-weight: 400
 }
+
+.bold {
+   font-weight: 700
+}
+
+.bolder {
+   font-weight: 800
+}
+
+.light {
+   font-weight: 300
+}
+
+#tabs1, #tabs2, #tabs3, #tabs4 {
+   text-align: center;
+}
+
+
+.row .col .s6 .entry img {
+   width: 80% !important;
+   margin-left: auto !important;
+   margin-right: auto !important;
+}
+
+#mainProduct, #mainShops {
+   margin-top: 50px;
+}
+
 </style>
+
 </head>
 <body>
 
@@ -48,93 +75,88 @@
 	</header>
 	
 	<section>
-	<div class="portfolio portfolio-card column2 app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-				<h3>남성의류</h3>
-			</div>
-			<ul class="portfolio-filter">
-				<li data-filter="all" class="active">전체</li>
-				<li data-filter="1">상의</li>
-				<li data-filter="2">하의</li>
-				<li data-filter="3">ACC</li>
-			</ul>
-			<div class="portfolio-item">
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/men1.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men1.jpg" alt=""></a>
-						<h5>따뜻한 패딩</h5>
-						<p>259,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/men2.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men2.jpg" alt=""></a>
-						<h5>멋진 셔츠</h5>
-						<p>158,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/men3.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men3.jpg" alt=""></a>
-						<h5>이쁜 니트</h5>
-						<p>175,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/men4.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men4.jpg" alt=""></a>
-						<h5>편한 맨투맨</h5>
-						<p>45,900원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/men5.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men5.jpg" alt=""></a>
-						<h5>회색 바지</h5>
-						<p>88,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/men6.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men6.jpg" alt=""></a>
-						<h5>검정 슬랙스</h5>
-						<p>113,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/men7.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men7.jpg" alt=""></a>
-						<h5>면바지</h5>
-						<p>79,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/men8.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men8.jpg" alt=""></a>
-						<h5>기모 슬랙스</h5>
-						<p>126,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/men9.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men9.jpg" alt=""></a>
-						<h5>검정 벨트</h5>
-						<p>108,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/men10.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men10.jpg" alt=""></a>
-						<h5>이쁜 키링</h5>
-						<p>63,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/men11.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men11.jpg" alt=""></a>
-						<h5>검정 볼캡</h5>
-						<p>55,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/men12.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/men12.jpg" alt=""></a>
-						<h5>도트 타이</h5>
-						<p>78,000원</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="tabs-app app-pages app-section" id="mainProduct">
+         <div class="container">
+            <div class="pages-title">
+               <h3 class="bold">남성 의류</h3>
+            </div>
+            <div class="row">
+               <div class="col s12">
+                  <ul class="tabs">
+                     <li class="tab col s3"><a href="#tabs1">전체</a></li>
+                     <li class="tab col s3"><a href="#tabs2">상의</a></li>
+                     <li class="tab col s3"><a href="#tabs3">하의</a></li>
+                  </ul>
+                  <div id="tabs1">
+                     <br />
+                     <div class="row">
+                      <c:forEach var="menitem" items="${ menItemList }">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${menitem.num}">
+                                 <img src="/image/${menitem.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${menitem.num}">
+                                    ${ menitem.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5>${ menitem.price }</h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach> 
+                     </div>
+                  </div>
+                  <div id="tabs2">
+                     <br />
+                     <div class="row">
+                     <c:forEach var="menitem2" items="${ menItemList2 }">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${menitem2.num}">
+                                 <img src="/image/${menitem2.imgSaveName}" alt="">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${menitem2.num}">
+                                    ${ menitem2.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5>${ menitem2.price }</h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach>
+                     </div>
+                  </div>
+                  <div id="tabs3">
+                     <br />
+                     <div class="row">
+                     <c:forEach var="menitem3" items="${ menItemList3 }">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${menitem3.num}">
+                                  <img src="/image/${menitem3.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${menitem3.num}">
+                                    ${ menitem3.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5>${ menitem3.price } </h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
 	</section>
 	
 	<footer>

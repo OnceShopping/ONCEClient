@@ -77,14 +77,6 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<ItemVO> selectMenItemList4() {
-
-		List<ItemVO> menItemList4 = sqlSession.selectList("once.item.dao.ItemDAO.selectMenItemList4");
-
-		return menItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectWomenItemList() {
 
 		List<ItemVO> womenItemList = sqlSession.selectList("once.item.dao.ItemDAO.selectWomenItemList");
@@ -106,13 +98,6 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<ItemVO> selectWomenItemList4() {
-
-		List<ItemVO> womenItemList4 = sqlSession.selectList("once.item.dao.ItemDAO.selectWomenItemList4");
-		return womenItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectKidItemList() {
 		List<ItemVO> kidItemList = sqlSession.selectList("once.item.dao.ItemDAO.selectKidItemList");
 		return kidItemList;
@@ -128,12 +113,6 @@ public class ItemDAOImpl implements ItemDAO {
 	public List<ItemVO> selectKidItemList3() {
 		List<ItemVO> kidItemList3 = sqlSession.selectList("once.item.dao.ItemDAO.selectKidItemList3");
 		return kidItemList3;
-	}
-
-	@Override
-	public List<ItemVO> selectKidItemList4() {
-		List<ItemVO> kidItemList4 = sqlSession.selectList("once.item.dao.ItemDAO.selectKidItemList4");
-		return kidItemList4;
 	}
 
 	@Override
@@ -224,4 +203,29 @@ public class ItemDAOImpl implements ItemDAO {
 		}
 	}
   
+	@Override
+	public List<ItemVO> selectItemListView() {
+		
+		List<ItemVO> itemList = sqlSession.selectList("once.item.dao.ItemDAO.selectItemListView");
+
+		return itemList;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList() {
+		List<ItemVO> generalItemList = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList");
+		return generalItemList;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList2() {
+		List<ItemVO> generalItemList2 = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList2");
+		return generalItemList2;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList3() {
+		List<ItemVO> generalItemList3 = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList3");
+		return generalItemList3;
+	}
 }
