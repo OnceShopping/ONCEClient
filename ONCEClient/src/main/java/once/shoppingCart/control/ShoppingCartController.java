@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +22,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.Gson;
 
+import once.customer.vo.CustomerVO;
 import once.item.service.ItemService;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemVO;
-import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
 import once.shoppingCart.service.ShoppingCartService;
 import once.store.service.StoreService;
@@ -44,6 +43,8 @@ public class ShoppingCartController {
 	@Autowired
 	private StoreService storeService;
 
+	
+	
 	/**
 	 * 장바구니에 아이템 추가
 	 * 
@@ -166,6 +167,7 @@ public class ShoppingCartController {
 	@RequestMapping(value = "/mypage/shoppingCart")
 	public String viewCart(@ModelAttribute(value = "orderVO") OrderVO orderVO, Model model, HttpSession session) {
 
+		
 		List<ItemContentsVO> productList = null;
 		List<StoreVO> storeList = null; // 장바구니에 있는 매장 종류
 
@@ -173,6 +175,7 @@ public class ShoppingCartController {
 			model.addAttribute("message", "로그인 후 이용해 주세요.");
 			return "login/loginFail";
 		} else { // 로그인 된 경우
+			System.out.println((CustomerVO)session.getAttribute("loginVO"));
 			if (session.getAttribute("productList") != null) { // 세션에 장바구니가 있는 경우
 				productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
 				if (session.getAttribute("storeList") != null) { // 세션에 storeList가 있는 경우
@@ -180,7 +183,7 @@ public class ShoppingCartController {
 				} else {
 					storeList = new ArrayList<>();
 				}
-
+				
 			} else { // 세션에 장바구니가 없는 경우
 				productList = new ArrayList<>();
 			}
@@ -188,7 +191,7 @@ public class ShoppingCartController {
 			Gson gson = new Gson();
 			String listJSON = gson.toJson(productList);
 			String storeJSON = gson.toJson(storeList);
-
+						
 			session.setAttribute("productList", productList);
 			session.setAttribute("listJSON", listJSON);
 			session.setAttribute("storeList", storeList);

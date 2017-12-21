@@ -111,7 +111,6 @@
 	       
 	       if(sltColor != '') {
 	                    
-/*
 			$.ajax({
 	            url : "${ pageContext.request.contextPath }/store/itemDetail",
 	            type : "post",
@@ -122,29 +121,29 @@
 	               'idNo' : idNo
 	            },
 	            success : function(data) {
-	               $('#sltItemList').val("");
-	               $('#sltItemList').append(data);
-	               
-	               var price = $('#price').val();
-	               var num = parseInt(price, 10);
-	               var addPrice = 0;
-	               
-	               for(var i = 0; i <= idNo; i++) {
-	            	   addPrice = addPrice + num;
-	               }
-	               
-	               $('#cntPrice').text(addPrice);
-	               idNo = ++cnt;
+	            	$('#sltItemList').val("");
+		            $('#sltItemList').append(data);
+		               
+		            var price = $('#price').val();
+		            var num = parseInt(price, 10);
+		            var addPrice = 0;
+		               
+		            for(var i = 0; i <= idNo; i++) {
+		            	addPrice = addPrice + num;
+		            }
+		               
+		            $('#cntPrice').text(addPrice);
+		            idNo = ++cnt;
 	            }
 	            });
-*/			
-				
+	
+				/*
                $('#sltItemList').val("");
                $('#sltItemList').append(
 	            	'<li>' +
 	            		'<div class="sltItem">' +
 	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].itemName" value="${ itemName }">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].delete" id="delete_${idNo}" value="false">' +
+	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].delete" id="delete_'+'${idNo}" value="false">' +
 	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].color" value="${ sltColor }">' +
 	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].size" value="${ sltSize }">' +
 	            	    	'<a href="" class="removeItem" id="rmv' + idNo + '"><i class="fa fa-times"></i></a>' +
@@ -165,6 +164,8 @@
                for(var i = 0; i <= idNo; i++) {
             	   addPrice = addPrice + num;
                }
+               */
+               
                
                $('#cntPrice').text(addPrice);
                idNo = ++cnt;
@@ -269,6 +270,8 @@
 	      var size = document.getElementById('size').value;
 	      var color = document.getElementById('color').value;
 	      
+	      alert(itemName+" | "+size+" | "+color);
+	      
 	      if (resultList == null || resultList == '') {   // 장바구니에 물품이 아예 없는 경우
 	         var itemJSON = '${itemJSON}';
 	         var result = $.parseJSON(itemJSON);
@@ -302,8 +305,12 @@
 	   
 	   function buyFunc(){
 	      var itemJSON = '${itemJSON}';
-	      var result = $.parseJSON(itemJSON);
+	      var result = null;
+	      if(itemJSON != '' && itemJSON != null){
+	    	  result = $.parseJSON(itemJSON);
+		  }
 	      var itemForm = document.forms['itemContentsVO'];
+	      alert(itemForm);
 	      itemForm.action = "${ pageContext.request.contextPath }/orderList/addOneItem/"+result.storeNo+"/"+result.num ;
 	      itemForm.submit();
 	   }
@@ -323,10 +330,10 @@
 		<div class="app-pages">
 			<div class="container">
 				<div id="mainImg">
-					<img src="${pageContext.request.contextPath}/resources/img/store1.png" alt="">
+					<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
 					<c:forEach items="${ imgList }" var="list" varStatus="status">
 						<c:if test="${status.count eq 1}">
-							<img src="${pageContext.request.contextPath}/upload/client/${list.imgSaveName}" alt="">
+							<img src="/image/${list.imgSaveName}" alt="">
 						</c:if>
 					</c:forEach>
 				</div>
@@ -365,10 +372,10 @@
 						<div id="tabs1">
 							<br />
 							<div class="row">
-								<img src="${pageContext.request.contextPath}/resources/img/store1.png" alt="">
+								<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
 								<c:forEach items="${ imgList }" var="list" varStatus="status">
 									<c:if test="${status.count eq 2}">
-										<img src="${pageContext.request.contextPath}/upload/client/${list.imgSaveName}" alt="" width="93%"><br/>
+										<img src="/image/${list.imgSaveName}" alt="" width="93%"><br/>
 									</c:if>
 								</c:forEach>
 								<input type="button" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
@@ -394,7 +401,7 @@
 													<div class="col s6">
 														<div class="entry">
 															<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">
-																<img src="${pageContext.request.contextPath}/resources/img/store1.png" alt="">
+																<img src="/image/${ newItemList.imgSaveName }" alt="">
 															</a>
 															<h6>
 																<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">${ newItemList.itemName }</a>
@@ -454,7 +461,6 @@
 		<!-- 상세 끝 -->
 	</section>
 
-	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
 	
 	<!-- 하단 주문 버튼 -->
 	<div class="w3-bottom">
@@ -467,13 +473,13 @@
 	
 	<!-- 주문하기 버튼 누르기 이후 -->
 	<div id="orderDetail" class="modal bottom-sheet">
-	   <p style="padding-left: 5px;">옵션</p>
-	   <hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
-	   <div class="modal-content">
+		<form id="itemContentsVO" name="itemContentsVO" method="post">
+	   	<p style="padding-left: 5px;">옵션</p>
+	   	<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
+	   	<div class="modal-content">
 			<div>
-			    <form id="itemContentsVO" name="itemContentsVO" method="post">
 				<input name="itemName" id="itemName" type="hidden" value="${itemContentsVO.itemName}" />
-				<input name="itemName" id="price" type="hidden" value="${itemContentsVO.price}" />
+				<input name="price" id="price" type="hidden" value="${itemContentsVO.price}" />
 				<label>color</label>
                   <select class="browser-default" id="color" >
                      <option value="">- [필수] color를 선택해 주세요 -</option>
@@ -496,8 +502,8 @@
 	   </div>
 	   <p style="padding-right: 5px; text-align: right">총 금액 <span id="cntPrice" style="color: red;">00,000</span>원</p>
 	   <div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #99d8c9;">
-			<a href="#" style="width: 50%; color: #fff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
-			<a href="#" style="width: 50%; color: #fff; padding-left: 8%;" class="w3-bar-item" id="orderList" onclick="buyFunc()">바로 주문하기</a>
+			<a style="width: 50%; color: #fff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
+			<a style="width: 50%; color: #fff; padding-left: 8%;" class="w3-bar-item" id="orderList" onclick="buyFunc()">바로 주문하기</a>
 	   </div>
 	   </form>
 	 </div>

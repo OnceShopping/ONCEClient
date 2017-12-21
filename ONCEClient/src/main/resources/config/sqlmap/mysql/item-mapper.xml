@@ -46,15 +46,14 @@
 		select distinct size from itemcontents where num = #{ num };
 	</select>
 		
-<!-- 경희 거 
-	상품 선택
-	<select id="getItem" parameterType="Integer" resultType="itemVO">
+	<!-- 경희 거 	상품 선택 -->
+	<select id="getItem" parameterType="INT" resultType="itemVO">
 		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
 		price, saleTag, salePrice, startDate, endDate, detail
 		from item
 		where num = #{ num };
 	</select>
- -->
+
 
 	<!-- 장바구니, 결재 상품 선택 -->
 	<select id="addCartItem" parameterType="itemContentsVO"
@@ -79,12 +78,13 @@
 	
 	<!-- 첫화면 상품 목록 -->
 	<select id="storeMainItem" parameterType="String" resultType="itemVO">
-		select * from item where regDate >= (curdate()-interval 14 day) and storeNo = #{ storeNo }
+		select * from itemContents where regDate >= (curdate()-interval 14 day) and storeNo = #{ storeNo }
+		group by itemName having max(detailNo)
 	</select>
 	
 	<!-- 선택 및 검색 -->
 	<select id="storeSelectItem" parameterType="hashMap" resultType="itemVO">
-		select * from item 
+		select * from itemContents
 		<where>
 			storeNo = #{ storeNo }
 			<choose>
@@ -92,13 +92,14 @@
 					and itemCategory1 = #{category1} and itemCategory2 = #{category2}
 				</when>
 				<when test="category2 == 'new'">
-					and regDate >= (curdate()-interval 14 day);				
+					and regDate >= (curdate()-interval 14 day)				
 				</when>
 				<otherwise>
 					and itemName like '%${category2}%'
 				</otherwise>
 			</choose>
 		</where>
+		group by itemName having max(detailNo)
 		<if test="order != null">
 			<choose>
 				<when test="order == '신상품순'">
