@@ -136,7 +136,7 @@
 							<div class="car/t-title s-title">
 								<div class="row">
 									<div class="col s4">
-										<img src="${pageContext.request.contextPath}/upload/${itemContents.imgSaveName}" alt="이미지 준비 중">
+										<img src="/image/${itemContents.imgSaveName}" alt="이미지 준비 중">
 									</div>
 									<div class="col s7">
 										<p>${itemContents.itemName}</p>

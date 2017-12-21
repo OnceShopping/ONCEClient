@@ -142,6 +142,7 @@ public class OrderController {
 					preOrder.setNum(addItem.getNum());
 					preOrder.setStoreNo(storeNo);
 					preOrder.setStoreName(addStore.getStoreNo());
+					preOrder.setImgSaveName(addItem.getImgSaveName());
 
 					preOrderList.add(preOrder);
 					

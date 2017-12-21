@@ -370,7 +370,7 @@
 							<div class="car/t-title s-title">
 								<div class="row">
 									<div class="col s4">
-										<img src="${pageContext.request.contextPath}/upload/${itemContents.imgSaveName}" alt="이미지 준비 중">
+										<img src="/image/${itemContents.imgSaveName}" alt="이미지 준비 중">
 									</div>
 									<div class="col s7">
 										<p>${itemContents.itemName}</p>
@@ -485,7 +485,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<button type="button" class="button" onclick="buySubmit(${ loop.index })" style="background-color: #ffc305; margin-bottom: 10px; font-size: 12px;">주 문 하 기</button>
+							<button type="button" class="button" onclick="buySubmit(${ loop.index })" style="background-color:#ffc305;margin-bottom: 10px; font-size: 12px;">주 문 하 기</button>
 						</div>
 					</div>
 					</form>
