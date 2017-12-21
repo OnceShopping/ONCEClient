@@ -95,7 +95,7 @@
 <script>	
 	$(document).ready(function() {
 		var cnt = 0;
-		
+			    
 		$('#size').attr('disabled', true);
 	    
 	    $('#color').change(function() {
@@ -269,13 +269,14 @@
 	      var itemName = document.getElementById('itemName').value;
 	      var size = document.getElementById('size').value;
 	      var color = document.getElementById('color').value;
-	      
-	      alert(itemName+" | "+size+" | "+color);
-	      
+      	      
 	      if (resultList == null || resultList == '') {   // 장바구니에 물품이 아예 없는 경우
 	         var itemJSON = '${itemJSON}';
 	         var result = $.parseJSON(itemJSON);
 	         var itemForm = document.forms['itemContentsVO'];
+	         
+	         alert(result.storeNo + " | " + result.num);
+	         
 	         itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
 	         itemForm.submit();
 	      }else{
@@ -305,12 +306,13 @@
 	   
 	   function buyFunc(){
 	      var itemJSON = '${itemJSON}';
+	      alert(itemJSON);
 	      var result = null;
 	      if(itemJSON != '' && itemJSON != null){
 	    	  result = $.parseJSON(itemJSON);
 		  }
 	      var itemForm = document.forms['itemContentsVO'];
-	      alert(itemForm);
+	      alert(itemJSON +" | "+ result);
 	      itemForm.action = "${ pageContext.request.contextPath }/orderList/addOneItem/"+result.storeNo+"/"+result.num ;
 	      itemForm.submit();
 	   }

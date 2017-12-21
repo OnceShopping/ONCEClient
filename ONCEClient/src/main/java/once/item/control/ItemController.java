@@ -1,10 +1,6 @@
 package once.item.control;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -163,6 +159,7 @@ public class ItemController {
 	@RequestMapping(value="/item/{num}", method = RequestMethod.GET)
 	public ModelAndView indexItemDetail(@PathVariable int num, ItemContentsVO itemContentsVO) {
 		itemContentsVO = service.selectOneItem(num);
+		System.out.println("index_itemContentsVO: " + itemContentsVO);
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
 		List<ItemImgVO> imgList = service.selectByNum(num);
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
@@ -172,6 +169,7 @@ public class ItemController {
 		String[] colorList = service.getColorList(num);
 		String[] sizeList = service.getSizeList(num);
 		
+		itemVO.setNum(num);
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 		itemVO.setStoreNo(itemContentsVO.getStoreNo());		

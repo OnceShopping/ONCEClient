@@ -166,7 +166,6 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value = "/mypage/shoppingCart")
 	public String viewCart(@ModelAttribute(value = "orderVO") OrderVO orderVO, Model model, HttpSession session) {
-
 		
 		List<ItemContentsVO> productList = null;
 		List<StoreVO> storeList = null; // 장바구니에 있는 매장 종류
