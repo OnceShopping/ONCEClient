@@ -1,10 +1,5 @@
 package once.order.control;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -289,6 +284,8 @@ public class OrderController {
 		int canCnt = 0;
 		int cantCnt = 0;
 
+		CustomerVO loginVO = null;
+		
 		for (int i = 0; i < preOrder.getOrderDetails().size(); i++) {
 
 			stocks[i] = itemService.checkCnt(preOrder.getOrderDetails().get(i)); // 재고
@@ -305,7 +302,7 @@ public class OrderController {
 		}
 
 		if (canCnt == preOrder.getOrderDetails().size()) { // 모든 상품이 재고가 있는 경우
-			CustomerVO loginVO = (CustomerVO) session.getAttribute("loginVO");
+			loginVO = (CustomerVO) session.getAttribute("loginVO");
 
 			preOrder.setMemNo(loginVO.getMemNo());
 			preOrder.setId(loginVO.getId());
@@ -338,9 +335,24 @@ public class OrderController {
 
 			System.out.println("결재성공_order" + order);
 
-			List<PickupPlaceVO> infoList = pickupService.getAllInfo();
-			mav = new ModelAndView("order/orderModal");
-			mav.addObject("infoList", infoList);
+			
+			// 오늘 첫 주문 이거나, 오늘 한 주문들을 모두 수령한 경우
+			if(service.countTodayNotReceipt(loginVO.getMemNo())==0) {
+				List<PickupPlaceVO> infoList = pickupService.getAllInfo();
+				mav = new ModelAndView("order/choiceInfo");
+				mav.addObject("infoList", infoList);
+			}else {	// 오늘 첫 주문이 아니거나, 오늘 한 주문 중 수령하지 않은 물품이 있는 경우
+				String floor = service.getFloor(loginVO);
+				order.setFloor(floor);
+				service.updateFloor(order);
+				String secretPassword = getOrderPassword(loginVO);
+				System.out.println("showOrderPwd()_secretPassword" + secretPassword);
+
+				mav = new ModelAndView("order/showInfoNPwd");
+				mav.addObject("secretPassword", secretPassword);
+				mav.addObject("floor", floor);
+			}
+			
 
 			// 해당 물품 세션 장바구니 지우기
 			List<ItemContentsVO> productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
@@ -416,7 +428,7 @@ public class OrderController {
 	 * 
 	 */
 	@RequestMapping(value = "/orderList/showOrderPwd", method = RequestMethod.GET)
-	public @ResponseBody ModelAndView showOrderPwd(@RequestParam("floor") String floor, HttpSession session) {
+	public @ResponseBody ModelAndView showOrderPwd(@RequestParam(value="floor", required=false) String floor, HttpSession session) {
 		System.out.println("showOrderPwd()_floor: " + floor);
 		System.out.println("showOrderPwd()_order: " + order);
 
