@@ -46,5 +46,19 @@
 		where orderNo = #{orderNo}
 	</select>
 	
+	<!-- 오늘 주문 & !수령완료 한 내역 보기  -->
+    <select id="todayNotReceipt" parameterType="INT" resultType="INT">
+		select count(*)
+ 		from OrderList
+ 		where memNo = #{memNo} and  date=curdate() and status not in ('수령 완료');
+	</select>
+	
+	<!-- info 확인 -->
+    <select id="getFloor" parameterType="INT" resultType="String">
+		select floor
+ 		from OrderList
+ 		where memNo = #{memNo} and date=curdate() and status not in ('수령 완료')
+ 		group by memNo having min(orderNo);
+	</select>
 	
 </mapper>

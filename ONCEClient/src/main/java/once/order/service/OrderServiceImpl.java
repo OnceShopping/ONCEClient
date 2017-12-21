@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import once.customer.vo.CustomerVO;
 import once.order.dao.OrderDAO;
 import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
@@ -36,5 +37,17 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderDetailVO> showDetailList(int orderNo) {
 		return dao.showDetailList(orderNo);
+	}
+	
+	//오늘 주문 & !수령완료 한 내역 보기
+	@Override
+	public int countTodayNotReceipt(int memNo) {
+		return dao.countTodayNotReceipt(memNo);
+	}
+
+	// info 확인
+	@Override
+	public String getFloor(CustomerVO loginVO) {
+		return dao.getFloor(loginVO);
 	}
 }
