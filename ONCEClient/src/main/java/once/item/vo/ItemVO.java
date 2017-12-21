@@ -25,4 +25,5 @@ public class ItemVO {
 	private String storeNo;
 	private String detail;
 	
+	private String imgSaveName;
 }

@@ -69,13 +69,6 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemVO> selectMenItemList4() {
-		
-		List<ItemVO> menItemList4 = dao.selectMenItemList4();
-		return menItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectWomenItemList() {
 		
 		List<ItemVO> womenItemList = dao.selectWomenItemList();
@@ -97,13 +90,6 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemVO> selectWomenItemList4() {
-		
-		List<ItemVO> womenItemList4 = dao.selectWomenItemList4();
-		return womenItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectKidItemList() {
 		
 		List<ItemVO> kidItemList = dao.selectKidItemList();
@@ -113,17 +99,14 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<ItemVO> selectKidItemList2() {
 		List<ItemVO> kidItemList2 = dao.selectKidItemList2();
-		return kidItemList2;	}
+		return kidItemList2;	
+	}
 
 	@Override
 	public List<ItemVO> selectKidItemList3() {
 		List<ItemVO> kidItemList3 = dao.selectKidItemList3();
-		return kidItemList3;	}
-
-	@Override
-	public List<ItemVO> selectKidItemList4() {
-		List<ItemVO> kidItemList4 = dao.selectKidItemList4();
-		return kidItemList4;	}
+		return kidItemList3;	
+	}
 
 	@Override
 	public List<ItemVO> selectStoreMainItem(String storeNo) {
@@ -203,4 +186,28 @@ public class ItemServiceImpl implements ItemService {
 	   return sizeList;
 	}
 	
+	@Override
+	public List<ItemVO> selectItemListView() {
+	
+		
+		return dao.selectItemListView();
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList() {
+		List<ItemVO> generalItemList = dao.selectGeneralItemList();
+		return generalItemList;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList2() {
+		List<ItemVO> generalItemList2 = dao.selectGeneralItemList2();
+		return generalItemList2;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList3() {
+		List<ItemVO> generalItemList3 = dao.selectGeneralItemList3();
+		return generalItemList3;
+	}
 }

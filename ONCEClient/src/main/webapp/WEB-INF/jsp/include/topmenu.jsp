@@ -94,7 +94,7 @@
 						<li class="tileList">
 							<table class="tileMenu">
 								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
+									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>아동 의류</a></td>
 									<td class="menuSpace"></td>
 									<td><a href="${pageContext.request.contextPath}/menu/general" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
 								</tr>

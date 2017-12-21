@@ -205,10 +205,6 @@ public class CustomerController {
 		return "mypage/faq";
 	}
     
-	@RequestMapping("/menu/general")
-	 public String general() {
-	   return "menu/general";
-	}
   
   // 패스워드 체크 페이지
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)

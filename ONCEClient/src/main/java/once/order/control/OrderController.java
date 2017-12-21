@@ -524,7 +524,7 @@ public class OrderController {
 	
 	//이미지를 일정 경로에 복사
 	public void copyImg(String imageName) throws IOException{
-		String oriName="F:\\1.Bit\\web\\eclipse_work\\wtpwebapps\\ONCEAdmin\\upload\\" + imageName;
+		String oriName="C:\\Users\\user\\server\\wtpwebapps\\ONCEAdmin\\upload" + imageName;
 		String replace = "C:\\Once\\image\\" + imageName;
 		
 		InputStream in = new FileInputStream(oriName);
