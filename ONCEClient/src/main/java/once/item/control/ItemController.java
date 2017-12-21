@@ -71,7 +71,7 @@ public class ItemController {
 	    List<NoticeVO> noticeList = SSservice.selectNoticeList();
 		model.addAttribute("noticeList", noticeList);
 	  
-	    /* autoLogin */
+	    /* autoLogin 
 		  Cookie aCookie = null;
 		  String loginId = null;
 		    
@@ -96,8 +96,9 @@ public class ItemController {
 				loginVO.setId(loginId);
 				session.setAttribute("loginVO", loginVO);
 			}
+		*/
 	
-			return "index";
+		return "index";
 		
 	}
 	
@@ -167,10 +168,13 @@ public class ItemController {
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
 		
 		ItemVO itemVO = new ItemVO();
-		
+				
 		String[] colorList = service.getColorList(num);
 		String[] sizeList = service.getSizeList(num);
 		
+		itemVO.setColorList(colorList);
+		itemVO.setSizeList(sizeList);
+		itemVO.setStoreNo(itemContentsVO.getStoreNo());		
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 		
@@ -181,6 +185,12 @@ public class ItemController {
 		mav.addObject("storeName", storeName);
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
+		
+		Gson gson = new Gson();
+		String itemJSON = gson.toJson(itemVO);
+		
+		mav.addObject("itemJSON", itemJSON);
+		
 		mav.setViewName("store/itemDetail");
 		return mav;
 	}
@@ -190,7 +200,7 @@ public class ItemController {
 		itemContentsVO = service.selectOneItem(num);
 		
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
-		
+			
 		List<ItemImgVO> imgList = service.selectByNum(num);
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
 		
@@ -203,7 +213,8 @@ public class ItemController {
 		
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
-
+		itemVO.setStoreNo(itemContentsVO.getStoreNo());
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("itemContentsVO", itemContentsVO);
