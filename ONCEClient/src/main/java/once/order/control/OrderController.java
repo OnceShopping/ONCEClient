@@ -460,15 +460,7 @@ public class OrderController {
 		if(login!=null)
 			orderList = service.showOrderList(login.getMemNo());
 		*/	
-		
-		//이미지를 일정 경로에 복사
-		for(int i=0; i<orderList.size(); i++)
-			try {
-				copyImg(orderList.get(i).getImgSaveName());
-			} catch (IOException e) {
-				e.printStackTrace();
-			};
-			
+					
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("orderList", orderList);
@@ -492,15 +484,7 @@ public class OrderController {
 		/*//추후 풀어주어야함
 		if(login!=null)
 			detailList = service.showDetailList(orderNo);
-		*/ 
-		//이미지를 일정 경로에 복사
-		for(int i=0; i<detailList.size(); i++)
-			try {
-				copyImg(detailList.get(i).getImgSaveName());
-			} catch (IOException e) {
-				e.printStackTrace();
-		};
-					
+		*/ 					
 			
 		ModelAndView mav = new ModelAndView();
 		
@@ -522,29 +506,4 @@ public class OrderController {
 		mav.setViewName("mypage/orderHistory/history");
 		return mav;
 	}
-	
-	//이미지를 일정 경로에 복사
-	public void copyImg(String imageName) throws IOException{
-		String oriName="C:\\Users\\user\\server\\wtpwebapps\\ONCEAdmin\\upload" + imageName;
-		String replace = "C:\\Once\\image\\" + imageName;
-		
-		InputStream in = new FileInputStream(oriName);
-		OutputStream out = new FileOutputStream(replace);
-		
-		int bData;
-		byte[] buff= new byte[1024]; 
-		
-		while(true){
-			bData = in.read(buff); 
-
-			if(bData==-1){
-				break;
-			}
-			out.write(buff);
-		}
-				
-		in.close(); 
-		out.close(); 
-	}
-	
 }
