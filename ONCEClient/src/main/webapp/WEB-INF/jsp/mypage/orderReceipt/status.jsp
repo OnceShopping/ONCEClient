@@ -85,33 +85,16 @@
 			if($('#customer').val()==""){
 				alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
 				location.href="${pageContext.request.contextPath}/login/loginForm";
-			}
-			
-			var statusVal=$('.status').val();
-			
-			if(statusVal=="상품승인완료"){
-				$(this).css("color","#AED4EF");
-			}else if(statusVal=="상품승인완료"){
-				$(this).css("color","#85B8ED");
-			}else if(statusVal=="상품전달완료"){
-				$(this).css("color","#138BE2");
-			}else if(statusVal=="상품준비완료"){
-				$(this).css("color","#EE246C");
-			}else{
-				$(this).css("color","#9085D0");
-			}
-			
-				
+			}				
 		});
 	</script>
 </head>
 <body>
-	<header>
+
 	<!-- navbar -->
-		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
 	<!-- end navbar -->
-	</header>
-	
+
 	<section>
 		<div class="table-app app-pages app-section">
 			<div class="container">
@@ -124,7 +107,7 @@
 						<div id="nothing"> 현재 주문하신 상품이 존재하지 않습니다.</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="order" items="${orderList}">
+						<c:forEach var="order" items="${orderList}" varStatus="index">
 							<div class="orderTable" onclick="location.href='${pageContext.request.contextPath}/order/'+${order.orderNo}">
 								<table style="width: 100%;">
 									<tr>
@@ -160,7 +143,23 @@
 										<td>주문 금액  : ${order.totalPrice} 원</td>
 									</tr>
 									<tr>
-										<td><div class="status">상태  : ${order.status}</div></td>
+										<c:choose>
+											<c:when test="${order.status eq '결제완료'}">
+												<td><div style="font-weight: bold;">${order.status}</div></td>
+											</c:when>
+											<c:when test="${order.status eq '상품승인완료'}">
+												<td><div style="color: #4049FB; font-weight: bold;">상품준비중</div></td>
+											</c:when>
+											<c:when test="${order.status eq '상품전달완료'}">
+												<td><div style="color: #17BB77; font-weight: bold;">상품이동중</div></td>
+											</c:when>
+											<c:when test="${order.status eq '상품준비완료'}">
+												<td><div style="color: #FF4040; font-weight: bold;">상품도착</div></td>
+											</c:when>
+											<c:otherwise>
+												<td><div style="font-weight: bold;">${order.status}</div></td>
+											</c:otherwise>	
+										</c:choose>								
 									</tr>
 								</table>
 							</div>
