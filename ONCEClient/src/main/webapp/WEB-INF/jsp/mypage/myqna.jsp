@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,9 +48,9 @@
 </head>
 <body>
 
-<header>
+	<header>
 		<!-- navbar -->
-	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
 	<!-- end navbar -->
 	</header>
 	
@@ -99,9 +99,10 @@
 	</div>
 	</section>
 	
+	
 	<footer>
 		<!-- footer -->
-	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	</footer>
 	<!-- footer 끝 -->
