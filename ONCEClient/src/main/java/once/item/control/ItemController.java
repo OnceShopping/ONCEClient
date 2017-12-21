@@ -53,50 +53,51 @@ public class ItemController {
 	@RequestMapping("/")
 	public String indexItem (CustomerVO loginVO, HttpServletRequest request, HttpSession session, Model model) throws IOException {
 	
-    List<ItemVO> itemList = service.selectItemListView();
+		List<ItemVO> itemList = service.selectItemList();
 		model.addAttribute("itemList", itemList);
-	  List<ItemVO> itemList2 = service.selectItemList2();
-	  model.addAttribute("itemList2", itemList2);
-	    
-	  List<ItemVO> itemList3 = service.selectItemList3();
-	  model.addAttribute("itemList3", itemList3);
-	    
-	  List<ItemVO> itemList4 = service.selectItemList4();
-	  model.addAttribute("itemList4", itemList4);
-	    
-	  List<StoreVO> popStoreList = Sservice.selectPopStoreList();
-	  model.addAttribute("popStoreList", popStoreList);
-
-    List<NoticeVO> noticeList = SSservice.selectNoticeList();
-	  model.addAttribute("noticeList", noticeList);
-  
-    /* autoLogin */
-	  Cookie aCookie = null;
-	  String loginId = null;
-	    
-	    try {
-			Cookie[] cookies = request.getCookies();
-
-			if (cookies != null && cookies.length > 0) {
-				for (int i = 0; i < cookies.length; i++) {
-					if (cookies[i].getName().equals("autoLogin")) {
-						System.out.println("auto넘어왓니");
-						aCookie = cookies[i];
-					} else {}
+	  
+		List<ItemVO> itemList2 = service.selectItemList2();
+		model.addAttribute("itemList2", itemList2);
+		    
+		List<ItemVO> itemList3 = service.selectItemList3();
+		model.addAttribute("itemList3", itemList3);
+		    
+		List<ItemVO> itemList4 = service.selectItemList4();
+		model.addAttribute("itemList4", itemList4);
+		    
+		List<StoreVO> popStoreList = Sservice.selectPopStoreList();
+		model.addAttribute("popStoreList", popStoreList);
+	
+	    List<NoticeVO> noticeList = SSservice.selectNoticeList();
+		model.addAttribute("noticeList", noticeList);
+	  
+	    /* autoLogin */
+		  Cookie aCookie = null;
+		  String loginId = null;
+		    
+		    try {
+				Cookie[] cookies = request.getCookies();
+	
+				if (cookies != null && cookies.length > 0) {
+					for (int i = 0; i < cookies.length; i++) {
+						if (cookies[i].getName().equals("autoLogin")) {
+							System.out.println("auto넘어왓니");
+							aCookie = cookies[i];
+						} else {}
+					}
 				}
+			} catch (Exception e) {
 			}
-		} catch (Exception e) {
-		}
-
-		if (aCookie != null && aCookie.getValue() != null) {
-			loginId = aCookie.getValue();
-			loginVO = cusService.autoLogin(loginId);
-			loginVO.setAutoLogin(true);
-			loginVO.setId(loginId);
-			session.setAttribute("loginVO", loginVO);
-		}
-
-		return "index";
+	
+			if (aCookie != null && aCookie.getValue() != null) {
+				loginId = aCookie.getValue();
+				loginVO = cusService.autoLogin(loginId);
+				loginVO.setAutoLogin(true);
+				loginVO.setId(loginId);
+				session.setAttribute("loginVO", loginVO);
+			}
+	
+			return "index";
 		
 	}
 	

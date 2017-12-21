@@ -61,8 +61,6 @@ public interface ItemService {
 	String[] getColorList(ItemVO itemVO);
 	
 	String[] getSizeList(ItemVO itemVO);
-	
-	List<ItemVO> selectItemListView();
 
 	List<ItemVO> selectGeneralItemList();
 

@@ -21,7 +21,7 @@ public interface ItemDAO {
   
 	List<ItemVO> selectStoreMainItem(String storeNo);
 
-  List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
+	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
 	List<ItemVO> selectItemList();
 
@@ -60,8 +60,6 @@ public interface ItemDAO {
 	String[] getSizeList(int num);
  
 	void minCnt(OrderVO order);
-
-	List<ItemVO> selectItemListView();
 
 	List<ItemVO> selectGeneralItemList();
 
