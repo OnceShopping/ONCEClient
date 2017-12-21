@@ -190,7 +190,9 @@ $(document).ready(function() {
 	<!-- navbar -->
 	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp"></jsp:include>
 	<!-- end navbar -->
-	<script
+	
+<!-- script -->
+<script
 	src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>

@@ -2,6 +2,10 @@ package once.item.control;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import once.customer.service.CustomerService;
+import once.customer.vo.CustomerVO;
 import once.item.service.ItemService;
 import once.item.vo.ItemContentsVO;
 import once.item.vo.ItemImgVO;
@@ -30,8 +36,11 @@ public class ItemController {
 	@Autowired
 	private StoreService Sservice;
 	
+	@Autowired
+	private CustomerService cusService;
+	
 	@RequestMapping("/")
-	public String indexItem (Model model) {
+	public String indexItem (CustomerVO loginVO, HttpServletRequest request, HttpSession session, Model model) {
 		List<ItemVO> itemList = service.selectItemList();
 		model.addAttribute("itemList", itemList);
 	    List<ItemVO> itemList2 = service.selectItemList2();
@@ -42,6 +51,34 @@ public class ItemController {
 	    model.addAttribute("itemList4", itemList4);
 	    List<StoreVO> popStoreList = Sservice.selectPopStoreList();
 	    model.addAttribute("popStoreList", popStoreList);
+		
+		/* autoLogin */
+	    Cookie aCookie = null;
+	    String loginId = null;
+	    
+	    try {
+			Cookie[] cookies = request.getCookies();
+
+			if (cookies != null && cookies.length > 0) {
+				for (int i = 0; i < cookies.length; i++) {
+					if (cookies[i].getName().equals("autoLogin")) {
+						System.out.println("auto넘어왓니");
+						aCookie = cookies[i];
+					} else {
+						
+					}
+				}
+			}
+		} catch (Exception e) {
+		}
+
+		if (aCookie != null && aCookie.getValue() != null) {
+			loginId = aCookie.getValue();
+			loginVO = cusService.autoLogin(loginId);
+			loginVO.setAutoLogin(true);
+			loginVO.setId(loginId);
+			session.setAttribute("loginVO", loginVO);
+		}
 		
 		return "index";
 		
@@ -119,7 +156,9 @@ public class ItemController {
 	@RequestMapping(value="/store/item/{num}", method = RequestMethod.GET)
 	public ModelAndView itemDetail(@PathVariable int num, ItemContentsVO itemContentsVO, Model model) {
 		itemContentsVO = service.selectOneItem(num);
+		
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
+		
 		List<ItemImgVO> imgList = service.selectByNum(num);
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
 		
@@ -127,6 +166,8 @@ public class ItemController {
 		
 		String[] colorList = service.getColorList(num);
 		String[] sizeList = service.getSizeList(num);
+		
+		itemVO = service.getItem(num);
 		
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
@@ -138,6 +179,14 @@ public class ItemController {
 		mav.addObject("storeName", storeName);
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
+		
+		System.out.println("itemDetail_imgList: "+imgList);
+		System.out.println("itemDetail_newItemList: "+newItemList);
+		
+		Gson gson = new Gson();
+		String itemJSON = gson.toJson(itemVO);
+		
+		mav.addObject("itemJSON", itemJSON);	
 		mav.setViewName("store/itemDetail");
 		return mav;
 	}
