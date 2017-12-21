@@ -49,11 +49,11 @@
 		border-radius: 5px !important;
 	}
 	td{
-		font-size: 10px !important;
+		font-size: 12px !important;
 		padding: 3px !important;	
 	}
 	#nothing{
-		font-size: 10px;
+		font-size: 12px;
 		color: #CCCCCC;
 		text-align: center;
 		padding-top: auto;
@@ -63,94 +63,45 @@
 	.semi{
 		font-weight: bold;
 	}
+	
+	.total{
+		font-size: 12px !important;
+		margin-top: 10px;
+		text-align: right;
+	}
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			
 			//로그인하지 않고 이용 시
-			if($('#id').value==null){
+			if($('#customer').val()==""){
 				alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
-				//location.href="${pageContext.request.contextPath}/login/login";
+				location.href="${pageContext.request.contextPath}/login/loginForm";
 			}		
 		});
 	</script>
 </head>
 <body>
-	<header>
-		<!-- 상단 navbar -->
-		<div class="navbar">
-			<div class="container">
-				<div class="panel-control-left">
-					<a href="#" data-activates="slide-out-left"
-						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-				</div>
-				<div class="site-title">
-					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-				</div>
-				<div class="panel-control-right">
-					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-				</div>
-			</div>
-		</div>
-		<!-- 상단 navbar 끝 -->
-		<!-- 좌측 메뉴패널 -->
-		<div class="panel-control-right">
-			<ul id="slide-out-left" class="side-nav collapsible"
-				data-collapsible="accordion">
-				<li>
-					<div class="photos">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/photos.png"
-							alt="">
-						<h3>경준이</h3>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>층별 매장보기<span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 좌측 메뉴패널 끝 -->
-	</header>
 
+	<header>
+	<!-- navbar -->
+		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<!-- end navbar -->
+	</header>
+		
 	<section>
-		<div class="table-app app-pages app-section">
+		<div class="app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문/수령</h3>
 					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
-				<c:forEach var="detail" items="${detailList}">
-					<div class="detailTable">
+				<div class="detailTable">
+				<c:forEach var="detail" items="${detailList}">				
 						<table style="width: 100%;">
 							<tr>
-								<td rowspan="5" colspan="2" style="width: 55%; height: 150px;">
-								<img name ="HH" src="/image/${ detail.imgSaveName }" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+								<td rowspan="5" colspan="2" style="width: 45%; height: 150px;">
+								<img src="/image/${ detail.imgSaveName }" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
 								</td>
 								<td><span class="semi">상품 명: ${detail.itemName}</span></td>
 							</tr>
@@ -167,12 +118,13 @@
 								<td><span class="semi">가격  : </span>${detail.price} 원</td>
 							</tr>
 						</table>
-					</div>
+						<br/>			
 				</c:forEach>
+				<div class="semi total">총 가격 : ${totalPrice} 원</div>
+				</div>
 			</div>
 		</div>
-		<%-- <input type="hidden" value="${customer.id}" id="id"> --%>
-		<input type="hidden" value="cus2" id="id">
+		<input type="hidden" value="${customer.id}" id="customer">
 	</section>
 	
 	<!-- footer -->

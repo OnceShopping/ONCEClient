@@ -34,9 +34,7 @@
     
     <!-- 주문/수령 -->
     <select id="showOrderList" parameterType="INT" resultType="OrderVO">
-		select orderNo, status, count, storeNo, date_format(date, '%y-%m-%d') as date, totalPrice, imgSaveName, imgSize, itemName, storeName
- 		from Orders
- 		where memNo = #{memNo} and  date=curdate();
+ 		select * from orders where memNo=#{memNo} and date=curdate() group by orderNo;
 	</select>
 	
 	 <!-- 주문/수령_상세정보-->
@@ -46,5 +44,9 @@
 		where orderNo = #{orderNo}
 	</select>
 	
+	<!-- 총 가격 가져오기 -->
+	<select id="selectPrice" parameterType="INT" resultType="INT">
+		select totalPrice from orders where orderNo=#{orderNo} group by orderNo;
+	</select>
 	
 </mapper>

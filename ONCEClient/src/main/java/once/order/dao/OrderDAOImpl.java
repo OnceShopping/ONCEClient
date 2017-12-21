@@ -53,4 +53,10 @@ public class OrderDAOImpl implements OrderDAO {
 		List<OrderDetailVO> list = sqlSession.selectList("once.order.dao.OrderDAO.showDetailList", orderNo);
 		return list;
 	}
+	
+	//총 가격 가져오기
+	@Override
+	public int selectPrice(int orderNo) {
+		return sqlSession.selectOne("once.order.dao.OrderDAO.selectPrice", orderNo);
+	}
 }

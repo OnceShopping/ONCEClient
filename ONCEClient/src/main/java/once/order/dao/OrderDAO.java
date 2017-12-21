@@ -17,4 +17,6 @@ public interface OrderDAO {
 	//주문 상세 정보
 	public List<OrderDetailVO> showDetailList(int orderNo);
 
+	//총 가격 가져오기
+	public int selectPrice(int orderNo);
 }

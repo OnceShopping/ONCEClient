@@ -448,19 +448,14 @@ public class OrderController {
 	@RequestMapping(value = "/order/status", method=RequestMethod.GET)
 	public ModelAndView orderList(HttpSession session) {
 		
-		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
-	
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");		
+		
 		
 		List<OrderVO> orderList = new ArrayList<>();
-		List<OrderDetailVO> detailList = new ArrayList<>();
-		//테스트 용
-		orderList = service.showOrderList(2);
 		
-		/*//추후 풀어주어야함
 		if(login!=null)
 			orderList = service.showOrderList(login.getMemNo());
-		*/	
-					
+				
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("orderList", orderList);
@@ -477,18 +472,17 @@ public class OrderController {
 		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
 		
 		List<OrderDetailVO> detailList = new ArrayList<>();
-	
-		//테스트용
-		detailList = service.showDetailList(orderNo);
 		
-		/*//추후 풀어주어야함
 		if(login!=null)
-			detailList = service.showDetailList(orderNo);
-		*/ 					
-			
+			detailList = service.showDetailList(orderNo); 					
+		
+		//총 가격 가져오기
+		int totalPrice = service.selectPrice(orderNo); 
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("detailList", detailList);
+		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("customer", login);
 		
 		mav.setViewName("mypage/orderReceipt/detail");

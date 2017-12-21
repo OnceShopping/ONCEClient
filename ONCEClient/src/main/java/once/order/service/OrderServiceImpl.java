@@ -37,4 +37,10 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDetailVO> showDetailList(int orderNo) {
 		return dao.showDetailList(orderNo);
 	}
+	
+	//총 가격 가져오기
+	@Override
+	public int selectPrice(int orderNo) {
+		return dao.selectPrice(orderNo);
+	}
 }
