@@ -64,8 +64,6 @@
 <script src="resources/js/slick.min.js"></script>
 <script src="resources/js/owl.carousel.min.js"></script>
 <script src="resources/js/custom.js"></script>
-<script type="text/javascript">
-</script>
 </head>
 <body>
    <header>
@@ -134,7 +132,7 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
-                                 <img src="/image/${womenitem.imgSaveName}" alt="">
+                                 <img src="/image/${womenitem.imgSaveName}" alt="이미지 준비중입니다.">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${womenitem.num}">

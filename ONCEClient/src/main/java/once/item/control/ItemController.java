@@ -53,49 +53,51 @@ public class ItemController {
 	@RequestMapping("/")
 	public String indexItem (CustomerVO loginVO, HttpServletRequest request, HttpSession session, Model model) throws IOException {
 	
-    List<ItemVO> itemList = service.selectItemListView();
+		List<ItemVO> itemList = service.selectItemList();
 		model.addAttribute("itemList", itemList);
-	  List<ItemVO> itemList2 = service.selectItemList2();
-	  model.addAttribute("itemList2", itemList2);
-	    
-	  List<ItemVO> itemList3 = service.selectItemList3();
-	  model.addAttribute("itemList3", itemList3);
-	    
-	  List<ItemVO> itemList4 = service.selectItemList4();
-	  model.addAttribute("itemList4", itemList4);
-	    
-	  List<StoreVO> popStoreList = Sservice.selectPopStoreList();
-	  model.addAttribute("popStoreList", popStoreList);
-
-    List<NoticeVO> noticeList = SSservice.selectNoticeList();
-	  model.addAttribute("noticeList", noticeList);
-  
-    /* autoLogin */
-	  Cookie aCookie = null;
-	  String loginId = null;
-	    
-	    try {
-			Cookie[] cookies = request.getCookies();
-
-			if (cookies != null && cookies.length > 0) {
-				for (int i = 0; i < cookies.length; i++) {
-					if (cookies[i].getName().equals("autoLogin")) {
-						System.out.println("auto넘어왓니");
-						aCookie = cookies[i];
-					} else {}
+	  
+		List<ItemVO> itemList2 = service.selectItemList2();
+		model.addAttribute("itemList2", itemList2);
+		    
+		List<ItemVO> itemList3 = service.selectItemList3();
+		model.addAttribute("itemList3", itemList3);
+		    
+		List<ItemVO> itemList4 = service.selectItemList4();
+		model.addAttribute("itemList4", itemList4);
+		    
+		List<StoreVO> popStoreList = Sservice.selectPopStoreList();
+		model.addAttribute("popStoreList", popStoreList);
+	
+	    List<NoticeVO> noticeList = SSservice.selectNoticeList();
+		model.addAttribute("noticeList", noticeList);
+	  
+	    /* autoLogin 
+		  Cookie aCookie = null;
+		  String loginId = null;
+		    
+		    try {
+				Cookie[] cookies = request.getCookies();
+	
+				if (cookies != null && cookies.length > 0) {
+					for (int i = 0; i < cookies.length; i++) {
+						if (cookies[i].getName().equals("autoLogin")) {
+							System.out.println("auto넘어왓니");
+							aCookie = cookies[i];
+						} else {}
+					}
 				}
+			} catch (Exception e) {
 			}
-		} catch (Exception e) {
-		}
-
-		if (aCookie != null && aCookie.getValue() != null) {
-			loginId = aCookie.getValue();
-			loginVO = cusService.autoLogin(loginId);
-			loginVO.setAutoLogin(true);
-			loginVO.setId(loginId);
-			session.setAttribute("loginVO", loginVO);
-		}
-
+	
+			if (aCookie != null && aCookie.getValue() != null) {
+				loginId = aCookie.getValue();
+				loginVO = cusService.autoLogin(loginId);
+				loginVO.setAutoLogin(true);
+				loginVO.setId(loginId);
+				session.setAttribute("loginVO", loginVO);
+			}
+		*/
+	
 		return "index";
 		
 	}
@@ -166,10 +168,13 @@ public class ItemController {
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
 		
 		ItemVO itemVO = new ItemVO();
-		
+				
 		String[] colorList = service.getColorList(num);
 		String[] sizeList = service.getSizeList(num);
 		
+		itemVO.setColorList(colorList);
+		itemVO.setSizeList(sizeList);
+		itemVO.setStoreNo(itemContentsVO.getStoreNo());		
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 		
@@ -180,6 +185,12 @@ public class ItemController {
 		mav.addObject("storeName", storeName);
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
+		
+		Gson gson = new Gson();
+		String itemJSON = gson.toJson(itemVO);
+		
+		mav.addObject("itemJSON", itemJSON);
+		
 		mav.setViewName("store/itemDetail");
 		return mav;
 	}
@@ -189,7 +200,7 @@ public class ItemController {
 		itemContentsVO = service.selectOneItem(num);
 		
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
-		
+			
 		List<ItemImgVO> imgList = service.selectByNum(num);
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
 		
@@ -202,7 +213,8 @@ public class ItemController {
 		
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
-
+		itemVO.setStoreNo(itemContentsVO.getStoreNo());
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("itemContentsVO", itemContentsVO);

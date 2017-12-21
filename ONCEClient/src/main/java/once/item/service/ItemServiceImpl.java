@@ -21,11 +21,10 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<ItemVO> selectItemList() {
-		
 		List<ItemVO> itemList = dao.selectItemList();
 		return itemList;
 	}
-
+	
 	@Override
 	public List<ItemVO> selectItemList2() {
 		
@@ -186,13 +185,6 @@ public class ItemServiceImpl implements ItemService {
 	   return sizeList;
 	}
 	
-	@Override
-	public List<ItemVO> selectItemListView() {
-	
-		
-		return dao.selectItemListView();
-	}
-
 	@Override
 	public List<ItemVO> selectGeneralItemList() {
 		List<ItemVO> generalItemList = dao.selectGeneralItemList();

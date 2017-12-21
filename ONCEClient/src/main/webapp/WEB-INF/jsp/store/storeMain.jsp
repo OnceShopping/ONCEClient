@@ -185,7 +185,7 @@ $(document).ready(function() {
 	<section>
 	 <div class="team-app app-pages app-section" style="margin-top: 0px">
 			<div class="col s12" style="text-align: center; vertical-align: middle; margin-bottom: 30px" >
-				<img alt="상표 이미지 ${ storeVO.storeName}" src="${pageContext.request.contextPath}/resources/img/gallery1.jpg" style="width: 150px; height: 150px; border-radius: 50%;">
+				<img alt="상표 이미지 ${ storeVO.storeName}" src="/image/${storeVO.imgSaveName }" style="width: 150px; height: 150px; border-radius: 50%;">
 			</div>
 			<div class="navbar" id="navbar2Main" style="background: #ffffff; border-bottom: #ffffff; box-shadow: none">
 				<div class="container">

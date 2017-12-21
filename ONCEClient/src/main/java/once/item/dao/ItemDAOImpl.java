@@ -202,14 +202,6 @@ public class ItemDAOImpl implements ItemDAO {
 			sqlSession.insert("once.item.dao.ItemDAO.minCnt", detail);
 		}
 	}
-  
-	@Override
-	public List<ItemVO> selectItemListView() {
-		
-		List<ItemVO> itemList = sqlSession.selectList("once.item.dao.ItemDAO.selectItemListView");
-
-		return itemList;
-	}
 
 	@Override
 	public List<ItemVO> selectGeneralItemList() {

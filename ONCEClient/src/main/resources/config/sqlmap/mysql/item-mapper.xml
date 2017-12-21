@@ -120,7 +120,7 @@
 	</select> -->
 	
 	
-	<select id="selectItemListView" resultType="itemVO">
+	<select id="selectMenItem" parameterType="String" resultType="itemVO">
 	select itemName, itemCategory1, price, imgSaveName, num
 	from itemContents
 	where itemCategory1 = '남성' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
