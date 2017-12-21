@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="selectOneStore" parameterType="String" resultType="storeVO">
-		select ceo, companyNo, phone, storeNo, storeName, storeCategory, floor from store 
+		select ceo, companyNo, phone, storeNo, storeName, storeCategory, imgSaveName, floor from store 
 		 where storeName = #{storeName}
 	</select>
 
