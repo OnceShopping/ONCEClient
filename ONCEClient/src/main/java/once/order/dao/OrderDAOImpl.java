@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import once.customer.vo.CustomerVO;
 import once.order.vo.OrderDetailVO;
 import once.order.vo.OrderVO;
 
@@ -101,5 +102,18 @@ public class OrderDAOImpl implements OrderDAO {
 		List<OrderVO> list = sqlSession.selectList("once.order.dao.OrderDAO.showPrice", orderNo);
 		
 		return list;
+
+
+	//오늘 주문 & !수령완료 한 주문 개수
+	@Override
+	public int countTodayNotReceipt(int memNo) {
+		return sqlSession.selectOne("once.order.dao.OrderDAO.todayNotReceipt", memNo);
+	}
+
+	// info 확인
+	@Override
+	public String getFloor(CustomerVO loginVO) {
+		return sqlSession.selectOne("once.order.dao.OrderDAO.getFloor", loginVO);
+
 	}
 }

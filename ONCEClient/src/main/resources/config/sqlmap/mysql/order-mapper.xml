@@ -35,7 +35,7 @@
     <!-- 주문/수령 -->
     <select id="showOrderList" parameterType="INT" resultType="OrderVO">
  		select * from orders where memNo=#{memNo} and date=curdate() group by orderNo;
-	</select>
+	  </select>
 	
 	 <!-- 주문/수령_상세정보-->
 	<select id="showDetailList" parameterType="INT" resultType="OrderDetailVO">
@@ -43,7 +43,7 @@
 		from detailList
 		where orderNo = #{orderNo}
 	</select>
-	
+  
 	<!-- 총 가격 가져오기 -->
 	<select id="selectPrice" parameterType="INT" resultType="INT">
 		select totalPrice from orders where orderNo=#{orderNo} group by orderNo;
@@ -77,6 +77,21 @@
 		between #{list[1]} and #{list[2]}
 		GROUP BY orderNo
 		ORDER BY date ASC;
+	</select>
+  
+	<!-- 오늘 주문 & !수령완료 한 내역 보기  -->
+   <select id="todayNotReceipt" parameterType="INT" resultType="INT">
+		select count(*)
+ 		from OrderList
+ 		where memNo = #{memNo} and  date=curdate() and status not in ('수령 완료');
+	</select>
+	
+	<!-- info 확인 -->
+   <select id="getFloor" parameterType="INT" resultType="String">
+		select floor
+ 		from OrderList
+ 		where memNo = #{memNo} and date=curdate() and status not in ('수령 완료')
+ 		group by memNo having min(orderNo);
 	</select>
 	
 	<select id="showPrice" parameterType="INT" resultType="OrderVO">
