@@ -69,6 +69,11 @@
 		margin-top: 10px;
 		text-align: right;
 	}
+	#PriceInfo p{
+		margin-left:30px; 
+		margin-right:30px;
+		font-size: 12px;
+	}
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -93,7 +98,7 @@
 		<div class="app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3 class="bold">주문/수령</h3>
+					<h3 class="bold">주문 상세 정보</h3>
 				</div>
 				<div class="detailTable">
 				<c:forEach var="detail" items="${detailList}">				
@@ -117,9 +122,22 @@
 								<td><span class="semi">가격  : </span>${detail.price} 원</td>
 							</tr>
 						</table>
-						<br/>			
+						<br/>		
 				</c:forEach>
-				<div class="semi total">총 가격 : ${totalPrice} 원</div>
+				<div id="PriceInfo">
+					<c:forEach var="order" items="${orderList}">
+						<p>
+							총 상품 금액
+							<span style="float: right;">${order.oriPrice} 원</span>
+						</p>
+						<p>
+							총 할인 금액
+							<span style="float: right; color: red;">- ${order.salePrice} 원</span>
+						</p>			
+						<hr/>
+						<p class="semi total">총 가격 : ${order.totalPrice} 원</p>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

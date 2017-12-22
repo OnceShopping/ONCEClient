@@ -460,19 +460,13 @@ public class OrderController {
 	@RequestMapping(value = "/order/status", method=RequestMethod.GET)
 	public ModelAndView orderList(HttpSession session) {
 		
-		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
-	
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");		
 		
 		List<OrderVO> orderList = new ArrayList<>();
-		List<OrderDetailVO> detailList = new ArrayList<>();
-		//테스트 용
-		orderList = service.showOrderList(2);
 		
-		/*//추후 풀어주어야함
 		if(login!=null)
 			orderList = service.showOrderList(login.getMemNo());
-		*/	
-					
+				
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("orderList", orderList);
@@ -489,18 +483,17 @@ public class OrderController {
 		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
 		
 		List<OrderDetailVO> detailList = new ArrayList<>();
-	
-		//테스트용
-		detailList = service.showDetailList(orderNo);
 		
-		/*//추후 풀어주어야함
 		if(login!=null)
-			detailList = service.showDetailList(orderNo);
-		*/ 					
-			
+			detailList = service.showDetailList(orderNo); 					
+		
+		//총 가격 가져오기
+		int totalPrice = service.selectPrice(orderNo); 
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("detailList", detailList);
+		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("customer", login);
 		
 		mav.setViewName("mypage/orderReceipt/detail");
@@ -516,6 +509,65 @@ public class OrderController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("mypage/orderHistory/history");
+		mav.addObject("customer", login);
+		
+		return mav;
+	}
+	
+	//기간 설정 - 3개월, 6개월
+	@RequestMapping(value="/orderList/months", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OrderVO> orderMonths(@RequestParam("key") int key, @RequestParam("memNo") int memNo){
+				
+		List<OrderVO> orderList = new ArrayList<>();
+		
+		if(key==3)
+			orderList = service.threeMonths(memNo);
+		else
+			orderList = service.sixMonths(memNo);
+		
+		return orderList;
+	}
+		
+	//주문 내역-기간설정
+	@RequestMapping(value="/orderList/setTimes", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OrderVO> orderTimes(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, @RequestParam("memNo") int memNo) {
+			
+		List<OrderVO> orderList = new ArrayList<>();
+		
+		List<Object> searchDate = new ArrayList<>();
+		
+		searchDate.add(memNo);
+		searchDate.add(startDate);
+		searchDate.add(endDate);
+
+		orderList = service.setTimes(searchDate);
+		
+		return orderList;
+	}
+	
+	//주문 상세 보기
+	@RequestMapping(value="/orderList/{orderNo}")
+	public ModelAndView orderListByNo(@PathVariable("orderNo") int orderNo, HttpSession session) {
+		
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
+		
+		List<OrderVO> orderList = new ArrayList<>(); // OrderList 테이블
+		List<OrderDetailVO> detailList = new ArrayList<>();
+		
+		if(login!=null) {
+			orderList = service.showPrice(orderNo); //OrderList 테이블에서 해당 주문에 대한 가격 정보를 가져오기 위함
+			detailList = service.showDetailList(orderNo); 	
+		}	
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("orderList", orderList);	
+		mav.addObject("detailList", detailList);
+		mav.addObject("customer", login);
+		mav.setViewName("mypage/orderHistory/detail");
+		
 		return mav;
 	}
 }

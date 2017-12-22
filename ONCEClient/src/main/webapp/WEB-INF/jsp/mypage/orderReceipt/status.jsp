@@ -49,24 +49,30 @@
 		border-radius: 5px !important;
 	}
 	td{
-		font-size: 10px !important;
+		font-size: 12px !important;
 		padding: 3px !important;	
 	}
 	.No{
 		font-weight: bold;
+		padding: 5px;
 	}
-	.status{
-		padding-top: 3px;
-		padding-bottom: 3px;
+	.status{		
 		font-weight:bold; 
+		font-size: 13px;
+		text-align:right;
+		margin-right:10px;
+		text-shadow: #bdbdbd 2px 2px 2px;
+		float:right;
+		padding-bottom: 5px; 
 	}
 	#nothing{
-		font-size: 10px;
+		font-size: 12px;
 		color: #CCCCCC;
 		text-align: center;
 		padding-top: auto;
 		padding-bottom: auto; 
 		margin-top: 50px;
+		
 	}
 	.noImage{
 		width:120px;
@@ -82,128 +88,59 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			
-			//로그인하지 않고 이용 시
-			if($('#id').value==null){
+			if($('#customer').val()==""){
 				alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
-				//location.href="${pageContext.request.contextPath}/login/login";
-			}
+				location.href="${pageContext.request.contextPath}/login/loginForm";
+			}	
 			
-			var statusVal=$('.status').val();
-			
-			if(statusVal=="상품승인완료"){
-				$(this).css("color","#AED4EF");
-			}else if(statusVal=="상품승인완료"){
-				$(this).css("color","#85B8ED");
-			}else if(statusVal=="상품전달완료"){
-				$(this).css("color","#138BE2");
-			}else if(statusVal=="상품준비완료"){
-				$(this).css("color","#EE246C");
-			}else{
-				$(this).css("color","#9085D0");
-			}
-			
-				
 		});
 	</script>
 </head>
 <body>
-	<header>
-		<!-- 상단 navbar -->
-		<div class="navbar">
-			<div class="container">
-				<div class="panel-control-left">
-					<a href="#" data-activates="slide-out-left"
-						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-				</div>
-				<div class="site-title">
-					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-				</div>
-				<div class="panel-control-right">
-					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-				</div>
-			</div>
-		</div>
-		<!-- 상단 navbar 끝 -->
-		<!-- 좌측 메뉴패널 -->
-		<div class="panel-control-right">
-			<ul id="slide-out-left" class="side-nav collapsible"
-				data-collapsible="accordion">
-				<li>
-					<div class="photos">
-						<img
-							src="${pageContext.request.contextPath}/resources/img/photos.png"
-							alt="">
-						<h3>경준이</h3>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>층별 매장보기<span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 좌측 메뉴패널 끝 -->
-	</header>
+
+	<!-- navbar -->
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<!-- end navbar -->
 
 	<section>
 		<div class="table-app app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문/수령</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
+				<div>
 				<c:choose>
 					<c:when test="${empty orderList}">
 						<div id="nothing"> 현재 주문하신 상품이 존재하지 않습니다.</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="order" items="${orderList}">
+						<c:forEach var="order" items="${orderList}" varStatus="index">
 							<div class="orderTable" onclick="location.href='${pageContext.request.contextPath}/order/'+${order.orderNo}">
 								<table style="width: 100%;">
 									<tr>
-										<td colspan="2" style="background: #EEE9FE;"><div class="No">주문 번호 : ${order.orderNo}</div></td>
+										<td colspan="2" style="background: #EEE9FE;">
+											<div class="No">
+												<span style='text-align:left;'>주문 번호 : ${order.orderNo}</span>
+											</div>
+										</td>
 									</tr>
 									<tr>
-										<td rowspan="5" style="width: 60%;">
+										<td rowspan="5" style="width: 40%;">
 											<c:choose>
 												<c:when test="${!empty order.imgSaveName}">
-													<img src="/image/${order.imgSaveName}" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+													<img src="/image/${order.imgSaveName}" width="120px;" height="120px;" style="margin-left: auto; margin-right: auto; display: block;">
 												</c:when>
 												<c:otherwise>
-													<div class="noImage">${ order.storeName }</div>
+													<div class="noImage">${ order.storeName } 매장 로고를 준비중입니다.</div>
 												</c:otherwise>
 											</c:choose>
 										</td>
 										<c:choose>
 											<c:when test="${order.count ne 1}">
-												<td style="width: 40%;">상품 제목 : ${order.orderDetails[0].itemName}외 ${order.count -1}</td>
+												<td style="width: 60%;"><span style="font-weight:bold; font-size:14px;">${ order.storeName }</span><br/>(${order.orderDetails[0].itemName} 외 ${order.count -1})</td>
 											</c:when>
 											<c:otherwise>
-												<td style="width: 40%;">상품 제목 : ${order.orderDetails[0].itemName}</td>
+												<td style="width: 60%; font-weight:bold; font-size:14px;">${order.orderDetails[0].itemName}</td>
 											</c:otherwise>
 										</c:choose>
 									</tr>
@@ -217,17 +154,34 @@
 										<td>주문 금액  : ${order.totalPrice} 원</td>
 									</tr>
 									<tr>
-										<td><div class="status">상태  : ${order.status}</div></td>
+										<c:choose>
+											<c:when test="${order.status eq '결제완료'}">
+												<td><span class="status" >${order.status}</span></td>
+											</c:when>
+											<c:when test="${order.status eq '상품승인완료'}">
+												<td><span class="status" style="color: #4049FB;">상품준비중</span></td>
+											</c:when>
+											<c:when test="${order.status eq '상품전달완료'}">
+												<td><span class="status" style="color: #17BB77;">상품이동중</span></td>
+											</c:when>
+											<c:when test="${order.status eq '상품준비완료'}">
+												<td><span class="status" style="color: #FF4040;">상품도착</span></td>
+											</c:when>
+											<c:otherwise>
+												<td><span class="status">${order.status}</span></td>
+											</c:otherwise>	
+										</c:choose>								
 									</tr>
 								</table>
 							</div>
+							<br/>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
+				</div>
 			</div>
 		</div>
-		<%-- <input type="hidden" value="${customer.id}" id="id"> --%>
-		<input type="hidden" value="cus2" id="id">
+		<input type="hidden" value="${customer.id}" id="customer">
 	</section>
 	
 	

@@ -39,6 +39,35 @@ public class OrderServiceImpl implements OrderService {
 		return dao.showDetailList(orderNo);
 	}
 	
+	//총 가격 가져오기
+	@Override
+	public int selectPrice(int orderNo) {
+		return dao.selectPrice(orderNo);
+	}
+	
+	//주문 내역-3개월
+	@Override
+	public List<OrderVO> threeMonths(int memNo) {
+		return dao.threeMonths(memNo);
+	}
+	
+	//주문 내역-6개월
+	@Override
+	public List<OrderVO> sixMonths(int memNo) {
+		return dao.sixMonths(memNo);
+	}
+	
+	//기간 설정
+	@Override
+	public List<OrderVO> setTimes(List<Object> searchDate) {
+		return dao.setTimes(searchDate);
+	}
+	
+	//주문 번호에 대한 가격 정보
+	@Override
+	public List<OrderVO> showPrice(int orderNo) {
+		return dao.showPrice(orderNo);
+
 	//오늘 주문 & !수령완료 한 내역 보기
 	@Override
 	public int countTodayNotReceipt(int memNo) {
@@ -49,5 +78,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String getFloor(CustomerVO loginVO) {
 		return dao.getFloor(loginVO);
+
 	}
 }

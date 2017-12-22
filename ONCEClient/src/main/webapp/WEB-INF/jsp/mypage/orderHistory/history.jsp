@@ -32,85 +32,160 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		
-		$('#setTime').hide();	
-		today();
-		
-		$('.times').click(function(){
-			if(this==$('.times')[2])
-				$('#setTime').toggle();
-			else
-				$('#setTime').hide();
+		if($('#customer').val()==""){
+			alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
+			location.href="${pageContext.request.contextPath}/login/loginForm";
+		}else{
 			
-			$('.times').removeClass("active");
-			$(this).addClass("active");
+			$('#setTime').hide();	
+			var date = today();
+			var key;
+			var memNo = $('#memNo').val();
+			var startDate;
+			var endDate;
 			
-			
-			if(this!=$('.times')[2]){
-				/* $.ajax({
-					url : "",
-					data:json,
-					type:"get",
-					dataType:"json",
-					cache:false,
-					contentType:"application/json; charset=UTF-8",
-					success:function(data){
-						alert(data);
-					}, error : function(request, status, error){
-						alert("에러 발생! : " + request.status + "message : "+ request.responseText+ "\n"+ "error : "+ error);
-					}
-						
-				}); */
-			}
-		});
-		
-		$( ".datepicker" ).datepicker({
-			dateFormat:'yy.mm.dd',
-			showOtherMonths: true,
-	      	selectOtherMonths: true
-		});
-
-		$('#setDate').click(function(){
-			var startDate = $('#startDate').val();
-			var endDate = $('#endDate').val();
-			
-			if(startDate==""){
-				alert("날짜를 선택해주세요.");
-				$('#startDate').focus();
-			}else if(endDate==""){
-				alert("날짜를 선택해주세요.");
-				$('#endDate').focus()
-			}else{
-				var startArray = startDate.split(".");
-				var endArray = endDate.split(".");
-				
-				var start_date=new Date(startArray[0], startArray[1], startArray[2]);
-				var end_date=new Date(endArray[0], endArray[1], endArray[2]);
-				
-				if(start_date.getTime() > end_date.getTime()){
-					alert('종료 날짜보다 시작 날짜가 작아야합니다.');
-					return false;
+			$('.times').click(function(){
+				$('#result').html('');
+					
+				if(this==$('.times')[2])
+					$('#setTime').toggle();
+				else{
+					$('#setTime').hide();
+					key = (this==$('.times')[0]) ? 3 : 6;    
 				}
-			}
-		});
-		
-		
-		/* $('#result') */
-		
+				
+				$('.times').removeClass("active");
+				$(this).addClass("active");
+				
+				if(this!=$('.times')[2]){
+					
+					$.ajax({
+						url : "${pageContext.request.contextPath}/orderList/months",
+						type:"get",
+						data : {
+							"key" : key,
+							"memNo" : memNo
+						},
+						dataType:"json",
+						cache:false,
+						contentType:"application/json; charset=UTF-8",
+						success:function(data){		
+							var showData = printResult(data);
+							$('#result').html(showData);
+						}, error : function(request, status, error){
+							alert("에러 발생! : " + request.status + "message : "+ request.responseText+ "\n"+ "error : "+ error);
+						}			
+					});
+				}else{
+					$('#startDate').val('');
+					$('#endDate').val('');
+				}
+			});
+			
+			$( ".datepicker" ).datepicker({
+				dateFormat:'yy-mm-dd',
+				showOtherMonths: true,
+		      	selectOtherMonths: true
+			});
+	
+			$('#setDate').click(function(){
+				startDate = $('#startDate').val();
+				endDate = $('#endDate').val();
+				
+				if(startDate==""){
+					alert("날짜를 선택해주세요.");
+					$('#startDate').focus();
+				}else if(endDate==""){
+					alert("날짜를 선택해주세요.");
+					$('#endDate').focus()
+				}else{
+					var startArray = startDate.split(".");
+					var endArray = endDate.split(".");
+					
+					var start_date=new Date(startArray[0], startArray[1], startArray[2]);
+					var end_date=new Date(endArray[0], endArray[1], endArray[2]);
+					
+					if(start_date.getTime() > end_date.getTime()){
+						alert('종료 날짜보다 시작 날짜가 작아야합니다.');
+						return false;
+					}
+					
+				
+					$.ajax({
+						url : "${pageContext.request.contextPath}/orderList/setTimes",
+						data : {
+							"memNo" : memNo,
+							"startDate" : startDate,
+							"endDate" : endDate
+						},
+						dataType:"json",
+						type:"get",
+						cache:false,
+						contentType:"application/json; charset=UTF-8",
+						success:function(data){			
+							var showData = printResult(data);
+							$('#result').html(showData);
+						}, error : function(request, status, error){
+							alert("에러 발생! : " + request.status + "message : "+ request.responseText+ "\n"+ "error : "+ error);
+						}
+							
+					});
+					
+				}
+			});
+		}	
 	});
 	
 	function today(){
-		 var date = new Date();
 		 
-		 var year = date.getFullYear();
-		 var month = date.getMonth()+1;
-		 var day = date.getDate();
+		var date = new Date();
 		 
-		 if(("" + month).lenth ==1)
-			 month = "0" +month;
-		 if((""+day).length==1)
-			 day = "0" + day;
-		 
-		 alert("" + year+"."+month+"."+day);
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var day = date.getDate();
+		
+		if(("" + month).lenth ==1)
+			month = "0" +month;
+		if((""+day).length==1)
+			day = "0" + day;
+		
+		var day = "" + year+"-"+month+"-"+day;
+		return day;
+	}
+	
+	function printResult(data) {
+		var distinct;
+		var row="";
+
+		$.each(data,function(index,item){
+			
+			if(index!=0){
+				if(item.date!=distinct)
+					row += "<div class='dateStyle'>"+item.date+"</div>";			
+			}else
+				row += "<div  class='dateStyle'>"+item.date+"</div>";
+			
+			row += "<div onclick='move("+item.orderNo+")'>";
+			row += "<table style='width: 95%; border:1px solid #D0D0D0; margin-top:5px; margin-left:auto;margin-right:auto;' id='order_"+item.orderNo+"'>";
+			row += "<tr style='border:1px solid #D0D0D0; background-color:#FFFCEB;'><td colspan='2' style='font-size:12px;'>주문번호 <span style='font-size:13px; font-weight:bold;'>" + item.orderNo + "</span></td></tr>";
+			row += "<tr><td rowspan='4'><img src='/image/"+ item.imgSaveName+"' width='120px' height='120px'></td>"
+			if(item.count!=1){ 
+				row += "<td style='padding-left:0px;'><span style='font-size:14px; font-weight:bold;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + " 외 " + (item.count -1) + "</td><tr>";
+			}else{
+				row += "<td style='padding-left:0px;'><span style='font-size:14px; font-weight:bold; padding-left:0px;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + "</td><tr>";
+			}
+			
+			row += "<tr><td style='font-size:12px; padding:0px; padding-bottom:3px;'>주문금액 : " + item.totalPrice + " 원</td></tr>";
+			row += "<tr><td style='font-size:12px; padding:0px; padding-bottom:3px;'>진행상태 : " + item.status + "</td></tr>";
+			
+			distinct = item.date;
+			
+			row += "</table></div>";
+		});
+		return row;
+	}
+	function move(orderNo){
+		location.href="${pageContext.request.contextPath}/orderList/"+orderNo;
 	}
 </script>
 <style type="text/css">
@@ -128,11 +203,19 @@
 	}
 	.active{
 		box-shadow: 0 0 10px #A084FF inset;
+		
 	}
 	.datepicker{
 		text-align: center;
 		margin: 0px;
 		font-size: 10px;
+	}
+	.dateStyle{
+		margin-top :20px;
+		padding:5px; 
+		background-color:#DDD3FC; 
+		font-size:12px; 
+		border-radius:3px;
 	}
 </style>
 </head>
@@ -232,7 +315,7 @@
 	<div class="grid-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3 style="text-align: left;">구매 내역</h3>
+				<h3 class="bold">구매 내역</h3>
 			</div>
 			<div>
 				<table class="selectTimes">
@@ -256,11 +339,13 @@
 						</td>
 					</tr>
 				</table>
-				<div id="result">
+				<div id="result" style="margin-top:20px;">
 				</div>
 			</div>
 		</div>
 	</div>
+	<input type="hidden" value="${customer.id}" id="customer">
+	<input type="hidden" value="${customer.memNo}" id="memNo">
 	</section>
 	
 	
