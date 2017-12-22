@@ -67,7 +67,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderVO> showPrice(int orderNo) {
 		return dao.showPrice(orderNo);
-
+	}
+	
 	//오늘 주문 & !수령완료 한 내역 보기
 	@Override
 	public int countTodayNotReceipt(int memNo) {

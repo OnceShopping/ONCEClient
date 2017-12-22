@@ -102,7 +102,7 @@ public class OrderDAOImpl implements OrderDAO {
 		List<OrderVO> list = sqlSession.selectList("once.order.dao.OrderDAO.showPrice", orderNo);
 		
 		return list;
-
+	}
 
 	//오늘 주문 & !수령완료 한 주문 개수
 	@Override
