@@ -54,11 +54,16 @@
 	}
 	.No{
 		font-weight: bold;
+		padding: 5px;
 	}
-	.status{
-		padding-top: 3px;
-		padding-bottom: 3px;
+	.status{		
 		font-weight:bold; 
+		font-size: 13px;
+		text-align:right;
+		margin-right:10px;
+		text-shadow: #bdbdbd 2px 2px 2px;
+		float:right;
+		padding-bottom: 5px; 
 	}
 	#nothing{
 		font-size: 12px;
@@ -67,6 +72,7 @@
 		padding-top: auto;
 		padding-bottom: auto; 
 		margin-top: 50px;
+		
 	}
 	.noImage{
 		width:120px;
@@ -85,7 +91,8 @@
 			if($('#customer').val()==""){
 				alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
 				location.href="${pageContext.request.contextPath}/login/loginForm";
-			}				
+			}	
+			
 		});
 	</script>
 </head>
@@ -100,8 +107,8 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문/수령</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
+				<div>
 				<c:choose>
 					<c:when test="${empty orderList}">
 						<div id="nothing"> 현재 주문하신 상품이 존재하지 않습니다.</div>
@@ -111,25 +118,29 @@
 							<div class="orderTable" onclick="location.href='${pageContext.request.contextPath}/order/'+${order.orderNo}">
 								<table style="width: 100%;">
 									<tr>
-										<td colspan="2" style="background: #EEE9FE;"><div class="No">주문 번호 : ${order.orderNo}</div></td>
+										<td colspan="2" style="background: #EEE9FE;">
+											<div class="No">
+												<span style='text-align:left;'>주문 번호 : ${order.orderNo}</span>
+											</div>
+										</td>
 									</tr>
 									<tr>
 										<td rowspan="5" style="width: 40%;">
 											<c:choose>
 												<c:when test="${!empty order.imgSaveName}">
-													<img src="/image/${order.imgSaveName}" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+													<img src="/image/${order.imgSaveName}" width="120px;" height="120px;" style="margin-left: auto; margin-right: auto; display: block;">
 												</c:when>
 												<c:otherwise>
-													<div class="noImage">${ order.storeName }</div>
+													<div class="noImage">${ order.storeName } 매장 로고를 준비중입니다.</div>
 												</c:otherwise>
 											</c:choose>
 										</td>
 										<c:choose>
 											<c:when test="${order.count ne 1}">
-												<td style="width: 60%;">상품 제목 : ${order.orderDetails[0].itemName}외 ${order.count -1}</td>
+												<td style="width: 60%;"><span style="font-weight:bold; font-size:14px;">${ order.storeName }</span><br/>(${order.orderDetails[0].itemName} 외 ${order.count -1})</td>
 											</c:when>
 											<c:otherwise>
-												<td style="width: 60%;">상품 제목 : ${order.orderDetails[0].itemName}</td>
+												<td style="width: 60%; font-weight:bold; font-size:14px;">${order.orderDetails[0].itemName}</td>
 											</c:otherwise>
 										</c:choose>
 									</tr>
@@ -145,19 +156,19 @@
 									<tr>
 										<c:choose>
 											<c:when test="${order.status eq '결제완료'}">
-												<td><div style="font-weight: bold;">${order.status}</div></td>
+												<td><span class="status" >${order.status}</span></td>
 											</c:when>
 											<c:when test="${order.status eq '상품승인완료'}">
-												<td><div style="color: #4049FB; font-weight: bold;">상품준비중</div></td>
+												<td><span class="status" style="color: #4049FB;">상품준비중</span></td>
 											</c:when>
 											<c:when test="${order.status eq '상품전달완료'}">
-												<td><div style="color: #17BB77; font-weight: bold;">상품이동중</div></td>
+												<td><span class="status" style="color: #17BB77;">상품이동중</span></td>
 											</c:when>
 											<c:when test="${order.status eq '상품준비완료'}">
-												<td><div style="color: #FF4040; font-weight: bold;">상품도착</div></td>
+												<td><span class="status" style="color: #FF4040;">상품도착</span></td>
 											</c:when>
 											<c:otherwise>
-												<td><div style="font-weight: bold;">${order.status}</div></td>
+												<td><span class="status">${order.status}</span></td>
 											</c:otherwise>	
 										</c:choose>								
 									</tr>
@@ -167,6 +178,7 @@
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
+				</div>
 			</div>
 		</div>
 		<input type="hidden" value="${customer.id}" id="customer">
