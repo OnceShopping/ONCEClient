@@ -19,4 +19,16 @@ public interface OrderService {
 	
 	//총 가격 가져오기
 	public int selectPrice(int orderNo);
+	
+	//주문 내역-3개월
+	public List<OrderVO> threeMonths(int memNo);
+	
+	//주문 내역-6개월
+	public List<OrderVO> sixMonths(int memNo);
+	
+	//기간 설정
+	public List<OrderVO> setTimes(List<Object> searchDate);
+	
+	//주문 번호에 대한 가격 정보
+	public List<OrderVO> showPrice(int orderNo);
 }

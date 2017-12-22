@@ -450,7 +450,6 @@ public class OrderController {
 		
 		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");		
 		
-		
 		List<OrderVO> orderList = new ArrayList<>();
 		
 		if(login!=null)
@@ -498,6 +497,65 @@ public class OrderController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("mypage/orderHistory/history");
+		mav.addObject("customer", login);
+		
+		return mav;
+	}
+	
+	//기간 설정 - 3개월, 6개월
+	@RequestMapping(value="/orderList/months", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OrderVO> orderMonths(@RequestParam("key") int key, @RequestParam("memNo") int memNo){
+				
+		List<OrderVO> orderList = new ArrayList<>();
+		
+		if(key==3)
+			orderList = service.threeMonths(memNo);
+		else
+			orderList = service.sixMonths(memNo);
+		
+		return orderList;
+	}
+		
+	//주문 내역-기간설정
+	@RequestMapping(value="/orderList/setTimes", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OrderVO> orderTimes(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, @RequestParam("memNo") int memNo) {
+			
+		List<OrderVO> orderList = new ArrayList<>();
+		
+		List<Object> searchDate = new ArrayList<>();
+		
+		searchDate.add(memNo);
+		searchDate.add(startDate);
+		searchDate.add(endDate);
+
+		orderList = service.setTimes(searchDate);
+		
+		return orderList;
+	}
+	
+	//주문 상세 보기
+	@RequestMapping(value="/orderList/{orderNo}")
+	public ModelAndView orderListByNo(@PathVariable("orderNo") int orderNo, HttpSession session) {
+		
+		CustomerVO login = (CustomerVO)session.getAttribute("loginVO");
+		
+		List<OrderVO> orderList = new ArrayList<>(); // OrderList 테이블
+		List<OrderDetailVO> detailList = new ArrayList<>();
+		
+		if(login!=null) {
+			orderList = service.showPrice(orderNo); //OrderList 테이블에서 해당 주문에 대한 가격 정보를 가져오기 위함
+			detailList = service.showDetailList(orderNo); 	
+		}	
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("orderList", orderList);	
+		mav.addObject("detailList", detailList);
+		mav.addObject("customer", login);
+		mav.setViewName("mypage/orderHistory/detail");
+		
 		return mav;
 	}
 }

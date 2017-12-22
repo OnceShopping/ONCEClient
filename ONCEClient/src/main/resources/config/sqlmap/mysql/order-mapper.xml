@@ -49,4 +49,38 @@
 		select totalPrice from orders where orderNo=#{orderNo} group by orderNo;
 	</select>
 	
+	 <select id="threeMonths" parameterType="INT" resultType="OrderVO">
+		<![CDATA[
+			select * from orders
+			WHERE date(date) >= date(DATE_SUB(now(), INTERVAL 3 month)) and date(date) <= date(now())
+			and memNo=#{memNo}
+			GROUP BY orderNo
+			ORDER BY date ASC;
+		]]>
+	</select>
+	
+	<select id="sixMonths" parameterType="INT" resultType="OrderVO">
+		<![CDATA[
+			select * from orders
+			WHERE date(date) >= date(DATE_SUB(now(), INTERVAL 6 month)) and date(date) <= date(now())
+			and memNo=#{memNo}
+			GROUP BY orderNo
+			ORDER BY date ASC;
+		]]>
+	</select>
+	
+	<select id="setTimes" parameterType="java.util.List" resultType="OrderVO">
+		select * 
+		FROM orders
+		where memNo=#{list[0]}
+		and	date
+		between #{list[1]} and #{list[2]}
+		GROUP BY orderNo
+		ORDER BY date ASC;
+	</select>
+	
+	<select id="showPrice" parameterType="INT" resultType="OrderVO">
+		select orderNo, totalPrice, oriPrice, salePrice, status 
+		from OrderList WHERE orderNo=#{orderNo};
+	</select>
 </mapper>
