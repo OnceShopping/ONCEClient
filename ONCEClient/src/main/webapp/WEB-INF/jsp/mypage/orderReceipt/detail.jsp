@@ -94,7 +94,6 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문/수령</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
 				</div>
 				<div class="detailTable">
 				<c:forEach var="detail" items="${detailList}">				
