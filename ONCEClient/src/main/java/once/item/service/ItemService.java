@@ -3,8 +3,12 @@ package once.item.service;
 import java.util.List;
 
 import java.util.Map;
+
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 public interface ItemService {
 
@@ -22,15 +26,11 @@ public interface ItemService {
 
 	List<ItemVO> selectMenItemList3();
 
-	List<ItemVO> selectMenItemList4();
-
 	List<ItemVO> selectWomenItemList();
 
 	List<ItemVO> selectWomenItemList2();
 
 	List<ItemVO> selectWomenItemList3();
-
-	List<ItemVO> selectWomenItemList4();
 
 	List<ItemVO> selectKidItemList();
 
@@ -38,18 +38,33 @@ public interface ItemService {
 
 	List<ItemVO> selectKidItemList3();
 
-	List<ItemVO> selectKidItemList4();
-
 	ItemVO getItem(int num);
 
-  int checkCnt(OrderDetailVO preOrderDetail);
-  
+	int checkCnt(OrderDetailVO preOrderDetail);
+	
+	void minCnt(OrderVO order);
+
 	List<ItemVO> selectStoreMainItem(String storeNo);
   
 	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
-  String[] getColorList(ItemVO itemVO);
-	
-  String[] getSizeList(ItemVO itemVO);
+	ItemContentsVO selectOneItem(int num);
 
+	String selectByStoreNo(String storeNo);
+
+	List<ItemImgVO> selectByNum(int num);
+	
+	String[] getColorList(int num);
+
+	String[] getSizeList(int num);
+
+	String[] getColorList(ItemVO itemVO);
+	
+	String[] getSizeList(ItemVO itemVO);
+
+	List<ItemVO> selectGeneralItemList();
+
+	List<ItemVO> selectGeneralItemList2();
+
+	List<ItemVO> selectGeneralItemList3();
 }

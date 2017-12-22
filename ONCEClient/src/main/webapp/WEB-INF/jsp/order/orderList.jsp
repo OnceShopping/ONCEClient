@@ -40,8 +40,6 @@
 	var orderResult = $.parseJSON(preOrderJSON);
 	var preStoreJSON = '${preStoreJSON}';
 	var storeResult = $.parseJSON(preStoreJSON);
-		
-	alert(orderResult);
 	
 	var cnt = 0;
 	var storeName = null;
@@ -81,7 +79,9 @@
 						}
 					}
 					$('#ori_total_'+loop).text(ori_total_storeNo);
-					$('#dis_total_'+loop).text(ori_total_storeNo - cur_total_storeNo);
+					if((ori_total_storeNo - cur_total_storeNo)!=0){
+						$('#dis_total_'+loop).text("-" + (ori_total_storeNo - cur_total_storeNo));
+					}					
 					$('#cur_total_'+loop).text(cur_total_storeNo);
 				});
 			});
@@ -113,14 +113,6 @@
 		});	
 	}
 	
-	function paySubmit(loop){
-		$('#count_'+loop).val(cntList[loop]);
-			
-		$('#orderVO_'+loop).attr("action", "${ pageContext.request.contextPath }/orderList/payment"+"/"+cntList[loop]);
-		
-		$('#orderVO_'+loop).submit();
-	}
-	
 </script>
 <body>
 	<!-- navbar -->
@@ -144,13 +136,14 @@
 							<div class="car/t-title s-title">
 								<div class="row">
 									<div class="col s4">
-										<img src="${pageContext.request.contextPath}/upload/${itemContents.imgSaveName}" alt="이미지 준비 중">
+										<img src="/image/${itemContents.imgSaveName}" alt="이미지 준비 중">
 									</div>
 									<div class="col s7">
 										<p>${itemContents.itemName}</p>
 										<input type="hidden" name="orderDetails[${ status.index }].itemName" value="${ itemContents.itemName }" />
-										<input type="hidden" name="orderDetails[${ status.index }].detailNo" value="${ itemContents.detailNo }" />
 										<input type="hidden" name="orderDetails[${ status.index }].storeNo" value="${ itemContents.storeNo }" />
+										<input type="hidden" name="orderDetails[${ status.index }].storeName" value="${ itemContents.storeName }" />
+										<input type="hidden" name="orderDetails[${ status.index }].detailNo" value="${ itemContents.detailNo }" />
 									</div>
 								</div>
 								<div class="row">
@@ -158,7 +151,7 @@
 										<p>Count</p>
 									</div>
 									<div class="col s8">
-										<input type="number" name="orderDetails[${status.index }].count" id="count_${loop.index}_${status.index}" value="${itemContents.count}" />
+										<input type="number" name="orderDetails[${status.index }].count" id="count_${loop.index}_${status.index}" value="${itemContents.count}" style="color: #111;" readonly="readonly"/>
 									</div>
 								</div>
 								<div class="row">
@@ -261,11 +254,10 @@
 						</div>
 					</div>
 					<div class="row">
-						<button class="button" style="background-color: #ffc305; margin-bottom: 10px; font-size: 12px;">결  제 하 기</button>
-					<!-- <button class="button" onclick="history.go(-1)">취소</button> -->
+						<button type="submit" class="button" style="background-color: #ffc305; margin-bottom: 10px; font-size: 12px;">결  제 하 기</button>
+						<button type="button" class="button" onclick="history.go(-1); return false;">취소</button>
 					</div>
 				</div>
-				
 			</form>
 			</c:forEach>
 		</div>
@@ -276,10 +268,24 @@
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
 	<!-- end footer -->
 
-	<!-- navbar -->
-	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp" flush="false"></jsp:include>
-	<!-- end navbar -->
-
+	<!-- 하단 navbar -->
+	<div class="w3-bottom">
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<c:choose>
+			<c:when test="${ empty loginVO }">
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+	<!-- 하단 navbar 끝 -->
 	<!-- script -->
 
 	<script

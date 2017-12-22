@@ -61,11 +61,11 @@
             <td><a href="${pageContext.request.contextPath}/mypage/myqna"><i class="fa fa-commenting"></i>&nbsp;&nbsp;My Q&A</a></td>
 					</tr>
 					<tr>
-						<td><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</td>
+						<td><a href="${pageContext.request.contextPath}/order/status"><i class="fa fa-truck"></i>&nbsp;&nbsp;주문 수령</a></td>
 						<td><a href="${pageContext.request.contextPath}/mypage/faq"><i class="fa fa-question-circle"></i>&nbsp;&nbsp;FAQ</a></td>
 					</tr>
 					<tr>
-						<td><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</td>
+						<td><a href="${pageContext.request.contextPath}/mypage/orderHistory"><i class="fa fa-credit-card-alt"></i>&nbsp;&nbsp;구매 내역</a></td>
 						<td></td>
 					</tr>
 				</tbody>
@@ -84,7 +84,7 @@
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
       <c:choose>
 				<c:when test="${ not empty loginVO }">
 					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>

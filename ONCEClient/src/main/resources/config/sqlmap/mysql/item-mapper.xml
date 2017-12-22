@@ -4,12 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="once.item.dao.ItemDAO">
 
-	<!-- 상품 선택 -->
-	<select id="getItem" parameterType="Integer" resultType="itemVO">
+	<!-- 아이템 상세 페이지 -->
+	<select id="selectOneItem" parameterType="int" resultType="ItemContentsVO">
 		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
 		price, saleTag, salePrice, startDate, endDate, detail
 		from item
-		where num = #{ num };
+		where num = #{num};
+	</select>
+
+	<!-- 아이템이 해당하는 매장 이름 -->
+	<select id="selectByStoreNo" parameterType="String" resultType="String">
+		select storeName
+		from store
+		where storeNo = #{storeNo};
+	</select>
+	
+	<!-- 아이템이 해당하는 이미지-->
+	<select id="selectByNum" parameterType="int" resultType="ItemImgVO">
+		select imgSaveName
+		from ImageTable
+		where num = #{num};
 	</select>
 
 	<!-- 상품 colorList 선택 -->
@@ -21,6 +35,25 @@
 	<select id="getSizeList" parameterType="itemVO" resultType="String">
 		select distinct size from itemcontents where num = #{ num };
 	</select>
+	
+	<!-- 상품 colorList 선택 -->
+	<select id="getColorList_INT" parameterType="INT" resultType="String">
+		select distinct color from itemcontents where num = #{ num };
+	</select>
+
+	<!-- 상품 sizeList 선택 -->
+	<select id="getSizeList_INT" parameterType="INT" resultType="String">
+		select distinct size from itemcontents where num = #{ num };
+	</select>
+		
+	<!-- 경희 거 	상품 선택 -->
+	<select id="getItem" parameterType="INT" resultType="itemVO">
+		select storeNo, num, itemName, itemCategory1, itemCategory2, itemCategory3,
+		price, saleTag, salePrice, startDate, endDate, detail
+		from item
+		where num = #{ num };
+	</select>
+
 
 	<!-- 장바구니, 결재 상품 선택 -->
 	<select id="addCartItem" parameterType="itemContentsVO"
@@ -31,18 +64,27 @@
 		where num = #{ num } and color=#{ color } and size=#{ size };
 	</select>
 	
+	<!-- 재고 확인 -->
 	<select id="checkCnt" parameterType="orderDetailVO" resultType="int">
 		select count from itemContents where detailNo = #{ detailNo }
 	</select>
 
+	 <!-- 주문 후 수량 변경 -->
+	 <update id="minCnt" parameterType="ItemContentsVO">
+    	update itemDetail
+    	set count = #{count}
+    	where detailNo = #{detailNo}
+    </update>
+	
 	<!-- 첫화면 상품 목록 -->
 	<select id="storeMainItem" parameterType="String" resultType="itemVO">
-		select * from item where regDate >= (curdate()-interval 14 day) and storeNo = #{ storeNo }
+		select * from itemContents where regDate >= (curdate()-interval 14 day) and storeNo = #{ storeNo }
+		group by itemName having max(detailNo)
 	</select>
 	
 	<!-- 선택 및 검색 -->
 	<select id="storeSelectItem" parameterType="hashMap" resultType="itemVO">
-		select * from item 
+		select * from itemContents
 		<where>
 			storeNo = #{ storeNo }
 			<choose>
@@ -50,13 +92,14 @@
 					and itemCategory1 = #{category1} and itemCategory2 = #{category2}
 				</when>
 				<when test="category2 == 'new'">
-					and regDate >= (curdate()-interval 14 day);				
+					and regDate >= (curdate()-interval 14 day)				
 				</when>
 				<otherwise>
 					and itemName like '%${category2}%'
 				</otherwise>
 			</choose>
 		</where>
+		group by itemName having max(detailNo)
 		<if test="order != null">
 			<choose>
 				<when test="order == '신상품순'">
@@ -72,68 +115,105 @@
 		</if>
 	</select>
 	
-	<select id="selectMenItem" parameterType="String" resultType="itemVO">
+<!-- 	<select id="selectMenItem" parameterType="String" resultType="itemVO">
 	select itemName, itemCategory1, price from item where itemCategory1 = '남성';
+	</select> -->
+	
+	
+	<select id="selectMenItem" parameterType="String" resultType="itemVO">
+	select itemName, itemCategory1, price, imgSaveName, num, storeNo
+	from itemContents
+	where itemCategory1 = '남성' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectWomenItem" parameterType="String" resultType="itemVO">
-	select itemName, itemCategory1, price from item where itemCategory1 = '여성';
+	select itemName, itemCategory1, price, imgSaveName, num, storeNo
+	from itemContents 
+	where itemCategory1 = '여성' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectKidItem" parameterType="String" resultType="itemVO">
-	select itemName, itemCategory1, price from item where itemCategory1 = '유아동';
+	select itemName, itemCategory1, price, imgSaveName, num, storeNo
+	from itemContents
+	 where itemCategory1 = '유아동' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectGeneralItem" parameterType="String" resultType="itemVO">
-	select itemName, itemCategory1, price from item where itemCategory1= '잡화';
+	select itemName, itemCategory1, price, imgSaveName, num, storeNo
+	from itemContents 
+	where itemCategory2= '잡화' group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectMenItemList" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '남성';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '남성' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectMenItemList2" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '상의';
+	select itemName, price, imgSaveName, num, storeNo
+	from itemContents 
+	where itemCategory1 = '남성' and itemCategory3 = '상의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectMenItemList3" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '하의';
-	</select>
-	
-	<select id="selectMenItemList4" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '남성' and itemCategory2 = '잡화';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '남성' and itemCategory3 = '하의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectWomenItemList" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '여성';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents
+	where itemCategory1 = '여성' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectWomenItemList2" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '상의';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '여성' and itemCategory3 = '상의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectWomenItemList3" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '하의';
-	</select>
-	
-	<select id="selectWomenItemList4" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategory1 = '여성' and itemCategory2 = '잡화';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '여성' and itemCategory3 = '하의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectKidItemList" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategroy1 = '유아동';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '유아동' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectKidItemList2" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '상의';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '유아동' and itemCategory3 = '상의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectKidItemList3" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '하의';
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory1 = '유아동' and itemCategory3 = '하의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
-	<select id="selectKidItemList4" parameterType="String" resultType="itemVO">
-	select itemName, price from item where itemCategroy1 = '유아동' and itemCategory2 = '잡화';
+	<select id="selectGeneralItemList" parameterType="String" resultType="itemVO">
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory2 = '잡화' group by itemName having max(detailNo);
 	</select>
-
+	
+	<select id="selectGeneralItemList2" parameterType="String" resultType="itemVO">
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory2 = '잡화' and itemCategory3 = '악세사리' group by itemName having max(detailNo);
+	</select>
+	
+	<select id="selectGeneralItemList3" parameterType="String" resultType="itemVO">
+	select itemName, price, imgSaveName, num, storeNo 
+	from itemContents 
+	where itemCategory2 = '잡화' and itemCategory3 = '가방' group by itemName having max(detailNo);
+	</select>
+	
 </mapper>

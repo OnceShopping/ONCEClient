@@ -38,10 +38,14 @@ public class StoreController {
 	@RequestMapping("/store/{storeName}")
 	public ModelAndView selectStore(@PathVariable String storeName) {
 		ModelAndView mav = new ModelAndView();
-		
 		StoreVO storeVO = service.selectOneStore(storeName);
 		
 		List<ItemVO> storeItem = iService.selectStoreMainItem(storeVO.getStoreNo());
+		
+		System.out.println(storeName);
+		System.out.println("selectStore_storeVO: "+storeVO);
+		System.out.println("selectStore_storeItem: "+storeItem);
+		
 		mav.addObject("storeVO", storeVO);
 		mav.addObject("storeItem", storeItem);
 		mav.setViewName("store/storeMain");
@@ -94,7 +98,7 @@ public class StoreController {
 		case "Accessories": category2 = "잡화";
 		searchItem.put("category2", category2);
 			break;
-		//검색할때	
+		//검색할때, new 일 때
 		default :
 		searchItem.put("category2", category2);
 			break;
@@ -112,7 +116,9 @@ public class StoreController {
 		mav.addObject("category2", category2);
 		mav.addObject("storeItem", storeItem);
 		mav.addObject("order", order);
+				
 		mav.setViewName("store/storeSelect");
+		
 		return mav;
 	}
 /*	@RequestMapping("/menu/2F")

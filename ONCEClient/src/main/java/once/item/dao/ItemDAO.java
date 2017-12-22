@@ -2,8 +2,12 @@ package once.item.dao;
 
 import java.util.List;
 import java.util.Map;
+
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 public interface ItemDAO {
 
@@ -17,7 +21,7 @@ public interface ItemDAO {
   
 	List<ItemVO> selectStoreMainItem(String storeNo);
 
-  List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
+	List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem);
 
 	List<ItemVO> selectItemList();
 
@@ -33,15 +37,11 @@ public interface ItemDAO {
 
 	List<ItemVO> selectMenItemList3();
 
-	List<ItemVO> selectMenItemList4();
-
 	List<ItemVO> selectWomenItemList();
 
 	List<ItemVO> selectWomenItemList2();
 
 	List<ItemVO> selectWomenItemList3();
-
-	List<ItemVO> selectWomenItemList4();
 
 	List<ItemVO> selectKidItemList();
 
@@ -49,6 +49,21 @@ public interface ItemDAO {
 
 	List<ItemVO> selectKidItemList3();
 
-	List<ItemVO> selectKidItemList4();
+	ItemContentsVO selectOneItem(int num);
 
+	String selectByStoreNo(String storeNo);
+
+	List<ItemImgVO> selectByNum(int num);
+
+	String[] getColorList(int num);
+
+	String[] getSizeList(int num);
+ 
+	void minCnt(OrderVO order);
+
+	List<ItemVO> selectGeneralItemList();
+
+	List<ItemVO> selectGeneralItemList2();
+
+	List<ItemVO> selectGeneralItemList3();
 }

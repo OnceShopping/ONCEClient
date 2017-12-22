@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,163 +28,140 @@
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lightbox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.filterizr.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/custom-portfolio.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 <style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
+.normal {
+   font-weight: 400
 }
+
+.bold {
+   font-weight: 700
+}
+
+.bolder {
+   font-weight: 800
+}
+
+.light {
+   font-weight: 300
+}
+
+#tabs1, #tabs2, #tabs3, #tabs4 {
+   text-align: center;
+}
+
+
+.row .col .s6 .entry img {
+   width: 80% !important;
+   margin-left: auto !important;
+   margin-right: auto !important;
+}
+
+#mainProduct, #mainShops {
+   margin-top: 50px;
+}
+
 </style>
+
+
 </head>
 <body>
 <header> 
-		<div class="navbar">
-		<div class="container">
-			<div class="panel-control-left">
-				<a href="#" data-activates="slide-out-left"
-					class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-			</div>
-			<div class="site-title">
-				<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-			</div>
-			<div class="panel-control-right">
-				<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-			</div>
-		</div>
-	</div>
-	<!-- 상단 navbar 끝 -->
-
-	<!-- 좌측 메뉴패널 -->
-	<div class="panel-control-right">
-		<ul id="slide-out-left" class="side-nav collapsible"
-			data-collapsible="accordion">
-			<li>
-				<div class="photos">
-					<h3>cus1</h3>
-				</div>
-			</li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fa fa-map-signs"></i>층별 매장 보기<span><i
-						class="fa fa-chevron-right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul class="side-nav-panel">
-						<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-						<li><a href="${pageContext.request.contextPath}/menu/2F">2F</a></li>
-						<li><a href="${pageContext.request.contextPath}/menu/3F">3F</a></li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fa fa-th"></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul class="side-nav-panel">
-						<li class="tileList">
-							<table>
-								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성
-											의류</a></td>
-									<td class="menuSpace"></td>
-									<td><a href="${pageContext.request.contextPath}/menu/women" class="tileMenu"><i class="fa fa-female"></i><br/>여성 의류</a></td>
-								</tr>
-							</table>
-						</li>
-						<li>
-							<div class="menuSpace"></div>
-						</li>
-						<li class="tileList">
-							<table class="tileMenu">
-								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
-									<td class="menuSpace"></td>
-									<td><a href="${pageContext.request.contextPath}/menu/general" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
-								</tr>
-							</table>
-						</li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-			</li>
-		</ul>
-	</div>
+		<!-- navbar -->
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp" flush="false"></jsp:include>
+	<!-- end navbar -->
 	</header>
 	
 	<section>
-	<div class="portfolio portfolio-card column2 app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-				<h3>패션잡화</h3>
-			</div>
-			<ul class="portfolio-filter">
-				<li data-filter="all" class="active">전체</li>
-				<li data-filter="1">가방</li>
-				<li data-filter="2">지갑</li>
-			</ul>
-			<div class="portfolio-item">
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/general1.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general1.jpg" alt=""></a>
-						<h5>토트 백</h5>
-						<p>349,900원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/general2.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general2.jpg" alt=""></a>
-						<h5>오피스 백팩</h5>
-						<p>168,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/general3.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general3.jpg" alt=""></a>
-						<h5>중지갑</h5>
-						<p>128,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/general4.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/general4.jpg" alt=""></a>
-						<h5>반지갑</h5>
-						<p>133,000원</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="tabs-app app-pages app-section" id="mainProduct">
+         <div class="container">
+            <div class="pages-title">
+               <h3 class="bold">패션 잡화</h3>
+            </div>
+            <div class="row">
+               <div class="col s12">
+                  <ul class="tabs">
+                     <li class="tab col s3"><a href="#tabs1">전체</a></li>
+                     <li class="tab col s3"><a href="#tabs2">악세사리</a></li>
+                     <li class="tab col s3"><a href="#tabs3">가방</a></li>
+                  </ul>
+                  <div id="tabs1">
+                     <br />
+                     <div class="row">
+                      <c:forEach var="generalitem" items="${ generalItemList }">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${generalitem.num}">
+                                 <img src="/image/${generalitem.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${generalitem.num}">
+                                    ${ generalitem.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5>${ generalitem.price }</h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach> 
+                     </div>
+                  </div>
+                  <div id="tabs2">
+                     <br />
+                     <div class="row">
+                     <c:forEach var="generalitem2" items="${ generalItemList2 }">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${generalitem2.num}">
+                                 <img src="/image/${generalitem2.imgSaveName}" alt="">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${generalitem2.num}">
+                                    ${ generalitem2.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5>${ generalitem2.price }</h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach>
+                     </div>
+                  </div>
+                  <div id="tabs3">
+                     <br />
+                     <div class="row">
+                     <c:forEach var="generalitem3" items="${ generalItemList3 }">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${generalitem3.num}">
+                                  <img src="/image/${generalitem3.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${generalitem3.num}">
+                                    ${ generalitem3.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5>${ generalitem3.price } </h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
 	</section>
 	
 	<footer>
-		<div class="container">
-			<h6>About us</h6>
-			<div class="tel-fax-mail">
-				<ul>
-					<li><span>회사명:</span> (주)ONCE</li>
-					<li><span>대표이사:</span> 장경준</li>
-					<li><span>사업자등록번호:</span> 000-0000-00000<li>
-				</ul>
-			</div>
-		</div>
-		<div class="ft-bottom">
-			<span>Copyright © 2017 All Rights Reserved </span>
-		</div>
+		<!-- footer -->
+	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	<!-- end footer -->
 	</footer>
 	
 	<!-- 하단 navbar -->

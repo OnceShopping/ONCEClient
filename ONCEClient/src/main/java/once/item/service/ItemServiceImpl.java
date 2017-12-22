@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import once.item.dao.ItemDAO;
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -18,11 +21,10 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<ItemVO> selectItemList() {
-		
 		List<ItemVO> itemList = dao.selectItemList();
 		return itemList;
 	}
-
+	
 	@Override
 	public List<ItemVO> selectItemList2() {
 		
@@ -66,13 +68,6 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemVO> selectMenItemList4() {
-		
-		List<ItemVO> menItemList4 = dao.selectMenItemList4();
-		return menItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectWomenItemList() {
 		
 		List<ItemVO> womenItemList = dao.selectWomenItemList();
@@ -94,13 +89,6 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemVO> selectWomenItemList4() {
-		
-		List<ItemVO> womenItemList4 = dao.selectWomenItemList4();
-		return womenItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectKidItemList() {
 		
 		List<ItemVO> kidItemList = dao.selectKidItemList();
@@ -110,41 +98,15 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<ItemVO> selectKidItemList2() {
 		List<ItemVO> kidItemList2 = dao.selectKidItemList2();
-		return kidItemList2;	}
+		return kidItemList2;	
+	}
 
 	@Override
 	public List<ItemVO> selectKidItemList3() {
 		List<ItemVO> kidItemList3 = dao.selectKidItemList3();
-		return kidItemList3;	}
-
-	@Override
-	public List<ItemVO> selectKidItemList4() {
-		List<ItemVO> kidItemList4 = dao.selectKidItemList4();
-		return kidItemList4;	}
-
-	public ItemVO getItem(int num) {
-		ItemVO itemVO = dao.getItem(num);
-		return itemVO;
-	}
-	 
-	@Override
-	public String[] getColorList(ItemVO itemVO) {
-		String[] colorList = dao.getColorList(itemVO);
-		return colorList;
+		return kidItemList3;	
 	}
 
-	@Override
-	public String[] getSizeList(ItemVO itemVO) {
-		String[] sizeList = dao.getSizeList(itemVO);
-		return sizeList;
-	}
-
-	@Override
-	public int checkCnt(OrderDetailVO preOrderDetail) {
-		
-		return dao.checkCnt(preOrderDetail);
-	}
-  
 	@Override
 	public List<ItemVO> selectStoreMainItem(String storeNo) {
 		List<ItemVO> storeItem = dao.selectStoreMainItem(storeNo);
@@ -157,4 +119,87 @@ public class ItemServiceImpl implements ItemService {
 		return storeItem;
 	}
 	
+	@Override
+	public ItemContentsVO selectOneItem(int num) {
+		return dao.selectOneItem(num);
+	}
+
+	@Override
+	public String selectByStoreNo(String storeNo) {
+		return dao.selectByStoreNo(storeNo);
+	}
+
+	@Override
+	public List<ItemImgVO> selectByNum(int num) {
+		List<ItemImgVO> imgList = dao.selectByNum(num);
+		return imgList;
+	}
+	
+	@Override
+	public int checkCnt(OrderDetailVO preOrderDetail) {
+		
+		return dao.checkCnt(preOrderDetail);
+	}
+
+	@Override
+	public String[] getColorList(int num) {
+		String[] colorList = dao.getColorList(num);
+		return colorList;
+	}
+	
+	@Override
+	public String[] getSizeList(int num) {
+		String[] sizeList = dao.getSizeList(num);
+		return sizeList;
+	}
+	
+	//경희 거
+/*
+	@Override
+	public ItemVO getItem(int num) {
+		ItemVO itemVO = dao.getItem(num);
+		return itemVO;
+	}
+*/
+	
+	@Override
+	public void minCnt(OrderVO order) {
+		dao.minCnt(order);
+	}
+	
+	@Override
+	public ItemVO getItem(int num) {
+	  ItemVO itemVO = dao.getItem(num);
+	  return itemVO;
+	}
+	   
+	@Override
+	public String[] getColorList(ItemVO itemVO) {
+	  String[] colorList = dao.getColorList(itemVO);
+	  return colorList;
+	}
+
+	@Override
+	public String[] getSizeList(ItemVO itemVO) {
+	   String[] sizeList = dao.getSizeList(itemVO);
+	   return sizeList;
+	}
+	
+	@Override
+	public List<ItemVO> selectGeneralItemList() {
+		List<ItemVO> generalItemList = dao.selectGeneralItemList();
+		return generalItemList;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList2() {
+		List<ItemVO> generalItemList2 = dao.selectGeneralItemList2();
+		return generalItemList2;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList3() {
+		List<ItemVO> generalItemList3 = dao.selectGeneralItemList3();
+		return generalItemList3;
+	}
 }
