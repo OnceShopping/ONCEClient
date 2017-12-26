@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import once.customer.vo.CustomerVO;
 
@@ -99,6 +100,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 			return false;
 		else
 			return true;
+	}
+
+	@Transactional
+	@Override
+	public int approvalCustomer(CustomerVO customer) {
+		return sqlSession.update("once.customer.dao.CustomerDAO.approvalCustomer", customer);
 	}
 	
 

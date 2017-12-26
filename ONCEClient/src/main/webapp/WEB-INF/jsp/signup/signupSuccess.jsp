@@ -121,9 +121,15 @@
 					<div>
 						<h3>가입이 완료되었습니다.</h3>
 						<br>
+						<h5>이메일에서 회원가입 인증을 </h5>
+						<h5>하셔야 사용이 가능합니다.</h5>
+						<br>
 						<h4>ONCE 간단 이용 가이드</h4>
 						<br>
 					</div>
+					
+					<div style="margin:auto;">
+					
 					<div
 						style="width: 100%; height: 100px; text-align: center; margin-left: 5px;">
 						<div id="stepstep"
@@ -177,6 +183,8 @@
 							<h6 style="vertical-align: middle; display: table-cell;">step3.
 								결제와 동시에 상품을 수령할 장소를 선택합니다.</h6>
 						</div>
+					</div>
+					
 					</div>
 					<!-- background: navy;  -->
 					<br>

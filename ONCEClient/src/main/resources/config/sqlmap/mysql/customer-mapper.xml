@@ -6,27 +6,27 @@
  
  	<!-- 회원 가입 -->
  	<insert id="join" parameterType="CustomerVO">
- 		insert into customer( id, password, name, telephone, orderPassword, date) 
- 		values (#{id}, #{password}, #{name}, #{telephone}, #{orderPassword}, now())
+ 		insert into customer( id, password, name, telephone, orderPassword, date, approvalStatus, approvalKey, email) 
+ 		values (#{id}, #{password}, #{name}, #{telephone}, #{orderPassword}, now(), 'false', #{approvalKey}, #{email})
  	</insert>
  	
  	<!-- 로그인 -->
  	<select id="login" parameterType="CustomerVO" resultType="CustomerVO">
- 		select id, password, rank, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
+ 		select id, password, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date, approvalStatus
  		  from customer
  		 where id = #{id} and password = #{password}
  	</select>
  	
  	<!-- 자동 로그인 -->
  	<select id="autoLogin" parameterType="String" resultType="CustomerVO">
- 		select id, password, rank, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
+ 		select id, password, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
  		  from customer
  		 where id = #{id}
  	</select>
  	
  	<!-- customer 회원 목록 조회 -->
  	<sql id="selectAll">
- 		select id, password, rank, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
+ 		select id, password, name, memNo, telephone, orderPassword, date_format(date, '%y-%m-%d') as date
  		  from customer
  	</sql>
  	
@@ -56,11 +56,12 @@
  		delete from Customer
  		where id = #{id}
  	</delete> 	
-	
-	<!-- 아이디 중복 체크 -->
- 	<!-- <select id="checkId" resultType="int">
- 		select count(*)
- 		from Customer
- 		where id = #{id}
- 	</select> -->
+ 	
+	<!-- 이메일 인증 -->
+	<update id="approvalCustomer" parameterType="CustomerVO">
+		update Customer
+		set approvalStatus = 'true'
+		where email = #{email} and approvalKey = #{approvalKey}
+	</update>
+
 </mapper>

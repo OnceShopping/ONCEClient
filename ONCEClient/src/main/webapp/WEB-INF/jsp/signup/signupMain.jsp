@@ -103,7 +103,7 @@
 				} else if(requiredCheck == false) {
 					infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
 					return false;
-				}
+				} 
 			});
 			
 			// 다이얼로그 format 정의
@@ -297,6 +297,12 @@
 					<form:input id="orderPassword" path="orderPassword" type="password" maxlength="8" class="validate"/>
 					<label for="orderPassword">주문비밀번호</label>
 				</div>
+				<!--  -->
+				<div class="input-field">
+					<form:input id="email" path="email" type="email" maxlength="40" class="validate"/>
+					<label for="email">이메일</label>
+				</div>
+				
 			<div align="center">
 			<input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
 			<input type="submit" class="button" id="nextBtn" value="다음">
