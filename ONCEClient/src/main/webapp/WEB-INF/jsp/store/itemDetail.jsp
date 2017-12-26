@@ -274,9 +274,7 @@
 	         var itemJSON = '${itemJSON}';
 	         var result = $.parseJSON(itemJSON);
 	         var itemForm = document.forms['itemContentsVO'];
-	         
-	         alert(result.storeNo + " | " + result.num);
-	         
+	         	         
 	         itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
 	         itemForm.submit();
 	      }else{
@@ -312,7 +310,6 @@
 	    	  result = $.parseJSON(itemJSON);
 		  }
 	      var itemForm = document.forms['itemContentsVO'];
-	      alert(itemJSON +" | "+ result);
 	      itemForm.action = "${ pageContext.request.contextPath }/orderList/addOneItem/"+result.storeNo+"/"+result.num ;
 	      itemForm.submit();
 	   }

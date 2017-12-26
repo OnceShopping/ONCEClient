@@ -94,8 +94,105 @@
 		
 		$('#storeName_cnt').html( storeName + "<span style='float: right; font-weight: normal;'>총 &nbsp;수량 : <u>" +cnt+"</u>개</span>");
 		
-	});
+		<c:forEach var="storeVO" items="${ storeList }" varStatus="loop">
+		<c:forEach var="itemContents" items="${productList}" varStatus="status">
+			settingPrice($('#price_'+${loop.index}+'_'+${status.index}).text(), ${loop.index}, ${status.index});
+			var salePrice='${itemContents.salePrice}';
+			if(salePrice!=0){
+				settingSalePrice($('#sale_'+${loop.index}+'_'+${status.index}).text(), ${loop.index}, ${status.index});				
+			}
+		</c:forEach>
+			settingOriTotalPrice($('#ori_total_'+${loop.index}).text(), ${loop.index});
+			settingDisTotalPrice($('#dis_total_'+${loop.index}).text(), ${loop.index});
+			settingCurTotalPrice($('#cur_total_'+${loop.index}).text(), ${loop.index});
+		</c:forEach>
 		
+	});
+	
+	//comma를 설정하는 로직
+	function comma(obj){
+		
+		var num = obj.toString(); 
+		var array=[];
+		var replay = parseInt((num.length)%3);
+		var routine = parseInt((num.length+2)/3);
+				
+		if(replay==1){
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,1);
+				else if(i==1)
+					sample = num.substr(1,3);
+				else
+					sample = num.substr(((i-1)*3)+1, 3);
+				
+				array.push(sample);
+			}
+		}		
+		else if(replay==2){
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,2);
+				else if(i==1)
+					sample = num.substr(2,3);
+				else
+					sample = num.substr(((i-1)*3)+2, 3);
+				
+				array.push(sample);
+			}
+		}
+		else{
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,3);
+				else
+					sample = num.substr((i*3), 3);
+				
+				array.push(sample);
+			}
+		}	
+		return array.join(",");
+	}
+	
+		
+	//리스트에 존재하는 가격에 comma 설정 
+	function settingPrice(obj, loop, index){
+		
+		var price = comma(obj);
+	
+		$('#price_'+loop+'_'+index).html(price);
+	}
+	function settingSalePrice(obj, loop, index){
+		
+		var salePrice = comma(obj);
+	
+		$('#sale_'+loop+'_'+index).html(salePrice);
+	}
+	function settingOriTotalPrice(obj, loop){
+		
+		var oriTotalPrice = comma(obj);
+	
+		$('#ori_total_'+loop).html(oriTotalPrice);
+	}
+	function settingDisTotalPrice(obj, loop){
+		
+		var disTotalPrice = comma(obj);
+	
+		$('#dis_total_'+loop).html(disTotalPrice);
+	}
+	function settingCurTotalPrice(obj, loop){
+		
+		var curTotalPrice = comma(obj);
+	
+		$('#cur_total_'+loop).html(curTotalPrice);
+	}
+	
 	function optionChange(obj){
 		
 		var payVal = obj.value;
@@ -173,14 +270,7 @@
 									<div class="col s8" >
 										<div id="oriPrice_${loop.index}_${status.index}">
 										<p style="float: left; margin-left: 10px;">정상가:</p>
-											<c:choose>
-												<c:when test="${ itemContents.salePrice eq 0 }">
-													<p style="float: left;">${itemContents.price * itemContents.count }</p>
-												</c:when>
-												<c:otherwise>
-													<p style="text-decoration:line-through;">${itemContents.price * itemContents.count }</p>
-												</c:otherwise>
-											</c:choose>		
+										<p style="float: left;" id="price_${loop.index}_${status.index}">${itemContents.price * itemContents.count }</p>		
 										</div>
 										<br/>
 										<div id="salePrice_${loop.index}_${status.index}">
@@ -189,7 +279,7 @@
 											<c:when test="${ itemContents.salePrice eq 0 }" />
 											<c:otherwise>
 												<p style="float: left;  margin-left: 10px; ">할인가:</p>
-												<p style="color:red; float: left;">${itemContents.salePrice * itemContents.count}</p>
+												<p style="color:red; float: left;" id="sale_${loop.index}_${status.index}">${itemContents.salePrice * itemContents.count}</p>
 											</c:otherwise>
 										</c:choose>
 										</div>
