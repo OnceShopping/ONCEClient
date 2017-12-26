@@ -108,7 +108,8 @@
         <li>
 		<div class="menuSpace"></div>
 		</li>
-			<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a></li>
+			<!-- <li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a></li> -->
+			<li><a href="${pageContext.request.contextPath}/signup/terms"><i class="fa fa-user-plus"></i>회원가입</a></li>
 		</c:otherwise>
 			</c:choose>
 		</ul>
