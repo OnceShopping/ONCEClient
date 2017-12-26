@@ -23,5 +23,8 @@ public interface CustomerDAO {
 	boolean checkId(String id);
 	
 	CustomerVO autoLogin(String loginId);
+	
+	//이메일 인증
+	int approvalCustomer(CustomerVO customer);
 
 }

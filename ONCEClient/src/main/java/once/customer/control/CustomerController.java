@@ -9,8 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import once.customer.service.CustomerService;
@@ -77,20 +74,22 @@ public class CustomerController {
 			session.removeAttribute("loginVO"); // 기존값을 제거해 준다.
 		}
 		CustomerVO loginVO = service.login(customer);
-
 		if (loginVO == null) {
 
 			model.addAttribute("message", "Please check your ID or Password");
 			returnURL = "login/loginFail";
 
+		} else if(!loginVO.getApprovalStatus().equals("true")) {
+			model.addAttribute("message", "이메일에서 회원가입 인증을 승인하십시오.");
+			returnURL = "login/loginFail";
 		} else {
 			loginVO.setAutoLogin(customer.isAutoLogin());
 			loginVO.setSaveId(customer.isSaveId());
 
 			session.setAttribute("loginVO", loginVO);
-
+			
 			model.addAttribute("message", "로그인이 성공적으로 되었습니다. 환영합니다!");
-
+			
 			if (loginVO.isSaveId()) {
 				Cookie sCookie = new Cookie("saveId", loginVO.getId()); // id저장
 				sCookie.setMaxAge(60 * 60 * 24 * 14); // 단위(s) | 14일
@@ -277,18 +276,18 @@ public class CustomerController {
 
 	@RequestMapping(value = "/signup/signupMain", method = RequestMethod.POST)
 	public String signupMain(@Valid CustomerVO customerVO) {
-		System.out.println("customer테스트 " + customerVO);
 		service.join(customerVO);
+		System.out.println("customer테스트 " + customerVO);
 		return "signup/signupSuccess";
 	}
 
 	// 회원가입 - 가입 완료
 	@RequestMapping("/signup/signupSuccess")
-	public String signupSuccess() {
+	public String signupSuccess(@Valid CustomerVO customerVO) {
 		return "signup/signupSuccess";
 	}
 
-	// 회원가입 - 가입 완료
+	// 회원가입 - 아이디 찾기
 	@RequestMapping("/signup/findId")
 	public String findId() {
 		return "signup/findId";
@@ -302,14 +301,17 @@ public class CustomerController {
 		return service.checkId(id);
 	}
 	
-	/*
-	 * // email
-	 * 
-	 * @RequestMapping(value="emailConfirm", method=RequestMethod.GET) public String
-	 * emailConfirm(String key, Model model){ try {
-	 * service.emailConfirm(customerVO); model.addAttribute("check", true); } catch
-	 * (Exception e) { model.addAttribute("check", false); } return "emailConfirm";
-	 * }
-	 */
+	// 회원 인증
+	@RequestMapping(value = "/approvalCustomer", method = RequestMethod.POST)
+	public void approvalCustomer(@ModelAttribute CustomerVO customer, HttpServletResponse response) throws Exception{
+		service.approvalCustomer(customer, response);
+	}
 
+	
+	
+	
+	
+	
+	
+	
 }

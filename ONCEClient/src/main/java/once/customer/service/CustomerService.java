@@ -2,6 +2,8 @@ package once.customer.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import once.customer.vo.CustomerVO;
 
 public interface CustomerService {
@@ -24,13 +26,11 @@ public interface CustomerService {
 	
 	CustomerVO autoLogin(String loginId);
 	
+	//인증
+	String create_key();
+	
+	//이메일 발송
+	void send_mail(CustomerVO customer);
 
-	/** 메일 전송
-     *  @param subject 제목
-     *  @param text 내용
-     *  @param from 보내는 메일 주소
-     *  @param to 받는 메일 주소
-     *  @param filePath 첨부 파일 경로: 첨부파일 없을시 null **/
-   // public boolean send(String subject, String text, String from, String to, String filePath);
-
+	void approvalCustomer(CustomerVO customer, HttpServletResponse response) throws Exception;
 }
