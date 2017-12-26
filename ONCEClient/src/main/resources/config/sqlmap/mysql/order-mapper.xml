@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="once.order.dao.OrderDAO">
+
+	<!-- order insert -->
+	 <insert id="addOrder" parameterType="OrderVO">
+    	insert into orderList (memNo, count, storeNo, totalPrice, oriPrice, salePrice, date)
+    	values (#{memNo}, #{count}, #{storeNo}, #{totalPrice}, #{oriPrice}, #{salePrice}, curdate())
+    </insert>
+    
+	 <insert id="addOrderDetail" parameterType="OrderDetailVO">
+    	<choose>
+ 			<when test="salePrice != 0">
+		 		insert into OrderDetail (orderNo, price, detailNo, count) values (#{orderNo}, #{salePrice}, #{detailNo}, #{count})
+ 			</when>
+ 			<otherwise>
+ 				insert into OrderDetail (orderNo, price, detailNo, count) values (#{orderNo}, #{price}, #{detailNo}, #{count})
+ 			</otherwise>
+ 		</choose>
+    </insert>
+    
+     <select id="findNum" resultType="INT">
+    	select Max(orderNo)
+    	from orderList
+    </select>
+    
+    <update id="updateFloor" parameterType="OrderVO">
+    	update orderList
+    	set floor = #{floor}
+    	where orderNo = #{orderNo}
+    </update>
+    
+    <!-- 주문/수령 -->
+    <select id="showOrderList" parameterType="INT" resultType="OrderVO">
+ 		select * from orders where memNo=#{memNo} and date=curdate() group by orderNo;
+	  </select>
+	
+	 <!-- 주문/수령_상세정보-->
+	<select id="showDetailList" parameterType="INT" resultType="OrderDetailVO">
+		select itemName, size, color, count, price, imgSaveName, imageSize
+		from detailList
+		where orderNo = #{orderNo}
+	</select>
+  
+	<!-- 총 가격 가져오기 -->
+	<select id="selectPrice" parameterType="INT" resultType="INT">
+		select totalPrice from orders where orderNo=#{orderNo} group by orderNo;
+	</select>
+	
+	 <select id="threeMonths" parameterType="INT" resultType="OrderVO">
+		<![CDATA[
+			select * from orders
+			WHERE date(date) >= date(DATE_SUB(now(), INTERVAL 3 month)) and date(date) <= date(now())
+			and memNo=#{memNo}
+			GROUP BY orderNo
+			ORDER BY date ASC;
+		]]>
+	</select>
+	
+	<select id="sixMonths" parameterType="INT" resultType="OrderVO">
+		<![CDATA[
+			select * from orders
+			WHERE date(date) >= date(DATE_SUB(now(), INTERVAL 6 month)) and date(date) <= date(now())
+			and memNo=#{memNo}
+			GROUP BY orderNo
+			ORDER BY date ASC;
+		]]>
+	</select>
+	
+	<select id="setTimes" parameterType="java.util.List" resultType="OrderVO">
+		select * 
+		FROM orders
+		where memNo=#{list[0]}
+		and	date
+		between #{list[1]} and #{list[2]}
+		GROUP BY orderNo
+		ORDER BY date ASC;
+	</select>
+  
+	<!-- 오늘 주문 & !수령완료 한 내역 보기  -->
+   <select id="todayNotReceipt" parameterType="INT" resultType="INT">
+		select count(*)
+ 		from OrderList
+ 		where memNo = #{memNo} and  date=curdate() and status not in ('수령 완료');
+	</select>
+	
+	<!-- info 확인 -->
+   <select id="getFloor" parameterType="INT" resultType="String">
+		select floor
+ 		from OrderList
+ 		where memNo = #{memNo} and date=curdate() and status not in ('수령 완료')
+ 		group by memNo having min(orderNo);
+	</select>
+	
+	<select id="showPrice" parameterType="INT" resultType="OrderVO">
+		select orderNo, totalPrice, oriPrice, salePrice, status 
+		from OrderList WHERE orderNo=#{orderNo};
+	</select>
+</mapper>

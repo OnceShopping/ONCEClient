@@ -2311,8 +2311,8 @@ border-bottom: 2px solid #87f6ed;
 }
 
 .modal .modal-footer {
-	text-align: right;
-	height: auto;
+	height: 50px;
+	font-size: 15pt;
 }
 
 /*===================

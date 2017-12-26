@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import once.customer.service.CustomerService;
@@ -28,7 +30,7 @@ public class CustomerController {
 	@Autowired
 	private CustomerService service;
 
-	@RequestMapping(value = "/login/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login/loginForm", method = RequestMethod.GET)
 	public String login(CustomerVO customer, HttpSession session, HttpServletRequest request, Model model) {
 
 		String loginId = null;
@@ -56,11 +58,6 @@ public class CustomerController {
 		}
 		
 		model.addAttribute("customer", customer);
-
-		session.removeAttribute("productList");
-		session.removeAttribute("listJSON");
-		session.removeAttribute("storeList");
-		session.removeAttribute("storeJSON");
 		
 		return "login/loginForm";
 	}
@@ -71,7 +68,7 @@ public class CustomerController {
 
 		if (session.getAttribute("loginVO") != null) {
 			// 기존에 login이란 세션 값이 존재한다면
-			session.removeAttribute("loginVO"); // 기존값을 제거해 준다.
+			session.invalidate();
 		}
 		CustomerVO loginVO = service.login(customer);
 		if (loginVO == null) {
@@ -100,13 +97,13 @@ public class CustomerController {
 				aCookie.setMaxAge(60 * 60 * 24 * 31); // 단위(s) | 31일
 				aCookie.setPath("/");
 				response.addCookie(aCookie);
-			} else if (!loginVO.isSaveId()) {
+			} 
+			else if (!loginVO.isSaveId()) {
 				Cookie sCookie = new Cookie("saveId", ""); // id저장
 				sCookie.setMaxAge(0); // 단위(s) | 14일
 				sCookie.setPath("/");
 				response.addCookie(sCookie);
-			} else {
-			}
+			} else {}
 			returnURL = "login/loginSuccess";
 		}
 
@@ -114,14 +111,14 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session, SessionStatus sessionStatus) {
 
-		// 1. Cookie 통해 loginId만 있는 경우
+		// 1. Cookie 통해 loginId만 있는 경우 자동로그인
 		String loginId = (String) session.getAttribute("loginId");
-
+		
+		
 		// 2. session에 남아있음
 		Object obj = session.getAttribute("loginVO");
-		
 		CustomerVO loginVO=null;
 
 		Cookie[] cookies = request.getCookies();
@@ -157,22 +154,21 @@ public class CustomerController {
 					System.out.println(cookies[i] + "쿠키 전체 삭제");
 
 				}
-			} else {	//saveId 체크 X
-
+			}
+			else {	//saveId 체크 X
 				for (int i = 0; i < cookies.length; i++) {
 					cookies[i].setValue("");
 					cookies[i].setMaxAge(0);
 					cookies[i].setPath("/");
 
 					response.addCookie(cookies[i]);
-
 				}
 			}
-
 		} else {
 			System.out.println("로그인 되어 있지 않음");
 		}
-
+		
+		
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 
 		if (loginCookie != null) {
@@ -180,17 +176,12 @@ public class CustomerController {
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
 		}
-				
-		session.removeAttribute("productList");
-		session.removeAttribute("listJSON");
-		session.removeAttribute("storeList");
-		session.removeAttribute("storeJSON");
-		session.removeAttribute("loginVO");
 		
-		session.invalidate();
+				
+		sessionStatus.setComplete();
 		
 		System.out.println("로그아웃 성공");
-
+		
 		return "redirect:/";
 	}
 
@@ -203,12 +194,7 @@ public class CustomerController {
 	public String faq() {
 		return "mypage/faq";
 	}
-
     
-	@RequestMapping("/menu/general")
-	 public String general() {
-	   return "menu/general";
-	}
   
   // 패스워드 체크 페이지
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)

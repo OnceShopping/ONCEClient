@@ -5,14 +5,14 @@
 <mapper namespace="once.store.dao.StoreDAO">
 	
 	<select id="selectAllStore" parameterType="String" resultType="storeVO">
-		select storeName, storeCategory, phone, storeNo from store 
+		select storeName, storeCategory, phone, storeNo, imgSaveName from store
 		<where> 
 		floor = #{floor} and storeCategory not in ('info', '쇼핑센터')
 		</where>
 	</select>
 	
 	<select id="selectStore" parameterType="String" resultType="storeVO">
-		select ceo, companyNo, phone, storeNo, storeName, storeCategory, floor
+		select ceo, companyNo, phone, storeNo, storeName, storeCategory, floor, imgSaveName
 		from store
 		where storeNo = #{ storeNo }
 	</select>
@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="selectOneStore" parameterType="String" resultType="storeVO">
-		select ceo, companyNo, phone, storeNo, storeName, storeCategory, floor from store 
+		select ceo, companyNo, phone, storeNo, storeName, storeCategory, imgSaveName, floor from store 
 		 where storeName = #{storeName}
 	</select>
 

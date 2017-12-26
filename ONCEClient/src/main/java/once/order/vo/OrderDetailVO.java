@@ -21,6 +21,7 @@ public class OrderDetailVO {
 	
 	private int price;
 	private int salePrice;
+	
 	private String startDate;
 	private String endDate;
 		

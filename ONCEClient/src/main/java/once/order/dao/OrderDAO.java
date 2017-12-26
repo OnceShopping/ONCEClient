@@ -1,8 +1,41 @@
 package once.order.dao;
 
-import once.item.vo.ItemContentsVO;
+import java.util.List;
+
+import once.customer.vo.CustomerVO;
+import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 public interface OrderDAO {
 
+	OrderVO addOrder(OrderVO order);
 
+	void updateFloor(OrderVO order);
+	
+	//주문 상태 보기
+	public List<OrderVO> showOrderList(int memNo);
+	
+	//주문 상세 정보
+	public List<OrderDetailVO> showDetailList(int orderNo);
+
+	//총 가격 가져오기
+	public int selectPrice(int orderNo);
+	
+	//주문 내역-3개월
+	public List<OrderVO> threeMonths(int memNo);
+	
+	//주문 내역-6개월
+	public List<OrderVO> sixMonths(int memNo);
+	
+	//기간 설정
+	public List<OrderVO> setTimes(List<Object> searchDate);
+
+	//구매내역 상세보기
+	public List<OrderVO> showPrice(int orderNo);
+
+	//오늘 주문 & !수령완료 한 주문 개수
+	public int countTodayNotReceipt(int memNo);
+
+	// info 확인
+	String getFloor(CustomerVO loginVO);
 }

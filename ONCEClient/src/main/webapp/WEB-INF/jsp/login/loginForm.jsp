@@ -65,12 +65,14 @@
 					
   					<label for="checkbox">아이디 저장</label>
 				</div>
+				 
 				<div class="chebox">
 					<input type="checkbox" id="checkbox1" name="autoLogin"/>
   					<label for="checkbox1">자동 로그인</label>
 				</div>
+				
 				<input type="submit" value="Login" class="button"/>
-				<div class="create-account">아직 회원이 아니신가요?<a href="">회원가입</a></div>
+				<div class="create-account">아직 회원이 아니신가요?&nbsp;<a href="${ pageContext.request.contextPath }/signup/terms" style="font-weight: 800;">회원가입</a></div>
 			</form>
 		</div>
 	</div>
@@ -79,8 +81,24 @@
 	
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
 	
-	<jsp:include page="/WEB-INF/jsp/include/navbar.jsp" flush="false"></jsp:include>
+	<!-- 하단 navbar -->
+	<div class="w3-bottom">
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<c:choose>
+			<c:when test="${ empty loginVO }">
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+	<!-- 하단 navbar 끝 -->
 	
 </body>
 </html>
-

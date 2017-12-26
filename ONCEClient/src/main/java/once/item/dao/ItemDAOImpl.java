@@ -7,8 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import once.item.vo.ItemContentsVO;
+import once.item.vo.ItemImgVO;
 import once.item.vo.ItemVO;
 import once.order.vo.OrderDetailVO;
+import once.order.vo.OrderVO;
 
 @Repository
 public class ItemDAOImpl implements ItemDAO {
@@ -74,14 +77,6 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<ItemVO> selectMenItemList4() {
-
-		List<ItemVO> menItemList4 = sqlSession.selectList("once.item.dao.ItemDAO.selectMenItemList4");
-
-		return menItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectWomenItemList() {
 
 		List<ItemVO> womenItemList = sqlSession.selectList("once.item.dao.ItemDAO.selectWomenItemList");
@@ -103,13 +98,6 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<ItemVO> selectWomenItemList4() {
-
-		List<ItemVO> womenItemList4 = sqlSession.selectList("once.item.dao.ItemDAO.selectWomenItemList4");
-		return womenItemList4;
-	}
-
-	@Override
 	public List<ItemVO> selectKidItemList() {
 		List<ItemVO> kidItemList = sqlSession.selectList("once.item.dao.ItemDAO.selectKidItemList");
 		return kidItemList;
@@ -128,42 +116,6 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<ItemVO> selectKidItemList4() {
-		List<ItemVO> kidItemList4 = sqlSession.selectList("once.item.dao.ItemDAO.selectKidItemList4");
-		return kidItemList4;
-	}
-
-  @Override
-	public ItemVO getItem(int num) {
-		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
-		return itemVO;
-	}
-	
-	@Override
-	public String[] getColorList(ItemVO itemVO) {
-		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", itemVO);
-		String[] colorList = getColor.toArray(new String[getColor.size()]);
-		
-		return colorList;
-	}
-
-	@Override
-	public String[] getSizeList(ItemVO itemVO) {
-		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", itemVO);
-		String[] sizeList = getSize.toArray(new String[getSize.size()]);
-		
-		return sizeList;
-	}
-
-	@Override
-	public int checkCnt(OrderDetailVO preOrderDetail) {
-		
-		int count = sqlSession.selectOne("once.item.dao.ItemDAO.checkCnt", preOrderDetail);
-		
-		return count;
-	}
-
-  @Override
 	public List<ItemVO> selectStoreMainItem(String storeNo) {
 		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeMainItem", storeNo);
 		return storeItem;
@@ -173,5 +125,99 @@ public class ItemDAOImpl implements ItemDAO {
 	public List<ItemVO> selectStoreSearchItem(Map<String, String> searchItem) {
 		List<ItemVO> storeItem = sqlSession.selectList("once.item.dao.ItemDAO.storeSelectItem", searchItem);
 		return storeItem;
+	}
+	
+	@Override
+	public ItemContentsVO selectOneItem(int num) {
+		return sqlSession.selectOne("once.item.dao.ItemDAO.selectOneItem", num);
+	}
+
+	@Override
+	public String selectByStoreNo(String storeNo) {
+		return sqlSession.selectOne("once.item.dao.ItemDAO.selectByStoreNo", storeNo);
+	}
+
+	@Override
+	public List<ItemImgVO> selectByNum(int num) {
+		List<ItemImgVO> imgList = sqlSession.selectList("once.item.dao.ItemDAO.selectByNum", num);
+		return imgList;
+	}
+	
+	@Override
+	public String[] getColorList(int num) {
+		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList_INT", num);
+		String[] colorList = getColor.toArray(new String[getColor.size()]);
+		
+		return colorList;
+	}
+	
+	@Override
+	public String[] getSizeList(int num) {
+		List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList_INT", num);
+		String[] sizeList = getSize.toArray(new String[getSize.size()]);
+		
+		return sizeList;
+	}
+	
+	@Override
+	public int checkCnt(OrderDetailVO preOrderDetail) {
+		
+		int count = sqlSession.selectOne("once.item.dao.ItemDAO.checkCnt", preOrderDetail);
+		
+		return count;
+	}
+
+	@Override
+	public ItemVO getItem(int num) {
+		ItemVO itemVO = sqlSession.selectOne("once.item.dao.ItemDAO.getItem", num);
+		return itemVO;
+	}
+	
+	@Override
+	public String[] getColorList(ItemVO itemVO) {
+		List<String> getColor = sqlSession.selectList("once.item.dao.ItemDAO.getColorList", itemVO);
+	    String[] colorList = getColor.toArray(new String[getColor.size()]);
+	      
+	    return colorList;
+	}
+
+	@Override
+	public String[] getSizeList(ItemVO itemVO) {
+	   List<String> getSize = sqlSession.selectList("once.item.dao.ItemDAO.getSizeList", itemVO);
+	   String[] sizeList = getSize.toArray(new String[getSize.size()]);
+	      
+	   return sizeList;
+	}
+	   
+	@Override
+	public void minCnt(OrderVO order) {
+	
+		for(int i=0; i<order.getOrderDetails().size(); i++) {
+			int count = sqlSession.selectOne("once.item.dao.ItemDAO.checkCnt", order.getOrderDetails().get(i));
+			
+			ItemContentsVO detail = new ItemContentsVO();
+			detail.setDetailNo(order.getOrderDetails().get(i).getDetailNo());
+			detail.setCount(count - order.getOrderDetails().get(i).getCount());
+			
+			sqlSession.insert("once.item.dao.ItemDAO.minCnt", detail);
+		}
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList() {
+		List<ItemVO> generalItemList = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList");
+		return generalItemList;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList2() {
+		List<ItemVO> generalItemList2 = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList2");
+		return generalItemList2;
+	}
+
+	@Override
+	public List<ItemVO> selectGeneralItemList3() {
+		List<ItemVO> generalItemList3 = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList3");
+		return generalItemList3;
 	}
 }

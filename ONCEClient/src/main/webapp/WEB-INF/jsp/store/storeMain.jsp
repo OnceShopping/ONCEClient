@@ -105,21 +105,9 @@ $(document).ready(function() {
 
 <body>
 <header>
-<div class="navbar">
-		<div class="container">
-			<div class="panel-control-left">
-				<a href="#" data-activates="slide-out-left"
-					class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-			</div>
-			<div class="site-title">
-				<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-			</div>
-			<div class="panel-control-right">
-				<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-			</div>
-		</div>
-	</div>
-	<!-- 상단 navbar 끝 -->
+	<!-- navbar -->
+	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<!-- end navbar -->
 
 	<!-- 좌측 메뉴패널 -->
 	<div class="panel-control-right">
@@ -197,7 +185,7 @@ $(document).ready(function() {
 	<section>
 	 <div class="team-app app-pages app-section" style="margin-top: 0px">
 			<div class="col s12" style="text-align: center; vertical-align: middle; margin-bottom: 30px" >
-				<img alt="상표 이미지 ${ storeVO.storeName}" src="${pageContext.request.contextPath}/resources/img/gallery1.jpg" style="width: 150px; height: 150px; border-radius: 50%;">
+				<img alt="상표 이미지 ${ storeVO.storeName}" src="/image/${storeVO.imgSaveName }" style="width: 150px; height: 150px; border-radius: 50%;">
 			</div>
 			<div class="navbar" id="navbar2Main" style="background: #ffffff; border-bottom: #ffffff; box-shadow: none">
 				<div class="container">
@@ -365,9 +353,11 @@ $(document).ready(function() {
 							<c:forEach items="${ storeItem }" var="itemVO" begin="${ status.index }" end="${ status.count + status.step }">
 									<div class="col s6">
 										<div class="entry">
-											<img src="${pageContext.request.contextPath}/resources/img/store1.png" alt="">
+											<a href="${ pageContext.request.contextPath}/store/item/${itemVO.num}">
+												<img src="/image/${itemVO.imgSaveName}" alt="">
+											</a>
 											<h6>
-												<a href="">${ itemVO.itemName }</a>
+												<a href="${ pageContext.request.contextPath}/store/item/${itemVO.num}">${ itemVO.itemName }</a>
 											</h6>
 											<div class="price">
 												<h5>${ itemVO.price }원</h5>
@@ -385,22 +375,9 @@ $(document).ready(function() {
 	</div>
 	</section>
 	
-	<footer>
-		<div class="container">
-			<h6>About us</h6>
-			<div class="tel-fax-mail">
-				<ul>
-					<li><span>회사명:</span> (주)ONCE</li>
-					<li><span>대표이사:</span> 장경준</li>
-					<li><span>사업자등록번호:</span> 000-0000-00000<li>
-				</ul>
-			</div>
-		</div>
-		<div class="ft-bottom">
-			<span>Copyright © 2017 All Rights Reserved </span>
-		</div>
-		
-	</footer>
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	<!-- end footer -->
 	
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">

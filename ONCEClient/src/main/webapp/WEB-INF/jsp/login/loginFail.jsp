@@ -2,5 +2,5 @@
 	pageEncoding="UTF-8"%>
 <script>
 	alert("${message}");
-	location.href="${pageContext.request.contextPath}/login/login"
+	location.href="${pageContext.request.contextPath}/login/loginForm"
 </script>

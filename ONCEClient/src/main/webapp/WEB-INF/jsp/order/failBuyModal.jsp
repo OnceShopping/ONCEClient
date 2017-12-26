@@ -30,50 +30,59 @@
 	href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css">
 </head>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script	src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	
-	$('#modal').modal('show');
+	$('#exampleModal').modal('show');
 	
 });
+
 </script>
 </head>
-<body>
-	<div id="modal" class="modal">
+<body style="background-color :#ddd;">
+	<!-- modals -->
+	<div class="modals-app app-pages app-section">
+		<div class="container">
+		<div id="exampleModal" class="modal" style="display: inline-table;"  >
 		<div class="modal-content">
-			<h5>알림</h5><br/>
-			<hr>
-			<h6>구매 불가</h6>
-			<c:forEach var="failBuy" items="${failBuyList}">
-				<p>상품: <span>${ failBuy.itemName }</span></p>
-				<c:forEach var="canCnt" items="${canBuyCnt }">
-				</c:forEach>
-				<c:choose>
+			<h4 class="modal-title" id="exampleModalLabel">구 매 불 가</h4>
+			<hr style="margin-top: 5px; border-top: 1px solid #999;"/>
+			<c:forEach var="failBuy" items="${failBuyList}" varStatus="loop">
+				<p><span>${ failBuy.itemName }</span>
+				</p>
+				<c:forEach var="canCnt" items="${canBuyCnt}" varStatus="status">
+				<c:if test="${ loop.index eq status.index }">
+					<c:choose>
 					<c:when test="${ canCnt eq 0 }">
-						<p>죄송합니다. 현재 해당 상품은 '품절'입니다.</p>
+						<p style="font-size: 12px;">현재 해당 상품은 저희 사이트에 재고가 없습니다.</p>
 					</c:when>
 					<c:otherwise>
-						<p>재고: <span>${ canCnt }</span></p>
+						<p>재고: <span>${canCnt}</span></p>
 					</c:otherwise>
-				</c:choose>	
+				</c:choose>
+				</c:if>
+				</c:forEach>
 			</c:forEach>
-			<p>죄송합니다. 확인 버튼을 누르신 후, 해당 상품(들)의 수량을 조정해주시기 바랍니다.</p>
-			<div class="modal-footer">
-				<input type="button" class="modal-action modal-close button" onclick="paySubmit(${loop.index})" value="확인">
+			<hr/>
+			<p style="font-size: 12px;">죄송합니다.<br/>
+			해당 상품(들)의 수량을 조정해주시기 바랍니다.</p>
+			<div class="modal-footer" style="background-color: #fff; border-top: 1px solid #ccc;">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="yes" onclick="history.go(-2)">확인</button>
 			</div>
 		</div>
-	</div>
-	
-	<script
-		src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	
+		</div>
+		</div>
+	</div>	
+	<!-- end modal -->
 </body>
 </html>
