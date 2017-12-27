@@ -142,7 +142,48 @@
 			}
 	    });
 	    
+	    $('#addCmt').submit(function() {
+			var content = $('#insertCmt').val();
+			var num = '${num}';
+			var cmtNo = ++cnt;
+			
+			if(checkCmt == '') {
+				alert('상품평을 입력해 주세요');
+			} else {
+				$.ajax({
+					url : "${ pageContext.request.contextPath }/comment/add",
+					data: {"content" : content},
+					type: "post",
+					cache: false,
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						$('#cmtList').prepend('<li class="item">' +
+												'<div id="cmtNo' + cmtNo + '" class="item-swipe">' +
+												'</div>' +
+												'<div class="item-back">' +
+													'<div class="delCmt"> 삭 제 </div>' +
+												'</div>' +
+											  '</li>');
+						
+						$('#insertCmt').val('');
+						
+						history.go(0);
+					}
+				});
+				
+				$('#cmtNo')   
+			}
+			
+			return false;
+		});
 	    
+	    $('#rmv_' + idNo).click(function() {
+ 			
+			var num = $('#cnt_'+idNo).val();
+			totalCount = totalCount - num;
+			$(this).closest('li').remove();
+			return false;
+		}); 
 	    
 	});
 	
@@ -163,11 +204,6 @@
 		}
 	}
 	
-	function deleteOne(idNo){
-		var num = $('#cnt_'+idNo).val();
-		totalCount = totalCount - num;
-		$(this).closest('li').remove();	
-	}
 	
 	function changePrice(){
 		var itemJSON = '${itemJSON}';
