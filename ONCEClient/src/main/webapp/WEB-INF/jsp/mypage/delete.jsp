@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -89,7 +89,7 @@
 				<p class="light">회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/delete" method="post">
 				<input type="hidden" name="id" value="${customerVO.id}"/>
-				<div style="text-align: center">
+				<div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
 					<input type="submit" class="button" value="확인" style="width: 20%"/>
 					<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
 				</div>
