@@ -175,6 +175,8 @@ public class ItemController {
 		itemVO.setStoreNo(itemContentsVO.getStoreNo());		
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
+		itemVO.setPrice(itemContentsVO.getPrice());
+		itemVO.setSalePrice(itemContentsVO.getSalePrice());
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -212,6 +214,8 @@ public class ItemController {
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 		itemVO.setStoreNo(itemContentsVO.getStoreNo());
+		itemVO.setPrice(itemContentsVO.getPrice());
+		itemVO.setSalePrice(itemContentsVO.getSalePrice());
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -220,9 +224,6 @@ public class ItemController {
 		mav.addObject("storeName", storeName);
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
-		
-		System.out.println("itemDetail_imgList: "+imgList);
-		System.out.println("itemDetail_newItemList: "+newItemList);
 		
 		Gson gson = new Gson();
 		String itemJSON = gson.toJson(itemVO);
@@ -246,4 +247,5 @@ public class ItemController {
 	            
 	  return mav;
 	}
+	
 }
