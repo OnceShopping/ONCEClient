@@ -474,6 +474,7 @@
 										<input type="hidden" name="orderDetails[${ status.index }].itemName" value="${ itemContents.itemName }" />
 										<input type="hidden" name="orderDetails[${ status.index }].storeNo" value="${ itemContents.storeNo }" />
 										<input type="hidden" name="orderDetails[${ status.index }].storeName" value="${ itemContents.storeName }" />
+										<input type="hidden" name="orderDetails[${ status.index }].imgSaveName" value="${ itemContents.imgSaveName }" />
 									</div>
 									<div class="col s1">
 										<a href="" class="deleteStore_${ loop.index }" onclick="deleteOne(${ loop.index }, ${status.index})">
