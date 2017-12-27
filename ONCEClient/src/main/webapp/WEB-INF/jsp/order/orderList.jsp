@@ -212,12 +212,15 @@
 	
 </script>
 <body>
+	<header>
 	<!-- navbar -->
 	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp" flush="false"></jsp:include>
 	<!-- end navbar -->
+	</header>
 	
+	<section class="app-pages app-section">
 	<!-- product cart -->
-	<div class="product-cart app-pages app-section">
+	<div class="product-cart">
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
 				<h3>Order LIST</h3>
@@ -353,6 +356,7 @@
 		</div>
 	</div>
 	<!-- end product cart -->
+	</section>
 	
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
@@ -363,21 +367,21 @@
 		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="#" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<c:choose>
-			<c:when test="${ empty loginVO }">
-				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-			</c:when>
-			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-			</c:otherwise>
-			</c:choose>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
+      <c:choose>
+				<c:when test="${ not empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/login/login" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose>      
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
+	
 	<!-- script -->
-
 	<script
 		src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script

@@ -269,14 +269,7 @@ public class OrderController {
 	@RequestMapping(value = "/orderList/checkCnt", method = RequestMethod.POST)
 	public ModelAndView checkCnt(OrderVO preOrder, HttpSession session) {
 
-		System.out.println("checkCnt()_in: " + preOrder);
-		/*
-		 * System.out.println("checkCnt()_session_storeVO:"+session.getAttribute(
-		 * "storeList"));
-		 * System.out.println("checkCnt()_session_ItemContentsVO:"+session.getAttribute(
-		 * "productList"));
-		 */
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView();
 
 		int[] stocks = new int[preOrder.getOrderDetails().size()];
 
@@ -333,27 +326,6 @@ public class OrderController {
 
 			order = orderProcess(preOrder);
 
-			System.out.println("결재성공_order" + order);
-
-			
-			// 오늘 첫 주문 이거나, 오늘 한 주문들을 모두 수령한 경우
-			if(service.countTodayNotReceipt(loginVO.getMemNo())==0) {
-				List<PickupPlaceVO> infoList = pickupService.getAllInfo();
-				mav = new ModelAndView("order/choiceInfo");
-				mav.addObject("infoList", infoList);
-			}else {	// 오늘 첫 주문이 아니거나, 오늘 한 주문 중 수령하지 않은 물품이 있는 경우
-				String floor = service.getFloor(loginVO);
-				order.setFloor(floor);
-				service.updateFloor(order);
-				String secretPassword = getOrderPassword(loginVO);
-				System.out.println("showOrderPwd()_secretPassword" + secretPassword);
-
-				mav = new ModelAndView("order/showInfoNPwd");
-				mav.addObject("secretPassword", secretPassword);
-				mav.addObject("floor", floor);
-			}
-			
-
 			// 해당 물품 세션 장바구니 지우기
 			List<ItemContentsVO> productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
 			List<StoreVO> storeList = (ArrayList<StoreVO>) session.getAttribute("storeList");
@@ -377,9 +349,6 @@ public class OrderController {
 					}
 				}
 
-				System.out.println("결제성공_productList" + productList);
-				System.out.println("결제성공_storeList" + storeList);
-
 				session.removeAttribute("productList");
 				session.removeAttribute("storeList");
 				session.removeAttribute("listJSON");
@@ -395,10 +364,23 @@ public class OrderController {
 					session.setAttribute("storeJSON", storeJSON);
 				}
 			}
-
+			System.out.println("todayCount: "+service.countTodayNotReceipt(loginVO.getMemNo()));
+			if(service.countTodayNotReceipt(loginVO.getMemNo())<=1) {	// 오늘 첫 주문 이거나, 오늘 한 주문들을 모두 수령한 경우
+				List<PickupPlaceVO> infoList = pickupService.getAllInfo();
+				mav.setViewName("order/choiceInfo");
+				mav.addObject("infoList", infoList);
+			}else {	// 오늘 첫 주문이 아니거나, 오늘 한 주문 중 수령하지 않은 물품이 있는 경우
+				String floor = service.getFloor(loginVO);
+				order.setFloor(floor);
+				service.updateFloor(order);
+				String secretPassword = getOrderPassword(loginVO);
+				mav.setViewName("order/showInfoNPwd");
+				mav.addObject("secretPassword", secretPassword);
+				mav.addObject("floor", floor);
+			}
+			
 		} else { // 재고가 없는 상품이 있는 경우
 			List<OrderDetailVO> failBuyList = new ArrayList<>();
-
 			int[] canBuyCnt = new int[cantCnt];
 
 			for (int i = 0; i < preOrder.getOrderDetails().size(); i++) {
@@ -409,17 +391,13 @@ public class OrderController {
 					// 처리 해줄 건지?
 				}
 			}
-
-			System.out.println("failBuyList: " + failBuyList);
-			for (int i = 0; i < canBuyCnt.length; i++) {
-				System.out.print("canBuyCnt" + i + ": " + canBuyCnt[i]);
-			}
-
-			mav = new ModelAndView("order/failBuyModal");
+			mav.setViewName("order/failBuyModal");
 			mav.addObject("failBuyList", failBuyList);
 			mav.addObject("canBuyCnt", canBuyCnt);
 		}
-
+		
+		System.out.println("viewName: "+mav.getViewName());
+		
 		return mav;
 	}
 
