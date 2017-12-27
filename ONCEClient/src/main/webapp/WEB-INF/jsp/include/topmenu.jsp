@@ -12,6 +12,7 @@
 }
 </style>
 <script type="text/javascript">
+
 	function logout(){
 		sessionStorage.removeItem('loginVO');
 		sessionStorage.removeItem('productList');
@@ -51,7 +52,7 @@
 			data-collapsible="accordion">
 			<li>
 				<div class="photos">
-					<h3>cus1</h3>
+					<h3>${loginVO.id}</h3>
 				</div>
 			</li>
 			<li>
