@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css">
 <style type="text/css">
 	#mainImg, #tabs1, #tabs2, #tabs3, #tabs4 {
 		text-align: center;
@@ -87,13 +87,20 @@
 </style>
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script	src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/materialize.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
  
-<script>	
+<script>
+	var totalCount = 0;	// 총 상품 수(합계)
+	var itemCnt = new Array();
+	
 	$(document).ready(function() {
+		
+		$('#orderDetail').modal({backdrop: 'static'});
+		
 		var cnt = 0;
 			    
 		$('#size').attr('disabled', true);
@@ -107,7 +114,7 @@
 	       var sltSize = $('#size').val();
 	       var itemName = $('#itemName').val();
 	       
-	       var idNo = cnt;      
+	       var idNo = cnt;
 	       
 	       if(sltColor != '') {
 	                    
@@ -123,140 +130,66 @@
 	            success : function(data) {
 	            	$('#sltItemList').val("");
 		            $('#sltItemList').append(data);
-		               
-		            var price = $('#price').val();
-		            var num = parseInt(price, 10);
-		            var addPrice = 0;
-		               
-		            for(var i = 0; i <= idNo; i++) {
-		            	addPrice = addPrice + num;
-		            }
-		               
-		            $('#cntPrice').text(addPrice);
 		            idNo = ++cnt;
+		            ++totalCount;
+		          	//초기화 
+					$('#color').val('');
+					$('#size').val('');
+					$('#size').attr('disabled', true);
+					changePrice();
 	            }
-	            });
-	
-				/*
-               $('#sltItemList').val("");
-               $('#sltItemList').append(
-	            	'<li>' +
-	            		'<div class="sltItem">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].itemName" value="${ itemName }">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].delete" id="delete_'+'${idNo}" value="false">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].color" value="${ sltColor }">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].size" value="${ sltSize }">' +
-	            	    	'<a href="" class="removeItem" id="rmv' + idNo + '"><i class="fa fa-times"></i></a>' +
-	            			'<br/>' +
-	            			sltColor + ' / ' + sltSize +
-	            			'<br/>' +
-	            		        '<span><a href="" id="cntMinus' + idNo + '"><i class="fa fa-minus-square-o" style="font-size: large;"></i></a></span>' +
-	            		        '<input type="number" name="itemDetailList[' + idNo + '].count" value="1" class="cntItem" id="cnt${idNo}" style="text-align: center;"/>' +
-	            		        '<span><a href="" id="cntPlus' + idNo + '"><i class="fa fa-plus-square-o" style="font-size: large;"></i></a></span>' +
-	
-	            	    '</div>' +
-	            	'</li>');
-               
-               var price = $('#price').val();
-               var num = parseInt(price, 10);
-               var addPrice = 0;
-               
-               for(var i = 0; i <= idNo; i++) {
-            	   addPrice = addPrice + num;
-               }
-               */
-               
-               
-               $('#cntPrice').text(addPrice);
-               idNo = ++cnt;
-	            
-				//초기화 
-				$('#color').val('');
-				$('#size').val('');
-				$('#size').attr('disabled', true);
+	          });	
 			}
-
- 			$('#rmv' + idNo).click(function() {
-               var price = $('#price').val();
-               var num = parseInt(price, 10);
-               var addPrice = 0;
-               
-               for(var i = 0; i <= idNo; i++) {
-            	   addPrice = addPrice - num;
-               }
-               
-               $('#cntPrice').text(addPrice);
-	               
-			   $(this).closest('li').remove();
-			
-			   return false;
-			}); 
- 			
-		    $('#cntPlus' + idNo).click(function(e) {
-		    	e.preventDefault();
-		    	var num = $('#cnt' + idNo).val();
-		    	num++;
-		    	
-		    	$('#cnt' + idNo).val(num);
-		    	$('#cntItem').text(num);
-		    	
-		    	return false;
-		    });
-		    
-		    $('#cntMinus' + idNo).click(function(e) {
-		    	e.preventDefault();
-		    	var num = $('#cnt' + idNo).val();
-		    	num--;
-		    	
-		    	if(num <= 0) {
-			    	alert('더 이상 줄일 수 없습니다');
-			    	num = 1;
-		    	}
-		    	
-		    	$('#cnt' + idNo).val(num);
-		    	
-		    	return false;
-		    });
-		});
-		
+	    });
 	    
-		$('#addCmt').submit(function() {
-			var content = $('#insertCmt').val();
-			var num = '${num}';
-			var cmtNo = ++cnt;
-			
-			if(checkCmt == '') {
-				alert('상품평을 입력해 주세요');
-			} else {
-				$.ajax({
-					url : "${ pageContext.request.contextPath }/comment/add",
-					data: {"content" : content},
-					type: "post",
-					cache: false,
-					contentType : "application/json; charset=UTF-8",
-					success : function(data) {
-						$('#cmtList').prepend('<li class="item">' +
-												'<div id="cmtNo' + cmtNo + '" class="item-swipe">' +
-												'</div>' +
-												'<div class="item-back">' +
-													'<div class="delCmt"> 삭 제 </div>' +
-												'</div>' +
-											  '</li>');
-						
-						$('#insertCmt').val('');
-						
-						
-						history.go(0);
-					}
-				});
-				
-				$('#cmtNo')   
-			}
-			
-			return false;
-		});
-		
+	    
+	    
 	});
+	
+	function plusCnt(idNo){
+		var changeCnt = $('#cnt_'+idNo).val();
+		changeCnt++;
+		totalCount++;
+		$('#cnt_'+idNo).val(changeCnt);
+	}
+	
+	function minusCnt(idNo){
+		if($('#cnt_'+idNo).val() == 1){
+		}else{
+			var changeCnt = $('#cnt_'+idNo).val();
+			changeCnt--;
+			totalCount--;
+			$('#cnt_'+idNo).val(changeCnt);
+		}
+	}
+	
+	function deleteOne(idNo){
+		var num = $('#cnt_'+idNo).val();
+		totalCount = totalCount - num;
+		$(this).closest('li').remove();	
+	}
+	
+	function changePrice(){
+		var itemJSON = '${itemJSON}';
+	    var result = $.parseJSON(itemJSON);
+	    var totalPrice = 0;
+	    
+	    if(result.salePrice==0 || result.salePrice == null){
+	    	totalPrice = result.price*totalCount;
+	    }else{
+	    	totalPrice = result.salePrice*totalCount;
+	    }
+	    $('#cntPrice').text(totalPrice);
+	}
+
+		
+	function morePicture(){
+		var pictures = document.getElementsByClassName('moreImg');
+		for(var i=0; i<pictures.length; i++){
+			var picture = pictures.item(i);
+			picture.setAttribute('style','display: block;');
+		}		
+	}
 	
 	function cartFunc() {      
 	      var listJSON = '${sessionScope.listJSON}';
@@ -267,9 +200,9 @@
 	      }
 	      
 	      var itemName = document.getElementById('itemName').value;
-	      var size = document.getElementById('size').value;
-	      var color = document.getElementById('color').value;
-      	      
+	      var sizeList = document.getElementsByClassName('size');
+	      var colorList = document.getElementsByClassName('color');
+	      	      
 	      if (resultList == null || resultList == '') {   // 장바구니에 물품이 아예 없는 경우
 	         var itemJSON = '${itemJSON}';
 	         var result = $.parseJSON(itemJSON);
@@ -277,29 +210,39 @@
 	         	         
 	         itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
 	         itemForm.submit();
-	      }else{
-	         var tf = 0;
-	         $.each(resultList, function(index, item) {
-	            if (item.itemName == itemName && item.color == color && item.size == size) { // 장바구니에 선택한 물품이 이미 있는 경우
-	               if (confirm('이미 장바구니에 물건이 있습니다. 장바구니로 이동하시겠습니까?')) { // 확인
-	                  location.href = "${pageContext.request.contextPath}/mypage/shoppingCart";
-	                  tf = 1;
-	               } else { // 취소
-	                  tf = 1;
-	               }
-	            }
-	         });
-	         var itemJSON = '${itemJSON}';
-	         var result = $.parseJSON(itemJSON);
-	         var itemForm = document.forms['itemContentsVO'];
 	         
-	         if(tf==1){
-	            
-	         }else{
-	            itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
-	            itemForm.submit();
-	         }
-	      }
+	      }else{
+	    	  var tf = 0;
+	    	  $.each(resultList, function(index, item) {
+	    		  	var size;
+	    		  	var color;
+	    		  	for(var i=0; i<size.length; i++){	
+	    			  	size = sizeList[i].value;
+	    			  	color = colorList[i].value;
+	    			  	if (item.itemName == itemName && item.color == color && item.size == size) { // 장바구니에 선택한 물품이 이미 있는 경우
+	    				  tf = 1;
+	    			  	  break;
+	    			  	}else{
+	    				  tf = 0;
+	    				}
+		    		}
+	      		});
+	    	}
+	    	  
+	    	  var itemJSON = '${itemJSON}';
+		      var result = $.parseJSON(itemJSON);
+		      var itemForm = document.forms['itemContentsVO'];
+	    	  	    	  
+	    	  if(tf==1){
+	    		  if (confirm('이미 장바구니에 물건이 있습니다. 장바구니로 이동하시겠습니까?')) { // 확인
+	                  location.href = "${pageContext.request.contextPath}/mypage/shoppingCart";
+	               } else { // 취소
+	            	   history.go(0);
+	               }
+	    	  }else{
+		            itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
+		            itemForm.submit();
+		       }
 	   }
 	   
 	   function buyFunc(){
@@ -328,11 +271,10 @@
 		<!-- 메인 시작 -->
 		<div class="app-pages">
 			<div class="container">
-				<div id="mainImg">
-					<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
+				<div id="mainImg" style="height: 250px;">
 					<c:forEach items="${ imgList }" var="list" varStatus="status">
 						<c:if test="${status.count eq 1}">
-							<img src="/image/${list.imgSaveName}" alt="">
+							<img style="width: 180px; height: 250px;" src="/image/${list.imgSaveName}" alt="">
 						</c:if>
 					</c:forEach>
 				</div>
@@ -371,13 +313,15 @@
 						<div id="tabs1">
 							<br />
 							<div class="row">
-								<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
 								<c:forEach items="${ imgList }" var="list" varStatus="status">
 									<c:if test="${status.count eq 2}">
-										<img src="/image/${list.imgSaveName}" alt="" width="93%"><br/>
+										<img style="width: 180px; height: 250px;" src="/image/${list.imgSaveName}" alt="" width="93%"><br/>
 									</c:if>
 								</c:forEach>
-								<input type="button" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
+								<c:forEach items="${ imgList }" var="list" varStatus="status" begin="3" end="4">
+									<img class="moreImg" style="width: 180px; height: 250px;" src="/image/${list.imgSaveName}" alt="" width="93%" style="display: none;" ><br/>
+								</c:forEach>
+								<input type="button" id="imgDetail" class="button z-depth-1" onclick="morePicture()" value="이미지 더 보기" />
 								<br/><br/>
 								<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
 								<br/>
@@ -400,7 +344,7 @@
 													<div class="col s6">
 														<div class="entry">
 															<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">
-																<img src="/image/${ newItemList.imgSaveName }" alt="">
+																<img style="width: 180px; height: 250px; display: inline-block;" src="/image/${ newItemList.imgSaveName }" alt="">
 															</a>
 															<h6>
 																<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">${ newItemList.itemName }</a>
@@ -478,7 +422,6 @@
 	   	<div class="modal-content">
 			<div>
 				<input name="itemName" id="itemName" type="hidden" value="${itemContentsVO.itemName}" />
-				<input name="price" id="price" type="hidden" value="${itemContentsVO.price}" />
 				<label>color</label>
                   <select class="browser-default" id="color" >
                      <option value="">- [필수] color를 선택해 주세요 -</option>
