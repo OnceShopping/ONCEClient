@@ -77,8 +77,77 @@
 			if($('#customer').val()==""){
 				alert('로그인 후 이용이 가능합니다. 로그인 페이지로 이동합니다.');
 				location.href="${pageContext.request.contextPath}/login/loginForm";
-			}		
+			}	
+			
+			<c:forEach var="detail" items="${detailList}" varStatus="index">
+			settingPrice($('#price_'+${index.count}), ${index.count});
+			</c:forEach>
+			
+			var totalPrice = $('#total').text();
+			$('#total').html(comma(totalPrice));
 		});
+		
+
+		function settingPrice(obj, count){
+			
+			var val = obj.text();
+			var price = comma(val);
+			
+			$(obj).html(price);
+		}
+
+		
+		//comma를 설정하는 로직
+		function comma(obj){
+			
+			var num = obj.toString(); 
+			var array=[];
+			var replay = parseInt((num.length)%3);
+			var routine = parseInt((num.length+2)/3);
+					
+			if(replay==1){
+				for(var i=0; i<routine; i++){
+					var sample;				
+					
+					if(i==0)
+						sample = num.substr(0,1);
+					else if(i==1)
+						sample = num.substr(1,3);
+					else
+						sample = num.substr(((i-1)*3)+1, 3);
+					
+					array.push(sample);
+				}
+			}		
+			else if(replay==2){
+				for(var i=0; i<routine; i++){
+					var sample;				
+					
+					if(i==0)
+						sample = num.substr(0,2);
+					else if(i==1)
+						sample = num.substr(2,3);
+					else
+						sample = num.substr(((i-1)*3)+2, 3);
+					
+					array.push(sample);
+				}
+			}
+			else{
+				for(var i=0; i<routine; i++){
+					var sample;				
+					
+					if(i==0)
+						sample = num.substr(0,3);
+					else
+						sample = num.substr((i*3), 3);
+					
+					array.push(sample);
+				}
+			}	
+			return array.join(",");
+		}
+		
 	</script>
 </head>
 <body>
@@ -96,7 +165,7 @@
 					<h3 class="bold">주문/수령</h3>
 				</div>
 				<div class="detailTable">
-				<c:forEach var="detail" items="${detailList}">				
+				<c:forEach var="detail" items="${detailList}" varStatus="index">				
 						<table style="width: 100%;">
 							<tr>
 								<td rowspan="5" colspan="2" style="width: 45%; height: 150px;">
@@ -114,12 +183,12 @@
 								<td><span class="semi">수량  : </span>${detail.count}</td>
 							</tr>
 							<tr>
-								<td><span class="semi">가격  : </span>${detail.price} 원</td>
+								<td><span class="semi">가격  : </span><span id="price_${index.count}"><c:out value="${detail.price}"/></span> 원</td>
 							</tr>
 						</table>
 						<br/>			
 				</c:forEach>
-				<div class="semi total">총 가격 : ${totalPrice} 원</div>
+				<div class="semi total">총 가격 : <span id="total"><c:out value="${totalPrice}"/></span> 원</div>
 				</div>
 			</div>
 		</div>
