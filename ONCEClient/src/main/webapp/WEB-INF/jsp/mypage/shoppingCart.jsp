@@ -67,13 +67,13 @@
 
 				var ori_total_storeNo = 0; /* 매장별 상품 총 정상가 */
 				var cur_total_storeNo = 0; /* 매장별 상품 총 금액 */
-				/* var itemCnt_storeNo = 0; 매장별 상품 총 개수 */
+				var itemCnt_storeNo = 0; /* 매장별 상품 총 개수 */
 				
 				var storeNo = store.storeNo;
 				cntList[loop] = 0;
 				
 				$.each(resultList, function(index, item){	/* storeNo 같은 거 끼리 묶기 */
-										
+					
 					if( storeNo == item.storeNo){
 						itemCnt[index] = item.count;
 						
@@ -84,20 +84,28 @@
 						
 						ori_total_storeNo += item.price*itemCnt[index];
 						
+						
 						if(item.salePrice == 0){
 							cur_total_storeNo += item.price*itemCnt[index];
 						}else{
 							cur_total_storeNo += item.salePrice*itemCnt[index];
 						}
+						
 					}
-				
+													
 					$('#ori_total_'+loop).text(ori_total_storeNo);
+										
 					if((ori_total_storeNo - cur_total_storeNo)!=0){
 						$('#dis_total_'+loop).text((ori_total_storeNo - cur_total_storeNo));
 					}
 					
+					
 					$('#cur_total_'+loop).text(cur_total_storeNo);
 					
+					settingOriTotalPrice($('#ori_total_'+loop).text(), loop);
+					settingDisTotalPrice($('#dis_total_'+loop).text(), loop);
+					settingCurTotalPrice($('#cur_total_'+loop).text(), loop);
+										
 					sumCntList[loop]++;
 				});
 			});
@@ -115,14 +123,9 @@
 			var salePrice='${itemContents.salePrice}';
 			if(salePrice!=0){
 				settingSalePrice($('#sale_'+${loop.index}+'_'+${status.index}).text(), ${loop.index}, ${status.index});				
-			}
-			
+			}			
 		</c:forEach>
-			settingOriTotalPrice($('#ori_total_'+${loop.index}).text(), ${loop.index});
-			settingDisTotalPrice($('#dis_total_'+${loop.index}).text(), ${loop.index});
-			settingCurTotalPrice($('#cur_total_'+${loop.index}).text(), ${loop.index});
-		</c:forEach>		
-		
+		</c:forEach>
 	});
 	
 	//comma를 설정하는 로직
@@ -209,20 +212,39 @@
 		$('#cur_total_'+loop).html(curTotalPrice);
 	}
 
-	function itemPriceForm(loop, index){
-		
+	
+	function oriPriceForm(loop, index){
 		$.ajax({
-			url : "${ pageContext.request.contextPath }/shoppingCart/itemPriceForm",
+			url : "${ pageContext.request.contextPath }/shoppingCart/oriPriceForm",
 			data : {
-				'loop'	: loop,
+				'loop'  : loop,
 				'index' : index
 			},
 			success : function(data) {
-				$('#itemPrice_'+loop+'_'+index).html("");
-				$('#itemPrice_'+loop+'_'+index).html(data);
+				$('#oriPrice_'+loop+"_"+index).html("");
+				$('#oriPrice_'+loop+"_"+index).html(data);
+				settingPrice($('#price_'+loop+'_'+index).text(), loop, index);
 			}
 		});
-	}	
+	}
+	
+	function salePriceForm(loop, index){
+		$.ajax({
+			url : "${ pageContext.request.contextPath }/shoppingCart/salePriceForm",
+			data : {
+				'loop'  : loop,
+				'index' : index
+			},
+			success : function(data) {
+				$('#salePrice_'+loop+"_"+index).html("");
+				$('#salePrice_'+loop+"_"+index).html(data);
+				var salePrice = data.salePrice;
+				if(salePrice != 0){
+					settingSalePrice($('#sale_'+loop+'_'+index).text(), loop, index);			
+				}
+			}
+		});
+	}
 	
 	function changeCnt(loop, index){
 		
@@ -246,19 +268,11 @@
 					alert("수량이 변경 되었습니다.");
 					var changeList = $.parseJSON(data);
 					
-					itemPriceForm(loop, index);
+					oriPriceForm(loop, index);
+					salePriceForm(loop, index);
 					
 					var ori_total_storeNo = 0;
-					var ori_total_storeNo = 0;
-					var ori_total_storeNo = 0;
-							
-					getAllTotal(changeList);
-					
-					<c:forEach var="storeVO" items="${ storeList }" varStatus="loop">
-						settingOriTotalPrice($('#ori_total_'+${loop.index}).text(), ${loop.index});
-						settingDisTotalPrice($('#dis_total_'+${loop.index}).text(), ${loop.index});
-						settingCurTotalPrice($('#cur_total_'+${loop.index}).text(), ${loop.index});
-					</c:forEach>							
+					getAllTotal(changeList);							
 				}
 			});
 			
@@ -531,7 +545,7 @@
 											<input type="hidden" name="orderDetails[${ status.index }].price" value="${itemContents.price}"/>
 											<input type="hidden" name="orderDetails[${ status.index }].salePrice" value="${itemContents.salePrice}"/>
 										</div>
-										<div id="itemPrice_${loop.index}_${status.index}" class="col s8" style="float: left;">
+										<div class="col s8" style="float: left;">
 											<div id="oriPrice_${loop.index}_${status.index}">
 											<p style="float: left; margin-left: 10px;">정상가:</p>
 												<p style="float: left;" id="price_${loop.index}_${status.index}" >${itemContents.price * itemContents.count }</p>

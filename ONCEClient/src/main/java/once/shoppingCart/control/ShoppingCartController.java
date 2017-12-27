@@ -306,7 +306,7 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value = "/shoppingCart/changeCnt", method = RequestMethod.GET)
 	@ResponseBody
-	public String changeCnt(@RequestParam int count, @RequestParam int index, HttpSession session)
+	public String changeCnt(@RequestParam("index") int index, @RequestParam("count") int count, HttpSession session)
 			throws JsonParseException, JsonMappingException, IOException {
 
 		List<ItemContentsVO> productList = null;
@@ -329,16 +329,15 @@ public class ShoppingCartController {
 		}
 		return newJsonList;
 	}
-
 	/**
-	 * 수량 변경에 따른 물품 정상가/할인가 변경(ajax)
+	 * 수량 변경에 따른 물품 정상가 변경(ajax)
 	 * 
 	 * @param index
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/shoppingCart/itemPriceForm")
-	public @ResponseBody ModelAndView itemPriceForm(@RequestParam("loop") int loop, @RequestParam("index") int index, HttpSession session) {
+	@RequestMapping(value = "/shoppingCart/oriPriceForm")
+	public @ResponseBody ModelAndView oriPriceForm(@RequestParam("loop") int loop, @RequestParam("index") int index, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
 		List<ItemContentsVO> productList = null;
@@ -349,14 +348,40 @@ public class ShoppingCartController {
 			itemContents = productList.get(index);
 		}
 
-		mav.setViewName("mypage/cartForm/itemPriceForm");
+		mav.setViewName("mypage/cartForm/oriPriceForm");
 		mav.addObject("itemContents", itemContents);
 		mav.addObject("loop", loop);
 		mav.addObject("index", index);
 		return mav;
 	}
-	
-	
+
+	/**
+	 * 수량 변경에 따른 물품 할인가 변경(ajax)
+	 * 
+	 * @param index
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/shoppingCart/salePriceForm")
+	public @ResponseBody ModelAndView salePriceForm(@RequestParam("loop") int loop, @RequestParam("index") int index, HttpSession session) {
+
+		ModelAndView mav = new ModelAndView();
+		List<ItemContentsVO> productList = null;
+		ItemContentsVO itemContents = null;
+
+		if (session.getAttribute("productList") != null) { // 세션에 장바구니가 있는 경우
+			productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
+			itemContents = productList.get(index);
+		}
+
+		mav.setViewName("mypage/cartForm/salePriceForm");
+		mav.addObject("itemContents", itemContents);
+		mav.addObject("salePrice", itemContents.getSalePrice());
+		mav.addObject("loop", loop);
+		mav.addObject("index", index);
+		return mav;
+	}
+
 
 	/**
 	 * 물품 옵션 보여주기(ajax)
