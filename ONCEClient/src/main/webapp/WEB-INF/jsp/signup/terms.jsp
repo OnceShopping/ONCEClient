@@ -107,7 +107,7 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">회원가입</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
+					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%"> 
 				</div>
 				<div align="center"><h4 class="light">약관동의</h4></div>
 				<br/>

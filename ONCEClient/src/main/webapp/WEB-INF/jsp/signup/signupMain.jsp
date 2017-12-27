@@ -234,7 +234,7 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">회원가입</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
+					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%"> 
 				</div>
 				<form:form commandName="customerVO" method="post" >
 					<div class="input-field" style="width: 70%; float: left;">
