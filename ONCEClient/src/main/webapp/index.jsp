@@ -64,6 +64,88 @@
 <script src="resources/js/slick.min.js"></script>
 <script src="resources/js/owl.carousel.min.js"></script>
 <script src="resources/js/custom.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	
+		<c:forEach var="item" items="${itemList}" varStatus="index">
+			settingPrice($('#menItem_'+${index.count}), ${index.count});
+		</c:forEach> 
+		
+		<c:forEach var="item" items="${itemList2}" varStatus="index">
+			settingPrice($('#womenItem_'+${index.count}), ${index.count});
+		</c:forEach> 
+		
+		<c:forEach var="item" items="${itemList3}" varStatus="index">
+			settingPrice($('#kidItem_'+${index.count}), ${index.count});
+		</c:forEach> 
+		
+		<c:forEach var="item" items="${itemList4}" varStatus="index">
+		settingPrice($('#general_'+${index.count}), ${index.count});
+	</c:forEach> 
+		
+	});
+	
+	function settingPrice(obj, count){
+		
+		var val = obj.text();
+		var price = comma(val);
+		
+		$(obj).html(price);
+	}
+
+	
+	//comma를 설정하는 로직
+	function comma(obj){
+		
+		var num = obj.toString(); 
+		var array=[];
+		var replay = parseInt((num.length)%3);
+		var routine = parseInt((num.length+2)/3);
+				
+		if(replay==1){
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,1);
+				else if(i==1)
+					sample = num.substr(1,3);
+				else
+					sample = num.substr(((i-1)*3)+1, 3);
+				
+				array.push(sample);
+			}
+		}		
+		else if(replay==2){
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,2);
+				else if(i==1)
+					sample = num.substr(2,3);
+				else
+					sample = num.substr(((i-1)*3)+2, 3);
+				
+				array.push(sample);
+			}
+		}
+		else{
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,3);
+				else
+					sample = num.substr((i*3), 3);
+				
+				array.push(sample);
+			}
+		}	
+		return array.join(",");
+	}
+	
+</script>
 </head>
 <body>
    <header>
@@ -104,7 +186,7 @@
                   <div id="tabs1">
                      <br />
                      <div class="row">
-                      <c:forEach var="menitem" items="${ itemList }">
+                      <c:forEach var="menitem" items="${ itemList }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${menitem.num}">
@@ -116,9 +198,8 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ menitem.price }</h5>
+                                 <h5 id="menItem_${ index.count }"><c:out value="${ menitem.price }"/></h5>
                               </div>
-                              <button class="button">ADD TO CART</button>
                               <br/>
                            </div>
                         </div>
@@ -128,7 +209,7 @@
                   <div id="tabs2">
                      <br />
                      <div class="row">
-                     <c:forEach var="womenitem" items="${ itemList2 }">
+                     <c:forEach var="womenitem" items="${ itemList2 }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
@@ -140,9 +221,8 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ womenitem.price }</h5>
+                                 <h5 id="womenItem_${index.count}"><c:out value="${ womenitem.price }"/></h5>
                               </div>
-                              <button class="button">ADD TO CART</button>
                               <br/>
                            </div>
                         </div>
@@ -152,11 +232,11 @@
                   <div id="tabs3">
                      <br />
                      <div class="row">
-                     <c:forEach var="kiditem" items="${ itemList3 }">
+                     <c:forEach var="kiditem" items="${ itemList3 }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                 <img src="resources/img/store4.png" alt="">
+                                 <img src="resources/img/store4.png" alt="이미지 준비중입니다.">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
@@ -164,9 +244,8 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ kiditem.price } </h5>
+                                 <h5 id="kidItem_${index.count}"><c:out value="${ kiditem.price }"/></h5>
                               </div>
-                              <button class="button">ADD TO CART</button>
                               <br/>
                            </div>
                         </div>
@@ -176,11 +255,11 @@
                   <div id="tabs4">
                      <br />
                      <div class="row">
-                     <c:forEach var="general" items="${ itemList4 }">
+                     <c:forEach var="general" items="${ itemList4 }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${general.num}">
-                                 <img src="/image/${general.imgSaveName}" alt="">
+                                 <img src="/image/${general.imgSaveName}" alt="이미지 준비중입니다.">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${general.num}">
@@ -188,9 +267,8 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ general.price }</h5>
+                                 <h5 id="general_${index.count}"><c:out value="${ general.price }"/></h5>
                               </div>
-                              <button class="button">ADD TO CART</button>
                            </div>
                         </div>
                         </c:forEach>
