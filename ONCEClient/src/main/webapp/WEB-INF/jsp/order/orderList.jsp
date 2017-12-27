@@ -244,6 +244,7 @@
 										<input type="hidden" name="orderDetails[${ status.index }].storeNo" value="${ itemContents.storeNo }" />
 										<input type="hidden" name="orderDetails[${ status.index }].storeName" value="${ itemContents.storeName }" />
 										<input type="hidden" name="orderDetails[${ status.index }].detailNo" value="${ itemContents.detailNo }" />
+										<input type="hidden" name="orderDetails[${ status.index }].imgSaveName" value="${ itemContents.imgSaveName }" />
 									</div>
 								</div>
 								<div class="row">

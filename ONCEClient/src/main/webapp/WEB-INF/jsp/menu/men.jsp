@@ -64,7 +64,80 @@
 }
 
 </style>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		<c:forEach var="menitem" items="${ menItemList }" varStatus="index">
+			settingPrice($('#menItem1_'+${index.count}), ${index.count});
+		</c:forEach>
+		<c:forEach var="menitem" items="${ menItemList2 }" varStatus="index">
+			settingPrice($('#menItem2_'+${index.count}), ${index.count});
+		</c:forEach>
+		<c:forEach var="menitem" items="${ menItemList3 }" varStatus="index">
+			settingPrice($('#menItem3_'+${index.count}), ${index.count});
+		</c:forEach>
+	});
+	
+	
+	function settingPrice(obj, count){
+		
+		var val = obj.text();
+		var price = comma(val);
+		
+		$(obj).html(price);
+	}
 
+	 //comma를 설정하는 로직
+	 function comma(obj){
+	 	
+	 	var num = obj.toString(); 
+	 	var array=[];
+	 	var replay = parseInt((num.length)%3);
+	 	var routine = parseInt((num.length+2)/3);
+	 			
+	 	if(replay==1){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,1);
+	 			else if(i==1)
+	 				sample = num.substr(1,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+1, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}		
+	 	else if(replay==2){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,2);
+	 			else if(i==1)
+	 				sample = num.substr(2,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+2, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}
+	 	else{
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,3);
+	 			else
+	 				sample = num.substr((i*3), 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}	
+	 	return array.join(",");
+	 }
+</script>
 </head>
 <body>
 
@@ -90,7 +163,7 @@
                   <div id="tabs1">
                      <br />
                      <div class="row">
-                      <c:forEach var="menitem" items="${ menItemList }">
+                      <c:forEach var="menitem" items="${ menItemList }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${menitem.num}">
@@ -102,7 +175,7 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ menitem.price }</h5>
+                                 <h5><span id="menItem1_${index.count}"><c:out value="${ menitem.price }"/></span></h5>
                               </div>
                            </div>
                         </div>
@@ -112,11 +185,11 @@
                   <div id="tabs2">
                      <br />
                      <div class="row">
-                     <c:forEach var="menitem2" items="${ menItemList2 }">
+                     <c:forEach var="menitem2" items="${ menItemList2 }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${menitem2.num}">
-                                 <img src="/image/${menitem2.imgSaveName}" alt="">
+                                 <img src="/image/${menitem2.imgSaveName}" alt="이미지 준비중입니다.">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${menitem2.num}">
@@ -124,7 +197,7 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ menitem2.price }</h5>
+                                 <h5><span id="menItem2_${index.count }"><c:out value="${ menitem2.price }"/></span></h5>
                               </div>
                            </div>
                         </div>
@@ -134,7 +207,7 @@
                   <div id="tabs3">
                      <br />
                      <div class="row">
-                     <c:forEach var="menitem3" items="${ menItemList3 }">
+                     <c:forEach var="menitem3" items="${ menItemList3 }" varStatus="index">
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${menitem3.num}">
@@ -146,7 +219,7 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5>${ menitem3.price } </h5>
+                                 <h5><span id="menItem3_${index.count}"><c:out value="${ menitem3.price }"/></span></h5>
                               </div>
                            </div>
                         </div>

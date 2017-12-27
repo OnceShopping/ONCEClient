@@ -93,7 +93,73 @@
 				location.href="${pageContext.request.contextPath}/login/loginForm";
 			}	
 			
+			<c:forEach var="order" items="${orderList}" varStatus="index">
+			settingPrice($('#total_'+${index.count}), ${index.count});
+			</c:forEach>
+			
 		});
+		
+
+		function settingPrice(obj, count){
+			
+			var val = obj.text();
+			var price = comma(val);
+			
+			$(obj).html(price);
+		}
+
+		
+		//comma를 설정하는 로직
+		function comma(obj){
+			
+			var num = obj.toString(); 
+			var array=[];
+			var replay = parseInt((num.length)%3);
+			var routine = parseInt((num.length+2)/3);
+					
+			if(replay==1){
+				for(var i=0; i<routine; i++){
+					var sample;				
+					
+					if(i==0)
+						sample = num.substr(0,1);
+					else if(i==1)
+						sample = num.substr(1,3);
+					else
+						sample = num.substr(((i-1)*3)+1, 3);
+					
+					array.push(sample);
+				}
+			}		
+			else if(replay==2){
+				for(var i=0; i<routine; i++){
+					var sample;				
+					
+					if(i==0)
+						sample = num.substr(0,2);
+					else if(i==1)
+						sample = num.substr(2,3);
+					else
+						sample = num.substr(((i-1)*3)+2, 3);
+					
+					array.push(sample);
+				}
+			}
+			else{
+				for(var i=0; i<routine; i++){
+					var sample;				
+					
+					if(i==0)
+						sample = num.substr(0,3);
+					else
+						sample = num.substr((i*3), 3);
+					
+					array.push(sample);
+				}
+			}	
+			return array.join(",");
+		}
+		
 	</script>
 </head>
 <body>
@@ -151,7 +217,7 @@
 										<td>구매 일자  : ${order.date}</td>
 									</tr>
 									<tr>
-										<td>주문 금액  : ${order.totalPrice} 원</td>
+										<td>주문 금액  : <span id="total_${index.count}"><c:out value="${order.totalPrice}"/></span> 원</td>
 									</tr>
 									<tr>
 										<c:choose>

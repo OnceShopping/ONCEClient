@@ -95,7 +95,11 @@
 <script>	
 	$(document).ready(function() {
 		var cnt = 0;
-			    
+		var priceVal=0;
+		
+		var iPrice = $('#itemPrice').text();
+		$('#itemPrice').html(comma(iPrice));
+		
 		$('#size').attr('disabled', true);
 	    
 	    $('#color').change(function() {
@@ -132,7 +136,8 @@
 		            	addPrice = addPrice + num;
 		            }
 		               
-		            $('#cntPrice').text(addPrice);
+		            priceVal = comma(addPrice);
+		            $('#cntPrice').text(priceVal);
 		            idNo = ++cnt;
 	            }
 	            });
@@ -167,7 +172,7 @@
                */
                
                
-               $('#cntPrice').text(addPrice);
+               $('#cntPrice').text(priceVal);
                idNo = ++cnt;
 	            
 				//초기화 
@@ -185,7 +190,7 @@
             	   addPrice = addPrice - num;
                }
                
-               $('#cntPrice').text(addPrice);
+               $('#cntPrice').text(priceVal);
 	               
 			   $(this).closest('li').remove();
 			
@@ -314,6 +319,58 @@
 	      itemForm.submit();
 	   }
 
+
+	 //comma를 설정하는 로직
+	 function comma(obj){
+	 	
+	 	var num = obj.toString(); 
+	 	var array=[];
+	 	var replay = parseInt((num.length)%3);
+	 	var routine = parseInt((num.length+2)/3);
+	 			
+	 	if(replay==1){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,1);
+	 			else if(i==1)
+	 				sample = num.substr(1,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+1, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}		
+	 	else if(replay==2){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,2);
+	 			else if(i==1)
+	 				sample = num.substr(2,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+2, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}
+	 	else{
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,3);
+	 			else
+	 				sample = num.substr((i*3), 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}	
+	 	return array.join(",");
+	 }
+
 </script>
 </head>
 <body>
@@ -339,7 +396,7 @@
 				<div id="mainDescription">
 					<h5>${ storeName }</h5>
 					<h4><b>${ itemContentsVO.itemName }</b></h4>
-					<h5>${ itemContentsVO.price } 원
+					<h5><span id="itemPrice"><c:out value="${ itemContentsVO.price }"/></span> 원
 						<c:if test="${ itemContentsVO.salePrice ne 0 }">
 							<span style="color: red;">
 								&nbsp;<i class="fa fa-long-arrow-right" style="color: #000;"></i>&nbsp;
@@ -499,7 +556,7 @@
 			<ul id="sltItemList">
 			</ul>
 	   </div>
-	   <p style="padding-right: 5px; text-align: right">총 금액 <span id="cntPrice" style="color: red;">00,000</span>원</p>
+	   <p style="padding-right: 5px; text-align: right">총 금액 <span id="cntPrice" style="color: red;">0</span> 원</p>
 	   <div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #99d8c9;">
 			<a style="width: 50%; color: #fff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
 			<a style="width: 50%; color: #fff; padding-left: 8%;" class="w3-bar-item" id="orderList" onclick="buyFunc()">바로 주문하기</a>

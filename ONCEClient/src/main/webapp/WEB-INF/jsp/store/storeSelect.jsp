@@ -47,8 +47,75 @@ $(document).ready(function() {
       $('select[name=order]').val('${order}');
    }
    
+   <c:forEach items="${ storeItem }" varStatus="status" var="item">
+		settingPrice($('#tabs1_'+${status.count}), ${status.count});
+		settingPrice($('#tabs2_'+${status.count}), ${status.count});
+		settingPrice($('#tabs3_'+${status.count}), ${status.count});
+		settingPrice($('#tabs4_'+${status.count}), ${status.count});
+		settingPrice($('#tabs5_'+${status.count}), ${status.count});
+	</c:forEach>
    
 });    
+
+function settingPrice(obj, count){
+	
+	var val = obj.text();
+	var price = comma(val);
+	
+	$(obj).html(price);
+}
+
+
+//comma를 설정하는 로직
+function comma(obj){
+	
+	var num = obj.toString(); 
+	var array=[];
+	var replay = parseInt((num.length)%3);
+	var routine = parseInt((num.length+2)/3);
+			
+	if(replay==1){
+		for(var i=0; i<routine; i++){
+			var sample;				
+			
+			if(i==0)
+				sample = num.substr(0,1);
+			else if(i==1)
+				sample = num.substr(1,3);
+			else
+				sample = num.substr(((i-1)*3)+1, 3);
+			
+			array.push(sample);
+		}
+	}		
+	else if(replay==2){
+		for(var i=0; i<routine; i++){
+			var sample;				
+			
+			if(i==0)
+				sample = num.substr(0,2);
+			else if(i==1)
+				sample = num.substr(2,3);
+			else
+				sample = num.substr(((i-1)*3)+2, 3);
+			
+			array.push(sample);
+		}
+	}
+	else{
+		for(var i=0; i<routine; i++){
+			var sample;				
+			
+			if(i==0)
+				sample = num.substr(0,3);
+			else
+				sample = num.substr((i*3), 3);
+			
+			array.push(sample);
+		}
+	}	
+	return array.join(",");
+}
 </script>
 
 </head>
@@ -105,7 +172,6 @@ $(document).ready(function() {
                <div class="collapsible-body">
                   <ul class="side-nav-panel">
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/menClothes">의류</a></li>
-                  <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/menShoes">신발</a></li>
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/menAccessories">패션 잡화</a></li>
                </ul>
                </div>
@@ -120,7 +186,6 @@ $(document).ready(function() {
                <div class="collapsible-body">
                   <ul class="side-nav-panel">
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/womenClothes">의류</a></li>
-                  <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/womenShoes">신발</a></li>
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/womenAccessories">패션 잡화</a></li>
                </ul>
                </div>
@@ -135,7 +200,6 @@ $(document).ready(function() {
                <div class="collapsible-body">
                   <ul class="side-nav-panel">
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/boysClothes">의류</a></li>
-                  <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/boysShoes">신발</a></li>
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/boysAccessories">패션 잡화</a></li>
                </ul>
                </div>
@@ -150,7 +214,6 @@ $(document).ready(function() {
                <div class="collapsible-body">
                   <ul class="side-nav-panel">
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/girlsClothes">의류</a></li>
-                  <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/girlsShoes">신발</a></li>
                   <li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/girlsAccessories">패션 잡화</a></li>
                </ul>
                </div>
@@ -185,24 +248,6 @@ $(document).ready(function() {
                      <li class="tab col s3"><a href="#tabs3" id="tab3">하의</a></li>   <c:set var="tab3" value="하의"/>
                      <li class="tab col s3"><a href="#tabs4" id="tab4">아우터</a></li>   <c:set var="tab4" value="아우터"/>
                      <li class="tab col s3"><a href="#tabs5" id="tab5">원피스</a></li>   <c:set var="tab5" value="원피스"/>
-                  </ul>
-                  </c:when>
-                  <c:when test="${ category2 eq '신발' and (category1 eq '남성' or category1 eq '남아')}">
-                  <ul class="tabs">
-                     <li class="tab col s3"><a href="#tabs1" id="tab1">전체</a></li>      <c:set var="tab1" value="전체"/>
-                     <li class="tab col s3"><a href="#tabs1" id="tab2">스니커즈</a></li>   <c:set var="tab2" value="스니커즈"/>
-                     <li class="tab col s3"><a href="#tabs2" id="tab3">워커</a></li>      <c:set var="tab3" value="워커"/>
-                     <li class="tab col s3"><a href="#tabs3" id="tab4">로퍼</a></li>      <c:set var="tab4" value="로퍼"/>
-                     <li class="tab col s3"><a href="#tabs4" id="tab5">러닝</a></li>      <c:set var="tab5" value="러닝"/>
-                  </ul>   
-                  </c:when>
-                  <c:when test="${ category2 eq '신발' and (category1 eq '여성' or category1 eq '여아')}">
-                  <ul class="tabs">
-                     <li class="tab col s3"><a href="#tabs1" id="tab1">전체</a></li>      <c:set var="tab1" value="전체"/>
-                     <li class="tab col s3"><a href="#tabs2" id="tab2">스니커즈</a></li>   <c:set var="tab2" value="스니커즈"/>
-                     <li class="tab col s3"><a href="#tabs3" id="tab3">힐</a></li>      <c:set var="tab3" value="힐"/>
-                     <li class="tab col s3"><a href="#tabs4" id="tab4">로퍼</a></li>      <c:set var="tab4" value="로퍼"/>
-                     <li class="tab col s3"><a href="#tabs5" id="tab5">부츠</a></li>      <c:set var="tab5" value="부츠"/>
                   </ul>
                   </c:when>
                   <c:when test="${ category2 eq '잡화' and (category1 eq '남성' or category1 eq '남아')}">
@@ -250,7 +295,7 @@ $(document).ready(function() {
                                     </a>
                                  </h6>
                                  <div class="price">
-                                    <h5>${ item.price }원</h5>
+                                    <h5><span id="tabs1_${status.count}"><c:out value="${ item.price }"/></span> 원</h5>
                                     <c:set var="sum1" value="${sum1 + 1 }"/>
                                  </div>
                               </div>
@@ -271,7 +316,7 @@ $(document).ready(function() {
                                     </a>
                                  </h6>
                                  <div class="price">
-                                    <h5>${ item.price }원</h5>
+                                    <h5><span id="tabs2_${status.count}"><c:out value="${ item.price }"/></span> 원</h5>
                                     <c:set var="sum2" value="${sum2 + 1 }"/>
                                  </div>
                               </div>
@@ -293,7 +338,7 @@ $(document).ready(function() {
                                     </a>
                                  </h6>
                                  <div class="price">
-                                    <h5>${ item.price }원</h5>
+                                    <h5><span id="tabs3_${status.count }"><c:out value="${ item.price }"/></span> 원</h5>
                                     <c:set var="sum3" value="${sum3 + 1 }"/>
                                  </div>
                               </div>
@@ -315,7 +360,7 @@ $(document).ready(function() {
                                     </a>
                                  </h6>
                                  <div class="price">
-                                    <h5>${ item.price }원</h5>
+                                    <h5><span id="tabs4_${status.count }"><c:out value="${ item.price }"/></span> 원</h5>
                                     <c:set var="sum4" value="${sum4 + 1 }"/>
                                  </div>
                               </div>
@@ -337,7 +382,7 @@ $(document).ready(function() {
                                     </a>
                                  </h6>
                                  <div class="price">
-                                    <h5>${ item.price }원</h5>
+                                    <h5><span id="tabs5_${status.count }"><c:out value="${ item.price }"/></span> 원</h5>
                                     <c:set var="sum5" value="${sum5 + 1 }"/>
                                  </div>
                               </div>
