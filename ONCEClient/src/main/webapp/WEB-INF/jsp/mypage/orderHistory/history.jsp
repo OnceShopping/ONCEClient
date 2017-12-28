@@ -168,14 +168,14 @@
 			row += "<div onclick='move("+item.orderNo+")'>";
 			row += "<table style='width: 95%; border:1px solid #D0D0D0; margin-top:5px; margin-left:auto;margin-right:auto;' id='order_"+item.orderNo+"'>";
 			row += "<tr style='border:1px solid #D0D0D0; background-color:#FFFCEB;'><td colspan='2' style='font-size:12px;'>주문번호 <span style='font-size:13px; font-weight:bold;'>" + item.orderNo + "</span></td></tr>";
-			row += "<tr><td rowspan='4'><img src='/image/"+ item.imgSaveName+"' width='120px' height='120px'></td>"
+			row += "<tr><td rowspan='3' style='width: 50%;'><img src='/image/"+ item.imgSaveName+"' width='120px' height='120px' alt='이미지 준비중입니다.' style='margin-left: auto; margin-right: auto; display: block;'></td>"
 			if(item.count!=1){ 
-				row += "<td style='padding-left:0px;'><span style='font-size:14px; font-weight:bold;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + " 외 " + (item.count -1) + "</td><tr>";
+				row += "<td style='padding-left:0px; width: 50%;'><p><span style='font-size:14px; font-weight:bold;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + " 외 " + (item.count -1) + "</p></td></tr>";
 			}else{
-				row += "<td style='padding-left:0px;'><span style='font-size:14px; font-weight:bold; padding-left:0px;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + "</td><tr>";
+				row += "<td style='padding-left:0px; width: 50%;'><p><span style='font-size:14px; font-weight:bold; padding-left:0px;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + "</p></td></tr>";
 			}
 			
-			row += "<tr><td style='font-size:12px; padding:0px; padding-bottom:3px;'>주문금액 : " + settingPrice(item.totalPrice) + " 원</td></tr>";
+			row += "<tr><td style='font-size:12px; padding:0px;'>주문금액 : " + settingPrice(item.totalPrice) + " 원</td></tr>";
 			row += "<tr><td style='font-size:12px; padding:0px; padding-bottom:3px;'>진행상태 : " + item.status + "</td></tr>";
 			
 			distinct = item.date;
@@ -418,8 +418,8 @@
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%;" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
