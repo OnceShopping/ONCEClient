@@ -173,7 +173,6 @@
                
                
                $('#cntPrice').text(priceVal);
-               idNo = ++cnt;
 	            
 				//초기화 
 				$('#color').val('');
