@@ -308,7 +308,6 @@
 	   
 	   function buyFunc(){
 	      var itemJSON = '${itemJSON}';
-	      alert(itemJSON);
 	      var result = null;
 	      if(itemJSON != '' && itemJSON != null){
 	    	  result = $.parseJSON(itemJSON);
