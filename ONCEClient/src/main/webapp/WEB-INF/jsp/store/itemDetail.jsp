@@ -116,7 +116,7 @@ var iPrice=0;
 	       var sltColor = $('#color').val();
 	       var sltSize = $('#size').val();
 	       var itemName = $('#itemName').val();
-	       
+	       var basePrice = $('#cntPrice').text();
 	       
 	       var idNo = cnt;      
 	       
@@ -138,15 +138,13 @@ var iPrice=0;
 		            var price = $('#price').val();
 		            var num = parseInt(price);
 		           
-		            var basePrice = $('#cntPrice').text();
+		            
 		            var totalNum = basePrice.split(",");
 		        	var addPrice=0;
 		        	
 		        	for(var i in totalNum)
 		        		addPrice+=totalNum[i];
-		        	
-		        	alert(parseInt(addPrice));
-		        	
+		        		        	
 		            var setPrice = parseInt(addPrice)+ num;
 		               
 		            priceVal = comma(setPrice);
