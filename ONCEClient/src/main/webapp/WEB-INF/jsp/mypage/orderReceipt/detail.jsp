@@ -162,7 +162,7 @@
 		<div class="app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3 class="bold">주문/수령</h3>
+					<h3 class="bold">주문 / 수령</h3>
 				</div>
 				<div class="detailTable">
 				<c:forEach var="detail" items="${detailList}" varStatus="index">				

@@ -165,9 +165,9 @@
 			}else
 				row += "<div  class='dateStyle'>"+item.date+"</div>";
 			
-			row += "<div onclick='move("+item.orderNo+")'>";
-			row += "<table style='width: 95%; border:1px solid #D0D0D0; margin-top:5px; margin-left:auto;margin-right:auto;' id='order_"+item.orderNo+"'>";
-			row += "<tr style='border:1px solid #D0D0D0; background-color:#FFFCEB;'><td colspan='2' style='font-size:12px;'>주문번호 <span style='font-size:13px; font-weight:bold;'>" + item.orderNo + "</span></td></tr>";
+			row += "<div onclick='move("+item.orderNo+")' class='orderTable'>";
+			row += "<table id='order_"+item.orderNo+"'>";
+			row += "<tr class='title'><td colspan='2' style='font-size:12px;'>주문번호 <span style='font-size:13px; font-weight:bold;'>" + item.orderNo + "</span></td></tr>";
 			row += "<tr><td rowspan='3' style='width: 50%;'><img src='/image/"+ item.imgSaveName+"' width='120px' height='120px' alt='이미지 준비중입니다.' style='margin-left: auto; margin-right: auto; display: block;'></td>"
 			if(item.count!=1){ 
 				row += "<td style='padding-left:0px; width: 50%;'><p><span style='font-size:14px; font-weight:bold;'>"+ item.storeName +"</span></br/><span style='font-size:12px;'>"+ (item.orderDetails[0].itemName) + " 외 " + (item.count -1) + "</p></td></tr>";
@@ -270,9 +270,21 @@
 	.dateStyle{
 		margin-top :20px;
 		padding:5px; 
-		background-color:#DDD3FC; 
+		background-color:#BEFCEC; 
 		font-size:12px; 
 		border-radius:3px;
+	}
+	.orderTable{
+		border: 1px solid #EBEBEB;
+		border-radius: 5px !important;
+		margin-top:5px; 
+		margin-left:auto;
+		margin-right:auto;
+		width: 95%;
+	}
+	.title{
+		border:1px solid #EBEBEB; 
+		background-color:#EEE9FE;
 	}
 </style>
 </head>
