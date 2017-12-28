@@ -94,7 +94,6 @@
  
 <script>
 var iPrice=0;
-//var total=0;
 
 	$(document).ready(function() {
 		
@@ -102,7 +101,6 @@ var iPrice=0;
 		var priceVal=0;			
 		
 		iPrice = $('#itemPrice').text();
-		//total=$('#cntPrice').text();
 		
 		$('#itemPrice').html(comma(iPrice));
 		
@@ -119,8 +117,27 @@ var iPrice=0;
 	       var basePrice = $('#cntPrice').text();
 	       
 	       var idNo = cnt;      
+
+	       //기존에 추가한 상품을 중복으로 추가하는 경우
+	       var dbcheck=false;
+
+	       for(var i=0; i<idNo; i++){
+	    	   if(sltColor==$('#color_'+i).val()){
+	    		   if(sltSize==$('#size_'+i).val()){
+	    			   alert('동일한 상품이 존재합니다. 아래에 존재하는 상품을 확인해주세요.');
+	    			   dbcheck=true;
+	    			
+		    			//초기화 
+		   				$('#color').val('');
+		   				$('#size').val('');
+		   				$('#size').attr('disabled', true);		
+	    		   }
+	    	   }
+	       }
 	       
-	       if(sltColor != '') {
+	       
+	       
+	       if((sltColor != '')&&(dbcheck==false)) {
 	                    
 			$.ajax({
 	            url : "${ pageContext.request.contextPath }/store/itemDetail",
@@ -154,14 +171,14 @@ var iPrice=0;
 	            }
 	       	});
 
-            $('#cntPrice').text(priceVal);
+            //$('#cntPrice').text(priceVal);
 	            
 				//초기화 
 				$('#color').val('');
 				$('#size').val('');
 				$('#size').attr('disabled', true);		
 			}
-			
+			/* 
 		    $('#cntPlus' + idNo).click(function(e) {
 		    	e.preventDefault();
 		    	var num = $('#cnt' + idNo).val();
@@ -172,8 +189,8 @@ var iPrice=0;
 		    	
 		    	return false;
 		    });
-		    
-		    $('#cntMinus' + idNo).click(function(e) {
+		     */
+		   /*  $('#cntMinus' + idNo).click(function(e) {
 		    	e.preventDefault();
 		    	var num = $('#cnt' + idNo).val();
 		    	num--;
@@ -186,15 +203,15 @@ var iPrice=0;
 		    	$('#cnt' + idNo).val(num);
 		    	
 		    	return false;
-		    });
+		    }); */
 		});
 		
-	    $('#cntPrice').text(priceVal);
+	   /*  $('#cntPrice').text(priceVal);
         
 		   $(this).closest('li').remove();
 		
 		   return false;
-		});
+		}); */
 	
 		$('#addCmt').submit(function() {
 			var content = $('#insertCmt').val();
@@ -232,7 +249,7 @@ var iPrice=0;
 			return false;
 		
 		});
-	
+	});
 	
 	function cartFunc() {      
 	      var listJSON = '${sessionScope.listJSON}';
