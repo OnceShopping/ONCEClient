@@ -2,8 +2,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		var idNum =${idNo};
 		
-		$('.rmvs').click(function() {  //x표시를 누를 경우
+		$('#rmv'+idNum).click(function() {  //x표시를 누를 경우
 			var obj = $(this).attr('id');
 			var splitChar = obj.split("rmv");
  			var num = splitChar[1];
@@ -16,16 +17,18 @@
            return false;
 		});
 		
- 		$('.minus').click(function() {  //-표시를 누를 경우
+ 		 $('#cntMinus'+idNum).click(function() {  //-표시를 누를 경우
  			var obj = $(this).attr('id');
+ 			
  			var splitChar = obj.split("cntMinus");
  			var num = splitChar[1];
  			var count = $('#cnt'+num).val();
+ 			alert(count);
  			
  			if(count=='1')
  				count=1;
  			else{
- 				--count;
+ 				count--;
  				calculate_M();
  			}
  			
@@ -35,17 +38,19 @@
           	return false;
 		});
  		
- 		$('.plus').click(function() {  //+표시를 누를 경우
- 			var obj = $(this).attr('id');
- 			var splitChar = obj.split("cntPlus");
- 			var num = splitChar[1];
- 			var count = $('#cnt'+num).val();
- 			
- 			++count;
- 			$('#cnt'+num).val(count);
- 			calculate_P()
- 			
-          	return false;
+		
+		$('#cntPlus'+idNum).click(function() {  //+표시를 누를 경우
+				var obj = $(this).attr('id');
+					
+				var splitChar = obj.split("cntPlus");
+				var num = splitChar[1];
+				var count = $('#cnt'+num).val();
+				
+				count++;
+				$('#cnt'+num).val(count);
+				calculate_P(); 
+				
+		 	return false;
 		});
 	});
 	
