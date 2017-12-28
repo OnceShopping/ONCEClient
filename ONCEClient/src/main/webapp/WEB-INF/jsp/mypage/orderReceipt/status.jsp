@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Insert title here</title>
+	<title>주문 / 수령</title>
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 	<meta name="mobile-web-app-capable" content="yes">
@@ -45,7 +45,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	<style type="text/css">
 	.orderTable{
-		border-color: #EBEBEB;
+		border: 1px solid #EBEBEB;
 		border-radius: 5px !important;
 	}
 	td{
@@ -164,15 +164,17 @@
 </head>
 <body>
 
+	<header>
 	<!-- navbar -->
-	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
 	<!-- end navbar -->
-
+	</header>
+		
 	<section>
-		<div class="table-app app-pages app-section">
+		<div class="app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3 class="bold">주문/수령</h3>
+					<h3 class="bold">주문 / 수령</h3>
 				</div>
 				<div>
 				<c:choose>
@@ -201,14 +203,18 @@
 												</c:otherwise>
 											</c:choose>
 										</td>
-										<c:choose>
-											<c:when test="${order.count ne 1}">
-												<td style="width: 60%;"><span style="font-weight:bold; font-size:14px;">${ order.storeName }</span><br/>(${order.orderDetails[0].itemName} 외 ${order.count -1})</td>
-											</c:when>
-											<c:otherwise>
-												<td style="width: 60%; font-weight:bold; font-size:14px;">${order.orderDetails[0].itemName}</td>
-											</c:otherwise>
-										</c:choose>
+										<td>
+											<p>
+												<c:choose>
+													<c:when test="${order.count ne 1}">
+														<span style="width: 60%; font-weight:bold; font-size:14px;">${ order.storeName }</span><br/><span style="font-size:12px;">(${order.orderDetails[0].itemName} 외 ${order.count -1})</span>
+													</c:when>
+													<c:otherwise>
+														<span style="width: 60%; font-weight:bold; font-size:14px;">${order.storeName}</span>
+													</c:otherwise>
+												</c:choose>
+											</p>
+										</td>
 									</tr>
 									<tr>
 										<td>구매 수량 : ${order.count}</td>
@@ -250,7 +256,6 @@
 		<input type="hidden" value="${customer.id}" id="customer">
 	</section>
 	
-	
 	<!-- footer -->
 	<footer>
 		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
@@ -259,11 +264,11 @@
 
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
-		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%;" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%;" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
