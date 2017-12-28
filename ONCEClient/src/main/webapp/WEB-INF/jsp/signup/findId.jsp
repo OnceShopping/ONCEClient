@@ -2,15 +2,16 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
 <title>Creative - Multipurpose Mobile Template</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="HandheldFriendly" content="True">
-	
+
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
-	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
@@ -28,129 +29,130 @@
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	
-	
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<script type="text/javascript">
-	 $(document).ready(function() {
-		// 다이얼로그 format 정의
+		$(document).ready(function() {
+			var requiredCheckEmail = false;
+			// 다이얼로그 format 정의
 			$("#dialog").dialog({
 				autoOpen : false,
 				modal : true,
 				width : '300',
 				height : '150'
 			});
-		 
-	 });
-	
-	
-	function infoAlert(str){
-		$('#dialog').html("<div style='text-align:center; margin:auto;'><p>"+str+"</p></div>");
-		$("#dialog").dialog("open");
-	}
-	
+			
+			// 이메일 중복 검사
+			$("#email2").keyup(function(){
+				$.ajax({
+					url : "${pageContext.request.contextPath}/signup/checkEmail",
+					data : {"email" : $('#email2').val()},
+					cahce : false,
+					type : "get",
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						if(data=="true"){ // 해당 email이 존재하는 경우
+							$("#alert2").text('작성하신 email이 존재합니다.');
+							requiredCheckEmail = true;
+						}else{ // 해당 email이가 존재하지 않는 경우
+							$("#alert2").text('작성하신 email이 존재하지 않습니다.');
+							requiredCheckEmail = false;
+						}
+					}						
+				});
+			});
+			
+			$("#findBtn").click(function() {
+				if($("#email").val() == "") {
+					infoAlert("이메일을 입력하세요.");
+					return false;
+				}
+			});
+			
+			$("#findBtn2").click(function() {
+				if($("#email2").val() == "") {
+					infoAlert("이메일을 입력하세요.");
+					return false;
+				} else if(requiredCheckEmail == false) {
+					infoAlert("가입하신 이메일을 입력하세요.");
+					return false;
+				} else {
+					$.ajax({
+						url : "${pageContext.request.contextPath}/signup/findPw",
+						type : "POST",
+						data : {
+							email : $("#email2").val()
+						},
+						success : function(result) {
+							alert(result);
+						},
+					})
+					infoAlert("임시 비밀번호가 해당 이메일로 전송되었습니다.");
+					return true;
+				} 
+			});
+		})
+		
+		function infoAlert(str){
+			$('#dialog').html("<div style='text-align:center; margin:auto;'><p>"+str+"</p></div>");
+			$("#dialog").dialog("open");
+		}
 	</script>
 </head>
 
 <body>
-<header>
-		<!-- 상단 navbar -->
-		<div class="navbar">
-			<div class="container">
-				<div class="panel-control-left">
-					<a href="#" data-activates="slide-out-left"
-						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-				</div>
-				<div class="site-title">
-					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-				</div>
-				<div class="panel-control-right">
-					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-				</div>
-			</div>
-		</div>
-		<!-- 상단 navbar 끝 -->
-
-		<!-- 좌측 메뉴패널 -->
-		<div class="panel-control-right">
-			<ul id="slide-out-left" class="side-nav collapsible"
-				data-collapsible="accordion">
-				<li>
-					<div class="photos">
-						<img src="${pageContext.request.contextPath}/resources/img/photos.png" alt="">
-						<h3>경준이</h3>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>층별 매장보기<span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 좌측 메뉴패널 끝 -->
+	<header>
+	<!-- navbar -->
+		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<!-- end navbar -->
 	</header>
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	
 	<section>
 	<!-- Modal --> 						
 	<div id="dialog" title="ALERT DIALOG"></div>
 	
-	<div class="service-app app-pages app-section">
+	<div class="table-app app-pages app-section" style="margin-bottom: 0px; padding-bottom: 0px;">
 		<div class="container">
 			<div class="pages-title">
-				<h3>ID 찾기</h3>
+				<h3>아이디 찾기</h3>
 			</div>
-			<div align="center">
-				<h5>가입시 사용한 전화번호를 입력하세요</h5>
-			</div>
-			<div class="input-field" style="width: 70%; float: left;">
-				<input id="tel" type="tel" maxlength="20" class="userinput" style="margin: 0px"/>
-				<label for="tel">아이디</label>
-			</div>
-			<div style="width: 30%; float: left; margin-top: 35px;" align="center">
-				<button class="button" id="findId" onclick="location.href='${pageContext.request.contextPath}'" style="width: 100%">확인</button>	
-			</div>
-			<div style="clear: both"></div>
-			<br>
+			<form action="${pageContext.request.contextPath}/signup/findIdSuccess" method="post">
+				<div>
+					<div class="input-field">
+						<input class="validate" type="text" id="email" name="email" style="margin-bottom: 0px" required>
+						<label for="email"> Email  </label>
+					</div>
+					<p class="w3-center">
+						<input type="submit" id="findBtn" class="button" value="find" style="width: 48%">
+						<input type="button" onclick="history.go(-1);" class="button" value="Cancel" style="width: 48%">
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->	
+	<div class="table-app app-pages app-section" style="margin-top: 30px;">
+		<div class="container">
 			<div class="pages-title">
-				<h3>PW 재설정</h3>
+				<h3>임시 비밀번호 발송</h3>
 			</div>
-			<div class="input-field" style="width: 70%; float: left;" style="margin: 0px">
-				<input id="tel" type="tel" maxlength="20" class="userinput"/>
-				<label for="tel">아이디</label>
+		
+			<div>
+				<div class="input-field">
+					<input class="validate" type="text" id="email2" name="email2" style="margin-bottom: 0px" required>
+					<label for="email2"> Email  </label>
+				</div>
+				
+				<!-- email체크  -->
+					<font color="red" id="alert2" class="input-field" style="font-style:oblique; margin:0px; font-size:15px;"></font>
+				
+				<p class="validate">
+					<input type="submit" id="findBtn2" class="button" value="find" style="width: 48%">
+					<input type="button" onclick="history.go(-1);" class="button" value="Cancel" style="width: 48%">
+				</p>
 			</div>
-			<div style="width: 30%; float: left; margin-top: 25px;" align="center">
-				<button class="button" id="findId" onclick="location.href='${pageContext.request.contextPath}'" style="width: 100%; height: 100px">확인</button>	
-			</div>
-			<div class="input-field" style="width: 70%; float: left;" style="margin: 0px">
-				<input id="tel" type="tel" maxlength="20" class="userinput"/>
-				<label for="tel">비밀번호</label>
-			</div>
-			<div style="clear: both"></div>
-		</div>	
+		</div>
 	</div>
 	
 	<br>
@@ -161,12 +163,12 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
-		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-truck"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

@@ -26,11 +26,18 @@ public interface CustomerService {
 	
 	CustomerVO autoLogin(String loginId);
 	
+	boolean checkEmail(String email);
+	
 	//인증
 	String create_key();
 	
 	//이메일 발송
-	void send_mail(CustomerVO customer);
+	void send_mail(CustomerVO customer, String div);
 
 	void approvalCustomer(CustomerVO customer, HttpServletResponse response) throws Exception;
+	
+	String findId(HttpServletResponse response, String email) throws Exception;
+	
+	void findPw(HttpServletResponse response, CustomerVO customer) throws Exception;
+	
 }

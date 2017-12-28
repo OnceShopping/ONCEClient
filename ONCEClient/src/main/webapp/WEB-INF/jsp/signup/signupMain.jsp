@@ -35,6 +35,7 @@
 	    $(document).ready(function() {
 	    	
 	    	var requiredCheck = false;
+	    	var requiredCheckEmail = false;
 	    	
 	        // 아이디 영문,숫자만
 	        $("#id").keyup(function(event){
@@ -100,7 +101,13 @@
 				} else if(isNaN( $("#orderPassword").val()) ) {
 					infoAlert("주문비밀번호는 숫자만 입력하셔야 다음 단계로 진행 가능합니다..");
 					return false;
+				} else if($("#email").val() == "") {
+					infoAlert("이메일을 입력하셔야 다음 단계로 진행 가능합니다..");
+					return false;
 				} else if(requiredCheck == false) {
+					infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
+					return false;
+				}  else if(requiredCheckEmail == false) {
 					infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
 					return false;
 				} 
@@ -137,6 +144,35 @@
 								$('#dialog').html('<p>작성하신 ID로 사용할 수 있습니다.</p>');
 								$("#dialog").dialog("open");
 								requiredCheck = true;
+							}
+						}						
+					});
+				}
+			});
+	    	
+			// 이메일 중복 체크
+			$("#emailCheck").click(function(){
+				var check = $('#email').val();
+				
+				if(check==""){
+					infoAlert("email을 입력해주세요");
+				} else {
+					$.ajax({
+						url : "${pageContext.request.contextPath}/signup/checkEmail",
+						data : {"email" : $('#email').val()},
+						cache : false,
+						type : "get",
+						contentType : "application/json; charset=UTF-8",
+						success : function(data) {
+							
+							if(data=="true"){ // 해당 email이 존재하는 경우
+								$('#dialog').html('<p>죄송합니다.</p><p>작성하신 email이 기존에 존재합니다.</p>다시 작성해주세요.');
+								$("#dialog").dialog("open");
+								requiredCheckEmail = false;
+							}else{ // 해당 email이 존재하지 않는 경우
+								$('#dialog').html('<p>작성하신 email로 사용할 수 있습니다.</p>');
+								$("#dialog").dialog("open");
+								requiredCheckEmail = true;
 							}
 						}						
 					});
@@ -197,67 +233,12 @@
 </head>
 
 <body>
-<header>
-		<!-- 상단 navbar -->
-		<div class="navbar">
-			<div class="container">
-				<div class="panel-control-left">
-					<a href="#" data-activates="slide-out-left"
-						class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-				</div>
-				<div class="site-title">
-					<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-				</div>
-				<div class="panel-control-right">
-					<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-				</div>
-			</div>
-		</div>
-		<!-- 상단 navbar 끝 -->
-
-		<!-- 좌측 메뉴패널 -->
-		<div class="panel-control-right">
-			<ul id="slide-out-left" class="side-nav collapsible"
-				data-collapsible="accordion">
-				<li>
-					<div class="photos">
-						<img src="${pageContext.request.contextPath}/resources/img/photos.png" alt="">
-						<h3>경준이</h3>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>층별 매장보기<span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-							<li><a href="">2F</a></li>
-							<li><a href="">3F</a></li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<div class="collapsible-header">
-						<i class=""></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-					</div>
-					<div class="collapsible-body">
-						<ul class="side-nav-panel">
-							<li><a href="">남성의류</a></li>
-							<li><a href="">여성의류</a></li>
-							<li><a href="">아동복</a></li>
-							<li><a href="">신발</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a href="login.html"><i class="fa fa-sign-in"></i>로그인</a></li>
-				<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-				</li>
-			</ul>
-		</div>
-		<!-- 좌측 메뉴패널 끝 -->
+	<header>
+	<!-- navbar -->
+		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<!-- end navbar -->
 	</header>
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	
 	<section>
 	<!-- Modal --> 						
 	<div id="dialog" title="ALERT DIALOG"></div>
@@ -290,7 +271,6 @@
 				</div>
 				<div class="input-field">
 					<form:input id="tel" path="telephone" type="tel" maxlength="13" class="validate"/>
-<%-- 					<form:input id="tel" path="telephone" type="tel" maxlength="13" class="validate" onkeyup="autoHypen()"/> --%>
 					<label for="tel">전화번호</label>
 				</div>
 				<div class="input-field">
@@ -298,11 +278,14 @@
 					<label for="orderPassword">주문비밀번호</label>
 				</div>
 				<!--  -->
-				<div class="input-field">
+				<div class="input-field" style="width: 70%; float: left;">
 					<form:input id="email" path="email" type="email" maxlength="40" class="validate"/>
 					<label for="email">이메일</label>
 				</div>
-				
+				<div style="width: 30%; float: left; margin-top: 25px;" align="center">
+					<input type="button" class="button" value="중복 확인" id="emailCheck" />
+				</div>
+				<div style="clear: both"></div>
 			<div align="center">
 			<input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
 			<input type="submit" class="button" id="nextBtn" value="다음">
@@ -322,12 +305,12 @@
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
-		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
-			<a href="${pageContext.request.contextPath}" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-truck"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

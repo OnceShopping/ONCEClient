@@ -91,6 +91,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public void deleteCustomer(String id) {
 		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", id);
 	}
+	
+	@Override
+	public boolean checkEmail(String email) {
+		CustomerVO customer = sqlSession.selectOne("once.customer.dao.CustomerDAO.selectOneCustomer2", email);
+		System.out.println(customer);
+		if(customer==null)
+			return false;
+		else
+			return true;
+	}
 
 	@Override
 	public boolean checkId(String id) {
@@ -106,6 +116,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public int approvalCustomer(CustomerVO customer) {
 		return sqlSession.update("once.customer.dao.CustomerDAO.approvalCustomer", customer);
+	}
+
+	@Override
+	public String findId(String email) {
+		return sqlSession.selectOne("once.customer.dao.CustomerDAO.findId", email);
+	}
+
+	@Transactional
+	@Override
+	public int updatePw(CustomerVO customer) {
+		return sqlSession.update("once.customer.dao.CustomerDAO.updatePw", customer);
 	}
 	
 
