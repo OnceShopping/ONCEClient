@@ -106,7 +106,7 @@
 					order by regdate desc
 				</when>
 				<when test="order == '높은가격순'">
-					order by price desc
+					order4 by price desc
 				</when>
 				<when test="order == '낮은가격순'">
 					order by price asc
@@ -135,7 +135,7 @@
 	<select id="selectKidItem" parameterType="String" resultType="itemVO">
 	select itemName, itemCategory1, price, imgSaveName, num, storeNo
 	from itemContents
-	 where itemCategory1 = '유아동' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
+	 where itemCategory1 = '남아' or itemCategory1 = '여아' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectGeneralItem" parameterType="String" resultType="itemVO">
@@ -183,19 +183,19 @@
 	<select id="selectKidItemList" parameterType="String" resultType="itemVO">
 	select itemName, price, imgSaveName, num, storeNo 
 	from itemContents 
-	where itemCategory1 = '유아동' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
+	where (itemCategory1 = '남아' or itemCategory1 = '여아') and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectKidItemList2" parameterType="String" resultType="itemVO">
 	select itemName, price, imgSaveName, num, storeNo 
 	from itemContents 
-	where itemCategory1 = '유아동' and itemCategory3 = '상의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
+	where (itemCategory1 = '남아' or itemCategory1 = '여아') and itemCategory3 = '상의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectKidItemList3" parameterType="String" resultType="itemVO">
 	select itemName, price, imgSaveName, num, storeNo 
 	from itemContents 
-	where itemCategory1 = '유아동' and itemCategory3 = '하의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
+	where (itemCategory1 = '남아' or itemCategory1 = '여아') and itemCategory3 = '하의' and itemCategory2 not in ('잡화') group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectGeneralItemList" parameterType="String" resultType="itemVO">
@@ -207,7 +207,7 @@
 	<select id="selectGeneralItemList2" parameterType="String" resultType="itemVO">
 	select itemName, price, imgSaveName, num, storeNo 
 	from itemContents 
-	where itemCategory2 = '잡화' and itemCategory3 = '악세사리' group by itemName having max(detailNo);
+	where itemCategory2 = '잡화' and itemCategory3 = '악세서리' group by itemName having max(detailNo);
 	</select>
 	
 	<select id="selectGeneralItemList3" parameterType="String" resultType="itemVO">

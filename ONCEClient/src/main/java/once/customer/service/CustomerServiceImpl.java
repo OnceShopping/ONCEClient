@@ -110,7 +110,7 @@ public class CustomerServiceImpl implements CustomerService {
 			msg += customer.getId() + "님 회원가입을 환영합니다.</h3>";
 			msg += "<div style='font-size: 130%'>";
 			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-			msg += "<form method='post' action='http://13.124.194.6:8080/ONCEClient/approvalCustomer'>";
+			msg += "<form method='post' action='http://localhost:8000/ONCEClient/approvalCustomer'>";
 			msg += "<input type='hidden' name='email' value='" + customer.getEmail() + "'>";
 			msg += "<input type='hidden' name='approvalKey' value='" + customer.getApprovalKey() + "'>";
 			msg += "<input type='submit' value='인증'></form><br/></div>";
