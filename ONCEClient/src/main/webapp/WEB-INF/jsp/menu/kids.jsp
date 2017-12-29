@@ -28,9 +28,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lightbox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.filterizr.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/custom-portfolio.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 <style type="text/css">
