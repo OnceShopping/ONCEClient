@@ -202,4 +202,9 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemVO> generalItemList3 = dao.selectGeneralItemList3();
 		return generalItemList3;
 	}
+
+	@Override
+	public List<ItemImgVO> selectImgByNum(int num) {
+		return dao.selectImgByNum(num);
+	}
 }

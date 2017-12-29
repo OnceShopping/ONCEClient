@@ -246,4 +246,14 @@ public class ItemController {
 	            
 	  return mav;
 	}
+	
+	@RequestMapping(value="/store/imgDetail", method = RequestMethod.POST)
+	public ModelAndView imgDetail(@RequestParam int num, ModelAndView mav) {
+		List<ItemImgVO> imgList = service.selectImgByNum(num);
+		
+		mav.setViewName("store/imgDetail");
+		mav.addObject("imgList", imgList);
+		
+		return mav;
+	}
 }

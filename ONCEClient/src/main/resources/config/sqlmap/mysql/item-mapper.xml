@@ -216,4 +216,10 @@
 	where itemCategory2 = '잡화' and itemCategory3 = '가방' group by itemName having max(detailNo);
 	</select>
 	
+	<select id="selectImgByNum" parameterType="int" resultType="ItemImgVO">
+	select imgSaveName
+	from ImageTable 
+	where num = #{num};
+	</select>
+	
 </mapper>
