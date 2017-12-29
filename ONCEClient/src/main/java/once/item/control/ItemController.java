@@ -126,7 +126,7 @@ public class ItemController {
 		return "menu/women";
 	}
 	
-	@RequestMapping("/menu/kid")
+	@RequestMapping("/menu/kids")
 	public String kidItemList (Model model) throws IOException {
 		List<ItemVO> kidItemList = service.selectKidItemList();
 		model.addAttribute("kidItemList", kidItemList);
@@ -137,7 +137,7 @@ public class ItemController {
 		List<ItemVO> kidItemList3 = service.selectKidItemList3();
 		model.addAttribute("kidItemList3", kidItemList3);
 		
-		return "menu/kid";
+		return "menu/kids";
 	}
 	
 	@RequestMapping("/menu/general")
