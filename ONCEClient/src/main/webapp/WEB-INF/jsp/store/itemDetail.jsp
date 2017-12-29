@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -438,10 +437,9 @@ function deleteOption(count){ //x표시를 누를 경우
 		<div class="app-pages">
 			<div class="container">
 				<div id="mainImg">
-					<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
 					<c:forEach items="${ imgList }" var="list" varStatus="status">
 						<c:if test="${status.count eq 1}">
-							<div style="width: 100%; line-height: 100px; text-align: center">
+							<div style="width: 80%; line-height: 100px; margin-left: 10%; margin-right: 10%;">
 								<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;" >
 							</div>
 						</c:if>
@@ -490,7 +488,10 @@ function deleteOption(count){ //x표시를 누를 경우
 										</div>
 									</c:if>
 								</c:forEach>
-								<input type="button" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
+								<form action="${pageContext.request.contextPath}/store/imgDetail" method="post">
+									<input type="hidden" name="num" value="${ itemContentsVO.num }">
+									<input type="submit" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
+								</form>
 								<br/><br/>
 								<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
 								<br/>

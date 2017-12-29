@@ -67,4 +67,6 @@ public interface ItemService {
 	List<ItemVO> selectGeneralItemList2();
 
 	List<ItemVO> selectGeneralItemList3();
+
+	List<ItemImgVO> selectImgByNum(int num);
 }

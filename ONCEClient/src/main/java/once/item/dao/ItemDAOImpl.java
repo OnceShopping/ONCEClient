@@ -220,4 +220,9 @@ public class ItemDAOImpl implements ItemDAO {
 		List<ItemVO> generalItemList3 = sqlSession.selectList("once.item.dao.ItemDAO.selectGeneralItemList3");
 		return generalItemList3;
 	}
+
+	@Override
+	public List<ItemImgVO> selectImgByNum(int num) {
+		return sqlSession.selectList("once.item.dao.ItemDAO.selectImgByNum", num);
+	}
 }
