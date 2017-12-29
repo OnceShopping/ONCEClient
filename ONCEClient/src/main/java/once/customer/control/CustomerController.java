@@ -72,7 +72,7 @@ public class CustomerController {
 		}
 		CustomerVO loginVO = service.login(customer);
 		if (loginVO == null) {
-
+ 
 			model.addAttribute("message", "Please check your ID or Password");
 			returnURL = "login/loginFail";
 
@@ -196,11 +196,11 @@ public class CustomerController {
 	}
     
   
-  // 패스워드 체크 페이지
-	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
-	public String checkForm() {
-	 return "mypage/check";
-  }
+	// 패스워드 체크 페이지
+		@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
+		public String checkForm() {
+		return "mypage/check";
+	}
 
 	// 패스워드 체크 처리
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.POST)
@@ -275,10 +275,29 @@ public class CustomerController {
 
 	// 회원가입 - 아이디 찾기
 	@RequestMapping("/signup/findId")
-	public String findId() {
+	public String findId() throws Exception{
 		return "signup/findId";
 	}
 
+	// 회원가입 - 아이디 찾기 완료
+	@RequestMapping(value = "/signup/findIdSuccess", method = RequestMethod.POST)
+	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
+		md.addAttribute("id", service.findId(response, email));
+		return "/signup/findIdSuccess";
+	}
+	
+	// 회원가입 - 패스워드 찾기
+	@RequestMapping(value = "/signup/findPwForm")
+	public String findPwForm() throws Exception {
+		return "/signup/findPwForm";
+	}
+
+	// 회원가입 - 패스워드 찾기 완료
+	@RequestMapping(value = "/signup/findPw", method = RequestMethod.POST)
+	public void findPw(@ModelAttribute CustomerVO customer, HttpServletResponse response) throws Exception {
+		service.findPw(response, customer);
+	}
+	
 	// 회원가입 - 아이디 중복 체크
 	@RequestMapping(value = "/signup/checkId", method = RequestMethod.GET)
 	@ResponseBody
@@ -287,17 +306,18 @@ public class CustomerController {
 		return service.checkId(id);
 	}
 	
+	// 회원가입 - 이메일 중복 체크
+	@RequestMapping(value = "/signup/checkEmail", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean checkEmail(@RequestParam(value = "email") String email) {
+		System.out.println(email);
+		return service.checkEmail(email);
+	}
+	
 	// 회원 인증
 	@RequestMapping(value = "/approvalCustomer", method = RequestMethod.POST)
 	public void approvalCustomer(@ModelAttribute CustomerVO customer, HttpServletResponse response) throws Exception{
 		service.approvalCustomer(customer, response);
 	}
 
-	
-	
-	
-	
-	
-	
-	
 }

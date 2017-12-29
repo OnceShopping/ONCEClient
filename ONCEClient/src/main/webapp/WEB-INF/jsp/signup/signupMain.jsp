@@ -58,6 +58,7 @@
 	    $(document).ready(function() {
 	    	
 	    	var requiredCheck = false;
+	    	var requiredCheckEmail = false;
 	    	
 	        // 아이디 영문,숫자만
 	        $("#id").keyup(function(event){
@@ -123,7 +124,13 @@
 				} else if(isNaN( $("#orderPassword").val()) ) {
 					infoAlert("주문비밀번호는 숫자만 입력하셔야 다음 단계로 진행 가능합니다..");
 					return false;
+				} else if($("#email").val() == "") {
+					infoAlert("이메일을 입력하셔야 다음 단계로 진행 가능합니다..");
+					return false;
 				} else if(requiredCheck == false) {
+					infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
+					return false;
+				}  else if(requiredCheckEmail == false) {
 					infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
 					return false;
 				} 
@@ -143,7 +150,7 @@
 				
 				if(check==""){
 					infoAlert("ID를 입력해주세요");
-				} else {
+				} else { 
 					$.ajax({
 						url : "${pageContext.request.contextPath}/signup/checkId",
 						data : {"id" : $('#id').val()},
@@ -160,6 +167,35 @@
 								$('#dialog').html('<p>작성하신 ID로 사용할 수 있습니다.</p>');
 								$("#dialog").dialog("open");
 								requiredCheck = true;
+							}
+						}						
+					});
+				}
+			});
+	    	
+			// 이메일 중복 체크
+			$("#emailCheck").click(function(){
+				var check = $('#email').val();
+				
+				if(check==""){
+					infoAlert("email을 입력해주세요");
+				} else {
+					$.ajax({
+						url : "${pageContext.request.contextPath}/signup/checkEmail",
+						data : {"email" : $('#email').val()},
+						cache : false,
+						type : "get",
+						contentType : "application/json; charset=UTF-8",
+						success : function(data) {
+							
+							if(data=="true"){ // 해당 email이 존재하는 경우
+								$('#dialog').html('<p>죄송합니다.</p><p>작성하신 email이 기존에 존재합니다.</p>다시 작성해주세요.');
+								$("#dialog").dialog("open");
+								requiredCheckEmail = false;
+							}else{ // 해당 email이 존재하지 않는 경우
+								$('#dialog').html('<p>작성하신 email로 사용할 수 있습니다.</p>');
+								$("#dialog").dialog("open");
+								requiredCheckEmail = true;
 							}
 						}						
 					});
@@ -297,6 +333,7 @@
 		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%;color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>

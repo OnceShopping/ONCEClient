@@ -44,6 +44,13 @@
  		where id = #{id}
  	</select>
  	
+ 	<!-- 회원 정보 상세2 -->
+ 	<select id="selectOneCustomer2" resultType="CustomerVO" parameterType="String">
+ 		select id, password, name, telephone, orderPassword, email
+ 		from Customer
+ 		where email = #{email}
+ 	</select>
+ 	
  	<!-- 회원 정보 수정 -->
  	<update id="modifyCustomer" parameterType="java.util.Map">
  		update Customer
@@ -63,5 +70,17 @@
 		set approvalStatus = 'true'
 		where email = #{email} and approvalKey = #{approvalKey}
 	</update>
-
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		select id from Customer where email = #{email}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="CustomerVO">
+		update Customer
+		set password = #{password}
+		where email = #{email} 
+	</update>
+	
 </mapper>

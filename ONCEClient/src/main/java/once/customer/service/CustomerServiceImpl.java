@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 		//인증키 생성
 		customer.setApprovalKey(create_key());
 		dao.join(customer);
-		send_mail(customer);
+		send_mail(customer, "join");
 	}
 
 	@Override
@@ -69,6 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return dao.checkId(id);
 	}
 
+	@Override
+	public boolean checkEmail(String email) {
+		return dao.checkEmail(email);
+	}
+	
 	//인증키 생성 (랜덤 8자리 수)
 	@Override
 	public String create_key() {
@@ -83,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	//이메일 발송
 	@Override
-	public void send_mail(CustomerVO customer) {
+	public void send_mail(CustomerVO customer, String div) {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
@@ -97,20 +102,27 @@ public class CustomerServiceImpl implements CustomerService {
 		String subject = "";
 		String msg = "";
 
-		// 회원가입 메일 내용
-		subject = "ONCE 회원가입 인증 메일입니다.";
-		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-		msg += "<h3 style='color: blue;'>";
-		msg += customer.getId() + "님 회원가입을 환영합니다.</h3>";
-		msg += "<div style='font-size: 130%'>";
-		msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-		/*msg += "<form method='post' action='http://localhost:8000/homepage/member/approval_member.do'>";*/
-		/*msg += "<form method='post' action='http://localhost:8000/ONCEClient/signup/terms'>";*/
-		msg += "<form method='post' action='http://localhost:8000/ONCEClient/approvalCustomer'>";
-		msg += "<input type='hidden' name='email' value='" + customer.getEmail() + "'>";
-		msg += "<input type='hidden' name='approvalKey' value='" + customer.getApprovalKey() + "'>";
-		msg += "<input type='submit' value='인증'></form><br/></div>";
-
+		if(div.equals("join")) {
+			// 회원가입 메일 내용
+			subject = "ONCE 회원가입 인증 메일입니다.";
+			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+			msg += "<h3 style='color: blue;'>";
+			msg += customer.getId() + "님 회원가입을 환영합니다.</h3>";
+			msg += "<div style='font-size: 130%'>";
+			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
+			msg += "<form method='post' action='http://13.124.194.6:8080/ONCEClient/approvalCustomer'>";
+			msg += "<input type='hidden' name='email' value='" + customer.getEmail() + "'>";
+			msg += "<input type='hidden' name='approvalKey' value='" + customer.getApprovalKey() + "'>";
+			msg += "<input type='submit' value='인증'></form><br/></div>";
+		} else if(div.equals("findPw")) {
+			subject = "ONCE 임시 비밀번호입니다.";
+			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+			msg += "<h3 style='color: blue;'>";
+			msg += "임시 비밀번호입니다. 비밀번호를 변경하여 사용하세요</h3>";
+			msg += "<p>임시 비밀번호 : ";
+			msg += customer.getPassword() + "</p></div>";
+		}
+		
 		// 받는 사람 E-Mail 주소
 		String mail = customer.getEmail();
 		try {
@@ -148,10 +160,45 @@ public class CustomerServiceImpl implements CustomerService {
 		} else { // 이메일 인증을 성공하였을 경우
 			out.println("<script>");
 			out.println("alert('인증이 완료되었습니다. 로그인 후 이용하세요.');");
-			out.println("location.href='http://localhost:8000/ONCEClient';");
+			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 		}
 	}
-	
+
+	@Override
+	public String findId(HttpServletResponse response, String email) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String id = dao.findId(email);
+		
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			return id;
+		}
+	}
+
+	@Override
+	public void findPw(HttpServletResponse response, CustomerVO customer) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+
+		// 임시 비밀번호 생성
+			String pw = "";
+			for (int i = 0; i < 12; i++) {
+				pw += (char) ((Math.random() * 26) + 97);
+			}
+			customer.setPassword(pw);
+			// 비밀번호 변경
+			dao.updatePw(customer);
+			// 비밀번호 변경 메일 발송
+			send_mail(customer, "findPw");
+
+	}
 }
