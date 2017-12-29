@@ -72,7 +72,7 @@ public class CustomerController {
 		}
 		CustomerVO loginVO = service.login(customer);
 		if (loginVO == null) {
-
+ 
 			model.addAttribute("message", "Please check your ID or Password");
 			returnURL = "login/loginFail";
 

@@ -57,7 +57,7 @@
 					
 					<div style="margin:auto;">
 					
-					<div
+					<div 
 						style="width: 100%; height: 100px; text-align: center; margin-left: 5px;">
 						<div id="stepstep"
 							style="width: 130px; height: 100px; float: left; display: table;">

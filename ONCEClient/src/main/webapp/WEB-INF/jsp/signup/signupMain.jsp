@@ -127,7 +127,7 @@
 				
 				if(check==""){
 					infoAlert("ID를 입력해주세요");
-				} else {
+				} else { 
 					$.ajax({
 						url : "${pageContext.request.contextPath}/signup/checkId",
 						data : {"id" : $('#id').val()},

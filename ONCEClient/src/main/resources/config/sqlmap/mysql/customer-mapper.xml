@@ -80,7 +80,7 @@
 	<update id="updatePw" parameterType="CustomerVO">
 		update Customer
 		set password = #{password}
-		where id = #{id}
+		where email = #{email} 
 	</update>
 	
 </mapper>

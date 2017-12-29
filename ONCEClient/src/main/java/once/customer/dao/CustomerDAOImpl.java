@@ -25,7 +25,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		sqlSession.insert("once.customer.dao.CustomerDAO.join", customer);
 	}
 	
-	/**
+	/** 
 	 * customer 로그인
 	 * @param customer
 	 * @return

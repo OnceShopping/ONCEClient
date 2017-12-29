@@ -19,7 +19,7 @@ public interface CustomerDAO {
 	void modifyCustomer(String id, String password, String telephone, String orderPassword);
 
 	void deleteCustomer(String id);
-	
+	 
 	boolean checkId(String id);
 	
 	CustomerVO autoLogin(String loginId);

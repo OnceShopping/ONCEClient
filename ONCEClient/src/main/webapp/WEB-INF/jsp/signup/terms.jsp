@@ -35,7 +35,7 @@
 		$('#checkbox').click(function() {
 			if($('#checkbox').prop('checked')) {
 				$("#checkbox1").prop("checked", true);
-			    $("#checkbox2").prop("checked", true);
+			    $("#checkbox2").prop("checked", true); 
 			} else {
 				$("#checkbox1").prop("checked", false);
 		        $("#checkbox2").prop("checked", false);		

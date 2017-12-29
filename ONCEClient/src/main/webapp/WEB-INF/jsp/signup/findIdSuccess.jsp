@@ -32,7 +32,7 @@
 			location.href='${pageContext.request.contextPath}/login/loginForm';
 		})
 	})
-</script>
+</script> 
 <title>아이디 찾기</title>
 </head>
 <body>

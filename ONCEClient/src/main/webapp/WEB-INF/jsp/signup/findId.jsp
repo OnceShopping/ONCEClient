@@ -84,10 +84,10 @@
 							email : $("#email2").val()
 						},
 						success : function(result) {
-							alert(result);
+							infoAlert("임시 비밀번호가 해당 이메일로 전송되었습니다.");
 						},
 					})
-					infoAlert("임시 비밀번호가 해당 이메일로 전송되었습니다.");
+					
 					return true;
 				} 
 			});
@@ -115,7 +115,7 @@
 		<div class="container">
 			<div class="pages-title">
 				<h3>아이디 찾기</h3>
-			</div>
+			</div> 
 			<form action="${pageContext.request.contextPath}/signup/findIdSuccess" method="post">
 				<div>
 					<div class="input-field">

@@ -39,5 +39,5 @@ public interface CustomerService {
 	String findId(HttpServletResponse response, String email) throws Exception;
 	
 	void findPw(HttpServletResponse response, CustomerVO customer) throws Exception;
-	
-}
+	 
+} 
