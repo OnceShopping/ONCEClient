@@ -395,7 +395,7 @@ var storeName;
 		Kakao.init('e41ce637926a9ca7c2b5e1040f027929');
 
 		Kakao.Link.sendTalkLink({
-			label:'ONCE의 상품을 함께 공유해요!!',
+			label:'이 상품 어때요?',
 			image:{
 				src:'http://13.124.194.6:8080/image/ONCE-846dcdc8-01a1-41d2-a7a4-2d25d213f439.png',
 				width:'300',
