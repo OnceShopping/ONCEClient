@@ -227,6 +227,13 @@ var storeName;
 	function cartFunc() {      
 	      var listJSON = '${sessionScope.listJSON}';
 	      var resultList = null;
+
+	      //총 금액을 체크하여 옵션 미선택 시 예외처리
+	      var checkPrice = $('#cntPrice').text();
+	      if(checkPrice==0){
+	    	  alert('color 또는 size를 선택하여 상품을 추가해야 장바구니에 담기가 가능합니다.');
+	    	  return false;
+	      }
 	      
 	      if(listJSON != '' && listJSON != null){
 	         resultList = $.parseJSON(listJSON);
@@ -271,6 +278,14 @@ var storeName;
 	   function buyFunc(){
 	      var itemJSON = '${itemJSON}';
 	      var result = null;
+	      
+	      //총 금액을 체크하여 옵션 미선택 시 예외처리
+	      var checkPrice = $('#cntPrice').text();
+	      if(checkPrice==0){
+	    	  alert('color 또는 size를 선택하여 상품을 추가해주세요.');
+	    	  return false;
+	      }
+	      
 	      if(itemJSON != '' && itemJSON != null){
 	    	  result = $.parseJSON(itemJSON);
 		  }
