@@ -204,7 +204,14 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	public List<ItemVO> searchItem(String itemName) {
+		List<ItemVO> itemList = dao.searchItem(itemName);
+		return itemList;
+  }
+  
+  @Override
 	public List<ItemImgVO> selectImgByNum(int num) {
 		return dao.selectImgByNum(num);
 	}
+  
 }

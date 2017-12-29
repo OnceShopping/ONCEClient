@@ -108,11 +108,11 @@
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
 		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
 			<a href="${pageContext.request.contextPath}" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-user"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

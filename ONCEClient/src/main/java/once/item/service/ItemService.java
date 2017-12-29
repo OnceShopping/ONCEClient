@@ -68,5 +68,8 @@ public interface ItemService {
 
 	List<ItemVO> selectGeneralItemList3();
 
+	List<ItemVO> searchItem(String itemName);
+
 	List<ItemImgVO> selectImgByNum(int num);
+
 }

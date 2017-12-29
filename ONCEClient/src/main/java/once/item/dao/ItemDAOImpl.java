@@ -222,6 +222,14 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
+	public List<ItemVO> searchItem(String itemName) {
+		ItemVO itemVO = new ItemVO();
+		itemVO.setItemName(itemName);
+		List<ItemVO> itemList = sqlSession.selectList("once.item.dao.ItemDAO.searchItems", itemVO);
+		return itemList;
+  }
+  
+  @Override
 	public List<ItemImgVO> selectImgByNum(int num) {
 		return sqlSession.selectList("once.item.dao.ItemDAO.selectImgByNum", num);
 	}

@@ -246,14 +246,28 @@ public class ItemController {
 	            
 	  return mav;
 	}
+
+	@RequestMapping(value="/item/serach", method = RequestMethod.GET)
+	public ModelAndView searchItemPage(ModelAndView mav) {
+		
+		mav.setViewName("mypage/Search");
+		return mav;
+	}
 	
+	@RequestMapping(value="/item/search/{itemName}")
+	public ModelAndView searchItem(ModelAndView mav, @PathVariable String itemName) {
+		
+		List<ItemVO> itemList = service.searchItem(itemName);
+		mav.addObject("itemList", itemList);
+		mav.setViewName("mypage/Search");
+  }
+  
 	@RequestMapping(value="/store/imgDetail", method = RequestMethod.POST)
 	public ModelAndView imgDetail(@RequestParam int num, ModelAndView mav) {
 		List<ItemImgVO> imgList = service.selectImgByNum(num);
 		
 		mav.setViewName("store/imgDetail");
 		mav.addObject("imgList", imgList);
-		
 		return mav;
 	}
 }
