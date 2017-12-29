@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
 <html>
 <head>
-<title>Creative - Multipurpose Mobile Template</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="HandheldFriendly" content="True">
 	
+	<title>Creative - Multipurpose Mobile Template</title>
+		
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
@@ -21,9 +21,32 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
+ 	<style type="text/css">
+ 		.button {
+ 			width: 100px;
+ 		}
+ 		
+ 		.normal {
+  			font-weight: 400
+		}
+		
+		.bold {
+		   font-weight: 700
+		}
+		
+		.bolder {
+		   font-weight: 800
+		}
+		
+		.light {
+		   font-weight: 300
+		}
+ 	</style>
+
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
@@ -234,88 +257,88 @@
 
 <body>
 	<header>
-	<!-- navbar -->
+		<!-- navbar -->
 		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
-	<!-- end navbar -->
+		<!-- end navbar -->
 	</header>
 	
 	<section>
 	<!-- Modal --> 						
-	<div id="dialog" title="ALERT DIALOG"></div>
-	
-	<div class="table-app app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-				<h3>회원가입</h3>
+		<div id="dialog" title="ALERT DIALOG"></div>
+		
+		<div class="table-app app-pages app-section">
+			<div class="container">
+				<div class="pages-title">
+					<h3 class="bold">회원가입</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%"> 
+				</div>
+				<form:form commandName="customerVO" method="post" >
+					<div class="input-field" style="width: 70%; float: left;">
+						<form:input id="id" path="id" type="text" maxlength="20" class="userinput"/>
+						<label for="id">아이디</label>
+					</div>
+					<div style="width: 30%; float: left; margin-top: 25px;" align="center">
+						<input type="button" class="button" value="중복 확인" id="idCheck" />
+					</div>
+					<div style="clear: both"></div>
+					<div class="input-field">
+						<form:input id="password" path="password" type="password" maxlength="13" class="validate"/>
+						<label for="password">비밀번호</label>
+					</div>
+					<div class="input-field">
+						<input id="passwordCheck" type="password" maxlength="13" class="validate"/>
+						<label for="passwordCheck">비밀번호확인</label>
+					</div>
+					<div class="input-field">
+						<form:input id="name" path="name" type="text" maxlength="5" class="validate"/>
+						<label for="name">이름</label>
+					</div>
+					<div class="input-field">
+						<form:input id="tel" path="telephone" type="tel" maxlength="13" class="validate"/>
+						<label for="tel">전화번호</label>
+					</div>
+					<div class="input-field">
+						<form:input id="orderPassword" path="orderPassword" type="password" maxlength="8" class="validate"/>
+						<label for="orderPassword">주문비밀번호</label>
+					</div>
+					<!--  -->
+					<div class="input-field">
+						<form:input id="email" path="email" type="email" maxlength="40" class="validate"/>
+						<label for="email">이메일</label>
+					</div>
+					
+				<div align="center">
+				<input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
+				<input type="submit" class="button" id="nextBtn" value="다음">
+				</div>
+				</form:form>
+				<div id="idmessage" style="display:none;"></div>
 			</div>
-			<form:form commandName="customerVO" method="post" >
-				<div class="input-field" style="width: 70%; float: left;">
-					<form:input id="id" path="id" type="text" maxlength="20" class="userinput"/>
-					<label for="id">아이디</label>
-				</div>
-				<div style="width: 30%; float: left; margin-top: 25px;" align="center">
-					<input type="button" class="button" value="중복 확인" id="idCheck" />
-				</div>
-				<div style="clear: both"></div>
-				<div class="input-field">
-					<form:input id="password" path="password" type="password" maxlength="13" class="validate"/>
-					<label for="password">비밀번호</label>
-				</div>
-				<div class="input-field">
-					<input id="passwordCheck" type="password" maxlength="13" class="validate"/>
-					<label for="passwordCheck">비밀번호확인</label>
-				</div>
-				<div class="input-field">
-					<form:input id="name" path="name" type="text" maxlength="5" class="validate"/>
-					<label for="name">이름</label>
-				</div>
-				<div class="input-field">
-					<form:input id="tel" path="telephone" type="tel" maxlength="13" class="validate"/>
-					<label for="tel">전화번호</label>
-				</div>
-				<div class="input-field">
-					<form:input id="orderPassword" path="orderPassword" type="password" maxlength="8" class="validate"/>
-					<label for="orderPassword">주문비밀번호</label>
-				</div>
-				<!--  -->
-				<div class="input-field" style="width: 70%; float: left;">
-					<form:input id="email" path="email" type="email" maxlength="40" class="validate"/>
-					<label for="email">이메일</label>
-				</div>
-				<div style="width: 30%; float: left; margin-top: 25px;" align="center">
-					<input type="button" class="button" value="중복 확인" id="emailCheck" />
-				</div>
-				<div style="clear: both"></div>
-			<div align="center">
-			<input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
-			<input type="submit" class="button" id="nextBtn" value="다음">
-			</div>
-			</form:form>
-			<div id="idmessage" style="display:none;"></div>
 		</div>
-	</div>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+		
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	</section>
-	<!-- footer 끝 -->
-	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	<footer>
+		<!-- footer -->
+		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+		<!-- end footer -->
+	</footer>
+
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
 		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
 			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%;color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
-	
-
-
 </body>
 </html>

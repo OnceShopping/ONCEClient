@@ -136,7 +136,7 @@ public class OrderController {
 					preOrder.setItemName(addItem.getItemName());
 					preOrder.setNum(addItem.getNum());
 					preOrder.setStoreNo(storeNo);
-					preOrder.setStoreName(addStore.getStoreNo());
+					preOrder.setStoreName(addStore.getStoreName());
 					preOrder.setImgSaveName(addItem.getImgSaveName());
 
 					preOrderList.add(preOrder);
@@ -191,11 +191,9 @@ public class OrderController {
 
 	}
 
-	@RequestMapping(value = "/orderList/addCartItem/{cntList}/{sumCntList}", method = RequestMethod.POST)
-	public String addCartItem(@PathVariable("cntList") int cntList, @PathVariable("sumCntList") int sumCntList,
-			@ModelAttribute(value = "orderVO") OrderVO orderVO, Model model, HttpSession session) {
-
-		int itemCnt = orderVO.getCount(); // 현재 store의 item 개수
+	@RequestMapping(value = "/orderList/addCartItem", method = RequestMethod.POST)
+	public String addCartItem(@ModelAttribute(value = "orderVO") OrderVO orderVO, Model model, HttpSession session) {
+		
 		String storeNo = orderVO.getStoreNo(); // 현재 storeNo
 
 		List<OrderDetailVO> preOrderList = new ArrayList<>();
@@ -203,7 +201,6 @@ public class OrderController {
 		String secretPassword = null;
 
 		CustomerVO loginVO = null;
-		System.out.println("sumCntList: " + sumCntList + "| itemCnt: " + itemCnt + " | cntList" + cntList);
 
 		if (session.getAttribute("loginVO") == null) { // 로그인 안된 경우
 
@@ -216,20 +213,44 @@ public class OrderController {
 
 			orderVO.setMemNo(loginVO.getMemNo());
 
-			if (itemCnt == 1 && cntList == 1) {
-				preOrderList.add(orderVO.getOrderDetails().get(0));
-			} else {
-				for (int i = sumCntList - itemCnt; i < sumCntList - itemCnt + cntList; i++) {
-					preOrderList.add(orderVO.getOrderDetails().get(i));
+			List<ItemContentsVO> productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
+
+			for(int i=0; i<productList.size(); i++) {
+				ItemContentsVO addItem = productList.get(i);
+				 
+				if(addItem.getStoreNo().equals(storeNo)) {
+					OrderDetailVO preOrder = new OrderDetailVO();
+					
+					preOrder.setDetailNo(addItem.getDetailNo());
+					preOrder.setColor(addItem.getColor());
+					preOrder.setSize(addItem.getSize());
+					preOrder.setCount(addItem.getCount());
+					preOrder.setDetailNo(addItem.getDetailNo());
+					preOrder.setStoreNo(addItem.getStoreNo());
+					preOrder.setPrice(addItem.getPrice());
+					preOrder.setSalePrice(addItem.getSalePrice());
+					preOrder.setStartDate(addItem.getStartDate());
+					preOrder.setEndDate(addItem.getEndDate());
+					preOrder.setItemName(addItem.getItemName());
+					preOrder.setNum(addItem.getNum());
+					preOrder.setStoreNo(storeNo);
+					preOrder.setStoreName(addItem.getStoreNo());
+					preOrder.setImgSaveName(addItem.getImgSaveName());
+
+					preOrderList.add(preOrder);
+						
 				}
 			}
-
+			
 			StoreVO addStore = storeService.selectStore(storeNo);
 			preStoreList.add(addStore);
 
 			secretPassword = getOrderPassword(loginVO);
 		}
 
+		System.out.println("addCartItem_preOrderList: "+preOrderList);
+		System.out.println("addCartItem_preStoreList: "+preStoreList);
+		
 		Gson gson = new Gson();
 		String preOrderJSON = gson.toJson(preOrderList);
 		String preStoreJSON = gson.toJson(preStoreList);
@@ -269,14 +290,7 @@ public class OrderController {
 	@RequestMapping(value = "/orderList/checkCnt", method = RequestMethod.POST)
 	public ModelAndView checkCnt(OrderVO preOrder, HttpSession session) {
 
-		System.out.println("checkCnt()_in: " + preOrder);
-		/*
-		 * System.out.println("checkCnt()_session_storeVO:"+session.getAttribute(
-		 * "storeList"));
-		 * System.out.println("checkCnt()_session_ItemContentsVO:"+session.getAttribute(
-		 * "productList"));
-		 */
-		ModelAndView mav = null;
+		ModelAndView mav = new ModelAndView();
 
 		int[] stocks = new int[preOrder.getOrderDetails().size()];
 
@@ -333,27 +347,6 @@ public class OrderController {
 
 			order = orderProcess(preOrder);
 
-			System.out.println("결재성공_order" + order);
-
-			
-			// 오늘 첫 주문 이거나, 오늘 한 주문들을 모두 수령한 경우
-			if(service.countTodayNotReceipt(loginVO.getMemNo())==0) {
-				List<PickupPlaceVO> infoList = pickupService.getAllInfo();
-				mav = new ModelAndView("order/choiceInfo");
-				mav.addObject("infoList", infoList);
-			}else {	// 오늘 첫 주문이 아니거나, 오늘 한 주문 중 수령하지 않은 물품이 있는 경우
-				String floor = service.getFloor(loginVO);
-				order.setFloor(floor);
-				service.updateFloor(order);
-				String secretPassword = getOrderPassword(loginVO);
-				System.out.println("showOrderPwd()_secretPassword" + secretPassword);
-
-				mav = new ModelAndView("order/showInfoNPwd");
-				mav.addObject("secretPassword", secretPassword);
-				mav.addObject("floor", floor);
-			}
-			
-
 			// 해당 물품 세션 장바구니 지우기
 			List<ItemContentsVO> productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
 			List<StoreVO> storeList = (ArrayList<StoreVO>) session.getAttribute("storeList");
@@ -377,9 +370,6 @@ public class OrderController {
 					}
 				}
 
-				System.out.println("결제성공_productList" + productList);
-				System.out.println("결제성공_storeList" + storeList);
-
 				session.removeAttribute("productList");
 				session.removeAttribute("storeList");
 				session.removeAttribute("listJSON");
@@ -395,10 +385,23 @@ public class OrderController {
 					session.setAttribute("storeJSON", storeJSON);
 				}
 			}
-
+			System.out.println("todayCount: "+service.countTodayNotReceipt(loginVO.getMemNo()));
+			if(service.countTodayNotReceipt(loginVO.getMemNo())<=1) {	// 오늘 첫 주문 이거나, 오늘 한 주문들을 모두 수령한 경우
+				List<PickupPlaceVO> infoList = pickupService.getAllInfo();
+				mav.setViewName("order/choiceInfo");
+				mav.addObject("infoList", infoList);
+			}else {	// 오늘 첫 주문이 아니거나, 오늘 한 주문 중 수령하지 않은 물품이 있는 경우
+				String floor = service.getFloor(loginVO);
+				order.setFloor(floor);
+				service.updateFloor(order);
+				String secretPassword = getOrderPassword(loginVO);
+				mav.setViewName("order/showInfoNPwd");
+				mav.addObject("secretPassword", secretPassword);
+				mav.addObject("floor", floor);
+			}
+			
 		} else { // 재고가 없는 상품이 있는 경우
 			List<OrderDetailVO> failBuyList = new ArrayList<>();
-
 			int[] canBuyCnt = new int[cantCnt];
 
 			for (int i = 0; i < preOrder.getOrderDetails().size(); i++) {
@@ -409,17 +412,13 @@ public class OrderController {
 					// 처리 해줄 건지?
 				}
 			}
-
-			System.out.println("failBuyList: " + failBuyList);
-			for (int i = 0; i < canBuyCnt.length; i++) {
-				System.out.print("canBuyCnt" + i + ": " + canBuyCnt[i]);
-			}
-
-			mav = new ModelAndView("order/failBuyModal");
+			mav.setViewName("order/failBuyModal");
 			mav.addObject("failBuyList", failBuyList);
 			mav.addObject("canBuyCnt", canBuyCnt);
 		}
-
+		
+		System.out.println("viewName: "+mav.getViewName());
+		
 		return mav;
 	}
 

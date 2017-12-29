@@ -141,9 +141,6 @@ public class ShoppingCartController {
 			session.setAttribute("productList", productList);
 			session.setAttribute("storeList", storeList);
 
-			System.out.println("shoppingCart/addItem: " + productList);
-			System.out.println("shoppingCart/addItem: " + storeList);
-
 			mav.setViewName("redirect:/mypage/shoppingCart");		
 			
 		}else {	// 물품이 없는게 있는 경우
@@ -186,6 +183,7 @@ public class ShoppingCartController {
 			} else { // 세션에 장바구니가 없는 경우
 				productList = new ArrayList<>();
 			}
+			
 
 			Gson gson = new Gson();
 			String listJSON = gson.toJson(productList);
@@ -197,8 +195,6 @@ public class ShoppingCartController {
 			session.setAttribute("storeJSON", storeJSON);
 		}
 
-		System.out.println("mypage/shoppingCart: " + productList);
-		System.out.println("mypage/shoppingCart: " + storeList);
 
 		return "mypage/shoppingCart";
 	}
@@ -239,6 +235,7 @@ public class ShoppingCartController {
 		session.setAttribute("listJSON", listJSON);
 		session.setAttribute("storeJSON", storeJSON);
 
+		mav.setViewName("mypage/cartForm/showForm");
 		mav.addObject("productList", productList);
 		mav.addObject("storeList", storeList);
 		mav.addObject("listJSON", listJSON);
@@ -285,6 +282,7 @@ public class ShoppingCartController {
 		session.setAttribute("listJSON", listJSON);
 		session.setAttribute("storeJSON", storeJSON);
 
+		mav.setViewName("mypage/cartForm/showForm");
 		mav.addObject("productList", productList);
 		mav.addObject("storeList", storeList);
 		mav.addObject("listJSON", listJSON);
@@ -306,7 +304,7 @@ public class ShoppingCartController {
 	 */
 	@RequestMapping(value = "/shoppingCart/changeCnt", method = RequestMethod.GET)
 	@ResponseBody
-	public String changeCnt(@RequestParam int count, @RequestParam int index, HttpSession session)
+	public String changeCnt(@RequestParam("index") int index, @RequestParam("count") int count, HttpSession session)
 			throws JsonParseException, JsonMappingException, IOException {
 
 		List<ItemContentsVO> productList = null;
@@ -329,7 +327,6 @@ public class ShoppingCartController {
 		}
 		return newJsonList;
 	}
-
 	/**
 	 * 수량 변경에 따른 물품 정상가 변경(ajax)
 	 * 
@@ -338,7 +335,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/shoppingCart/oriPriceForm")
-	public @ResponseBody ModelAndView oriPriceForm(@RequestParam int index, HttpSession session) {
+	public @ResponseBody ModelAndView oriPriceForm(@RequestParam("loop") int loop, @RequestParam("index") int index, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
 		List<ItemContentsVO> productList = null;
@@ -351,6 +348,8 @@ public class ShoppingCartController {
 
 		mav.setViewName("mypage/cartForm/oriPriceForm");
 		mav.addObject("itemContents", itemContents);
+		mav.addObject("loop", loop);
+		mav.addObject("index", index);
 		return mav;
 	}
 
@@ -362,7 +361,7 @@ public class ShoppingCartController {
 	 * @return
 	 */
 	@RequestMapping(value = "/shoppingCart/salePriceForm")
-	public @ResponseBody ModelAndView salePriceForm(@RequestParam int index, HttpSession session) {
+	public @ResponseBody ModelAndView salePriceForm(@RequestParam("loop") int loop, @RequestParam("index") int index, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
 		List<ItemContentsVO> productList = null;
@@ -375,8 +374,12 @@ public class ShoppingCartController {
 
 		mav.setViewName("mypage/cartForm/salePriceForm");
 		mav.addObject("itemContents", itemContents);
+		mav.addObject("salePrice", itemContents.getSalePrice());
+		mav.addObject("loop", loop);
+		mav.addObject("index", index);
 		return mav;
 	}
+
 
 	/**
 	 * 물품 옵션 보여주기(ajax)

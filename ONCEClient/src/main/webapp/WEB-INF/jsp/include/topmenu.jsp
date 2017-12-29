@@ -12,6 +12,7 @@
 }
 </style>
 <script type="text/javascript">
+
 	function logout(){
 		sessionStorage.removeItem('loginVO');
 		sessionStorage.removeItem('productList');
@@ -51,7 +52,14 @@
 			data-collapsible="accordion">
 			<li>
 				<div class="photos">
-					<h3>cus1</h3>
+					<c:choose>
+						<c:when test="${ empty sessionScope.loginVO }">
+							<h3>ONCE</h3>
+						</c:when>
+						<c:otherwise>
+							<h3>${loginVO.id} <span style="font-size:10pt;">님</span></h3>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</li>
 			<li>
