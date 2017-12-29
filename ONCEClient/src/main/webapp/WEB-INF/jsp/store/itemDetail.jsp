@@ -171,47 +171,13 @@ var iPrice=0;
 	            }
 	       	});
 
-            //$('#cntPrice').text(priceVal);
-	            
 				//초기화 
 				$('#color').val('');
 				$('#size').val('');
 				$('#size').attr('disabled', true);		
 			}
-			/* 
-		    $('#cntPlus' + idNo).click(function(e) {
-		    	e.preventDefault();
-		    	var num = $('#cnt' + idNo).val();
-		    	num++;
-		    	
-		    	$('#cnt' + idNo).val(num);
-		    	$('#cntItem').text(num);
-		    	
-		    	return false;
-		    });
-		     */
-		   /*  $('#cntMinus' + idNo).click(function(e) {
-		    	e.preventDefault();
-		    	var num = $('#cnt' + idNo).val();
-		    	num--;
-		    	
-		    	if(num <= 0) {
-			    	alert('더 이상 줄일 수 없습니다');
-			    	num = 1;
-		    	}
-		    	
-		    	$('#cnt' + idNo).val(num);
-		    	
-		    	return false;
-		    }); */
 		});
 		
-	   /*  $('#cntPrice').text(priceVal);
-        
-		   $(this).closest('li').remove();
-		
-		   return false;
-		}); */
 	
 		$('#addCmt').submit(function() {
 			var content = $('#insertCmt').val();
