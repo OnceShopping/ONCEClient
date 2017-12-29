@@ -8,6 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="HandheldFriendly" content="True">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
@@ -91,9 +94,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
- 
-<script>
+ <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
 var iPrice=0;
+var itName;
+var storeName;
 
 	$(document).ready(function() {
 		
@@ -101,6 +106,8 @@ var iPrice=0;
 		var priceVal=0;			
 		
 		iPrice = $('#itemPrice').text();
+		itName = $('#itName').text(); //아이템 이름
+		storeName = $('#storeName').text(); //매장 이름
 		
 		$('#itemPrice').html(comma(iPrice));
 		
@@ -272,20 +279,6 @@ var iPrice=0;
 	      itemForm.submit();
 	   }
 	   
-	 /*   function changePrice(){
-			var itemJSON = '${itemJSON}';
-		    var result = $.parseJSON(itemJSON);
-		    var totalPrice = 0;
-		    
-		    if(result.salePrice==0 || result.salePrice == null){
-		    	totalPrice = result.price*totalCount;
-		    }else{
-		    	totalPrice = result.salePrice*totalCount;
-		    }
-		    $('#cntPrice').text(totalPrice);
-		}
- */
-
 	 //comma를 설정하는 로직
 	 function comma(obj){
 	 	
@@ -337,52 +330,70 @@ var iPrice=0;
 	 	return array.join(",");
 	 }
 
-function calculate_M(){  //-표시를 누를 경우
+	function calculate_M(){  //-표시를 누를 경우
+		
+		var total = $('#cntPrice').text(); //총 금액으로 표시되는 금액
+		
+		var totalNum = total.split(",");
+		var num=0;
+		
+		for(var i in totalNum)
+			num+=totalNum[i]; 
 	
-	var total = $('#cntPrice').text(); //총 금액으로 표시되는 금액
+		var price = parseInt(num)-parseInt(iPrice);
+		
+		$('#cntPrice').text(comma(price));
+	}
 	
-	var totalNum = total.split(",");
-	var num=0;
-	
-	for(var i in totalNum)
-		num+=totalNum[i]; 
+	function calculate_P(){  //+표시를 누를 경우
+		
+		var total = $('#cntPrice').text();
+		
+		var totalNum = total.split(",");
+		var num=0;
+		
+		for(var i in totalNum)
+			num+=totalNum[i]; 
+		
+		var price = parseInt(num)+parseInt(iPrice);
+		
+		$('#cntPrice').text(comma(price));
+	}
+	function deleteOption(count){ //x표시를 누를 경우
+		
+		var total = $('#cntPrice').text();
+		
+		var totalNum = total.split(",");
+		var num=0;
+		
+		for(var i in totalNum)
+			num+=totalNum[i]; 
+		
+		var delPrice = eval(iPrice + '*' + count);
+		var price = parseInt(num) - parseInt(delPrice);
+		
+		$('#cntPrice').text(comma(price));
+		
+	}
+	function share(){
 
-	var price = parseInt(num)-parseInt(iPrice);
-	
-	$('#cntPrice').text(comma(price));
-}
+		Kakao.init('e41ce637926a9ca7c2b5e1040f027929');
 
-function calculate_P(){  //+표시를 누를 경우
-	
-	var total = $('#cntPrice').text();
-	
-	var totalNum = total.split(",");
-	var num=0;
-	
-	for(var i in totalNum)
-		num+=totalNum[i]; 
-	
-	var price = parseInt(num)+parseInt(iPrice);
-	
-	$('#cntPrice').text(comma(price));
-}
-function deleteOption(count){ //x표시를 누를 경우
-	
-	var total = $('#cntPrice').text();
-	
-	var totalNum = total.split(",");
-	var num=0;
-	
-	for(var i in totalNum)
-		num+=totalNum[i]; 
-	
-	var delPrice = eval(iPrice + '*' + count);
-	var price = parseInt(num) - parseInt(delPrice);
-	
-	$('#cntPrice').text(comma(price));
-	
-}
+		Kakao.Link.sendTalkLink({
+			label:'ONCE의 상품을 함께 공유해요!!',
+			image:{
+				src:'http://13.124.194.6:8080/image/ONCE-846dcdc8-01a1-41d2-a7a4-2d25d213f439.png',
+				width:'300',
+				height:'200'
+			},
+			webButton:{
+				text:'#'+storeName+' #'+itName,
+				url:'http://13.124.194.6:8080/ONCEAdmin/'
+			}
+		});
+	}
 </script>
+
 </head>
 <body>
 	<header>
@@ -393,7 +404,7 @@ function deleteOption(count){ //x표시를 누를 경우
 	</header>
 	
 		
-	<!-- 주문하기 버튼 누르기 이후 --> <!-- ////////모달 전체 -->
+	<!-- 주문하기 버튼 누르기 이후 -->
 	<div id="orderDetail" class="modal bottom-sheet">
 		<form id="itemContentsVO" name="itemContentsVO" method="post">
 	   	<p style="padding-left: 5px;">옵션</p>
@@ -419,7 +430,6 @@ function deleteOption(count){ //x표시를 누를 경우
 			</div>
 	   </div>
 	   <div>
-	   		<!-- ////////black/L -->
 			<ul id="sltItemList">
 			</ul>
 	   </div>
@@ -448,8 +458,8 @@ function deleteOption(count){ //x표시를 누를 경우
 					</c:forEach>
 				</div>
 				<div id="mainDescription">
-					<h5>${ storeName }</h5>
-					<h4><b>${ itemContentsVO.itemName }</b></h4>
+					<h5 id="storeName">${ storeName }</h5>
+					<h4><b><span id="itName">${ itemContentsVO.itemName }</span></b></h4>
 					<h5><span id="itemPrice"><c:out value="${ itemContentsVO.price }"/></span> 원
 						<input type="hidden" value="${ itemContentsVO.price }" id="hiddenPrice">
 						<c:if test="${ itemContentsVO.salePrice ne 0 }">
@@ -465,7 +475,7 @@ function deleteOption(count){ //x표시를 누를 경우
 		
 		<!-- 공유 -->
 		<div id="share">
-			<a><i class="fa fa-share-alt"></i></a>
+			<a id="kakao-link-btn" href="javascript:share();"><span style='color: #3B1E1E;'><i class="fa fa-share-alt"></i></span></a>
 		</div>
 		<!-- 메인 끝 -->
 		
