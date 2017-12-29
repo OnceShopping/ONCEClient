@@ -158,7 +158,9 @@
 				</c:when>
 				
 				<c:otherwise><!-- productList에 아무것도 없을 때  -->
+					<div class="entry" style="margin-bottom: 125px;">
 					<h6>장바구니에 등록된 상품이 없습니다.</h6>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>

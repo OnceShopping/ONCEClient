@@ -173,7 +173,6 @@
                
                
                $('#cntPrice').text(priceVal);
-               idNo = ++cnt;
 	            
 				//초기화 
 				$('#color').val('');
@@ -309,7 +308,6 @@
 	   
 	   function buyFunc(){
 	      var itemJSON = '${itemJSON}';
-	      alert(itemJSON);
 	      var result = null;
 	      if(itemJSON != '' && itemJSON != null){
 	    	  result = $.parseJSON(itemJSON);

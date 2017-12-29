@@ -23,16 +23,32 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
-
- 
+	<style type="text/css">
+	.normal {
+	   font-weight: 400
+	}
+	
+	.bold {
+	   font-weight: 700
+	}
+	
+	.bolder {
+	   font-weight: 800
+	}
+	
+	.light {
+	   font-weight: 300
+	}
+	</style>
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	
-
 <script type="text/javascript">
 
 	var listJSON = '${sessionScope.listJSON}';
@@ -46,21 +62,21 @@
 	var btnList = new Array();	/* 옵션 버튼 눌린 횟수*/
 	var itemCnt = new Array();	/* 해당 item의 상품 개수 */
 	for(var index=0; index<resultList.length; index++){
-		btnList[index] = 0;
+		btnList[index] = 0;	
 		itemCnt[index] = 0;
 	}
-	
-	var cntList = new Array(); /* 해당 store의 상품 개수 */
+	var cntList = new Array(); /* 해당 store의 item 개수 */
 	for(var loop=0; loop<storeList.length; loop++){
 		cntList[loop] = 0;
 	}
-	
-	var sumCntList = new Array();	/* 해당 store까지 누적 상품 개수*/
+		
+	var sumCntList = new Array();	/* 해당 store까지 누적 item 개수*/
 	for(var loop=0; loop<storeList.length; loop++){
 		sumCntList[loop] = 0;
 	}
 	
 	function getAllTotal(resultList){
+		
 		
 		if(listJSON != null){
 			$.each(storeList, function(loop, store){
@@ -72,19 +88,21 @@
 				var storeNo = store.storeNo;
 				cntList[loop] = 0;
 				
+				if(loop!=0){
+					sumCntList[loop] = sumCntList[loop-1];
+				}
+				
 				$.each(resultList, function(index, item){	/* storeNo 같은 거 끼리 묶기 */
 					
 					if( storeNo == item.storeNo){
+						
 						itemCnt[index] = item.count;
 						
-						if(index==0){
-							sumCntList[loop] = 0;
-						}
-						cntList[loop]++;
+						++cntList[loop];
+						++sumCntList[loop];
 						
 						ori_total_storeNo += item.price*itemCnt[index];
-						
-						
+												
 						if(item.salePrice == 0){
 							cur_total_storeNo += item.price*itemCnt[index];
 						}else{
@@ -105,8 +123,7 @@
 					settingOriTotalPrice($('#ori_total_'+loop).text(), loop);
 					settingDisTotalPrice($('#dis_total_'+loop).text(), loop);
 					settingCurTotalPrice($('#cur_total_'+loop).text(), loop);
-										
-					sumCntList[loop]++;
+					
 				});
 			});
 		}
@@ -250,6 +267,10 @@
 		
 		var count = $('#count_'+loop+"_"+index).val();
 		
+		sumCntList[loop] = -itemCnt[index] + count;
+		cntList[loop] = -itemCnt[index] + count;
+		itemCnt[index] = count;
+		
 		if(count==0){
 			alert('수량을 0보다 이상인 값으로 설정해 주세요.');
 			$('#count_'+loop+"_"+index).focus();
@@ -266,18 +287,11 @@
 				cache : false,
 				success : function(data) {
 					alert("수량이 변경 되었습니다.");
-					var changeList = $.parseJSON(data);
-					
-					oriPriceForm(loop, index);
-					salePriceForm(loop, index);
-					
-					var ori_total_storeNo = 0;
-					getAllTotal(changeList);							
+							
+					history.go(0);					
 				}
 			});
 			
-			sumCntList[loop] = -itemCnt[index] + count;
-			itemCnt[index] = count;
 		}		
 	}
 	
@@ -438,7 +452,7 @@
 		if(check==false){
 			$('#count_'+loop).val(cntList[loop]);
 			
-			$('#orderVO_'+loop).attr("action", "${ pageContext.request.contextPath }/orderList/addCartItem/"+cntList[loop]+"/"+sumCntList[loop]);
+			$('#orderVO_'+loop).attr("action", "${ pageContext.request.contextPath }/orderList/addCartItem");
 			
 			$('#orderVO_'+loop).submit();
 		}else{
@@ -462,7 +476,7 @@
 	<div class="product-cart">
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
-				<h3>Shopping Cart</h3>
+				<h3 class="bold">Shopping Cart</h3>
 			</div>
 			<c:choose>
 				<c:when test="${ not empty productList and productList != ''}"><!-- productList에 상품이 1개 이상 -->
@@ -546,18 +560,18 @@
 											<input type="hidden" name="orderDetails[${ status.index }].price" value="${itemContents.price}"/>
 											<input type="hidden" name="orderDetails[${ status.index }].salePrice" value="${itemContents.salePrice}"/>
 										</div>
-										<div class="col s8" style="float: left;">
+										<div class="col s8">
 											<div id="oriPrice_${loop.index}_${status.index}">
 											<p style="float: left; margin-left: 10px;">정상가:</p>
-												<p style="float: left;" id="price_${loop.index}_${status.index}" >${itemContents.price * itemContents.count }</p>
+												<p id="price_${loop.index}_${status.index}" >${itemContents.price * itemContents.count }</p>
 											</div>
 											<br/>
 											<div id="salePrice_${loop.index}_${status.index}">
 											<c:choose>
 											<c:when test="${ itemContents.salePrice eq 0 }" />
 											<c:otherwise>
-											<p style="float: left;  margin-left: 10px; ">할인가:</p>
-												<p style="color:red; float: left;" id="sale_${loop.index}_${status.index}" >${itemContents.salePrice * itemContents.count}</p>
+											<p style="float: left; margin-left: 10px;">할인가:</p>
+												<p style="color:red; " id="sale_${loop.index}_${status.index}" >${itemContents.salePrice * itemContents.count}</p>
 											</c:otherwise>
 											</c:choose>
 											</div>
@@ -579,7 +593,7 @@
 								<h6>할인 금액</h6>
 							</div>
 							<div class="col s4" style="float: left;">
-								<h6 style="float: left; margin-left: 85px; margin-right:0px;">-</h6><h6 id="dis_total_${ loop.index }"></h6>
+								<span style="float: none;">_&nbsp;</span><h6 style="float: right;"id="dis_total_${ loop.index }"></h6>
 							</div>
 							<div class="col s8">
 								<h5>Total</h5>
@@ -597,7 +611,9 @@
 				</c:when>
 				
 				<c:otherwise><!-- productList에 아무것도 없을 때  -->
+					<div class="entry" style="margin-bottom: 125px;">
 					<h6>장바구니에 등록된 상품이 없습니다.</h6>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>

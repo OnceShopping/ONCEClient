@@ -136,7 +136,7 @@ public class OrderController {
 					preOrder.setItemName(addItem.getItemName());
 					preOrder.setNum(addItem.getNum());
 					preOrder.setStoreNo(storeNo);
-					preOrder.setStoreName(addStore.getStoreNo());
+					preOrder.setStoreName(addStore.getStoreName());
 					preOrder.setImgSaveName(addItem.getImgSaveName());
 
 					preOrderList.add(preOrder);
@@ -191,11 +191,9 @@ public class OrderController {
 
 	}
 
-	@RequestMapping(value = "/orderList/addCartItem/{cntList}/{sumCntList}", method = RequestMethod.POST)
-	public String addCartItem(@PathVariable("cntList") int cntList, @PathVariable("sumCntList") int sumCntList,
-			@ModelAttribute(value = "orderVO") OrderVO orderVO, Model model, HttpSession session) {
-
-		int itemCnt = orderVO.getCount(); // 현재 store의 item 개수
+	@RequestMapping(value = "/orderList/addCartItem", method = RequestMethod.POST)
+	public String addCartItem(@ModelAttribute(value = "orderVO") OrderVO orderVO, Model model, HttpSession session) {
+		
 		String storeNo = orderVO.getStoreNo(); // 현재 storeNo
 
 		List<OrderDetailVO> preOrderList = new ArrayList<>();
@@ -203,7 +201,6 @@ public class OrderController {
 		String secretPassword = null;
 
 		CustomerVO loginVO = null;
-		System.out.println("sumCntList: " + sumCntList + "| itemCnt: " + itemCnt + " | cntList" + cntList);
 
 		if (session.getAttribute("loginVO") == null) { // 로그인 안된 경우
 
@@ -216,20 +213,44 @@ public class OrderController {
 
 			orderVO.setMemNo(loginVO.getMemNo());
 
-			if (itemCnt == 1 && cntList == 1) {
-				preOrderList.add(orderVO.getOrderDetails().get(0));
-			} else {
-				for (int i = sumCntList - itemCnt; i < sumCntList - itemCnt + cntList; i++) {
-					preOrderList.add(orderVO.getOrderDetails().get(i));
+			List<ItemContentsVO> productList = (ArrayList<ItemContentsVO>) session.getAttribute("productList");
+
+			for(int i=0; i<productList.size(); i++) {
+				ItemContentsVO addItem = productList.get(i);
+				 
+				if(addItem.getStoreNo().equals(storeNo)) {
+					OrderDetailVO preOrder = new OrderDetailVO();
+					
+					preOrder.setDetailNo(addItem.getDetailNo());
+					preOrder.setColor(addItem.getColor());
+					preOrder.setSize(addItem.getSize());
+					preOrder.setCount(addItem.getCount());
+					preOrder.setDetailNo(addItem.getDetailNo());
+					preOrder.setStoreNo(addItem.getStoreNo());
+					preOrder.setPrice(addItem.getPrice());
+					preOrder.setSalePrice(addItem.getSalePrice());
+					preOrder.setStartDate(addItem.getStartDate());
+					preOrder.setEndDate(addItem.getEndDate());
+					preOrder.setItemName(addItem.getItemName());
+					preOrder.setNum(addItem.getNum());
+					preOrder.setStoreNo(storeNo);
+					preOrder.setStoreName(addItem.getStoreNo());
+					preOrder.setImgSaveName(addItem.getImgSaveName());
+
+					preOrderList.add(preOrder);
+						
 				}
 			}
-
+			
 			StoreVO addStore = storeService.selectStore(storeNo);
 			preStoreList.add(addStore);
 
 			secretPassword = getOrderPassword(loginVO);
 		}
 
+		System.out.println("addCartItem_preOrderList: "+preOrderList);
+		System.out.println("addCartItem_preStoreList: "+preStoreList);
+		
 		Gson gson = new Gson();
 		String preOrderJSON = gson.toJson(preOrderList);
 		String preStoreJSON = gson.toJson(preStoreList);
