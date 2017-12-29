@@ -141,9 +141,6 @@ public class ShoppingCartController {
 			session.setAttribute("productList", productList);
 			session.setAttribute("storeList", storeList);
 
-			System.out.println("shoppingCart/addItem: " + productList);
-			System.out.println("shoppingCart/addItem: " + storeList);
-
 			mav.setViewName("redirect:/mypage/shoppingCart");		
 			
 		}else {	// 물품이 없는게 있는 경우
@@ -186,6 +183,7 @@ public class ShoppingCartController {
 			} else { // 세션에 장바구니가 없는 경우
 				productList = new ArrayList<>();
 			}
+			
 
 			Gson gson = new Gson();
 			String listJSON = gson.toJson(productList);
