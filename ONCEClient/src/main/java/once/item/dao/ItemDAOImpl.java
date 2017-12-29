@@ -227,5 +227,10 @@ public class ItemDAOImpl implements ItemDAO {
 		itemVO.setItemName(itemName);
 		List<ItemVO> itemList = sqlSession.selectList("once.item.dao.ItemDAO.searchItems", itemVO);
 		return itemList;
+  }
+  
+  @Override
+	public List<ItemImgVO> selectImgByNum(int num) {
+		return sqlSession.selectList("once.item.dao.ItemDAO.selectImgByNum", num);
 	}
 }

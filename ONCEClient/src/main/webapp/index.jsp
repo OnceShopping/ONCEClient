@@ -236,7 +236,7 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                 <img src="resources/img/store4.png" alt="이미지 준비중입니다.">
+                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다.">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
