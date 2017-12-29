@@ -202,4 +202,10 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemVO> generalItemList3 = dao.selectGeneralItemList3();
 		return generalItemList3;
 	}
+
+	@Override
+	public List<ItemVO> searchItem(String itemName) {
+		List<ItemVO> itemList = dao.searchItem(itemName);
+		return itemList;
+	}
 }

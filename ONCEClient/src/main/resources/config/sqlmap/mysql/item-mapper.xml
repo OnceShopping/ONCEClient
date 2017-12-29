@@ -216,4 +216,9 @@
 	where itemCategory2 = '잡화' and itemCategory3 = '가방' group by itemName having max(detailNo);
 	</select>
 	
+	<!-- 아이템 이름으로 전체 매장에서 검색 -->
+	<select id="searchItems" parameterType="itemVO" resultType="itemVO">
+		select * from itemContents where itemName like '%${itemName}%'
+	</select>
+	
 </mapper>
