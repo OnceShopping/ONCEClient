@@ -62,7 +62,6 @@
                  }
               }
            });
-
            // 주문비밀번호 숫자만
            $("#orderPassword").keyup(function(event){
               if (!(event.keyCode >=37 && event.keyCode<=40)) {
@@ -233,88 +232,90 @@
 </head>
 
 <body>
-   <header>
-   <!-- navbar -->
-      <jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
-   <!-- end navbar -->
-   </header>
-   
-   <section>
-   <!-- Modal -->                   
-   <div id="dialog" title="ALERT DIALOG"></div>
-   
-   <div class="table-app app-pages app-section">
-      <div class="container">
-         <div class="pages-title">
-            <h3>회원가입</h3>
-         </div>
-         <form:form commandName="customerVO" method="post" >
-            <div class="input-field" style="width: 70%; float: left;">
-               <form:input id="id" path="id" type="text" maxlength="20" class="userinput"/>
-               <label for="id">아이디</label>
-            </div>
-            <div style="width: 30%; float: left; margin-top: 25px;" align="center">
-               <input type="button" class="button" value="중복 확인" id="idCheck" />
-            </div>
-            <div style="clear: both"></div>
-            <div class="input-field">
-               <form:input id="password" path="password" type="password" maxlength="13" class="validate"/>
-               <label for="password">비밀번호</label>
-            </div>
-            <div class="input-field">
-               <input id="passwordCheck" type="password" maxlength="13" class="validate"/>
-               <label for="passwordCheck">비밀번호확인</label>
-            </div>
-            <div class="input-field">
-               <form:input id="name" path="name" type="text" maxlength="5" class="validate"/>
-               <label for="name">이름</label>
-            </div>
-            <div class="input-field">
-               <form:input id="tel" path="telephone" type="tel" maxlength="13" class="validate"/>
-               <label for="tel">전화번호</label>
-            </div>
-            <div class="input-field">
-               <form:input id="orderPassword" path="orderPassword" type="password" maxlength="8" class="validate"/>
-               <label for="orderPassword">주문비밀번호</label>
-            </div>
-            <!--  -->
-            <div class="input-field" style="width: 70%; float: left;">
-               <form:input id="email" path="email" type="email" maxlength="40" class="validate"/>
-               <label for="email">이메일</label>
-            </div>
-            <div style="width: 30%; float: left; margin-top: 25px;" align="center">
-               <input type="button" class="button" value="중복 확인" id="emailCheck" />
-            </div>
-            <div style="clear: both"></div>
-         <div align="center">
-         <input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
-         <input type="submit" class="button" id="nextBtn" value="다음">
-         </div>
-         </form:form>
-         <div id="idmessage" style="display:none;"></div>
-      </div>
-   </div>
-   
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
-   </section>
-   <!-- footer 끝 -->
-   <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-   <!-- 하단 navbar -->
-   <div class="w3-bottom">
-      <div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-         <a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-         <a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-         <a href="${pageContext.request.contextPath}" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-         <a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-         <a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-      </div>
-   </div>
-   <!-- 하단 navbar 끝 -->
-   
+
+	<header>
+	<!-- navbar -->
+		<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+	<!-- end navbar -->
+	</header>
+	
+	<section>
+	<!-- Modal --> 						
+	<div id="dialog" title="ALERT DIALOG"></div>
+	
+	<div class="table-app app-pages app-section">
+		<div class="container">
+			<div class="pages-title">
+				<h3>회원가입</h3>
+			</div>
+			<form:form commandName="customerVO" method="post" >
+				<div class="input-field" style="width: 70%; float: left;">
+					<form:input id="id" path="id" type="text" maxlength="20" class="userinput"/>
+					<label for="id">아이디</label>
+				</div>
+				<div style="width: 30%; float: left; margin-top: 25px;" align="center">
+					<input type="button" class="button" value="중복 확인" id="idCheck" />
+				</div>
+				<div style="clear: both"></div>
+				<div class="input-field">
+					<form:input id="password" path="password" type="password" maxlength="13" class="validate"/>
+					<label for="password">비밀번호</label>
+				</div>
+				<div class="input-field">
+					<input id="passwordCheck" type="password" maxlength="13" class="validate"/>
+					<label for="passwordCheck">비밀번호확인</label>
+				</div>
+				<div class="input-field">
+					<form:input id="name" path="name" type="text" maxlength="5" class="validate"/>
+					<label for="name">이름</label>
+				</div>
+				<div class="input-field">
+					<form:input id="tel" path="telephone" type="tel" maxlength="13" class="validate"/>
+					<label for="tel">전화번호</label>
+				</div>
+				<div class="input-field">
+					<form:input id="orderPassword" path="orderPassword" type="password" maxlength="8" class="validate"/>
+					<label for="orderPassword">주문비밀번호</label>
+				</div>
+				<!--  -->
+				<div class="input-field" style="width: 70%; float: left;">
+					<form:input id="email" path="email" type="email" maxlength="40" class="validate"/>
+					<label for="email">이메일</label>
+				</div>
+				<div style="width: 30%; float: left; margin-top: 25px;" align="center">
+					<input type="button" class="button" value="중복 확인" id="emailCheck" />
+				</div>
+				<div style="clear: both"></div>
+			<div align="center">
+			<input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
+			<input type="submit" class="button" id="nextBtn" value="다음">
+			</div>
+			</form:form>
+			<div id="idmessage" style="display:none;"></div>
+		</div>
+	</div>
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	</section>
+	<!-- footer 끝 -->
+	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+	<!-- 하단 navbar -->
+	<div class="w3-bottom">
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+		</div>
+	</div>
+	<!-- 하단 navbar 끝 -->
+	
+
 
 
 </body>
