@@ -168,27 +168,37 @@
 				<c:forEach var="detail" items="${detailList}" varStatus="index">				
 						<table style="width: 100%;">
 							<tr>
-								<td rowspan="5" colspan="2" style="width: 45%; height: 150px;">
-								<img src="/image/${ detail.imgSaveName }" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
+								<td rowspan="5" style="width: 45%; height: 150px;">
+								<img src="/image/${ detail.imgSaveName }" width="140px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
 								</td>
-								<td><br/><span class="semi">상품 명 : ${detail.itemName}</span></td>
+								<td style="height: 20%;"><br/><span class="semi">&nbsp;&nbsp;&nbsp;상품명 : ${detail.itemName}</span></td>
 							</tr>
 							<tr>
-								<td><span class="semi">SIZE : </span>${detail.size}</td>
+								<td style="height: 20%;"><span class="semi">&nbsp;&nbsp;&nbsp;사이즈 : </span>${detail.size}</td>
 							</tr>
 							<tr>
-								<td><span class="semi">색상  : </span>${detail.color}</td>
+								<td style="height: 20%;"><span class="semi">&nbsp;&nbsp;&nbsp;색상  : </span>${detail.color}</td>
 							</tr>
 							<tr>
-								<td><span class="semi">수량  : </span>${detail.count}</td>
+								<td style="height: 20%;"><span class="semi">&nbsp;&nbsp;&nbsp;수량  : </span>${detail.count}</td>
 							</tr>
 							<tr>
-								<td><span class="semi">가격  : </span><span id="price_${index.count}"><c:out value="${detail.price}"/></span> 원</td>
+								<td style="height: 20%;"><span class="semi">&nbsp;&nbsp;&nbsp;가격  : </span><span id="price_${index.count}"><c:out value="${detail.price}"/></span> 원</td>
 							</tr>
 						</table>
 						<br/>			
+						<p>
+							총 상품 금액
+							<span style="float: right;"><span id="item_${index.count}"><c:out value="${totalPrice}"/></span> 원</span>
+						</p>
+						<p>
+							총 할인 금액
+							<span style="float: right; color: red;">- <span id="sale_${index.count}"><c:out value="${detail.salePrice}"/></span> 원</span>
+						</p>			
+						<hr/>
+						<c:set var="includeSale" value="${totalPrice - detail.salePrice}"/>
 				</c:forEach>
-				<div class="semi total">총 가격 : <span id="total"><c:out value="${totalPrice}"/></span> 원</div>
+				<div class="semi total">총 가격 : <span id="total"><c:out value="${includeSale}"/></span> 원</div>
 				</div>
 			</div>
 		</div>
