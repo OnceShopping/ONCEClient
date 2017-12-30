@@ -95,7 +95,7 @@ public class OrderController {
 		if (session.getAttribute("loginVO") == null) { // 로그인 안된 경우
 
 			mav.addObject("message", "로그인 후 이용해 주세요.");
-			mav.setViewName("mypage/error");
+			mav.setViewName("login/loginFail");
 
 		} else { // 로그인 된 경우
 			int cantCnt = 0;
