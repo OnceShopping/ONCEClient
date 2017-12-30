@@ -250,7 +250,7 @@ function comma(obj){
 	<section>
 	 <div class="team-app app-pages app-section" style="margin-top: 0px">
 			<div class="col s12" style="text-align: center; vertical-align: middle; margin-bottom: 30px" >
-				<img alt="상표 이미지 ${ storeVO.storeName}" src="/image/${storeVO.imgSaveName }" style="width: 150px; height: 150px; border-radius: 50%;">
+				<img alt="상표 이미지 ${ storeVO.storeName}" src="/image/${storeVO.imgSaveName }" style="width: 157.5px;">
 			</div>
 			<div class="navbar" id="navbar2Main" style="background: #ffffff; border-bottom: #ffffff; box-shadow: none">
 				<div class="container">
@@ -355,54 +355,6 @@ function comma(obj){
 			</li>
 		</ul>
 	</div>
-			<!-- 상단 슬라이더 -->
-		<div class="slider-slick app-pages" style="margin: 0px">
-			<div class="slider-entry">
-				<img src="${ pageContext.request.contextPath }/resources/img/main2.png" alt="">
-				<div class="overlay"></div>
-				<div class="caption">
-					<div class="container">
-						<h2 class="bold">내부 공사 안내</h2>
-						<p class="light">일시: 8/28 ~ 10/14 위치: 2F-A</p>
-						<button class="button">더 보기</button>
-					</div>
-				</div>
-			</div>
-			<div class="slider-entry">
-				<div class="overlay"></div>
-				<img src="${ pageContext.request.contextPath }/resources/img/main3.png" alt="">
-				<div class="caption">
-					<div class="container">
-						<h2 class="bold">겨울 맞이 감사제</h2>
-						<p class="light">11/17 ~ 11/27</p>
-						<button class="button">더 보기</button>
-					</div>
-				</div>
-			</div>
-			<div class="slider-entry">
-				<div class="overlay"></div>
-				<img src="${ pageContext.request.contextPath }/resources/img/main1.png" alt="">
-				<div class="caption">
-					<div class="container">
-						<h2 class="bold">크리스마스 깜짝 이벤트</h2>
-						<p class="light">특별한 당신에게</p>
-						<button class="button">더 보기</button>
-					</div>
-				</div>
-			</div>
-			<div class="slider-entry">
-				<div class="overlay"></div>
-				<img src="${ pageContext.request.contextPath }/resources/img/main4.png" alt="">
-				<div class="caption">
-					<div class="container">
-						<h2 class="bold">신년 맞이 콘서트</h2>
-						<p class="light">일시:1월 1일 장소:1층 메인홀</p>
-						<button class="button">더 보기</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 상단 슬라이더 끝 -->
 		
 		<!-- 인기상품 리스트 -->
 		<div class="tabs-app app-pages app-section" id="mainProduct" style="margin-top: 0px">
