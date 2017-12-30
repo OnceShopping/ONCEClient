@@ -2339,6 +2339,7 @@ footer {
 	position: relative;
 	background-image: url("/image/footer.png");
 	color: #fff;
+	padding-bottom: 25px;
 }
 
 footer h6 {
