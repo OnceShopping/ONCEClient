@@ -179,7 +179,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="generalItem_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ generalitem.price }"/></span>
+                              <c:choose>
+                              		<c:when test="${ generalitem.salePrice ne 0}">
+		                                <span id="generalItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="generalItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -201,7 +208,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="generalItem2_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ generalitem2.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ generalitem2.salePrice ne 0}">
+		                                <span id="generalItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem2.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="generalItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem2.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -223,7 +237,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="generalItem3_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ generalitem3.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ generalitem3.salePrice ne 0}">
+		                                <span id="generalItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem3.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="generalItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem3.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>

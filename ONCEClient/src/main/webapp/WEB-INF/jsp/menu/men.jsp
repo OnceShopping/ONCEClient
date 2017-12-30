@@ -182,7 +182,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="menItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.price }"/></span>
+                                  <c:choose>
+                              		<c:when test="${ menitem.salePrice ne 0}">
+		                                <span id="menItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ menitem.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="menItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ menitem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -204,7 +211,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="menItem2_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem2.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ menitem2.salePrice ne 0}">
+		                                <span id="menItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ menitem2.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="menItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ menitem2.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -226,7 +240,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="menItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem3.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ menitem3.salePrice ne 0}">
+		                                <span id="menItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ menitem3.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="menItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ menitem3.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>

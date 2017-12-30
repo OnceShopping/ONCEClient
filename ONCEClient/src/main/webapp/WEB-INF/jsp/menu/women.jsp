@@ -181,7 +181,14 @@ function settingPrice(obj, count){
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="womenItem_${index.count}"style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ womenitem.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ womenitem.salePrice ne 0}">
+		                                <span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -203,7 +210,14 @@ function settingPrice(obj, count){
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="womenItem2_${index.count}"style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem2.price}"/></span>
+                               <c:choose>
+                              		<c:when test="${ womenitem2.salePrice ne 0}">
+		                                <span id="womenItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem2.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="womenItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem2.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -225,7 +239,14 @@ function settingPrice(obj, count){
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="womenItem3_${index.count}"style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ womenitem3.price }"/></span>
+                              <c:choose>
+                              		<c:when test="${ womenitem3.salePrice ne 0}">
+		                                <span id="womenItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem3.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="womenItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem3.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>

@@ -59,6 +59,7 @@
 .itemStyle{
 	margin-bottom:0px;
 }
+
 </style>
 
 <script src="resources/js/jquery.min.js"></script>
@@ -163,7 +164,7 @@
             <img src="/image/${notice.imgSaveName}" alt="이미지 준비중입니다.">
             <div class="overlay"></div>
             <div class="caption">
-               <div class="container">-
+               <div class="container">
                   <h2 class="bold">${ notice.title }</h2>
                   <a href="${pageContext.request.contextPath}/noticeDetail/${ notice.noticeNo }"><button class="button">더 보기</button></a>
                </div>
@@ -202,7 +203,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                <span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.price }"/></span>
+                              	<c:choose>
+                              		<c:when test="${menitem.salePrice ne 0}">
+		                                <span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+										<span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.price }"/></span>                              			
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                               <br/>
                            </div>
@@ -221,11 +229,19 @@
                               </a>
                               <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
-                                    <span style="color: #9E9E9E;" class="light">${ womenitem.itemName }</span>
+                                    <span style="color: #9E9E9E; class="light">${ womenitem.itemName }</span>
                                  </a>
                               </h6>
-                              <div class="price">
-                                 <span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.price }"/></span>
+                              <div class="price" style=" text-align: center;">
+                              <c:choose>
+                              		<c:when test="${ womenitem.salePrice ne 0}">
+                              		<span class="blinking" style="font-size: 14px; color: red; text-decoration: underline;">[sale]</span>
+		                                <span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                               <br/>
                            </div>
@@ -248,7 +264,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                  <span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
+                              	<c:choose>
+                              		<c:when test="${ kiditem.salePrice ne 0}">
+                              			 <span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                               <br/>
                            </div>
@@ -271,7 +294,14 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                <span id="general_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ general.price }"/></span>
+                              <c:choose>
+                              		<c:when test="${ general.salePrice ne 0}">
+                              			 <span id="general_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ general.salePrice }"/></span>
+                              		</c:when>
+                              		<c:otherwise>
+										<span id="general_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ general.price }"/></span>                              			<span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
