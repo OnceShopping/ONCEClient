@@ -178,10 +178,10 @@
 								<td rowspan="5" colspan="2" style="width: 45%; height: 150px;">
 								<img src="/image/${ detail.imgSaveName }" width="120px;" height="150px;" style="margin-left: auto; margin-right: auto; display: block;">
 								</td>
-								<td><br/><span class="semi">상품 명 : ${detail.itemName}</span></td>
+								<td><br/><span class="semi">상품명 : ${detail.itemName}</span></td>
 							</tr>
 							<tr>
-								<td><span class="semi">SIZE : </span>${detail.size}</td>
+								<td><span class="semi">사이즈 : </span>${detail.size}</td>
 							</tr>
 							<tr>
 								<td><span class="semi">색상  : </span>${detail.color}</td>
