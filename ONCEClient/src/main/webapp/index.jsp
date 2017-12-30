@@ -56,7 +56,9 @@
 #mainProduct, #mainShops {
    margin-top: 0px;
 }
-
+h6{
+	margin-bottom:0px;
+}
 </style>
 
 <script src="resources/js/jquery.min.js"></script>
@@ -189,15 +191,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${menitem.num}">
-                                 <img src="/image/${menitem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${menitem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${menitem.num}">
-                                    ${ menitem.itemName }
+                                   <span style="color: #9E9E9E;" class="light">${ menitem.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5 id="menItem_${ index.count }"><c:out value="${ menitem.price }"/></h5>
+                                 <b><span id="menItem_${ index.count }" style="font-size: 15px;" class="normal"><c:out value="${ menitem.price }"/></span></b>
                               </div>
                               <br/>
                            </div>
@@ -212,15 +214,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
-                                 <img src="/image/${womenitem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${womenitem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
-                                    ${ womenitem.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ womenitem.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5 id="womenItem_${index.count}"><c:out value="${ womenitem.price }"/></h5>
+                                 <span id="womenItem_${index.count}" style="font-size: 15px;" class="normal"><c:out value="${ womenitem.price }"/></span>
                               </div>
                               <br/>
                            </div>
@@ -235,15 +237,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                    ${ kiditem.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ kiditem.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5 id="kidItem_${index.count}"><c:out value="${ kiditem.price }"/></h5>
+                                  <span id="kidItem_${index.count}" style="font-size: 15px;" class="normal"><c:out value="${ kiditem.price }"/></span>
                               </div>
                               <br/>
                            </div>
@@ -258,15 +260,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${general.num}">
-                                 <img src="/image/${general.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${general.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${general.num}">
-                                    ${ general.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ general.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5 id="general_${index.count}"><c:out value="${ general.price }"/></h5>
+                                <span id="general_${index.count}" style="font-size: 15px;" class="normal"><c:out value="${ general.price }"/></span>
                               </div>
                            </div>
                         </div>
