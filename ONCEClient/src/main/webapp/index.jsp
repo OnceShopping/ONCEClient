@@ -196,11 +196,11 @@
                               <a href="${pageContext.request.contextPath}/item/${menitem.num}">
                                  <img src="/image/${menitem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${menitem.num}">
                                    <span style="color: #9E9E9E;" class="light">${ menitem.itemName }</span>
                                  </a>
-                              </h6 class="itemStyle">
+                              </h6>
                               <div class="price">
                                 <span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.price }"/></span>
                               </div>
@@ -219,11 +219,11 @@
                               <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
                                  <img src="/image/${womenitem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
                                     <span style="color: #9E9E9E;" class="light">${ womenitem.itemName }</span>
                                  </a>
-                              </h6 class="itemStyle">
+                              </h6>
                               <div class="price">
                                  <span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.price }"/></span>
                               </div>
@@ -242,11 +242,11 @@
                               <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
                                  <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
                                     <span style="color: #9E9E9E;" class="light">${ kiditem.itemName }</span>
                                  </a>
-                              </h6 class="itemStyle">
+                              </h6>
                               <div class="price">
                                   <span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
                               </div>
