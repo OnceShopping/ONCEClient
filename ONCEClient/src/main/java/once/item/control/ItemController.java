@@ -260,7 +260,6 @@ public class ItemController {
 		List<ItemVO> itemList = service.searchItem(itemName);
 		mav.addObject("itemList", itemList);
 		mav.setViewName("mypage/Search");
-		
 		return mav;
   }
   
