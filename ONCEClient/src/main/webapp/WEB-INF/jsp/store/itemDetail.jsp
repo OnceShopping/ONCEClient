@@ -34,13 +34,7 @@
 		margin-right: 10%;
 		text-align: left;
 	}
-	
-	#share {
-		text-align: right;
-		margin-right: 10%;
-		font-size: large;
-	}
-	
+		
 	#imgDetail {
 		width: 95%;
 		background-color: white;
@@ -75,9 +69,16 @@
 	}
 	
 	#sbmCmt {
-		height: 50px;
-		width: 20%;
-		vertical-align: middle;
+		font-size: inherit;
+         margin-left: 10px;
+         margin-right: 10px;
+         -webkit-border-radius: 28;
+         -moz-border-radius: 28;
+         border-radius: 28px;
+         background-color:#fff;
+         color: #999cff;
+         padding: 5px 30px 5px 30px;
+         border: solid #a8b2ff 2px;
 	}
 	
 	.dltCmt {
@@ -86,6 +87,34 @@
 		display: none;
 		
 	}
+	.wrap{
+     overflow-x: scroll;
+     white-space:nowrap;
+   }
+   .wrap img{
+       width:300px;
+       height:100%;
+   }
+
+	.effect {
+	    display: inline-block;
+	    position: relative;
+	}
+	.effect:after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 
+      inset 0 0 20px #E9E8ED,
+      inset 0 0 20px #E9E8ED,
+      inset 0 0 20px #E9E8ED,
+      inset 0px -5px 20px #fff;
+	}
+	
 </style>
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -108,7 +137,12 @@ var storeName;
 		itName = $('#itName').text(); //아이템 이름
 		storeName = $('#storeName').text(); //매장 이름
 		
-		$('#itemPrice').html(comma(iPrice));
+		// 첫 화면에 표시되는 모든 가격에 comma 설정
+		var settings = document.getElementsByClassName("setting");
+		for(var i=0; i<settings.length; i++){
+			var j = settings[i].innerText;
+			settings[i].innerText=comma(j);
+		}
 		
 		$('#size').attr('disabled', true);
 	    
@@ -157,19 +191,26 @@ var storeName;
 	            success : function(data) {
 	            	$('#sltItemList').val("");
 		            $('#sltItemList').append(data);
-		               
-		            var price = $('#price').val();
-		            var num = parseInt(price);
-		           
+		            	           
+		            //item을 추가할 때마다 발생하는 상품 금액을 정수형으로 바꾸는 로직
+		            var price = $('#itemPrice').text(); //첫 화면에 설정된 금액(comma 존재)
+		            var num = 0;
+
+		            var commaPrice = price.split(",");
+		            for(var j in commaPrice)
+		            	num+=commaPrice[j];
 		            
-		            var totalNum = basePrice.split(",");
+		            //화면에 표시되는 총 구매 금액을 정수형으로 바꾸는 로직
+		            var totalNum = basePrice.split(","); //총금액(comma 존재)
 		        	var addPrice=0;
-		        	
+		        
 		        	for(var i in totalNum)
 		        		addPrice+=totalNum[i];
-		        		        	
-		            var setPrice = parseInt(addPrice)+ num;
-		               
+		        	
+		        	//화면에 표시되는 총 구매 금액과 해당 상품의 상품금액을 더함
+		            var setPrice = parseInt(addPrice)+  parseInt(num);
+		            
+		        	//comma를 설정하여 총 구매 금액에 반영
 		            priceVal = comma(setPrice);
 		            $('#cntPrice').text(priceVal);
 		            idNo = ++cnt;
@@ -427,14 +468,14 @@ var storeName;
 			<div>
 				<input name="itemName" id="itemName" type="hidden" value="${itemContentsVO.itemName}" />
 				<input name="price" id="price" type="hidden" value="${itemContentsVO.price}" />
-				<label>color</label>
+				<label>COLOR</label>
                   <select class="browser-default" id="color" >
                      <option value="">- [필수] color를 선택해 주세요 -</option>
                      	<c:forEach var="color" items="${itemVO.colorList}">
                      		<option value="${color}">${color}</option>
                      	</c:forEach>
                   </select>
-				<label>size</label>
+				<label>SIZE</label>
                   <select class="browser-default" id="size" >
                      <option value="">- [필수] size를 선택해 주세요 -</option>
                      <c:forEach var="size" items="${itemVO.sizeList}">
@@ -447,9 +488,11 @@ var storeName;
 			<ul id="sltItemList">
 			</ul>
 	   </div>
-	   <p style="padding-right: 5px; text-align: right">총 금액 <span id="cntPrice" style="color: red;">0</span> 원</p>
-	   <div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #99d8c9;">
-			<a style="width: 50%; color: #fff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
+	   <p style="padding-right: 5px; text-align: right">총 주문 금액 <span id="cntPrice" style="color: red;">0</span> 원</p>
+	   <div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #fff; border: 1px solid #a8b2ff; float: left; width: 50%;">
+			<a style="width: 50%; color: #a8b2ff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
+		</div>
+		<div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #a8b2ff; float: right; width: 50%;">
 			<a style="width: 50%; color: #fff; padding-left: 8%;" class="w3-bar-item" id="orderList" onclick="buyFunc()">바로 주문하기</a>
 	   </div>
 	   </form>
@@ -459,37 +502,33 @@ var storeName;
 	
 	<section>
 		<!-- 메인 시작 -->
-		<div class="app-pages">
-			<div class="container">
-				<div id="mainImg">
+		<div id="mainImg">
 					<c:forEach items="${ imgList }" var="list" varStatus="status">
 						<c:if test="${status.count eq 1}">
-							<div style="width: 80%; line-height: 100px; margin-left: 10%; margin-right: 10%;">
+							<div style="width: 100%; line-height: 100px;">
 								<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;" >
 							</div>
 						</c:if>
 					</c:forEach>
 				</div>
+			<div class="container" style="margin-top:20px; margin-bottom:20px;">
 				<div id="mainDescription">
-					<h5 id="storeName">${ storeName }</h5>
+					<h6 id="storeName"><span style='color: #9E9E9E; font-style: oblique;'>${ storeName }</span>
+					<a id="kakao-link-btn" href="javascript:share();"><span style='color: #3B1E1E; float: right; font-size: 22px;'><i class="fa fa-share-alt"></i></span></a></h6>
 					<h4><b><span id="itName">${ itemContentsVO.itemName }</span></b></h4>
-					<h5><span id="itemPrice"><c:out value="${ itemContentsVO.price }"/></span> 원
-						<input type="hidden" value="${ itemContentsVO.price }" id="hiddenPrice">
-						<c:if test="${ itemContentsVO.salePrice ne 0 }">
-							<span style="color: red;">
-								&nbsp;<i class="fa fa-long-arrow-right" style="color: #000;"></i>&nbsp;
-								${ itemContentsVO.salePrice } 원
-							</span>
-						</c:if>
+					<h5>
+						<c:choose>
+							<c:when test="${ itemContentsVO.salePrice ne 0}">
+								<span style="text-decoration:line-through; color: #9E9E9E; font-weight: lighter;"class="setting"><c:out value="${ itemContentsVO.price }"/> 원</span>
+								<span style="color: red; margin-left: 10px;" class="setting" id="itemPrice" >${ itemContentsVO.salePrice }</span><span style="font-size:14px;"> 원</span>
+							</c:when>
+							<c:otherwise>
+							<span id="itemPrice" class="setting"><c:out value="${ itemContentsVO.price }"/></span><span style="font-size:14px;"> 원</span>
+							</c:otherwise>
+						</c:choose>
 					</h5>
 				</div>
 			</div>
-		</div>
-		
-		<!-- 공유 -->
-		<div id="share">
-			<a id="kakao-link-btn" href="javascript:share();"><span style='color: #3B1E1E;'><i class="fa fa-share-alt"></i></span></a>
-		</div>
 		<!-- 메인 끝 -->
 		
 		<!-- 상세 시작 -->
@@ -498,81 +537,80 @@ var storeName;
 				<div class="row">
 					<div class="col s12">
 						<ul class="tabs">
-							<li class="tab col s4"><a href="#tabs1">상세 정보</a></li>
-							<li class="tab col s4"><a href="#tabs2">상품평</a></li>
-							<li class="tab col s4"><a href="#tabs3">구매 안내</a></li>
+							<li class="tab col s4"><a href="#tabs1">상품 정보</a></li>
+							<li class="tab col s4"><a href="#tabs2">리뷰</a></li>
+							<li class="tab col s4"><a href="#tabs3">주문 정보</a></li>
 						</ul>
 						<!-- 상세 정보 시작 -->
 						<div id="tabs1">
-							<br />
+							<p style="text-align: left; margin:20px; font-size: 11.5px;">
+								<c:choose>
+									<c:when test="${ empty itemContentsVO.detail }">
+										죄송합니다 상품 상세 정보는 준비 중입니다
+									</c:when>
+									<c:otherwise>
+										${ itemContentsVO.detail }
+									</c:otherwise>
+								</c:choose>							
+							</p>
 							<div class="row">
 								<c:forEach items="${ imgList }" var="list" varStatus="status">
-									<c:if test="${status.count eq 2}">
-										<div style="width: 90%; line-height: 100px; text-align: center; margin-left: auto; margin-right: auto;">
-											<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;"><br/>
+									<c:if test="${status.count eq 2}"> 
+										<div style="width: 90%; line-height: 100px; text-align: center; margin-left: auto; margin-right: auto;" class="effect">
+											<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;" ><br/>
 										</div>
 									</c:if>
 								</c:forEach>
 								<form action="${pageContext.request.contextPath}/store/imgDetail" method="post">
 									<input type="hidden" name="num" value="${ itemContentsVO.num }">
-									<input type="submit" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
+									<input type="submit" id="imgDetail" value="이미지 더 보기+" style="border: 0.5px solid black; padding:5px;"/>
 								</form>
-								<br/><br/>
-								<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
 								<br/>
-								<p style="text-align: left; margin-left: 10px; margin-right: 10px;">
-									${ itemContentsVO.detail }
-									<c:if test="${ itemContentsVO.detail eq null }">
-									죄송합니다 상품 상세 정보는 준비 중입니다
-									</c:if>
-								</p>
-								<br/>
-								<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
-								<br/>
+								<!-- 스토어 정보 -->
+								<hr style="border:3px solid #EEEEEE;">
+								<div style="text-align: left;">
+									<h5 style="font-style: oblique; margin-left:10px; text-decoration: underline;">${storeName}</h5>
+									<div style="margin-top:5px; margin-left:15px; font-size: 11.5px;">
+										대표자 : ${storeVO.ceo}<br/>
+										사업자 등록 번호 : ${storeVO.companyNo }<br/>
+										매장 전화번호 : ${storeVO.phone}
+									</div>
+								</div>
+								<!-- 신상품 -->
+								<hr style="border:3px solid #EEEEEE;">
 								<div id="newItem">
 									<p style="text-align: left; margin-left: 10px; font-size: large;"><b>신상품</b></p>
+									<div class="wrap">
 									<c:forEach items="${ newItemList }" varStatus="status">
 										<c:if test="${ status.index % 2 eq 0 }">
-											<div class="row">
 											<c:forEach items="${ newItemList }" var="newItemList" begin="${ status.index }" end="${ status.count + status.step }">
 												<c:if test="${status.count <= 4}">
-													<div class="col s6">
-														<div class="entry">
-															<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">
-																<div style="width: 100%; line-height: 100px; text-align: center">
-																	<img src="/image/${ newItemList.imgSaveName }" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;">
-																</div>
-															</a>
-															<h6>
-																<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">${ newItemList.itemName }</a>
-															</h6>
-														</div>
-													</div>
+													<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}"><img src="/image/${ newItemList.imgSaveName }" alt="" style="width: 40%; vertical-align: middle; height:auto;"></a>
 												</c:if>
 											</c:forEach>
-											</div>
 										</c:if>
 									</c:forEach>
+									</div>
 								</div>
+								<!-- 신상품 끝 -->
 							</div>
 						</div>
 						<!-- 상세 정보 끝 -->
 						
-						<!-- 상품평 시작 -->
+						<!-- 리뷰 시작 -->
 						<div id="tabs2">
 							<br />
 						    <div class="row">
 							  <!-- 상품평 입력 시작 -->
 						      <div class="input-field col s12" id="cmtTab">
 						      	<form action="" name="addCmt" id="addCmt">
-									<textarea id="insertCmt" class="materialize-textarea" wrap="soft"></textarea>
-							        <label for="comment">상품평을 입력해 주세요</label>
-							        <input type="submit" class="button" id="sbmCmt" value="등록"/>
+									<!-- <textarea id="insertCmt" class="materialize-textarea" wrap="soft"></textarea> -->
+							        <input type="text" placeholder="상품평을 입력해 주세요." id="comment" style="width: 65%; float: left; font-size: 11.5px; margin-left: 5px;"><span style="float: right;"><input type="submit" class="button" id="sbmCmt" value="등록"/></span>
 						      	</form>
 						      </div>
 							  <!-- 상품평 입력 끝 -->
 							  <!-- 상품평 리스트 시작 -->
-						      <div class="col s12">
+						     <!--  <div class="col s12">
 						      	<ul id="cmtList">
 						      		<li>
 						      			<div>댓글 내용</div>
@@ -580,20 +618,30 @@ var storeName;
 						      			<div>float 클리어 부분</div>
 						      		</li>
 						      	</ul>
-						      </div>
+						      </div> -->
 							  <!-- 상품평 리스트 끝 -->
 						    </div>
 						</div>
-						<!-- 상품평 끝 -->
+						<!-- 리뷰 끝 -->
 						
-						<!-- 구매 안내 시작 -->
+						<!-- 주문 정보 시작 -->
 						<div id="tabs3">
 							<br />
-							<div class="row">
-								구매 안내
+							<div class="row" style="text-align: left; margin-left: 10px; margin-right: 10px; font-size: 11.5px;">
+								<b>교환/환불</b><br>
+								상품가치가 현저히 훼손된 경우를 제외한 모든 사유에 대해 환불이 가능합니다.<br>
+								환불요청 가능 기간은 상품 수령 후(수령완료 시점부터) 7일 이내입니다.<br><br>
+								다음의 경우에는 예외적으로 교환 및 환불이 불가능합니다.<br>
+								<ul style="list-style-type: circle;">
+									<li><span style="font-size: 5px;"><i class="fa fa-circle" aria-hidden="true"></i></span> 상품가치가 소비자의 귀책사유로 인해 현저하게 감소한 경우</li>
+									<li><span style="font-size: 5px;"><i class="fa fa-circle" aria-hidden="true"></i></span> 소비자 과실로 인한 옷의 변색(예:착색, 화장품, 오염 등)</li>
+									<li><span style="font-size: 5px;"><i class="fa fa-circle" aria-hidden="true"></i></span> 착용으로 인한 니트류 상품의 늘어남 발생 및 가죽 제품의 주름 발생</li>
+									<li><span style="font-size: 5px;"><i class="fa fa-circle" aria-hidden="true"></i></span> 기타 착용 흔적 : 텍 제거 등</li>
+									<li><span style="font-size: 5px;"><i class="fa fa-circle" aria-hidden="true"></i></span> 구매 확정된 주문의 경우</li>
+								</ul>
 							</div>
 						</div>
-						<!-- 구매 안내 끝 -->
+						<!-- 주문 정보 끝 -->
 					</div>
 				</div>
 			</div>
@@ -605,9 +653,9 @@ var storeName;
 	<!-- 하단 주문 버튼 -->
 	<div class="w3-bottom">
 		<!-- 주문하기 버튼 누르기 이전 -->
-		<div class="w3-bar w3-border w3-xlarge" style="text-align: center; background-color: #99d8c9">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center; background-color: #a8b2ff;">
 			<a href="#orderDetail" style="width: 80%; padding-left: 20%; color: #fff;" class="w3-bar-item">주문하기</a>
-			<a href="#" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-heart-o"></i></a>
+		<!-- 	<a href="#" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-heart-o"></i></a> -->
 		</div>
 	</div>
 
