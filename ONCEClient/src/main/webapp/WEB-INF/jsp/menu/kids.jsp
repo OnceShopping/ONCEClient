@@ -61,7 +61,9 @@
 #mainProduct, #mainShops {
    margin-top: 50px;
 }
-
+.itemStyle{
+	margin-bottom:0px;
+}
 </style>
 
 <script type="text/javascript">
@@ -137,6 +139,7 @@
 	 	}	
 	 	return array.join(",");
 	 }
+	 
 </script>
 
 </head>
@@ -153,6 +156,7 @@
          <div class="container">
             <div class="pages-title">
                <h3 class="bold">아동 의류</h3>
+               <img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
             </div>
             <div class="row">
                <div class="col s12">
@@ -168,15 +172,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                    ${ kiditem.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ kiditem.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5><span id="kidItem1_${index.count}"><c:out value="${ kiditem.price }"/></span></h5>
+                                 <span id="kidItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
                               </div>
                            </div>
                         </div>
@@ -190,15 +194,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem2.num}">
-                                 <img src="/image/${kiditem2.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${kiditem2.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${kiditem2.num}">
-                                    ${ kiditem2.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ kiditem2.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5><span id="kidItem2_${index.count }"><c:out value="${ kiditem2.price }"/></span></h5>
+                                 <span id="kidItem2_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem2.price }"/></span>
                               </div>
                            </div>
                         </div>
@@ -212,15 +216,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem3.num}">
-                                  <img src="/image/${kiditem3.imgSaveName}" alt="이미지 준비중입니다.">
+                                  <img src="/image/${kiditem3.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${kiditem3.num}">
-                                    ${ kiditem3.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ kiditem3.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5><span id="kidItem3_${index.count}"><c:out value="${ kiditem3.price }"/></span></h5>
+                                 <span id="kidItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem3.price }"/></span>
                               </div>
                            </div>
                         </div>
@@ -238,17 +242,18 @@
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	</footer>
-	
+		
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
-	<!-- 하단 navbar 끝 -->	
+	<!-- 하단 navbar 끝 -->
+
 </body>
 </html>
