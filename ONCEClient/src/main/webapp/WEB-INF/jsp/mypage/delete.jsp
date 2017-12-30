@@ -52,6 +52,19 @@
 		.light {
 			font-weight: 300
 		}
+		
+		input[type="button"], input[type="submit"] {
+			font-size: inherit;
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}
 	</style>
 	
 	<script
@@ -63,14 +76,6 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#backBtn').click(function() {
-				location.href = '${pageContext.request.contextPath}';
-			});
-		});
-	</script>
 </head>
 <body>
 	<header>
@@ -84,14 +89,14 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">회원 탈퇴</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
-				<p class="light">회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
+				<p class="normal">회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/delete" method="post">
 				<input type="hidden" name="id" value="${customerVO.id}"/>
-				<div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
-					<input type="submit" class="button" value="확인" style="width: 20%"/>
-					<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
+				<div style="text-align: center; margin-top: 70px; margin-bottom: 50px;">
+					<input type="submit" class="button" value="확인"/>
+					<input type="button" class="button" id="backBtn" value="취소" onclick="history.go(-3)"/>
 				</div>
 				</form>
 			</div>
@@ -106,13 +111,13 @@
 	<!-- footer 끝 -->
 
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
-			<a href="${pageContext.request.contextPath}" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-user"></i></a>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

@@ -133,7 +133,9 @@
 					
 				}
 			});
-		}	
+		}
+		
+		$('#3months').trigger('click');
 	});
 	
 	function today(){
@@ -163,7 +165,7 @@
 				if(item.date!=distinct)
 					row += "<div class='dateStyle'>"+item.date+"</div>";			
 			}else
-				row += "<div  class='dateStyle'>"+item.date+"</div>";
+				row += "<div  class='dateStyle'>주문일자: "+item.date+"</div>";
 			
 			row += "<div onclick='move("+item.orderNo+")' class='orderTable'>";
 			row += "<table id='order_"+item.orderNo+"'>";
@@ -425,13 +427,13 @@
 	<!-- footer 끝 -->
 
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%;" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

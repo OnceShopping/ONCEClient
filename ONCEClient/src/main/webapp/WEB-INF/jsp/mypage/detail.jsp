@@ -52,6 +52,19 @@
 		.light {
 			font-weight: 300
 		}
+		
+		input[type="button"], input[type="submit"] {
+			font-size: inherit;
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}		
 	</style>
 	
 	<script
@@ -122,13 +135,6 @@
 		            $("#pwOdChk").css("background-color", "#FFCECE");
 		        }
 		    }
-		 
-			$(document).ready(function() {
-				$('#backBtn').click(function() {
-					location.href = '${pageContext.request.contextPath}';
-				});
-			});
-	
 </script>
 </head>
 <body>
@@ -143,7 +149,7 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">${customerVO.name} 님의 회원 정보</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
 				<form action="${pageContext.request.contextPath}/mypage/detail/${customerVO.id}" method="get">
 					<div class="input-field">
@@ -170,9 +176,9 @@
 						<input type="text" name="pwOdChk" id="pwOdChk" class="validate" oninput="checkOdPwd()"/>
 						<label for="pwOdChk">order password again</label>
 					</div>
-					<div style="text-align: center">
-						<input type="submit" id="udtBtn" class="button" value="수정" style="width: 20%"/>
-						<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
+					<div style="text-align: center; margin-top: 70px;">
+						<input type="submit" id="udtBtn" class="button" value="수정"/>
+						<input type="button" class="button" id="backBtn" value="취소" onclick="history.go(-2)"/>
 					</div>
 				</form>
 				<br/><br/>
@@ -191,13 +197,13 @@
 	<!-- footer 끝 -->
 
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
-			<a href="${pageContext.request.contextPath}" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-user"></i></a>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
