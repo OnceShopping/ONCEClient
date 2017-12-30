@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
  
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
@@ -29,10 +30,33 @@
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	
 	<style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
-}
+	.normal {
+	   font-weight: 400
+	}
+	
+	.bold {
+	   font-weight: 700
+	}
+	
+	.bolder {
+	   font-weight: 800
+	}
+	
+	.light {
+	   font-weight: 300
+	}
+	
+	.menuSpace {
+		padding: 2px;
+		background-color: #e5e5e5;
+	}
+	
+	table i {
+		color: #fff;
+		font-size: 16pt !important;
+		-webkit-text-stroke: 1px #000;
+	}
+	
 </style>
 
 </head>
@@ -48,9 +72,10 @@
 	<div class="table-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>My Page</h3>
+				<h3 class="bold">My Page</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
-			<table class="">
+			<table class="normal">
 				<tbody>
 				<tr>
 						<td><a href="${pageContext.request.contextPath}/mypage/likeStore"><i class="fa fa-star"></i>&nbsp;&nbsp;매장 즐겨찾기</a></td>
