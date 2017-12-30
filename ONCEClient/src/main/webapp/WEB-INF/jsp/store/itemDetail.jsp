@@ -518,7 +518,7 @@ var storeName;
 					<h5>
 						<c:choose>
 							<c:when test="${ itemContentsVO.salePrice ne 0}">
-								<span style="text-decoration:line-through; color: #9E9E9E; font-weight: lighter;"class="setting"><c:out value="${ itemContentsVO.price }"/> 원</span>
+								<span style="text-decoration:line-through; color: #9E9E9E; font-weight: lighter;"><span class="setting"><c:out value="${ itemContentsVO.price }"/></span><span style="font-size:14px;"> 원</span></span>
 								<span style="color: red; margin-left: 10px;" class="setting" id="itemPrice" >${ itemContentsVO.salePrice }</span><span style="font-size:14px;"> 원</span>
 							</c:when>
 							<c:otherwise>
