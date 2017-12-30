@@ -159,7 +159,6 @@ public class ItemController {
 	@RequestMapping(value="/item/{num}", method = RequestMethod.GET)
 	public ModelAndView indexItemDetail(@PathVariable int num, ItemContentsVO itemContentsVO) {
 		itemContentsVO = service.selectOneItem(num);
-		System.out.println("index_itemContentsVO: " + itemContentsVO);
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
 		List<ItemImgVO> imgList = service.selectByNum(num);
 		List<ItemVO> newItemList = service.selectStoreMainItem(itemContentsVO.getStoreNo());
@@ -176,6 +175,9 @@ public class ItemController {
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 		
+		//스토어 정보를 알아오기 위함
+		StoreVO storeVO = Sservice.selectOneStore(storeName);
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("itemContentsVO", itemContentsVO);
@@ -183,6 +185,7 @@ public class ItemController {
 		mav.addObject("storeName", storeName);
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
+		mav.addObject("storeVO", storeVO);
 		
 		Gson gson = new Gson();
 		String itemJSON = gson.toJson(itemVO);
