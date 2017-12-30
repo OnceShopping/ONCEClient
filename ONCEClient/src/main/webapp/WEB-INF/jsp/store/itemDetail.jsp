@@ -101,20 +101,19 @@
 	    position: relative;
 	}
 	.effect:after {
-    position: absolute;
-    display: block;
-    content: "";
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: 
-      inset 0 0 20px #E9E8ED,
-      inset 0 0 20px #E9E8ED,
-      inset 0 0 20px #E9E8ED,
-      inset 0px -5px 20px #fff;
+	    position: absolute;
+	    display: block;
+	    content: "";
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    box-shadow: 
+	      inset 0 0 20px #E9E8ED,
+	      inset 0 0 20px #E9E8ED,
+	      inset 0 0 20px #E9E8ED,
+	      inset 0px -5px 20px #fff;
 	}
-	
 </style>
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -546,7 +545,7 @@ var storeName;
 							<p style="text-align: left; margin:20px; font-size: 11.5px;">
 								<c:choose>
 									<c:when test="${ empty itemContentsVO.detail }">
-										죄송합니다 상품 상세 정보는 준비 중입니다
+										죄송합니다 상품 상세 정보는 준비 중입니다.
 									</c:when>
 									<c:otherwise>
 										${ itemContentsVO.detail }
@@ -567,17 +566,20 @@ var storeName;
 								</form>
 								<br/>
 								<!-- 스토어 정보 -->
-								<hr style="border:3px solid #EEEEEE;">
+								<hr style="border:3px solid #EEEEEE; margin-bottom: 7px;">
 								<div style="text-align: left;">
+									<span style="margin-left: 10px; font-weight: bold;">스토어 정보</span>
+									<hr style="border:1px solid #EEEEEE; margin-top: 7px;">
 									<h5 style="font-style: oblique; margin-left:10px; text-decoration: underline;">${storeName}</h5>
 									<div style="margin-top:5px; margin-left:15px; font-size: 11.5px;">
-										대표자 : ${storeVO.ceo}<br/>
-										사업자 등록 번호 : ${storeVO.companyNo }<br/>
-										매장 전화번호 : ${storeVO.phone}
+										<i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;&nbsp;${storeVO.ceo}<br/>
+										<i class="fa fa-building-o" aria-hidden="true"></i>&nbsp;&nbsp;${storeVO.companyNo }<br/>
+										<i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;&nbsp;주중, 주말 10:00 AM ~ 5:00 PM <br/>
+							 			<i class="fa fa-volume-control-phone" aria-hidden="true"></i>&nbsp;&nbsp;${storeVO.phone}
 									</div>
 								</div>
 								<!-- 신상품 -->
-								<hr style="border:3px solid #EEEEEE;">
+								<hr style="border:3px solid #EEEEEE; margin-bottom: 7px;">
 								<div id="newItem">
 									<p style="text-align: left; margin-left: 10px; font-size: large;"><b>신상품</b></p>
 									<div class="wrap">
