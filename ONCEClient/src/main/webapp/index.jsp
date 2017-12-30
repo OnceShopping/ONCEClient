@@ -56,7 +56,9 @@
 #mainProduct, #mainShops {
    margin-top: 0px;
 }
-
+.itemStyle{
+	margin-bottom:0px;
+}
 </style>
 
 <script src="resources/js/jquery.min.js"></script>
@@ -144,6 +146,9 @@
 		return array.join(",");
 	}
 	
+	function login(){
+		alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
+	}
 </script>
 </head>
 <body>
@@ -189,15 +194,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${menitem.num}">
-                                 <img src="/image/${menitem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${menitem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${menitem.num}">
-                                    ${ menitem.itemName }
+                                   <span style="color: #9E9E9E;" class="light">${ menitem.itemName }</span>
                                  </a>
-                              </h6>
+                              </h6 class="itemStyle">
                               <div class="price">
-                                 <h5 id="menItem_${ index.count }"><c:out value="${ menitem.price }"/></h5>
+                                <span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.price }"/></span>
                               </div>
                               <br/>
                            </div>
@@ -212,15 +217,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
-                                 <img src="/image/${womenitem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${womenitem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${womenitem.num}">
-                                    ${ womenitem.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ womenitem.itemName }</span>
                                  </a>
-                              </h6>
+                              </h6 class="itemStyle">
                               <div class="price">
-                                 <h5 id="womenItem_${index.count}"><c:out value="${ womenitem.price }"/></h5>
+                                 <span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.price }"/></span>
                               </div>
                               <br/>
                            </div>
@@ -235,15 +240,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
                               <h6>
                                  <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
-                                    ${ kiditem.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ kiditem.itemName }</span>
                                  </a>
-                              </h6>
+                              </h6 class="itemStyle">
                               <div class="price">
-                                 <h5 id="kidItem_${index.count}"><c:out value="${ kiditem.price }"/></h5>
+                                  <span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
                               </div>
                               <br/>
                            </div>
@@ -258,15 +263,15 @@
                         <div class="col s6">
                            <div class="entry">
                               <a href="${pageContext.request.contextPath}/item/${general.num}">
-                                 <img src="/image/${general.imgSaveName}" alt="이미지 준비중입니다.">
+                                 <img src="/image/${general.imgSaveName}" alt="이미지 준비중입니다." style="border-radius: 5px;">
                               </a>
-                              <h6>
+                              <h6 class="itemStyle">
                                  <a href="${pageContext.request.contextPath}/item/${general.num}">
-                                    ${ general.itemName }
+                                    <span style="color: #9E9E9E;" class="light">${ general.itemName }</span>
                                  </a>
                               </h6>
                               <div class="price">
-                                 <h5 id="general_${index.count}"><c:out value="${ general.price }"/></h5>
+                                <span id="general_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ general.price }"/></span>
                               </div>
                            </div>
                         </div>
@@ -315,10 +320,25 @@
 	<div class="w3-bottom" style="background-color: #d0c5ff;">
 		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
 			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="#" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+				</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
+			</c:otherwise>
+			</c:choose>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>				
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
