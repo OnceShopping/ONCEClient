@@ -16,4 +16,10 @@ public class CustomerVO {
 
 	private boolean autoLogin;
 	private boolean saveId;
+	
+	//인증
+	private String approvalStatus;
+	private String approvalKey;
+	
+	private String email;
 }

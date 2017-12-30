@@ -126,7 +126,7 @@ public class ItemController {
 		return "menu/women";
 	}
 	
-	@RequestMapping("/menu/kid")
+	@RequestMapping("/menu/kids")
 	public String kidItemList (Model model) throws IOException {
 		List<ItemVO> kidItemList = service.selectKidItemList();
 		model.addAttribute("kidItemList", kidItemList);
@@ -137,7 +137,7 @@ public class ItemController {
 		List<ItemVO> kidItemList3 = service.selectKidItemList3();
 		model.addAttribute("kidItemList3", kidItemList3);
 		
-		return "menu/kid";
+		return "menu/kids";
 	}
 	
 	@RequestMapping("/menu/general")
@@ -245,5 +245,31 @@ public class ItemController {
 	  mav.addObject("itemName", itemName);
 	            
 	  return mav;
+	}
+
+	@RequestMapping(value="/item/serach", method = RequestMethod.GET)
+	public ModelAndView searchItemPage(ModelAndView mav) {
+		
+		mav.setViewName("mypage/Search");
+		return mav;
+	}
+	
+	@RequestMapping(value="/item/search/{itemName}")
+	public ModelAndView searchItem(ModelAndView mav, @PathVariable String itemName) {
+		
+		List<ItemVO> itemList = service.searchItem(itemName);
+		mav.addObject("itemList", itemList);
+		mav.setViewName("mypage/Search");
+		
+		return mav;
+  }
+  
+	@RequestMapping(value="/store/imgDetail", method = RequestMethod.POST)
+	public ModelAndView imgDetail(@RequestParam int num, ModelAndView mav) {
+		List<ItemImgVO> imgList = service.selectImgByNum(num);
+		
+		mav.setViewName("store/imgDetail");
+		mav.addObject("imgList", imgList);
+		return mav;
 	}
 }

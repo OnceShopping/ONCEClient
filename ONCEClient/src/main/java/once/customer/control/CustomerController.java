@@ -9,8 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,20 +71,22 @@ public class CustomerController {
 			session.invalidate();
 		}
 		CustomerVO loginVO = service.login(customer);
-
 		if (loginVO == null) {
-
+ 
 			model.addAttribute("message", "Please check your ID or Password");
 			returnURL = "login/loginFail";
 
+		} else if(!loginVO.getApprovalStatus().equals("true")) {
+			model.addAttribute("message", "이메일에서 회원가입 인증을 승인하십시오.");
+			returnURL = "login/loginFail";
 		} else {
 			loginVO.setAutoLogin(customer.isAutoLogin());
 			loginVO.setSaveId(customer.isSaveId());
 
 			session.setAttribute("loginVO", loginVO);
-
+			
 			model.addAttribute("message", "로그인이 성공적으로 되었습니다. 환영합니다!");
-
+			
 			if (loginVO.isSaveId()) {
 				Cookie sCookie = new Cookie("saveId", loginVO.getId()); // id저장
 				sCookie.setMaxAge(60 * 60 * 24 * 14); // 단위(s) | 14일
@@ -196,11 +196,11 @@ public class CustomerController {
 	}
     
   
-  // 패스워드 체크 페이지
-	@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
-	public String checkForm() {
-	 return "mypage/check";
-  }
+	// 패스워드 체크 페이지
+		@RequestMapping(value = "/mypage/check", method = RequestMethod.GET)
+		public String checkForm() {
+		return "mypage/check";
+	}
 
 	// 패스워드 체크 처리
 	@RequestMapping(value = "/mypage/check", method = RequestMethod.POST)
@@ -262,23 +262,42 @@ public class CustomerController {
 
 	@RequestMapping(value = "/signup/signupMain", method = RequestMethod.POST)
 	public String signupMain(@Valid CustomerVO customerVO) {
-		System.out.println("customer테스트 " + customerVO);
 		service.join(customerVO);
+		System.out.println("customer테스트 " + customerVO);
 		return "signup/signupSuccess";
 	}
 
 	// 회원가입 - 가입 완료
 	@RequestMapping("/signup/signupSuccess")
-	public String signupSuccess() {
+	public String signupSuccess(@Valid CustomerVO customerVO) {
 		return "signup/signupSuccess";
 	}
 
-	// 회원가입 - 가입 완료
+	// 회원가입 - 아이디 찾기
 	@RequestMapping("/signup/findId")
-	public String findId() {
+	public String findId() throws Exception{
 		return "signup/findId";
 	}
 
+	// 회원가입 - 아이디 찾기 완료
+	@RequestMapping(value = "/signup/findIdSuccess", method = RequestMethod.POST)
+	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
+		md.addAttribute("id", service.findId(response, email));
+		return "/signup/findIdSuccess";
+	}
+	
+	// 회원가입 - 패스워드 찾기
+	@RequestMapping(value = "/signup/findPwForm")
+	public String findPwForm() throws Exception {
+		return "/signup/findPwForm";
+	}
+
+	// 회원가입 - 패스워드 찾기 완료
+	@RequestMapping(value = "/signup/findPw", method = RequestMethod.POST)
+	public void findPw(@ModelAttribute CustomerVO customer, HttpServletResponse response) throws Exception {
+		service.findPw(response, customer);
+	}
+	
 	// 회원가입 - 아이디 중복 체크
 	@RequestMapping(value = "/signup/checkId", method = RequestMethod.GET)
 	@ResponseBody
@@ -287,14 +306,18 @@ public class CustomerController {
 		return service.checkId(id);
 	}
 	
-	/*
-	 * // email
-	 * 
-	 * @RequestMapping(value="emailConfirm", method=RequestMethod.GET) public String
-	 * emailConfirm(String key, Model model){ try {
-	 * service.emailConfirm(customerVO); model.addAttribute("check", true); } catch
-	 * (Exception e) { model.addAttribute("check", false); } return "emailConfirm";
-	 * }
-	 */
+	// 회원가입 - 이메일 중복 체크
+	@RequestMapping(value = "/signup/checkEmail", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean checkEmail(@RequestParam(value = "email") String email) {
+		System.out.println(email);
+		return service.checkEmail(email);
+	}
+	
+	// 회원 인증
+	@RequestMapping(value = "/approvalCustomer", method = RequestMethod.POST)
+	public void approvalCustomer(@ModelAttribute CustomerVO customer, HttpServletResponse response) throws Exception{
+		service.approvalCustomer(customer, response);
+	}
 
 }

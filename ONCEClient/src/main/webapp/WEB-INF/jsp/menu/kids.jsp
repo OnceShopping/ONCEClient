@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,17 +28,117 @@
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/lightbox.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.filterizr.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/custom-portfolio.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 <style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
+.normal {
+   font-weight: 400
 }
+
+.bold {
+   font-weight: 700
+}
+
+.bolder {
+   font-weight: 800
+}
+
+.light {
+   font-weight: 300
+}
+
+#tabs1, #tabs2, #tabs3, #tabs4 {
+   text-align: center;
+}
+
+
+.row .col .s6 .entry img {
+   width: 80% !important;
+   margin-left: auto !important;
+   margin-right: auto !important;
+}
+
+#mainProduct, #mainShops {
+   margin-top: 50px;
+}
+
 </style>
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		<c:forEach var="kiditem" items="${ kidItemList }" varStatus="index">
+			settingPrice($('#kidItem1_'+${index.count}), ${index.count});
+		</c:forEach>
+		<c:forEach var="kiditem" items="${ kidItemList2 }" varStatus="index">
+			settingPrice($('#kidItem2_'+${index.count}), ${index.count});
+		</c:forEach>
+		<c:forEach var="kiditem" items="${ kidItemList3 }" varStatus="index">
+			settingPrice($('#kidItem3_'+${index.count}), ${index.count});
+		</c:forEach>
+	});
+	
+	
+	function settingPrice(obj, count){
+		
+		var val = obj.text();
+		var price = comma(val);
+		
+		$(obj).html(price);
+	}
+
+	 //comma를 설정하는 로직
+	 function comma(obj){
+	 	
+	 	var num = obj.toString(); 
+	 	var array=[];
+	 	var replay = parseInt((num.length)%3);
+	 	var routine = parseInt((num.length+2)/3);
+	 			
+	 	if(replay==1){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,1);
+	 			else if(i==1)
+	 				sample = num.substr(1,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+1, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}		
+	 	else if(replay==2){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,2);
+	 			else if(i==1)
+	 				sample = num.substr(2,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+2, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}
+	 	else{
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,3);
+	 			else
+	 				sample = num.substr((i*3), 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}	
+	 	return array.join(",");
+	 }
+</script>
+
 </head>
 <body>
 
@@ -48,93 +149,88 @@
 	</header>
 	
 	<section>
-	<div class="portfolio portfolio-card column2 app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-				<h3>아동복</h3>
-			</div>
-			<ul class="portfolio-filter">
-				<li data-filter="all" class="active">전체</li>
-				<li data-filter="1">상의</li>
-				<li data-filter="2">하의</li>
-				<li data-filter="3">ACC</li>
-			</ul>
-			<div class="portfolio-item">
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/kids1.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids1.jpg" alt=""></a>
-						<h5>네이비 패딩</h5>
-						<p>199,900원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/kids2.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids2.jpg" alt=""></a>
-						<h5>헨리넥 셔츠</h5>
-						<p>88,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/kids3.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids3.jpg" alt=""></a>
-						<h5>케이블 니트</h5>
-						<p>98,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="1">
-						<a href="${pageContext.request.contextPath}/resources/img/kids4.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids4.jpg" alt=""></a>
-						<h5>카라티</h5>
-						<p>78,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/kids5.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids5.jpg" alt=""></a>
-						<h5>블랙 팬츠</h5>
-						<p>78,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/kids6.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids6.jpg" alt=""></a>
-						<h5>베이지 팬츠</h5>
-						<p>78,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/kids7.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids7.jpg" alt=""></a>
-						<h5>블링 스커트</h5>
-						<p>98,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="2">
-						<a href="${pageContext.request.contextPath}/resources/img/kids8.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids8.jpg" alt=""></a>
-						<h5>로우 데님</h5>
-						<p>88,000원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/kids9.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids9.jpg" alt=""></a>
-						<h5>클래식 벨트</h5>
-						<p>38,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/kids10.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids10.jpg" alt=""></a>
-						<h5>네이비 밴드</h5>
-						<p>9,900원</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/kids11.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids11.jpg" alt=""></a>
-						<h5>네이비 비니</h5>
-						<p>38,000원</p>
-					</div>
-					<div class="col s6 filtr-item" data-category="3">
-						<a href="${pageContext.request.contextPath}/resources/img/kids12.jpg" data-lightbox="image-1"><img src="${pageContext.request.contextPath}/resources/img/kids12.jpg" alt=""></a>
-						<h5>토끼 인형</h5>
-						<p>9,900원</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="tabs-app app-pages app-section" id="mainProduct">
+         <div class="container">
+            <div class="pages-title">
+               <h3 class="bold">아동 의류</h3>
+            </div>
+            <div class="row">
+               <div class="col s12">
+                  <ul class="tabs">
+                     <li class="tab col s3"><a href="#tabs1">전체</a></li>
+                     <li class="tab col s3"><a href="#tabs2">상의</a></li>
+                     <li class="tab col s3"><a href="#tabs3">하의</a></li>
+                  </ul>
+                  <div id="tabs1">
+                     <br />
+                     <div class="row">
+                      <c:forEach var="kiditem" items="${ kidItemList }" varStatus="index">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
+                                 <img src="/image/${kiditem.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${kiditem.num}">
+                                    ${ kiditem.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5><span id="kidItem1_${index.count}"><c:out value="${ kiditem.price }"/></span></h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach> 
+                     </div>
+                  </div>
+                  <div id="tabs2">
+                     <br />
+                     <div class="row">
+                     <c:forEach var="kiditem2" items="${ kidItemList2 }" varStatus="index">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${kiditem2.num}">
+                                 <img src="/image/${kiditem2.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${kiditem2.num}">
+                                    ${ kiditem2.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5><span id="kidItem2_${index.count }"><c:out value="${ kiditem2.price }"/></span></h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach>
+                     </div>
+                  </div>
+                  <div id="tabs3">
+                     <br />
+                     <div class="row">
+                     <c:forEach var="kiditem3" items="${ kidItemList3 }" varStatus="index">
+                        <div class="col s6">
+                           <div class="entry">
+                              <a href="${pageContext.request.contextPath}/item/${kiditem3.num}">
+                                  <img src="/image/${kiditem3.imgSaveName}" alt="이미지 준비중입니다.">
+                              </a>
+                              <h6>
+                                 <a href="${pageContext.request.contextPath}/item/${kiditem3.num}">
+                                    ${ kiditem3.itemName }
+                                 </a>
+                              </h6>
+                              <div class="price">
+                                 <h5><span id="kidItem3_${index.count}"><c:out value="${ kiditem3.price }"/></span></h5>
+                              </div>
+                           </div>
+                        </div>
+                        </c:forEach>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
 	</section>
 	
 	<footer>

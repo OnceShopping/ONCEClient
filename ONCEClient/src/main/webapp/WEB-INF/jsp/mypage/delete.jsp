@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -89,7 +89,7 @@
 				<p class="light">회원 탈퇴 시 모든 구매,주문 내역 및 찜 목록이 삭제되며 이는 다시 복구할 수 없습니다.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/delete" method="post">
 				<input type="hidden" name="id" value="${customerVO.id}"/>
-				<div style="text-align: center">
+				<div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
 					<input type="submit" class="button" value="확인" style="width: 20%"/>
 					<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
 				</div>
@@ -108,11 +108,11 @@
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
 		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
 			<a href="${pageContext.request.contextPath}" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-user"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a> 
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

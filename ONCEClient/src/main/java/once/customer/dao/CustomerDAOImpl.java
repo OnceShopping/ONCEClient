@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import once.customer.vo.CustomerVO;
 
@@ -24,7 +25,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		sqlSession.insert("once.customer.dao.CustomerDAO.join", customer);
 	}
 	
-	/**
+	/** 
 	 * customer 로그인
 	 * @param customer
 	 * @return
@@ -90,6 +91,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public void deleteCustomer(String id) {
 		sqlSession.delete("once.customer.dao.CustomerDAO.deleteCustomer", id);
 	}
+	
+	@Override
+	public boolean checkEmail(String email) {
+		CustomerVO customer = sqlSession.selectOne("once.customer.dao.CustomerDAO.selectOneCustomer2", email);
+		System.out.println(customer);
+		if(customer==null)
+			return false;
+		else
+			return true;
+	}
 
 	@Override
 	public boolean checkId(String id) {
@@ -99,6 +110,23 @@ public class CustomerDAOImpl implements CustomerDAO {
 			return false;
 		else
 			return true;
+	}
+
+	@Transactional
+	@Override
+	public int approvalCustomer(CustomerVO customer) {
+		return sqlSession.update("once.customer.dao.CustomerDAO.approvalCustomer", customer);
+	}
+
+	@Override
+	public String findId(String email) {
+		return sqlSession.selectOne("once.customer.dao.CustomerDAO.findId", email);
+	}
+
+	@Transactional
+	@Override
+	public int updatePw(CustomerVO customer) {
+		return sqlSession.update("once.customer.dao.CustomerDAO.updatePw", customer);
 	}
 	
 

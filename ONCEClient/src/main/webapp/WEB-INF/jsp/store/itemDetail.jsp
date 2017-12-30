@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="HandheldFriendly" content="True">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
@@ -91,11 +93,23 @@
 <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
- 
-<script>	
+ <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
+var iPrice=0;
+var itName;
+var storeName;
+
 	$(document).ready(function() {
+		
 		var cnt = 0;
-			    
+		var priceVal=0;			
+		
+		iPrice = $('#itemPrice').text();
+		itName = $('#itName').text(); //아이템 이름
+		storeName = $('#storeName').text(); //매장 이름
+		
+		$('#itemPrice').html(comma(iPrice));
+		
 		$('#size').attr('disabled', true);
 	    
 	    $('#color').change(function() {
@@ -106,10 +120,30 @@
 	       var sltColor = $('#color').val();
 	       var sltSize = $('#size').val();
 	       var itemName = $('#itemName').val();
+	       var basePrice = $('#cntPrice').text();
 	       
 	       var idNo = cnt;      
+
+	       //기존에 추가한 상품을 중복으로 추가하는 경우
+	       var dbcheck=false;
+
+	       for(var i=0; i<idNo; i++){
+	    	   if(sltColor==$('#color_'+i).val()){
+	    		   if(sltSize==$('#size_'+i).val()){
+	    			   alert('동일한 상품이 존재합니다. 아래에 존재하는 상품을 확인해주세요.');
+	    			   dbcheck=true;
+	    			
+		    			//초기화 
+		   				$('#color').val('');
+		   				$('#size').val('');
+		   				$('#size').attr('disabled', true);		
+	    		   }
+	    	   }
+	       }
 	       
-	       if(sltColor != '') {
+	       
+	       
+	       if((sltColor != '')&&(dbcheck==false)) {
 	                    
 			$.ajax({
 	            url : "${ pageContext.request.contextPath }/store/itemDetail",
@@ -125,101 +159,32 @@
 		            $('#sltItemList').append(data);
 		               
 		            var price = $('#price').val();
-		            var num = parseInt(price, 10);
-		            var addPrice = 0;
+		            var num = parseInt(price);
+		           
+		            
+		            var totalNum = basePrice.split(",");
+		        	var addPrice=0;
+		        	
+		        	for(var i in totalNum)
+		        		addPrice+=totalNum[i];
+		        		        	
+		            var setPrice = parseInt(addPrice)+ num;
 		               
-		            for(var i = 0; i <= idNo; i++) {
-		            	addPrice = addPrice + num;
-		            }
-		               
-		            $('#cntPrice').text(addPrice);
+		            priceVal = comma(setPrice);
+		            $('#cntPrice').text(priceVal);
 		            idNo = ++cnt;
+		           
 	            }
-	            });
-	
-				/*
-               $('#sltItemList').val("");
-               $('#sltItemList').append(
-	            	'<li>' +
-	            		'<div class="sltItem">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].itemName" value="${ itemName }">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].delete" id="delete_'+'${idNo}" value="false">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].color" value="${ sltColor }">' +
-	            	    	'<input type="hidden" name="itemDetailList[' + idNo + '].size" value="${ sltSize }">' +
-	            	    	'<a href="" class="removeItem" id="rmv' + idNo + '"><i class="fa fa-times"></i></a>' +
-	            			'<br/>' +
-	            			sltColor + ' / ' + sltSize +
-	            			'<br/>' +
-	            		        '<span><a href="" id="cntMinus' + idNo + '"><i class="fa fa-minus-square-o" style="font-size: large;"></i></a></span>' +
-	            		        '<input type="number" name="itemDetailList[' + idNo + '].count" value="1" class="cntItem" id="cnt${idNo}" style="text-align: center;"/>' +
-	            		        '<span><a href="" id="cntPlus' + idNo + '"><i class="fa fa-plus-square-o" style="font-size: large;"></i></a></span>' +
-	
-	            	    '</div>' +
-	            	'</li>');
-               
-               var price = $('#price').val();
-               var num = parseInt(price, 10);
-               var addPrice = 0;
-               
-               for(var i = 0; i <= idNo; i++) {
-            	   addPrice = addPrice + num;
-               }
-               */
-               
-               
-               $('#cntPrice').text(addPrice);
-               idNo = ++cnt;
-	            
+	       	});
+
 				//초기화 
 				$('#color').val('');
 				$('#size').val('');
-				$('#size').attr('disabled', true);
+				$('#size').attr('disabled', true);		
 			}
-
- 			$('#rmv' + idNo).click(function() {
-               var price = $('#price').val();
-               var num = parseInt(price, 10);
-               var addPrice = 0;
-               
-               for(var i = 0; i <= idNo; i++) {
-            	   addPrice = addPrice - num;
-               }
-               
-               $('#cntPrice').text(addPrice);
-	               
-			   $(this).closest('li').remove();
-			
-			   return false;
-			}); 
- 			
-		    $('#cntPlus' + idNo).click(function(e) {
-		    	e.preventDefault();
-		    	var num = $('#cnt' + idNo).val();
-		    	num++;
-		    	
-		    	$('#cnt' + idNo).val(num);
-		    	$('#cntItem').text(num);
-		    	
-		    	return false;
-		    });
-		    
-		    $('#cntMinus' + idNo).click(function(e) {
-		    	e.preventDefault();
-		    	var num = $('#cnt' + idNo).val();
-		    	num--;
-		    	
-		    	if(num <= 0) {
-			    	alert('더 이상 줄일 수 없습니다');
-			    	num = 1;
-		    	}
-		    	
-		    	$('#cnt' + idNo).val(num);
-		    	
-		    	return false;
-		    });
 		});
 		
-	    
+	
 		$('#addCmt').submit(function() {
 			var content = $('#insertCmt').val();
 			var num = '${num}';
@@ -254,13 +219,20 @@
 			}
 			
 			return false;
-		});
 		
+		});
 	});
 	
 	function cartFunc() {      
 	      var listJSON = '${sessionScope.listJSON}';
 	      var resultList = null;
+
+	      //총 금액을 체크하여 옵션 미선택 시 예외처리
+	      var checkPrice = $('#cntPrice').text();
+	      if(checkPrice==0){
+	    	  alert('color 또는 size를 선택하여 상품을 추가해야 장바구니에 담기가 가능합니다.');
+	    	  return false;
+	      }
 	      
 	      if(listJSON != '' && listJSON != null){
 	         resultList = $.parseJSON(listJSON);
@@ -274,9 +246,7 @@
 	         var itemJSON = '${itemJSON}';
 	         var result = $.parseJSON(itemJSON);
 	         var itemForm = document.forms['itemContentsVO'];
-	         
-	         alert(result.storeNo + " | " + result.num);
-	         
+	         	         
 	         itemForm.action = "${ pageContext.request.contextPath }/shoppingCart/addItem/"+result.storeNo+"/"+result.num ;
 	         itemForm.submit();
 	      }else{
@@ -306,18 +276,138 @@
 	   
 	   function buyFunc(){
 	      var itemJSON = '${itemJSON}';
-	      alert(itemJSON);
 	      var result = null;
+	      
+	      //총 금액을 체크하여 옵션 미선택 시 예외처리
+	      var checkPrice = $('#cntPrice').text();
+	      if(checkPrice==0){
+	    	  alert('color 또는 size를 선택하여 상품을 추가해주세요.');
+	    	  return false;
+	      }
+	      
 	      if(itemJSON != '' && itemJSON != null){
 	    	  result = $.parseJSON(itemJSON);
 		  }
 	      var itemForm = document.forms['itemContentsVO'];
-	      alert(itemJSON +" | "+ result);
 	      itemForm.action = "${ pageContext.request.contextPath }/orderList/addOneItem/"+result.storeNo+"/"+result.num ;
 	      itemForm.submit();
 	   }
+	   
+	 //comma를 설정하는 로직
+	 function comma(obj){
+	 	
+	 	var num = obj.toString(); 
+	 	var array=[];
+	 	var replay = parseInt((num.length)%3);
+	 	var routine = parseInt((num.length+2)/3);
+	 			
+	 	if(replay==1){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,1);
+	 			else if(i==1)
+	 				sample = num.substr(1,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+1, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}		
+	 	else if(replay==2){
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,2);
+	 			else if(i==1)
+	 				sample = num.substr(2,3);
+	 			else
+	 				sample = num.substr(((i-1)*3)+2, 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}
+	 	else{
+	 		for(var i=0; i<routine; i++){
+	 			var sample;				
+	 			
+	 			if(i==0)
+	 				sample = num.substr(0,3);
+	 			else
+	 				sample = num.substr((i*3), 3);
+	 			
+	 			array.push(sample);
+	 		}
+	 	}	
+	 	return array.join(",");
+	 }
 
+	function calculate_M(){  //-표시를 누를 경우
+		
+		var total = $('#cntPrice').text(); //총 금액으로 표시되는 금액
+		
+		var totalNum = total.split(",");
+		var num=0;
+		
+		for(var i in totalNum)
+			num+=totalNum[i]; 
+	
+		var price = parseInt(num)-parseInt(iPrice);
+		
+		$('#cntPrice').text(comma(price));
+	}
+	
+	function calculate_P(){  //+표시를 누를 경우
+		
+		var total = $('#cntPrice').text();
+		
+		var totalNum = total.split(",");
+		var num=0;
+		
+		for(var i in totalNum)
+			num+=totalNum[i]; 
+		
+		var price = parseInt(num)+parseInt(iPrice);
+		
+		$('#cntPrice').text(comma(price));
+	}
+	function deleteOption(count){ //x표시를 누를 경우
+		
+		var total = $('#cntPrice').text();
+		
+		var totalNum = total.split(",");
+		var num=0;
+		
+		for(var i in totalNum)
+			num+=totalNum[i]; 
+		
+		var delPrice = eval(iPrice + '*' + count);
+		var price = parseInt(num) - parseInt(delPrice);
+		
+		$('#cntPrice').text(comma(price));
+		
+	}
+	function share(){
+
+		Kakao.init('e41ce637926a9ca7c2b5e1040f027929');
+
+		Kakao.Link.sendTalkLink({
+			label:'이 상품 어때요?',
+			image:{
+				src:'http://13.124.194.6:8080/image/ONCE-846dcdc8-01a1-41d2-a7a4-2d25d213f439.png',
+				width:'300',
+				height:'200'
+			},
+			webButton:{
+				text:'#'+storeName+' #'+itName,
+				url:'http://13.124.194.6:8080/ONCEAdmin/'
+			}
+		});
+	}
 </script>
+
 </head>
 <body>
 	<header>
@@ -327,22 +417,64 @@
 		<!-- 매장에서 접근했을 경우 탑 메뉴 -->
 	</header>
 	
+		
+	<!-- 주문하기 버튼 누르기 이후 -->
+	<div id="orderDetail" class="modal bottom-sheet">
+		<form id="itemContentsVO" name="itemContentsVO" method="post">
+	   	<p style="padding-left: 5px;">옵션</p>
+	   	<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
+	   	<div class="modal-content">
+			<div>
+				<input name="itemName" id="itemName" type="hidden" value="${itemContentsVO.itemName}" />
+				<input name="price" id="price" type="hidden" value="${itemContentsVO.price}" />
+				<label>color</label>
+                  <select class="browser-default" id="color" >
+                     <option value="">- [필수] color를 선택해 주세요 -</option>
+                     	<c:forEach var="color" items="${itemVO.colorList}">
+                     		<option value="${color}">${color}</option>
+                     	</c:forEach>
+                  </select>
+				<label>size</label>
+                  <select class="browser-default" id="size" >
+                     <option value="">- [필수] size를 선택해 주세요 -</option>
+                     <c:forEach var="size" items="${itemVO.sizeList}">
+                     <option value="${size}">${size}</option>
+                     </c:forEach>
+                  </select>
+			</div>
+	   </div>
+	   <div>
+			<ul id="sltItemList">
+			</ul>
+	   </div>
+	   <p style="padding-right: 5px; text-align: right">총 금액 <span id="cntPrice" style="color: red;">0</span> 원</p>
+	   <div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #99d8c9;">
+			<a style="width: 50%; color: #fff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
+			<a style="width: 50%; color: #fff; padding-left: 8%;" class="w3-bar-item" id="orderList" onclick="buyFunc()">바로 주문하기</a>
+	   </div>
+	   </form>
+	 </div>
+	<!-- 하단 주문 버튼 끝-->
+	
+	
 	<section>
 		<!-- 메인 시작 -->
 		<div class="app-pages">
 			<div class="container">
 				<div id="mainImg">
-					<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
 					<c:forEach items="${ imgList }" var="list" varStatus="status">
 						<c:if test="${status.count eq 1}">
-							<img src="/image/${list.imgSaveName}" alt="">
+							<div style="width: 80%; line-height: 100px; margin-left: 10%; margin-right: 10%;">
+								<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;" >
+							</div>
 						</c:if>
 					</c:forEach>
 				</div>
 				<div id="mainDescription">
-					<h5>${ storeName }</h5>
-					<h4><b>${ itemContentsVO.itemName }</b></h4>
-					<h5>${ itemContentsVO.price } 원
+					<h5 id="storeName">${ storeName }</h5>
+					<h4><b><span id="itName">${ itemContentsVO.itemName }</span></b></h4>
+					<h5><span id="itemPrice"><c:out value="${ itemContentsVO.price }"/></span> 원
+						<input type="hidden" value="${ itemContentsVO.price }" id="hiddenPrice">
 						<c:if test="${ itemContentsVO.salePrice ne 0 }">
 							<span style="color: red;">
 								&nbsp;<i class="fa fa-long-arrow-right" style="color: #000;"></i>&nbsp;
@@ -356,7 +488,7 @@
 		
 		<!-- 공유 -->
 		<div id="share">
-			<a><i class="fa fa-share-alt"></i></a>
+			<a id="kakao-link-btn" href="javascript:share();"><span style='color: #3B1E1E;'><i class="fa fa-share-alt"></i></span></a>
 		</div>
 		<!-- 메인 끝 -->
 		
@@ -374,13 +506,17 @@
 						<div id="tabs1">
 							<br />
 							<div class="row">
-								<%-- <img src="${pageContext.request.contextPath}/resources/img/store1.png" alt=""> --%>
 								<c:forEach items="${ imgList }" var="list" varStatus="status">
 									<c:if test="${status.count eq 2}">
-										<img src="/image/${list.imgSaveName}" alt="" width="93%"><br/>
+										<div style="width: 90%; line-height: 100px; text-align: center; margin-left: auto; margin-right: auto;">
+											<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;"><br/>
+										</div>
 									</c:if>
 								</c:forEach>
-								<input type="button" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
+								<form action="${pageContext.request.contextPath}/store/imgDetail" method="post">
+									<input type="hidden" name="num" value="${ itemContentsVO.num }">
+									<input type="submit" id="imgDetail" class="button z-depth-1" value="이미지 더 보기"/>
+								</form>
 								<br/><br/>
 								<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
 								<br/>
@@ -403,7 +539,9 @@
 													<div class="col s6">
 														<div class="entry">
 															<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">
-																<img src="/image/${ newItemList.imgSaveName }" alt="">
+																<div style="width: 100%; line-height: 100px; text-align: center">
+																	<img src="/image/${ newItemList.imgSaveName }" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;">
+																</div>
 															</a>
 															<h6>
 																<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}">${ newItemList.itemName }</a>
@@ -472,44 +610,6 @@
 			<a href="#" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-heart-o"></i></a>
 		</div>
 	</div>
-	
-	<!-- 주문하기 버튼 누르기 이후 -->
-	<div id="orderDetail" class="modal bottom-sheet">
-		<form id="itemContentsVO" name="itemContentsVO" method="post">
-	   	<p style="padding-left: 5px;">옵션</p>
-	   	<hr style="border: 0.5px solid #b2b2b2; margin: 0px;"/>
-	   	<div class="modal-content">
-			<div>
-				<input name="itemName" id="itemName" type="hidden" value="${itemContentsVO.itemName}" />
-				<input name="price" id="price" type="hidden" value="${itemContentsVO.price}" />
-				<label>color</label>
-                  <select class="browser-default" id="color" >
-                     <option value="">- [필수] color를 선택해 주세요 -</option>
-                     <c:forEach var="color" items="${itemVO.colorList}">
-                     <option value="${color}">${color}</option>
-                     </c:forEach>
-                  </select>
-				<label>size</label>
-                  <select class="browser-default" id="size" >
-                     <option value="">- [필수] size를 선택해 주세요 -</option>
-                     <c:forEach var="size" items="${itemVO.sizeList}">
-                     <option value="${size}">${size}</option>
-                     </c:forEach>
-                  </select>
-			</div>
-	   </div>
-	   <div>
-			<ul id="sltItemList">
-			</ul>
-	   </div>
-	   <p style="padding-right: 5px; text-align: right">총 금액 <span id="cntPrice" style="color: red;">00,000</span>원</p>
-	   <div class="modal-footer" style="padding-top: 3%; text-align: center; background-color: #99d8c9;">
-			<a style="width: 50%; color: #fff; padding-right: 8%;" class="w3-bar-item" id="shoppingCart" onclick="cartFunc()">장바구니 담기</a>
-			<a style="width: 50%; color: #fff; padding-left: 8%;" class="w3-bar-item" id="orderList" onclick="buyFunc()">바로 주문하기</a>
-	   </div>
-	   </form>
-	 </div>
-	<!-- 하단 주문 버튼 끝-->
 
 </body>
 </html>

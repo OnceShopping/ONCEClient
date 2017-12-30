@@ -23,16 +23,32 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
-
- 
+	<style type="text/css">
+	.normal {
+	   font-weight: 400
+	}
+	
+	.bold {
+	   font-weight: 700
+	}
+	
+	.bolder {
+	   font-weight: 800
+	}
+	
+	.light {
+	   font-weight: 300
+	}
+	</style>
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	
-
 <script type="text/javascript">
 
 	var listJSON = '${sessionScope.listJSON}';
@@ -46,59 +62,68 @@
 	var btnList = new Array();	/* 옵션 버튼 눌린 횟수*/
 	var itemCnt = new Array();	/* 해당 item의 상품 개수 */
 	for(var index=0; index<resultList.length; index++){
-		btnList[index] = 0;
+		btnList[index] = 0;	
 		itemCnt[index] = 0;
 	}
-	
-	var cntList = new Array(); /* 해당 store의 상품 개수 */
+	var cntList = new Array(); /* 해당 store의 item 개수 */
 	for(var loop=0; loop<storeList.length; loop++){
 		cntList[loop] = 0;
 	}
-	
-	var sumCntList = new Array();	/* 해당 store까지 누적 상품 개수*/
+		
+	var sumCntList = new Array();	/* 해당 store까지 누적 item 개수*/
 	for(var loop=0; loop<storeList.length; loop++){
 		sumCntList[loop] = 0;
 	}
 	
 	function getAllTotal(resultList){
 		
+		
 		if(listJSON != null){
 			$.each(storeList, function(loop, store){
 
 				var ori_total_storeNo = 0; /* 매장별 상품 총 정상가 */
 				var cur_total_storeNo = 0; /* 매장별 상품 총 금액 */
-				/* var itemCnt_storeNo = 0; 매장별 상품 총 개수 */
+				var itemCnt_storeNo = 0; /* 매장별 상품 총 개수 */
 				
 				var storeNo = store.storeNo;
 				cntList[loop] = 0;
 				
+				if(loop!=0){
+					sumCntList[loop] = sumCntList[loop-1];
+				}
+				
 				$.each(resultList, function(index, item){	/* storeNo 같은 거 끼리 묶기 */
-										
+					
 					if( storeNo == item.storeNo){
+						
 						itemCnt[index] = item.count;
 						
-						if(index==0){
-							sumCntList[loop] = 0;
-						}
-						cntList[loop]++;
+						++cntList[loop];
+						++sumCntList[loop];
 						
 						ori_total_storeNo += item.price*itemCnt[index];
-						
+												
 						if(item.salePrice == 0){
 							cur_total_storeNo += item.price*itemCnt[index];
 						}else{
 							cur_total_storeNo += item.salePrice*itemCnt[index];
 						}
+						
 					}
-				
+													
 					$('#ori_total_'+loop).text(ori_total_storeNo);
+										
 					if((ori_total_storeNo - cur_total_storeNo)!=0){
-						$('#dis_total_'+loop).text("-" + (ori_total_storeNo - cur_total_storeNo));
+						$('#dis_total_'+loop).text((ori_total_storeNo - cur_total_storeNo));
 					}
+					
 					
 					$('#cur_total_'+loop).text(cur_total_storeNo);
 					
-					sumCntList[loop]++;
+					settingOriTotalPrice($('#ori_total_'+loop).text(), loop);
+					settingDisTotalPrice($('#dis_total_'+loop).text(), loop);
+					settingCurTotalPrice($('#cur_total_'+loop).text(), loop);
+					
 				});
 			});
 		}
@@ -107,18 +132,115 @@
 	$(document).ready(function(){
 		getAllTotal(resultList);
 		$('.changeOption').hide();
+		
+		<c:forEach var="storeVO" items="${ storeList }" varStatus="loop">
+		<c:forEach var="itemContents" items="${productList}" varStatus="status">
+			settingPrice($('#price_'+${loop.index}+'_'+${status.index}).text(), ${loop.index}, ${status.index});
+			
+			var salePrice='${itemContents.salePrice}';
+			if(salePrice!=0){
+				settingSalePrice($('#sale_'+${loop.index}+'_'+${status.index}).text(), ${loop.index}, ${status.index});				
+			}			
+		</c:forEach>
+		</c:forEach>
 	});
+	
+	//comma를 설정하는 로직
+	function comma(obj){
 		
+		var num = obj.toString(); 
+		var array=[];
+		var replay = parseInt((num.length)%3);
+		var routine = parseInt((num.length+2)/3);
+				
+		if(replay==1){
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,1);
+				else if(i==1)
+					sample = num.substr(1,3);
+				else
+					sample = num.substr(((i-1)*3)+1, 3);
+				
+				array.push(sample);
+			}
+		}		
+		else if(replay==2){
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,2);
+				else if(i==1)
+					sample = num.substr(2,3);
+				else
+					sample = num.substr(((i-1)*3)+2, 3);
+				
+				array.push(sample);
+			}
+		}
+		else{
+			for(var i=0; i<routine; i++){
+				var sample;				
+				
+				if(i==0)
+					sample = num.substr(0,3);
+				else
+					sample = num.substr((i*3), 3);
+				
+				array.push(sample);
+			}
+		}	
+		return array.join(",");
+	}
+	
+	
+	//리스트에 존재하는 가격에 comma 설정 
+	function settingPrice(obj, loop, index){
+		
+		var price = comma(obj);
+	
+		$('#price_'+loop+'_'+index).html(price);
+	}
+	function settingSalePrice(obj, loop, index){
+		
+		var salePrice = comma(obj);
+	
+		$('#sale_'+loop+'_'+index).html(salePrice);
+	}
+	function settingOriTotalPrice(obj, loop){
+		
+		var oriTotalPrice = comma(obj);
+	
+		$('#ori_total_'+loop).html(oriTotalPrice);
+	}
+	function settingDisTotalPrice(obj, loop){
+		
+		var disTotalPrice = comma(obj);
+	
+		$('#dis_total_'+loop).html(disTotalPrice);
+	}
+	function settingCurTotalPrice(obj, loop){
+		
+		var curTotalPrice = comma(obj);
+	
+		$('#cur_total_'+loop).html(curTotalPrice);
+	}
+
+	
 	function oriPriceForm(loop, index){
-		
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/oriPriceForm",
 			data : {
+				'loop'  : loop,
 				'index' : index
 			},
 			success : function(data) {
 				$('#oriPrice_'+loop+"_"+index).html("");
 				$('#oriPrice_'+loop+"_"+index).html(data);
+				settingPrice($('#price_'+loop+'_'+index).text(), loop, index);
 			}
 		});
 	}
@@ -127,11 +249,16 @@
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/shoppingCart/salePriceForm",
 			data : {
+				'loop'  : loop,
 				'index' : index
 			},
 			success : function(data) {
 				$('#salePrice_'+loop+"_"+index).html("");
 				$('#salePrice_'+loop+"_"+index).html(data);
+				var salePrice = data.salePrice;
+				if(salePrice != 0){
+					settingSalePrice($('#sale_'+loop+'_'+index).text(), loop, index);			
+				}
 			}
 		});
 	}
@@ -139,6 +266,10 @@
 	function changeCnt(loop, index){
 		
 		var count = $('#count_'+loop+"_"+index).val();
+		
+		sumCntList[loop] = -itemCnt[index] + count;
+		cntList[loop] = -itemCnt[index] + count;
+		itemCnt[index] = count;
 		
 		if(count==0){
 			alert('수량을 0보다 이상인 값으로 설정해 주세요.');
@@ -156,21 +287,11 @@
 				cache : false,
 				success : function(data) {
 					alert("수량이 변경 되었습니다.");
-					var changeList = $.parseJSON(data);
-					
-					oriPriceForm(loop, index);
-					salePriceForm(loop, index);
-								
-					var ori_total_storeNo = 0;
-					var ori_total_storeNo = 0;
-					var ori_total_storeNo = 0;
 							
-					getAllTotal(changeList);
+					history.go(0);					
 				}
 			});
 			
-			sumCntList[loop] = -itemCnt[index] + count;
-			itemCnt[index] = count;
 		}		
 	}
 	
@@ -274,6 +395,7 @@
 			success : function(data) {
 				$('#shoppingCart').html("");
 				$('#shoppingCart').html(data);
+				
 			}
 		});	
 	}
@@ -330,13 +452,15 @@
 		if(check==false){
 			$('#count_'+loop).val(cntList[loop]);
 			
-			$('#orderVO_'+loop).attr("action", "${ pageContext.request.contextPath }/orderList/addCartItem/"+cntList[loop]+"/"+sumCntList[loop]);
+			$('#orderVO_'+loop).attr("action", "${ pageContext.request.contextPath }/orderList/addCartItem");
 			
 			$('#orderVO_'+loop).submit();
 		}else{
 			alert('수량을 0보다 이상인 값으로 설정해 주세요.');
 		}
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -352,7 +476,7 @@
 	<div class="product-cart">
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
-				<h3>Shopping Cart</h3>
+				<h3 class="bold">Shopping Cart</h3>
 			</div>
 			<c:choose>
 				<c:when test="${ not empty productList and productList != ''}"><!-- productList에 상품이 1개 이상 -->
@@ -378,6 +502,7 @@
 										<input type="hidden" name="orderDetails[${ status.index }].itemName" value="${ itemContents.itemName }" />
 										<input type="hidden" name="orderDetails[${ status.index }].storeNo" value="${ itemContents.storeNo }" />
 										<input type="hidden" name="orderDetails[${ status.index }].storeName" value="${ itemContents.storeName }" />
+										<input type="hidden" name="orderDetails[${ status.index }].imgSaveName" value="${ itemContents.imgSaveName }" />
 									</div>
 									<div class="col s1">
 										<a href="" class="deleteStore_${ loop.index }" onclick="deleteOne(${ loop.index }, ${status.index})">
@@ -435,26 +560,19 @@
 											<input type="hidden" name="orderDetails[${ status.index }].price" value="${itemContents.price}"/>
 											<input type="hidden" name="orderDetails[${ status.index }].salePrice" value="${itemContents.salePrice}"/>
 										</div>
-										<div class="col s8" >
+										<div class="col s8">
 											<div id="oriPrice_${loop.index}_${status.index}">
 											<p style="float: left; margin-left: 10px;">정상가:</p>
-												<c:choose>
-													<c:when test="${ itemContents.salePrice eq 0 }">
-														<p style="float: left;">${itemContents.price * itemContents.count }</p>
-													</c:when>
-													<c:otherwise>
-														<p style="text-decoration:line-through;">${itemContents.price * itemContents.count }</p>
-													</c:otherwise>
-												</c:choose>
+												<p id="price_${loop.index}_${status.index}" >${itemContents.price * itemContents.count }</p>
 											</div>
 											<br/>
 											<div id="salePrice_${loop.index}_${status.index}">
 											<c:choose>
-												<c:when test="${ itemContents.salePrice eq 0 }" />
-												<c:otherwise>
-													<p style="float: left;  margin-left: 10px; ">할인가:</p>
-													<p style="color:red; float: left;">${itemContents.salePrice * itemContents.count}</p>
-												</c:otherwise>
+											<c:when test="${ itemContents.salePrice eq 0 }" />
+											<c:otherwise>
+											<p style="float: left; margin-left: 10px;">할인가:</p>
+												<p style="color:red; " id="sale_${loop.index}_${status.index}" >${itemContents.salePrice * itemContents.count}</p>
+											</c:otherwise>
 											</c:choose>
 											</div>
 										</div>
@@ -474,8 +592,8 @@
 							<div class="col s8">
 								<h6>할인 금액</h6>
 							</div>
-							<div class="col s4">
-								<h6 id="dis_total_${ loop.index }"></h6>
+							<div class="col s4" style="float: left;">
+								<span style="float: none;">_&nbsp;</span><h6 style="float: right;"id="dis_total_${ loop.index }"></h6>
 							</div>
 							<div class="col s8">
 								<h5>Total</h5>
@@ -493,7 +611,9 @@
 				</c:when>
 				
 				<c:otherwise><!-- productList에 아무것도 없을 때  -->
+					<div class="entry" style="margin-bottom: 125px;">
 					<h6>장바구니에 등록된 상품이 없습니다.</h6>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -508,7 +628,7 @@
 	<!-- 하단 navbar -->
 	<div class="w3-bottom">
 		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
