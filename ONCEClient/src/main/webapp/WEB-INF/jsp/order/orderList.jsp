@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
+	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
@@ -22,6 +22,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
@@ -41,6 +42,14 @@
 	.light {
 	   font-weight: 300
 	}
+	
+	input[type="button"], input[type="submit"], button {
+	font-size: inherit;
+	background-color:#fff;
+	color: #999cff;
+	padding: 5px 30px 5px 30px;
+	border: solid #a8b2ff 2px;
+}
 	</style>
 	 
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -116,8 +125,14 @@ $(document).ready(function(){
 
 	getAllTotal(orderResult);
 	
-	$('#storeName_cnt').html( storeName + "<span style='float: right; font-weight: normal;'>총 &nbsp;수량 : <u>" +cnt+"</u>개</span>");
-			
+	$('#storeName_cnt').html( storeName + "<span style='float: right; font-weight: normal; color:#9e9e9e; font-size:13px; margin-top: 7px;'>(총 &nbsp;수량 : <u>" +cnt+"</u>개)</span>");
+	
+	$('#orderListButton').click(function() {
+		$('#orderVO').submit();
+	});
+	
+	var heightDiv = $('.row-height');
+	$('.col-height').css('height', heightDiv.height());
 });
 
 //comma를 설정하는 로직
@@ -189,19 +204,22 @@ function settingOriTotalPrice(obj, loop){
 	
 	var oriTotalPrice = comma(obj);
 
-	$('#ori_total_'+loop).html(oriTotalPrice);
+	$('#ori_total_'+loop).html(oriTotalPrice+"원");
 }
 function settingDisTotalPrice(obj, loop){
 	
 	var disTotalPrice = comma(obj);
-
-	$('#dis_total_'+loop).html(disTotalPrice);
+	if(disTotalPrice == "" || disTotalPrice =="0원") {
+	$('#dis_total_'+loop).html("0원");
+	} else {
+		$('#dis_total_'+loop).html("-"+disTotalPrice+"원");
+	}
 }
 function settingCurTotalPrice(obj, loop){
 	
 	var curTotalPrice = comma(obj);
 
-	$('#cur_total_'+loop).html(curTotalPrice);
+	$('#cur_total_'+loop).html(curTotalPrice+"원");
 }
 
 function optionChange(obj){
@@ -236,71 +254,37 @@ function optionChange(obj){
 	<div class="product-cart">
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
-				<h3 class="bold">Order List</h3>
+				<h3 class="bold">주문목록</h3>
 			</div>
 				<c:forEach var="storeVO" items="${ preStoreList }" varStatus="loop">
 				<form id="orderVO" name="orderVO" action="${ pageContext.request.contextPath }/orderList/checkCnt" method="post">
 				<input type="hidden" name="storeNo" value="${ storeVO.storeNo }" />
 				<input type="hidden" name="storeName" value="${ storeVO.storeName }" />
-				<div class="entry" id="preOrderList_${ loop.index }">
-				<p id="storeName_cnt" style="font-weight: bold;">${ storeVO.storeName }</p>
+				<div class="entry" id="preOrderList_${ loop.index }" style="padding-right: 10px">
+				<span id="storeName_cnt" style="font-weight: bold; font-size: 20px">${ storeVO.storeName }</span>
 				<c:forEach var="itemContents" items="${preOrderList}" varStatus="status">
 				<c:if test="${ storeVO.storeNo  eq itemContents.storeNo}">
 				
 				<div class="car/t-title s-title">
-					<div class="row">
-						<div class="col s4">
+					<div class="row row-height" style="margin-bottom: 10px">
+						<div class="col s4 col-height">
 							<img src="/image/${itemContents.imgSaveName}" alt="이미지 준비 중">
 						</div>
 						<div class="col s7">
-						<p>${itemContents.itemName}</p>
+							<span class="bold">${itemContents.itemName}</span><br>
+							<span id="option_${loop.index}_${status.index}" style="float: left; color: #9e9e9e">${itemContents.color} | ${itemContents.size} &nbsp;&nbsp;&nbsp;</span><br>
+							<span style=" color: #9e9e9e">수량 : </span><span id="count_${loop.index}_${status.index}" style=" color: #9e9e9e">${itemContents.count}</span><br>
+							<span id="oriPrice_${loop.index}_${status.index}" style=" color: #9e9e9e"><span id="price_${loop.index}_${status.index}">${itemContents.price * itemContents.count }</span>원</span>
 						<input type="hidden" name="orderDetails[${ status.index }].itemName" value="${ itemContents.itemName }" />
+						<input type="hidden" name="orderDetails[${ status.index }].color" value="${ itemContents.color }" />
+						<input type="hidden" name="orderDetails[${ status.index }].size" value="${ itemContents.size }" />
+						<input type="hidden" name="orderDetails[${ status.index }].count" value="${ itemContents.count }" />
 						<input type="hidden" name="orderDetails[${ status.index }].storeNo" value="${ itemContents.storeNo }" />
 						<input type="hidden" name="orderDetails[${ status.index }].storeName" value="${ itemContents.storeName }" />
 						<input type="hidden" name="orderDetails[${ status.index }].detailNo" value="${ itemContents.detailNo }" />
 						<input type="hidden" name="orderDetails[${ status.index }].imgSaveName" value="${ itemContents.imgSaveName }" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col s4">
-						<p>Count</p>
-						</div>
-						<div class="col s8">
-						<input type="number" name="orderDetails[${status.index }].count" id="count_${loop.index}_${status.index}" value="${itemContents.count}" style="color: #111;" readonly="readonly"/>
-						</div>
-					</div>
-					<div class="row">
-					<div class="col s4">
-					<p>옵션</p>
-					</div>
-					<div class="col s8"	>
-						<p id="option_${loop.index}_${status.index}" style="float: left;">${itemContents.color} | ${itemContents.size} &nbsp;&nbsp;&nbsp;</p>
-						<input type="hidden" name="orderDetails[${ status.index  }].color" id="color_${loop.index}_${status.index}" value="${itemContents.color}" />
-						<input type="hidden" name="orderDetails[${ status.index  }].size" id="size_${loop.index}_${status.index}" value="${itemContents.size}" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col s4">
-						<p>Price</p>
 						<input type="hidden" name="orderDetails[${ status.index }].price" value="${itemContents.price}"/>
 						<input type="hidden" name="orderDetails[${ status.index }].salePrice" value="${itemContents.salePrice}"/>
-						</div>
-						<div class="col s8" >
-							<div id="oriPrice_${loop.index}_${status.index}">
-								<p style="float: left; margin-left: 10px;">정상가:</p>
-								<p id="price_${loop.index}_${status.index}">${itemContents.price * itemContents.count }</p>		
-							</div>
-						<br/>
-							<div id="salePrice_${loop.index}_${status.index}">
-							<!-- 세일가 0 이면 출력 안되게끔 제어 걸기  -->
-								<c:choose>
-								<c:when test="${ itemContents.salePrice eq 0 }" />
-								<c:otherwise>
-								<p style="float: left; margin-left: 10px;">할인가:</p>
-								<p style="color:red; " id="sale_${loop.index}_${status.index}" >${itemContents.salePrice * itemContents.count}</p>
-								</c:otherwise>
-								</c:choose>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -308,20 +292,42 @@ function optionChange(obj){
 				</c:forEach>
 		</div>
 		
-		<div class="entry" style="margin-top: 10px;">
-					<p style="font-weight: bold;">결제 정보 선택</p>
+		<div class="entry" id="cart-total_${ loop.index }" style="margin-top: 10px; padding-right: 10px">			
+					<div class="row" style="margin-bottom: 10px">
+						<div class="col s8" style="text-align: left">
+							<h6>상품금액</h6>
+							<h6>할인금액</h6>
+							<h6 class="bold">총 주문금액</h6>
+						</div>
+						
+						<div class="col s4">
+                           
+                        </div>
+						
+						
+						<div class="col s4" style="text-align: right">
+							<h6 id="ori_total_${ loop.index }"></h6>
+							<h6 id="dis_total_${ loop.index }"></h6>
+							<h6 id="cur_total_${ loop.index }" style="color: red" class="bold"></h6>
+						</div>
+					</div>
+					
+				</div>
+		
+		<div class="entry" style="margin-top: 10px; padding-right: 10px;">
+					<p style="font-weight: bold;">결제수단</p>
 					<div class="car/t-title s-title">
-						<div class="row">
-							<div class="col s4">
-								결재 방식
-							</div>
+						<div class="row" style="margin-bottom: 10px">
 							<div class="col s7">
-								<select id="paymentChange" class="form-control browser-default" onchange="optionChange(this)" disabled>
+								<input type="radio" name="group" id="ex_rd1" value="무통장 입금"><label for="ex_rd1">무통장입금</label><br>
+								<input type="radio" name="group" id="ex_rd2" value="카드 결제"><label for="ex_rd2">카드 결제</label><br>
+								<input type="radio" name="group" id="ex_rd3" value="휴대폰 결제"><label for="ex_rd3">휴대폰 결제</label><br>
+								<!--  <select id="paymentChange" class="form-control browser-default" onchange="optionChange(this)" disabled>
 									<option id="depositless" value="무통장 입금" selected="selected">무통장 입금</option>
 									<option id="creditCard" value="카드 결제">카드 결제</option>
 									<option id="mobileBill" value="휴대폰 결제">휴대폰 결제</option>
-								</select>
-								<div id="paymentOption">
+								</select> -->
+								<!-- <div id="paymentOption">
 									<ul>
 										<li>입금자명</li>
 										<li><input type="text" disabled/></li>
@@ -334,42 +340,23 @@ function optionChange(obj){
 										</select>
 										</li>
 									</ul>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
-				
-				<div class="cart-total" id="cart-total_${ loop.index }">			
-					<div class="row">
-						<div class="col s8">
-							<h6>상품 가격</h6>
-						</div>
-						<div class="col s4">
-							<h6 id="ori_total_${ loop.index }"></h6>
-						</div>
-						<div class="col s8">
-							<h6>할인 금액</h6>
-						</div>
-						<div class="col s4" style="float: left;">
-							<span style="float: none;">_&nbsp;</span><h6 style="float: right;" id="dis_total_${ loop.index }"></h6>
-						</div>
-						<div class="col s8">
-							<h5>Total</h5>
-						</div>
-						<div class="col s4">
-							<h5 id="cur_total_${ loop.index }"></h5>
-						</div>
-					</div>
-					<div class="row">
-						<button type="submit" class="button" style="background-color: #ffc305; margin-bottom: 10px; font-size: 12px;">결  제 하 기</button>
-						<button type="button" class="button" onclick="history.go(-1); return false;">취소</button>
-					</div>
+				<div class="entry" style="margin-top: 10px; border:0px; padding: 0px">
+				<div style="width: 100%">
+						<button type="button" id="orderListButton" style="width: 100%; height: 40px">결  제 하 기</button>
+						<!-- <button type="button" class="button" onclick="history.go(-1); return false;">취소</button> -->
+				</div>
 				</div>
 			</form>
 			</c:forEach>
+			
 		</div>
 	</div>
+	
 	<!-- end product cart -->
 	</section>
 
@@ -377,26 +364,34 @@ function optionChange(obj){
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	
-	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
-      <c:choose>
-				<c:when test="${ not empty loginVO }">
-					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
+		<!-- 하단 navbar -->
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/login/login" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
+			</c:otherwise>
+			</c:choose>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>				
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
 				</c:otherwise>
-			</c:choose>      
+			</c:choose>
+
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
 	
-
 	
 </body>
 </html>

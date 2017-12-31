@@ -9,6 +9,8 @@
 <body>
 <footer>
 		<div class="container">
+			<br/>
+			<br/>
 			<h6>About us</h6>
 			<div class="tel-fax-mail">
 				<ul>

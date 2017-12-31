@@ -73,7 +73,7 @@ public class CustomerController {
 		CustomerVO loginVO = service.login(customer);
 		if (loginVO == null) {
  
-			model.addAttribute("message", "Please check your ID or Password");
+			model.addAttribute("message", "ID 또는 password를 확인해 주세요.");
 			returnURL = "login/loginFail";
 
 		} else if(!loginVO.getApprovalStatus().equals("true")) {

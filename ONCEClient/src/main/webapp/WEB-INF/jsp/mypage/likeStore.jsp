@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
@@ -31,10 +32,34 @@
 
 
 <style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
-}
+	.normal {
+		font-weight: 400
+	}
+	
+	.bold {
+		font-weight: 700
+	}
+	
+	.bolder {
+		font-weight: 800
+	}
+	
+	.light {
+		font-weight: 300
+	}
+	
+	input[type="button"], input[type="submit"] {
+		font-size: 10pt;
+		margin-left: 10px;
+		margin-right: 10px;
+		-webkit-border-radius: 28;
+		-moz-border-radius: 28;
+		border-radius: 28px;
+		background-color:#fff;
+		color: #999cff;
+		padding: 5px 20px 5px 20px;
+		border: solid #a8b2ff 2px;
+	}	
 </style>
 
 <script>
@@ -73,7 +98,8 @@
 		<div class="table-app app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
-					<h3>매장 즐겨찾기</h3>
+					<h3 class="bold">매장 즐겨찾기</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
 				<table class="bordered">
 					<thead>
@@ -105,23 +131,33 @@
 	<!-- end footer -->
 	</footer>
 
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge"
-			style="text-align: center;">
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i
-				class="fa fa-search"></i></a> <a
-				href="${pageContext.request.contextPath}/mypage/likeStore"
-				style="width: 20%;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}"
-				style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i
-				class="fa fa-home"></i></a> <a href="#"
-				style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i
-				class="fa fa-truck"></i></a> <a
-				href="${pageContext.request.contextPath}/mypage/mypageMain"
-				style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i
-				class="fa fa-user"></i></a>
+	<!-- 하단 navbar -->
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+				</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #fff;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
+			</c:otherwise>
+			</c:choose>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>				
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 	</div>
+	<!-- 하단 navbar 끝 -->
 
 </body>
 </html>

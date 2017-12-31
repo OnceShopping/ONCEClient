@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="once.comment.dao.CommentDAO">
 	
+	<sql id="selectAll">
+ 		select commentNo, memNo, content, num, id, itemName, date
+ 		  from commentList
+ 	</sql>
+ 	
 	<select id="selectById" parameterType="String" resultType="CommentVO">
 	
 	</select>
@@ -16,4 +21,22 @@
 	
 	</select>
 
+	<!-- 상품 상세 페이지에 리뷰 추가 -->
+	<insert id="addComment" parameterType="CommentVO">
+		insert into Comment (memNo, content, date, num) 
+		values (#{memNo},#{content}, curdate(), #{num});
+	</insert>
+	
+	<!-- 상품 리뷰 정보 불러오기 -->
+	<select id="selectByNum" parameterType="INT" resultType="CommentVO">
+		<include refid="selectAll"/>
+		where num = #{num}
+		order by commentNo asc;
+	</select>
+	
+	<select id="checkComment" parameterType="CommentVO" resultType="OrderVO">
+		select memNo, storeNo, storeName, num
+		from orders
+		where num = #{num} and memNo = #{memNo} and status='수령완료'
+	</select>
 </mapper>

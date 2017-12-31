@@ -56,14 +56,13 @@ Author URL : https://themeforest.net/user/rabonadev
 /*===================
 	import fonts
 ===================*/
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import
+	url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 
 /*===================
 	general
 ===================*/
-*,
-*:before,
-*:after {
+*, *:before, *:after {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -82,12 +81,7 @@ body::-webkit-scrollbar {
 	display: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
 	padding: 0;
 	margin: 0;
 	color: #111;
@@ -148,14 +142,16 @@ p {
 	height: 60px;
 	padding: 15px 0;
 	z-index: 9;
-	background: #cbbcff;
-	border-bottom: 2px solid #d0c0e8;
+	background-image: url("/image/header3.png");
+	border-bottom : 2px solid #d0c0e8;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	text-align: center;
-	box-shadow: 0 2px 2px 0 transparent,0 1px 5px 0 rgba(0, 0, 0, 0.07),0 3px 1px -2px transparent;
+	box-shadow: 0 2px 2px 0 transparent, 0 1px 5px 0 rgba(0, 0, 0, 0.07), 0
+		3px 1px -2px transparent;
+	border-bottom: 2px solid #d0c0e8
 }
 
 .navbar .panel-control-right a i {
@@ -173,10 +169,9 @@ p {
 	padding: 0;
 	margin: 0;
 	font-weight: 800;
-	color: #fff9d6;
-	-webkit-text-stroke: 1px #f2d19b;
-	position: relative;
+	color: #ffffff; position : relative;
 	top: 1px;
+	position: relative;
 }
 
 .side-nav {
@@ -197,8 +192,7 @@ p {
 	font-size: 20px;
 }
 
-.panel-control-left a i,
-.panel-control-right a i {
+.panel-control-left a i, .panel-control-right a i {
 	color: #333;
 }
 
@@ -233,7 +227,7 @@ p {
 }
 
 .panel-control-right .collapsible-body ul li:last-child {
-	margin-bottom:0
+	margin-bottom: 0
 }
 
 .panel-control-right ul li a {
@@ -285,7 +279,7 @@ p {
 
 .panel-control-right .side-nav .collapsible-header {
 	font-size: 15px;
-	color: rgba(0,0,0,0.87);
+	color: rgba(0, 0, 0, 0.87);
 }
 
 .panel-control-right .side-nav .collapsible-header span i {
@@ -375,8 +369,7 @@ p {
 	height: 280px;
 }
 
-
-@media (min-width: 768px) {
+@media ( min-width : 768px) {
 	.slider-slick .slider-entry {
 		position: relative;
 		height: 430px;
@@ -384,10 +377,7 @@ p {
 }
 
 .slider-slick .overlay {
-	background: linear-gradient(
-		rgba(0, 0, 0, 0.44),
-		rgba(0, 0, 0, 0.44)
-	);
+	background: linear-gradient(rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.44));
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -452,7 +442,6 @@ p {
 	position: relative;
 }
 
-
 .slider-slick .slick-dots {
 	position: absolute;
 	bottom: 0;
@@ -515,7 +504,6 @@ p {
 	color: #fff;
 	font-size: 24px;
 }
-
 
 /*===================
 	offers
@@ -614,7 +602,6 @@ p {
 	display: block;
 }
 
-
 /*===================
 	words
 ===================*/
@@ -634,7 +621,6 @@ p {
 .words .entry p {
 	font-size: 16px;
 }
-
 
 /*===================
 	features
@@ -736,14 +722,11 @@ p {
 	margin-bottom: 5px;
 }
 
-
 .rating .active {
 	color: #fecd2d;
 }
 
-.product .entry h6,
-.product .entry .rating,
-.product .entry .price {
+.product .entry h6, .product .entry .rating, .product .entry .price {
 	margin-top: 2px;
 }
 
@@ -754,7 +737,6 @@ p {
 .product .row:last-child {
 	margin-bottom: 0;
 }
-
 
 /*===================
 	checkout
@@ -926,7 +908,7 @@ p {
 	height: auto;
 }
 
-.product-details .details .button  {
+.product-details .details .button {
 	margin-top: 20px;
 }
 
@@ -986,8 +968,7 @@ p {
 	padding: 10px 16px 0 10px;
 }
 
-.product-cart .entry h6,
-.product-cart .cart-total h6 {
+.product-cart .entry h6, .product-cart .cart-total h6 {
 	font-size: 15px;
 }
 
@@ -1026,8 +1007,7 @@ p {
 	margin-top: 25px;
 }
 
-.product-cart .cart-total h5,
-.product-cart .cart-total h6 {
+.product-cart .cart-total h5, .product-cart .cart-total h6 {
 	margin-bottom: 10px;
 }
 
@@ -1089,7 +1069,6 @@ p {
 	display: inline-block;
 	background: #f3f3f3;
 	margin: 0 5px;
-	
 }
 
 .blog .pagination ul .active {
@@ -1207,7 +1186,7 @@ p {
 	margin-top: 10px;
 }
 
-@media (min-width: 768px) {
+@media ( min-width : 768px) {
 	.blog-single .comment .content {
 		border-top: 1px solid #eee;
 		padding-top: 20px;
@@ -1229,9 +1208,11 @@ p {
 .blog-single .post-comment .content {
 	
 }
+
 .blog-single .post-comment .content {
 	
 }
+
 .blog-single .post-comment .content {
 	
 }
@@ -1250,7 +1231,7 @@ p {
 }
 
 .news h5 {
-	font-size: 16px; 	
+	font-size: 16px;
 }
 
 .news h5 a {
@@ -1285,7 +1266,6 @@ p {
 	display: inline-block;
 	background: #f3f3f3;
 	margin: 0 5px;
-	
 }
 
 .news .pagination ul .active {
@@ -1301,14 +1281,10 @@ p {
 /*===================
 	form custom
 ===================*/
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="tel"], 
-form input[type="number"],
-form input[type="date"],
-form .select-wrapper input.select-dropdown {
-	border-bottom: 1px solid #ccc;	
+form input[type="text"], form input[type="email"], form input[type="password"],
+	form input[type="tel"], form input[type="number"], form input[type="date"],
+	form .select-wrapper input.select-dropdown {
+	border-bottom: 1px solid #ccc;
 	height: 36px;
 	border-radius: 2px;
 	width: 100%;
@@ -1316,31 +1292,28 @@ form .select-wrapper input.select-dropdown {
 	box-sizing: border-box;
 }
 
-form input:not([type]):focus:not([readonly]),
-form input[type="text"]:focus:not([readonly]),
-form input[type="email"]:focus:not([readonly]),
-form input[type="password"]:focus:not([readonly]),
-form input[type="tel"]:focus:not([readonly]), 
-form input[type="number"]:focus:not([readonly]), 
-form input[type="date"]:focus:not([readonly]) {
+form input:not ([type] ):focus:not ([readonly] ), form input[type="text"]:focus:not
+	([readonly] ), form input[type="email"]:focus:not ([readonly] ), form input[type="password"]:focus:not
+	([readonly] ), form input[type="tel"]:focus:not ([readonly] ), form input[type="number"]:focus:not
+	([readonly] ), form input[type="date"]:focus:not ([readonly] ) {
 	border-bottom: 1px solid #87f6ed;
 	box-shadow: none;
 }
 
-.input-field input:not([type]):focus:not([readonly]) + label,
-.input-field input[type="text"]:focus:not([readonly]) + label,
-.input-field input[type="email"]:focus:not([readonly]) + label,
-.input-field input[type="password"]:focus:not([readonly]) + label,
-.input-field input[type="tel"]:focus:not([readonly]) + label, 
-.input-field input[type="number"]:focus:not([readonly]) + label, 
-.input-field input[type="date"]:focus:not([readonly]) + label {
+.input-field input:not ([type] ):focus:not ([readonly] ) +label,
+	.input-field input[type="text"]:focus:not ([readonly] ) +label,
+	.input-field input[type="email"]:focus:not ([readonly] ) +label,
+	.input-field input[type="password"]:focus:not ([readonly] ) +label,
+	.input-field input[type="tel"]:focus:not ([readonly] ) +label,
+	.input-field input[type="number"]:focus:not ([readonly] ) +label,
+	.input-field input[type="date"]:focus:not ([readonly] ) +label {
 	color: #87f6ed;
 	box-shadow: none;
 }
 
 form textarea {
 	border: none;
-	border-bottom: 1px solid #ccc;	
+	border-bottom: 1px solid #ccc;
 	border-radius: 2px;
 	width: 100%;
 	overflow: visible;
@@ -1353,13 +1326,13 @@ form textarea:focus {
 	border-bottom: 1px solid #87f6ed;
 }
 
-form textarea:focus + label {
+form textarea:focus+label {
 	color: #87f6ed;
 }
 
 form .picker__weekday-display {
 	background-color: #87f6ed;
-} 
+}
 
 form .picker__nav--prev:hover, .picker__nav--next:hover {
 	background: #87f6ed;
@@ -1369,7 +1342,8 @@ form .picker__date-display {
 	background-color: #87f6ed;
 }
 
-form .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+form .picker__day--selected, .picker__day--selected:hover,
+	.picker--focused .picker__day--selected {
 	background-color: #87f6ed;
 }
 
@@ -1381,24 +1355,24 @@ form .picker__day.picker__day--today {
 	placeholder color
 ===================*/
 ::-webkit-input-placeholder {
-   color: #666;
+	color: #666;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   color: #666;  
+	color: #666;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
-   color: #666;  
+::-moz-placeholder { /* Firefox 19+ */
+	color: #666;
 }
 
-:-ms-input-placeholder {  
-   color: #666;  
+:-ms-input-placeholder {
+	color: #666;
 }
 
 /*===================
 	login
-===================*/ 
+===================*/
 .login strong {
 	display: block;
 	position: relative;
@@ -1410,14 +1384,14 @@ form .picker__day.picker__day--today {
 	display: block;
 }
 
-.login [type="checkbox"] + label {
+.login [type="checkbox"]+label {
 	padding-left: 30px;
 	color: #333;
 }
 
-.login [type="checkbox"]:checked + label::before {
+.login [type="checkbox"]:checked+label::before {
 	border-right: 2px solid #87f6ed;
-border-bottom: 2px solid #87f6ed;
+	border-bottom: 2px solid #87f6ed;
 }
 
 .login .button {
@@ -1562,10 +1536,11 @@ border-bottom: 2px solid #87f6ed;
 
 .testimonial img {
 	border-radius: 50%;
-    margin: 5px 0 5px 0;
-    height: 60px;
-    width: 60px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0),0 1px 5px 0 rgba(0, 0, 0, 0.24),0 3px 1px -2px rgba(0, 0, 0, 0);
+	margin: 5px 0 5px 0;
+	height: 60px;
+	width: 60px;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0
+		rgba(0, 0, 0, 0.24), 0 3px 1px -2px rgba(0, 0, 0, 0);
 }
 
 .testimonial .owl-theme .owl-controls .owl-page span {
@@ -1670,8 +1645,7 @@ border-bottom: 2px solid #87f6ed;
 	cursor: pointer;
 }
 
-.calendar-app .entry table th, 
-.calendar-app .entry table td {
+.calendar-app .entry table th, .calendar-app .entry table td {
 	text-align: center;
 }
 
@@ -1697,7 +1671,6 @@ border-bottom: 2px solid #87f6ed;
 	margin-right: 2px;
 }
 
-
 /*===================
 	chat app
 ===================*/
@@ -1705,7 +1678,7 @@ border-bottom: 2px solid #87f6ed;
 	background: #f5f5f5;
 	padding: 15px;
 	border-radius: 10px;
-} 
+}
 
 .chat-app img {
 	width: 50px;
@@ -1719,8 +1692,7 @@ border-bottom: 2px solid #87f6ed;
 	padding: 10px
 }
 
-.chat-app textarea:active,
-.chat-app textarea:focus {
+.chat-app textarea:active, .chat-app textarea:focus {
 	border: 1px solid #ddd !important;
 }
 
@@ -1738,7 +1710,6 @@ border-bottom: 2px solid #87f6ed;
 	cursor: pointer;
 }
 
-
 /*===================
 	client
 ===================*/
@@ -1753,7 +1724,7 @@ border-bottom: 2px solid #87f6ed;
 
 .client-app h6 {
 	text-align: center;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 	margin-top: 20px;
 }
 
@@ -1786,7 +1757,6 @@ border-bottom: 2px solid #87f6ed;
 .collapsible-app .collapsible li .collapsible-body p {
 	padding: 16px;
 }
-
 
 /*===================
 	coming soon
@@ -1837,7 +1807,6 @@ border-bottom: 2px solid #87f6ed;
 .features-app .entry i {
 	font-size: 35px;
 	margin-bottom: 12px;
-
 }
 
 /*===================
@@ -1856,7 +1825,7 @@ border-bottom: 2px solid #87f6ed;
 	font-size: 16px;
 }
 
-.forum-app .entry .head > a {
+.forum-app .entry .head>a {
 	font-size: 14px;
 	color: #666;
 }
@@ -1880,7 +1849,6 @@ border-bottom: 2px solid #87f6ed;
 	display: inline-block;
 	background: #f3f3f3;
 	margin: 0 5px;
-	
 }
 
 .forum-app .pagination ul .active {
@@ -1985,7 +1953,6 @@ border-bottom: 2px solid #87f6ed;
 	background: #f3f3f3;
 	margin: 0 5px;
 	padding: 4px 10px;
-	
 }
 
 .pagination-gallery ul .active {
@@ -2099,9 +2066,8 @@ border-bottom: 2px solid #87f6ed;
 	margin-bottom: 70px;
 }
 
-.portfolio-circle.column1,
-.portfolio-circle.column2,
-.portfolio-circle.column3 {
+.portfolio-circle.column1, .portfolio-circle.column2, .portfolio-circle.column3
+	{
 	text-align: center;
 }
 
@@ -2142,7 +2108,7 @@ border-bottom: 2px solid #87f6ed;
 .portfolio.column3 .row .col {
 	padding-left: 7px;
 	padding-right: 7px;
-	padding-bottom: 8px; 
+	padding-bottom: 8px;
 }
 
 .portfolio-circle.column3 img {
@@ -2222,7 +2188,6 @@ border-bottom: 2px solid #87f6ed;
 .features-app .entry i {
 	font-size: 35px;
 	margin-bottom: 12px;
-
 }
 
 /*===================
@@ -2284,8 +2249,7 @@ border-bottom: 2px solid #87f6ed;
 	border: 1px solid #d0d0d0;
 }
 
-.table-app table th,
-.table-app table td {
+.table-app table th, .table-app table td {
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -2294,7 +2258,7 @@ border-bottom: 2px solid #87f6ed;
 	tabs
 ===================*/
 .tabs .tab {
-	background: #eee;
+	background-color: #fffdea;
 }
 
 .tabs .tab a {
@@ -2303,7 +2267,7 @@ border-bottom: 2px solid #87f6ed;
 }
 
 .tabs .indicator {
-	background-color: #999;
+	background-color: #ffc166;
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {
@@ -2338,7 +2302,6 @@ border-bottom: 2px solid #87f6ed;
 /*===================
 	rating
 ===================*/
-
 .rating {
 	font-size: 12px;
 	margin-top: 5px;
@@ -2355,7 +2318,7 @@ border-bottom: 2px solid #87f6ed;
 	background: #f5f5f5;
 	padding: 15px;
 	border-radius: 5px;
-	border: 2px solid #888;	
+	border: 2px solid #888;
 }
 
 .timeline-app .entry .line {
@@ -2365,19 +2328,18 @@ border-bottom: 2px solid #87f6ed;
 	margin: 0 auto;
 }
 
-
 /*===================
 	footer
 ===================*/
 footer {
 	text-align: center;
-	padding: 30px 0 0;
 	height: 100%;
 	height: 100%;
 	vertical-align: top;
 	position: relative;
-	background: #59a08e;
+	background-image: url("/image/footer.png");
 	color: #fff;
+	padding-bottom: 25px;
 }
 
 footer h6 {
@@ -2388,6 +2350,7 @@ footer h6 {
 footer ul li {
 	text-align: left;
 }
+
 footer ul li a {
 	color: #fff;
 	text-align: left;
@@ -2411,10 +2374,8 @@ footer .tel-fax-mail ul li span {
 }
 
 footer .ft-bottom {
-	background: #59a08e;
 	margin-top: 20px;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	color: #fff;
 }
-

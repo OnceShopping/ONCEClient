@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>		
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,6 +53,18 @@
 		.light {
 			font-weight: 300
 		}
+		
+		input[type="button"], input[type="submit"] {
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}
 	</style>
 	
 	<script
@@ -63,14 +76,6 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#backBtn').click(function() {
-				location.href = '${pageContext.request.contextPath}';
-			});
-		});
-	</script>	
 </head>
 <body>
    <header>
@@ -82,9 +87,9 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">회원 정보 수정/탈퇴</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%">
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
-				<p class="light">본인 확인을 위해서 비밀번호를 한 번 더 입력해 주세요.</p>
+				<p class="normal">본인 확인을 위해서 비밀번호를 한 번 더 입력해 주세요.</p>
 				<form action="${ pageContext.request.contextPath }/mypage/check"
 					method="post">
 					<div class="input-field">
@@ -92,8 +97,8 @@
 						<label for="password">password</label>
 					</div>
 					<div style="text-align: center; margin-top: 30px; margin-bottom: 50px;">
-						<input type="submit" value="확인" class="button" style="width: 20%" />
-						<input type="button" class="button" id="backBtn" value="취소" style="width: 20%"/>
+						<input type="submit" value="확인"/>
+						<input type="button" id="backBtn" value="취소" onclick="history.go(-1)"/>
 					</div>
 				</form>
 			</div>
@@ -103,15 +108,30 @@
    <footer>
       <jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
    </footer>
-
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+				</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
+			</c:otherwise>
+			</c:choose>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>				
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #fff;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

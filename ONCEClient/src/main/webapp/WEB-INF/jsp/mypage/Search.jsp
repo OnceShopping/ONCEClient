@@ -63,7 +63,12 @@
 	}
 	
 	$('.itemSelected').click(function() {
-		location.href="${pageContext.request.contextPath}/item/search/"+$('#search').val();
+		
+		if($('#search').val().length < 2) {
+			alert("두자 이상 입력하세요");
+		} else {
+			location.href="${pageContext.request.contextPath}/item/search/"+$('#search').val();
+		}
 	});
 	
 	
@@ -136,11 +141,11 @@ function comma(obj){
 		<div class="container">
 			<div id="input-field">
             		<input class="form-control" name="search" id="search" type="search" required style="position:relative; 
-            		background: #ffffff; height: 30px;  box-shadow: none; border-bottom: none; width: 89%" placeholder="물품 검색">
-					<input type="button" value="&#xf05c;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: #ffffff; border: 0; box-shadow: none; 
-               		outline: none; padding: 0px; width: 30px; height: 30px; right:37px; top:-1px">
-               		<input type="button" value="&#xf002;" class="itemSelected" style="font-family: FontAwesome; position:relative; background: #cbbcff; border: 0; box-shadow: none; 
-               		outline: none; padding: 0px; width: 30px; height: 30px; left:160px; top:-50px">
+            		background: #ffffff; height: 30px;  box-shadow: none; border-bottom: none; width: 88%; border-radius: 50px; padding-left:20px" placeholder="물품 검색">
+					<input type="button" value="&#xf05c;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: transparent; border: 0; box-shadow: none; 
+               		outline: none; padding: 0px; width: 30px; height: 30px; left:155px; top:-50px; ">
+               		<input type="button" value="&#xf002;" class="itemSelected" style="font-family: FontAwesome; position:relative; background: transparent; border: 0; box-shadow: none; 
+               		outline: none; padding: 0px; width: 30px; height: 30px; left:155px; top:-50px; color: #ffffff;">
 			</div>
 		</div>
 	</div>
@@ -197,13 +202,29 @@ function comma(obj){
 	<!-- footer 끝 -->
 
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+				</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
+			</c:otherwise>
+			</c:choose>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>				
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

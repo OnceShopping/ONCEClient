@@ -29,4 +29,20 @@ public class CommentServiceImpl implements CommentService{
 		return dao.list(num);
 	}
 
+	@Override
+	public void addComment(CommentVO comment) {
+		dao.addComment(comment);
+	}
+	
+	@Override
+	public List<CommentVO> selectByNum(int num) {
+		
+		return dao.selectByNum(num);
+	}
+	
+	@Override
+	public boolean checkComment(CommentVO comment) {
+		
+		return dao.checkComment(comment);
+	}
 }

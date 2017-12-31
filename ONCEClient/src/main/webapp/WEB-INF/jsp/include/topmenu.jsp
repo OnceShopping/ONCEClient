@@ -27,18 +27,18 @@
 		<div class="container">
 			<div class="panel-control-left">
 				<a href="#" data-activates="slide-out-left"
-					class="sidenav-control-left"><i class="fa fa-bars"></i></a>
+					class="sidenav-control-left"><i class="fa fa-bars" style="color: #fff;"></i></a>
 			</div>
 			<div class="site-title">
-				<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
+				<a href="${pageContext.request.contextPath}/main" class="logo"><h1>ONCE</h1></a>
 			</div>
 			<div class="panel-control-right">
 			<c:choose>
 				<c:when test="${ empty sessionScope.loginVO }">
-				<a onclick="msg()" href="${pageContext.request.contextPath}/login/loginForm"><i class="fa fa-shopping-cart"></i></a>
+				<a onclick="msg()" href="${pageContext.request.contextPath}/login/loginForm"><i class="fa fa-shopping-cart" style="color: #fff;"></i></a>
 				</c:when>
 				<c:otherwise>
-				<a href="${pageContext.request.contextPath}/mypage/shoppingCart"><i class="fa fa-shopping-cart"></i></a>
+				<a href="${pageContext.request.contextPath}/mypage/shoppingCart"><i class="fa fa-shopping-cart" style="color: #fff;"></i></a>
 				</c:otherwise>
 			</c:choose>
 			</div>

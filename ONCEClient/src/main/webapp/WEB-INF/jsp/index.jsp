@@ -158,7 +158,7 @@
 </head>
 <body>
    <header>
-      <jsp:include page="WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+      <jsp:include page="include/topmenu.jsp"></jsp:include>
    </header>
    <section>
       <!-- 상단 슬라이더 -->
@@ -357,7 +357,7 @@
    </section>
    
    <footer>
-      <jsp:include page="WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+      <jsp:include page="include/bottom.jsp"></jsp:include>
    </footer>
    <!-- footer 끝 -->
 
@@ -373,7 +373,7 @@
 				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
 			</c:otherwise>
 			</c:choose>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<c:choose>
 				<c:when test="${ !empty loginVO }">
 					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>

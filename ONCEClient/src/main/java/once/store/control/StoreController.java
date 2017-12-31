@@ -31,7 +31,7 @@ public class StoreController {
 		
 		List<StoreVO> storeList = service.selectStoreList(floor);
 		model.addAttribute("storeList", storeList);
-		
+		model.addAttribute("floor", floor);
 		return "menu/floor";
 	}
 	
