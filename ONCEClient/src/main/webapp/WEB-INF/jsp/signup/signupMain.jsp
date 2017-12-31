@@ -11,25 +11,64 @@
    <meta name="HandheldFriendly" content="True">
    
    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
-   
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	   
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/materialize.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slick-theme.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.theme.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.transitions.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">   
+
+	<style type="text/css">		
+ 		.normal {
+  			font-weight: 400
+		}
+		
+		.bold {
+		   font-weight: 700
+		}
+		
+		.bolder {
+		   font-weight: 800
+		}
+		
+		.light {
+		   font-weight: 300
+		}
+		
+		input[type="button"], input[type="submit"], button {
+			font-size: inherit;
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}
+		
+		button:hover {
+			background-color: #fff;
+		}
+		
+		#idCheck, #emailCheck {
+			padding: 5px 15px 5px 15px;
+			font-size: 10pt;
+		}
+ 	</style>
  
    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
    <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
    <script type="text/javascript">
        $(document).ready(function() {
@@ -44,7 +83,7 @@
               if (!(event.keyCode >=37 && event.keyCode<=40)) {
                  var inputVal = $(this).val();
                   if(inputVal.match(/[^a-z0-9]/gi)!= null) {
-                     infoAlert("영문과 숫자만 입력 가능합니다");
+                	  alert("영문과 숫자만 입력 가능합니다.");
                      $(this).val(inputVal.replace(/[^a-z0-9]/gi,''));
                      
                  }  
@@ -57,7 +96,7 @@
                  var inputVal = $(this).val();
               
                  if(inputVal.match(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi)!= null) {
-                    infoAlert("한글만 입력 가능합니다");
+                    alert("한글만 입력 가능합니다.");
                     $(this).val(inputVal.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi,''));
                  }
               }
@@ -68,7 +107,7 @@
                  var inputVal = $(this).val();
               
                  if(inputVal.match(/[^0-9]/gi)!= null) {
-                    infoAlert("숫자만 입력 가능합니다");
+                	 alert("숫자만 입력 가능합니다.");
                     $(this).val(inputVal.replace(/[^0-9]/gi,''));
                  }
               }
@@ -77,47 +116,39 @@
          // 내용 미입력시 알림창
          $("#nextBtn").click(function() {
             if ($("#id").val() == "") {
-               infoAlert("아이디를 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("아이디를 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#password").val() == "") {
-               infoAlert("비밀번호를 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("비밀번호를 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#passwordCheck").val() == "") {
-               infoAlert("비밀번호확인을 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("비밀번호확인을 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#password").val() != $("#passwordCheck").val()) {
-               infoAlert("비밀번호와 비밀번호확인을 동일하게 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("비밀번호와 비밀번호확인을 동일하게 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#name").val() == "") {
-               infoAlert("이름을 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("이름을 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#tel").val() == "") {
-               infoAlert("전화번호를 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("전화번호를 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#orderPassword").val() == "") {
-               infoAlert("주문비밀번호를 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("주문비밀번호를 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if(isNaN( $("#orderPassword").val()) ) {
-               infoAlert("주문비밀번호는 숫자만 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("주문비밀번호는 숫자만 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if($("#email").val() == "") {
-               infoAlert("이메일을 입력하셔야 다음 단계로 진행 가능합니다..");
+            	alert("이메일을 입력하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } else if(requiredCheck == false) {
-               infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
+            	alert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다.");
                return false;
             }  else if(requiredCheckEmail == false) {
-               infoAlert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다..");
+            	alert("아이디 중복 확인을 하셔야 다음 단계로 진행 가능합니다.");
                return false;
             } 
-         });
-         
-         // 다이얼로그 format 정의
-         $("#dialog").dialog({
-            autoOpen : false,
-            modal : true,
-            width : '300',
-            height : '150'
          });
           
           // 아이디 중복 체크
@@ -125,7 +156,7 @@
             var check = $('#id').val();
             
             if(check==""){
-               infoAlert("ID를 입력해주세요");
+            	alert("아이디를 입력해 주세요.");
             } else { 
                $.ajax({
                   url : "${pageContext.request.contextPath}/signup/checkId",
@@ -136,12 +167,10 @@
                   success : function(data) {
                      
                      if(data=="true"){ // 해당 id가 존재하는 경우
-                        $('#dialog').html('<p>죄송합니다.</p><p>작성하신 ID가 기존에 존재합니다.</p>다시 작성해주세요.');
-                        $("#dialog").dialog("open");
+                    	 alert('죄송합니다. 작성하신 아이디가 기존에 존재합니다 다시 작성해 주세요.');
                         requiredCheck = false;
                      }else{ // 해당 id가 존재하지 않는 경우
-                        $('#dialog').html('<p>작성하신 ID로 사용할 수 있습니다.</p>');
-                        $("#dialog").dialog("open");
+                    	 alert('작성하신 아이디는 사용 가능한 아이디입니다.');
                         requiredCheck = true;
                      }
                   }                  
@@ -154,7 +183,7 @@
             var check = $('#email').val();
             
             if(check==""){
-               infoAlert("email을 입력해주세요");
+            	alert("email을 입력해 주세요");
             } else {
                $.ajax({
                   url : "${pageContext.request.contextPath}/signup/checkEmail",
@@ -165,12 +194,10 @@
                   success : function(data) {
                      
                      if(data=="true"){ // 해당 email이 존재하는 경우
-                        $('#dialog').html('<p>죄송합니다.</p><p>작성하신 email이 기존에 존재합니다.</p>다시 작성해주세요.');
-                        $("#dialog").dialog("open");
+                    	 alert('죄송합니다. 작성하신 이메일이 기존에 존재합니다 다시 작성해 주세요.');
                         requiredCheckEmail = false;
                      }else{ // 해당 email이 존재하지 않는 경우
-                        $('#dialog').html('<p>작성하신 email로 사용할 수 있습니다.</p>');
-                        $("#dialog").dialog("open");
+                    	 alert('작성하신 이메일은 사용 가능한 아이디입니다.');
                         requiredCheckEmail = true;
                      }
                   }                  
@@ -216,18 +243,12 @@
                  var inputVal = $(this).val();
               
                  if(inputVal.match(/[^0-9|^-]/gi)!= null) {
-                    infoAlert("숫자만 입력 가능합니다");
+                	 alert("숫자만 입력 가능합니다.");
                     $(this).val(inputVal.replace(/[^0-9|^-]/gi,''));
                  }
               }
            });
-       });
-
-      function infoAlert(str){
-         $('#dialog').html("<div style='text-align:center; margin:auto;'><p>"+str+"</p></div>");
-         $("#dialog").dialog("open");
-      }
-      
+       });     
 </script>
 </head>
 
@@ -240,13 +261,12 @@
 	</header>
 	
 	<section>
-	<!-- Modal --> 						
-	<div id="dialog" title="ALERT DIALOG"></div>
 	
 	<div class="table-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>회원가입</h3>
+				<h3 class="bold">회원가입</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%"> 
 			</div>
 			<form:form commandName="customerVO" method="post" >
 				<div class="input-field" style="width: 70%; float: left;">
@@ -254,7 +274,7 @@
 					<label for="id">아이디</label>
 				</div>
 				<div style="width: 30%; float: left; margin-top: 25px;" align="center">
-					<input type="button" class="button" value="중복 확인" id="idCheck" />
+					<input type="button" value="중복 확인" id="idCheck" />
 				</div>
 				<div style="clear: both"></div>
 				<div class="input-field">
@@ -286,7 +306,7 @@
 					<input type="button" class="button" value="중복 확인" id="emailCheck" />
 				</div>
 				<div style="clear: both"></div>
-			<div align="center">
+			<div align="center" style="margin-top: 50px;">
 			<input type="button" class="button" onclick="location.href='${pageContext.request.contextPath}/signup/terms'" value="이전">
 			<input type="submit" class="button" id="nextBtn" value="다음">
 			</div>
@@ -301,7 +321,9 @@
 	<br>
 	<br>
 	</section>
-	<!-- footer 끝 -->
+	<footer>
+		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	</footer>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<!-- 하단 navbar -->
 	<div class="w3-bottom" style="background-color: #d0c5ff;">
