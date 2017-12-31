@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <title>Creative - Multipurpose Mobile Template</title>
@@ -30,6 +29,53 @@
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </head>
+<style>
+	<style type="text/css">
+	.normal {
+	   font-weight: 400
+	}
+	
+	.bold {
+	   font-weight: 700
+	}
+	
+	.bolder {
+	   font-weight: 800
+	}
+	
+	.light {
+	   font-weight: 300
+	}
+	
+	input[type="button"], input[type="submit"] {
+         font-size: inherit;
+         -webkit-border-radius: 28;
+         -moz-border-radius: 28;
+         border-radius: 28px;
+         background-color:#fff;
+         color: #999cff;
+         padding: 5px 30px 5px 30px;
+         border: solid #a8b2ff 2px;
+      }
+      
+      input[type="text"]:focus:not([readonly]), input[type=text].valid, input[type=text]:focus.valid, input[type="password"]:focus:not([readonly]), input[type=password].valid,  input[type=password]:focus.valid {
+      	border-bottom: 1px solid #d1b2ff;
+      	box-shadow: 0 1px 0 0 #d1b2ff;
+      }
+      
+      input[type="text"]:focus:not([readonly])+label, input[type="password"]:focus:not([readonly])+label {
+      	color: #d1b2ff;
+      }
+      
+      [type="checkbox"]+label:before, [type="checkbox"]:not(.filled-in)+label:after{
+      	border: 2px solid #9E9E9E;
+      }
+      
+      .login [type="checkbox"]:checked+label::before {
+	    border-right: 2px solid #d1b2ff;
+	    border-bottom: 2px solid #d1b2ff;
+	}
+</style>
 
 <body>
 	<jsp:include page="/WEB-INF/jsp/include/topmenu.jsp" flush="false"></jsp:include>
@@ -40,7 +86,8 @@
 	<div class="login app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3> L o g i n </h3>
+				<h3 class="bold"> 로그인 </h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
 			<form id="customer" action="${ pageContext.request.contextPath }/login/login" method="post">
 				<div class="input-field">
@@ -51,51 +98,45 @@
 					<input name="password" type="password" class="validate">
 					<label for="password">password</label>
 				</div>
-				<div><a href="${ pageContext.request.contextPath }/signup/findId" class="forgot">Forgot Password?</a></div>
+				
 				<div class="chebox">
 					<c:choose>
 						<c:when test="${  not empty customer.id  }">
 							<input type="checkbox" id="checkbox" name="saveId" checked="true"/>
 						</c:when>
 						<c:otherwise>
-						
 							<input type="checkbox" id="checkbox" name="saveId"/>
 						</c:otherwise>
 					</c:choose>
-					
   					<label for="checkbox">아이디 저장</label>
 				</div>
-				 
-				<div class="chebox">
+				<!-- <div class="chebox">
 					<input type="checkbox" id="checkbox1" name="autoLogin"/>
   					<label for="checkbox1">자동 로그인</label>
+				</div> -->
+				<div style="margin: 0 auto;">
+					<input type="submit" value="Login" class="button" style=" align-items: center;"/>
 				</div>
-				
-				<input type="submit" value="Login" class="button"/>
-				<div class="create-account">아직 회원이 아니신가요?&nbsp;<a href="${ pageContext.request.contextPath }/signup/terms" style="font-weight: 800;">회원가입</a></div>
 			</form>
+			<div class="create-account" >계정을 잊으셨나요?&nbsp;<a href="${ pageContext.request.contextPath }/signup/findId" style="font-weight: 800; color: #553184;">ID/PW 찾기</a></div>
+			<div class="create-account">아직 회원이 아니신가요?&nbsp;<a href="${ pageContext.request.contextPath }/signup/terms" style="font-weight: 800; color: #553184;">회원가입</a></div>
 		</div>
 	</div>
 	<!-- end login -->
 	</section>
 	
-	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" flush="false"></jsp:include>
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	<!-- end footer -->
 	
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<c:choose>
-			<c:when test="${ empty loginVO }">
-				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-			</c:when>
-			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-			</c:otherwise>
-			</c:choose>
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="#" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
