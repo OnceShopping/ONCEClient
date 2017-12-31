@@ -181,7 +181,10 @@
                               <div class="price">
                               <c:choose>
                               		<c:when test="${ generalitem.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
 		                                <span id="generalItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem.salePrice }"/></span>
+		                            </div>    
                               		</c:when>
                               		<c:otherwise>
                               			<span id="generalItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem.price }"/></span>
@@ -210,7 +213,10 @@
                               <div class="price">
                                <c:choose>
                               		<c:when test="${ generalitem2.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
 		                                <span id="generalItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem2.salePrice }"/></span>
+		                            </div>    
                               		</c:when>
                               		<c:otherwise>
                               			<span id="generalItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem2.price }"/></span>
@@ -239,7 +245,10 @@
                               <div class="price">
                                <c:choose>
                               		<c:when test="${ generalitem3.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
 		                                <span id="generalItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem3.salePrice }"/></span>
+		                            </div>    
                               		</c:when>
                               		<c:otherwise>
                               			<span id="generalItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem3.price }"/></span>

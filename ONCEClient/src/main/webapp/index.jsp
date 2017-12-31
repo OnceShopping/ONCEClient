@@ -52,7 +52,10 @@
    margin-left: auto !important;
    margin-right: auto !important;
 }
-
+.saleIcon img{
+	width:20% !important;
+	margin-right: 0px !important;
+}
 #mainProduct, #mainShops {
    margin-top: 0px;
 }
@@ -150,6 +153,7 @@
 	function login(){
 		alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
 	}
+	
 </script>
 </head>
 <body>
@@ -205,7 +209,10 @@
                               <div class="price">
                               	<c:choose>
                               		<c:when test="${menitem.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
 		                                <span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.salePrice }"/></span>
+		                            </div>
                               		</c:when>
                               		<c:otherwise>
 										<span id="menItem_${ index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ menitem.price }"/></span>                              			
@@ -235,8 +242,10 @@
                               <div class="price" style=" text-align: center;">
                               <c:choose>
                               		<c:when test="${ womenitem.salePrice ne 0}">
-                              		<span class="blinking" style="font-size: 14px; color: red; text-decoration: underline;">[sale]</span>
+                              			<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
 		                                <span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.salePrice }"/></span>
+		                                </div>
                               		</c:when>
                               		<c:otherwise>
                               			<span id="womenItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ womenitem.price }"/></span>
@@ -266,7 +275,10 @@
                               <div class="price">
                               	<c:choose>
                               		<c:when test="${ kiditem.salePrice ne 0}">
-                              			 <span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.salePrice }"/></span>
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+                              			<span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.salePrice }"/></span>
+                              		</div>
                               		</c:when>
                               		<c:otherwise>
                               			<span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
@@ -296,7 +308,10 @@
                               <div class="price">
                               <c:choose>
                               		<c:when test="${ general.salePrice ne 0}">
+                              			<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
                               			 <span id="general_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ general.salePrice }"/></span>
+                              			 </div>
                               		</c:when>
                               		<c:otherwise>
 										<span id="general_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ general.price }"/></span>                              			<span id="kidItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
