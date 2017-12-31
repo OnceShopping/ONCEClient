@@ -136,13 +136,14 @@ function comma(obj){
             </div>
 
             <div id="input-field">
-               <form class="selectSubmit" action="">
-               <input class="form-control" id="search" type="search" required style="position:relative;  background: #c0c0c0; height: 30px;  box-shadow: none; border-bottom: none; width: 89%">
-               <input type="button" value="&#xf00d;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: #c0c0c0; border: 0; box-shadow: none; 
-               outline: none; padding: 0px; width: 30px; height: 30px; right:37px; top:-1px">
-               <i class="fa fa-search fa-lg" aria-hidden="true" id="storeSelect" style="position: relative; top: -47px; left: 160px"></i>
-               </form> 
-            </div>
+						<form class="selectSubmit" action="">
+						<input class="form-control" id="search" type="search" required style="position:relative; border-radius: 50px;  background: #c0c0c0; height: 30px;
+						 padding-left:20px; box-shadow: none; border-bottom: none; width: 89%" placeholder="물품 검색">
+						<input type="button" value="&#xf00d;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: transparent; border: 0; box-shadow: none; 
+						outline: none; padding: 0px; width: 30px; height: 30px; left:155px; top:-50px">
+						<i class="fa fa-search fa-lg" aria-hidden="true" id="storeSelect" style="position: relative; top: -50px; left: 160px"></i>
+						</form> 
+					</div>
 
             <div class="panel-control-right" id="navbar2Search">
                <i class="fa fa-search" aria-hidden="true" id="storeSearch"></i>
@@ -418,16 +419,23 @@ function comma(obj){
    </footer>
    
    <!-- 하단 navbar -->
-   <div class="w3-bottom">
-      <div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-         <a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-         <a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-         <a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-         <a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-         <a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-      </div>
-   </div>
-   <!-- 하단 navbar 끝 -->
+		<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+      		<c:choose>
+				<c:when test="${ not empty loginVO }">			
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/login/login" style="width: 20% color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose> 		
+		</div>
+	</div>
+	<!-- 하단 navbar 끝 -->
    <script type="text/javascript">
    var check = "${sum1}"   //전체값 표시
    $('#category3Count').text('('+check+')');
@@ -500,7 +508,12 @@ function comma(obj){
       }
        
        $('.selectSubmit').submit(function() {
-          $('.selectSubmit').attr("action", "${pageContext.request.contextPath}/store/${ storeVO.storeName}/"+$('#search').val());
+    	   if($('#search').val().length < 2) {
+   			alert("두자 이상 입력하세요");
+   			return false;
+   			} else {
+   				$('.selectSubmit').attr("action", "${pageContext.request.contextPath}/store/${ storeVO.storeName}/"+$('#search').val());
+   			}
        });
     });
    </script>

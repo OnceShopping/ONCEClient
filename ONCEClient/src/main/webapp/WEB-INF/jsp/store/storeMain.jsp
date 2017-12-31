@@ -100,7 +100,11 @@ $(document).ready(function() {
 	}
 	
 	$('.selectSubmit').submit(function() {
+		if($('#search').val().length < 2) {
+			alert("두자 이상 입력하세요");
+		} else {
 		$('.selectSubmit').attr("action", "${pageContext.request.contextPath}/store/${ storeVO.storeName}/"+$('#search').val());
+		}
 	});
 });
 
@@ -264,10 +268,11 @@ function comma(obj){
 					
 					<div id="input-field">
 						<form class="selectSubmit" action="">
-						<input class="form-control" id="search" type="search" required style="position:relative;  background: #c0c0c0; height: 30px;  box-shadow: none; border-bottom: none; width: 89%">
-						<input type="button" value="&#xf00d;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: #c0c0c0; border: 0; box-shadow: none; 
-						outline: none; padding: 0px; width: 30px; height: 30px; right:37px; top:-1px">
-						<i class="fa fa-search fa-lg" aria-hidden="true" id="storeSelect" style="position: relative; top: -47px; left: 160px"></i>
+						<input class="form-control" id="search" type="search" required style="position:relative; border-radius: 50px;  background: #c0c0c0; height: 30px;
+						 padding-left:20px; box-shadow: none; border-bottom: none; width: 89%" placeholder="물품 검색">
+						<input type="button" value="&#xf00d;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: transparent; border: 0; box-shadow: none; 
+						outline: none; padding: 0px; width: 30px; height: 30px; left:155px; top:-50px">
+						<i class="fa fa-search fa-lg" aria-hidden="true" id="storeSelect" style="position: relative; top: -50px; left: 160px"></i>
 						</form> 
 					</div>
 					
@@ -363,12 +368,9 @@ function comma(obj){
 					<h6 class="bold" style="text-align: left; margin: 0px">신상품</h6>
 					<h6 class="bold" style="text-align: left; margin: 0px">(${fn:length(storeItem) })</h6> 
 				</div>
-				<div id="tabs1">
-					<c:forEach items="${ storeItem }" varStatus="status">
-							<c:if test="${ status.index % 2 eq 0 }">
-							<div class="row">
-							<c:forEach items="${ storeItem }" var="itemVO" begin="${ status.index }" end="${ status.count + status.step }">
-									<div class="col s6">
+				<div class="row">
+					<c:forEach items="${ storeItem }" varStatus="status" var="itemVO">
+									<div class="col s6" style="padding: 13px">
 										<div class="entry">
 											<a href="${ pageContext.request.contextPath}/store/item/${itemVO.num}">
 												<img src="/image/${itemVO.imgSaveName}" alt="">
@@ -381,9 +383,6 @@ function comma(obj){
 											</div>
 										</div>
 									</div>
-							</c:forEach>
-							</div>
-							</c:if>
 					</c:forEach>
 				</div>	
 			</div>
@@ -397,13 +396,20 @@ function comma(obj){
 	<!-- end footer -->
 	
 	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+		<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+      		<c:choose>
+				<c:when test="${ not empty loginVO }">			
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/login/login" style="width: 20% color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:otherwise>
+			</c:choose> 		
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
