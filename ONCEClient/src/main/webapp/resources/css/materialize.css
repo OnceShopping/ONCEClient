@@ -4961,10 +4961,6 @@ small {
   cursor: pointer;
 }
 
-.btn:hover, .btn-large:hover {
-  background-color: #2bbbad;
-}
-
 .btn-floating {
   display: inline-block;
   color: #fff;
@@ -6961,10 +6957,6 @@ input[type=range]:focus::-ms-fill-upper {
 
 .side-nav a.btn-flat {
   color: #343434;
-}
-
-.side-nav a.btn:hover, .side-nav a.btn-large:hover, .side-nav a.btn-large:hover {
-  background-color: #2bbbad;
 }
 
 .side-nav a.btn-floating:hover {
