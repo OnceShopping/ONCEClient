@@ -183,7 +183,17 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="kidItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem.price }"/></span>
+                              <c:choose>
+                              		<c:when test="${ kiditem.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+		                                <span id="kidItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ kiditem.salePrice }"/></span>
+		                                </div>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="kidItem1_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ kiditem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -205,7 +215,17 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="kidItem2_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem2.price }"/></span>
+                                  <c:choose>
+                              		<c:when test="${ kiditem2.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+		                                <span id="kidItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ kiditem2.salePrice }"/></span>
+		                              </div>  
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="kidItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ kiditem2.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -227,7 +247,17 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="kidItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ kiditem3.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ kiditem3.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+		                                <span id="kidItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ kiditem3.salePrice }"/></span>
+		                                </div>
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="kidItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ kiditem3.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -258,7 +288,7 @@
 				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
 			</c:otherwise>
 			</c:choose>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<c:choose>
 				<c:when test="${ !empty loginVO }">
 					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>

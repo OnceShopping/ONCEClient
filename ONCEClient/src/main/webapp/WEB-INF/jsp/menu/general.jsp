@@ -179,7 +179,17 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="generalItem_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ generalitem.price }"/></span>
+                              <c:choose>
+                              		<c:when test="${ generalitem.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+		                                <span id="generalItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem.salePrice }"/></span>
+		                            </div>    
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="generalItem_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -201,7 +211,17 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="generalItem2_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ generalitem2.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ generalitem2.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+		                                <span id="generalItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem2.salePrice }"/></span>
+		                            </div>    
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="generalItem2_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem2.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -223,7 +243,17 @@
                                  </a>
                               </h6>
                               <div class="price">
-                                 <span id="generalItem3_${index.count }" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"><c:out value="${ generalitem3.price }"/></span>
+                               <c:choose>
+                              		<c:when test="${ generalitem3.salePrice ne 0}">
+                              		<div style='text-align: center;'>
+                              			<img src="${pageContext.request.contextPath}/resources/img/sale.gif" alt="" style="width:20% !important; margin-right: 0px !important; padding-bottom: 7px;">
+		                                <span id="generalItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem3.salePrice }"/></span>
+		                            </div>    
+                              		</c:when>
+                              		<c:otherwise>
+                              			<span id="generalItem3_${index.count}" style="font-size: 15px; color: #3B1E1E; font-style: oblique;"  class="normal"><c:out value="${ generalitem3.price }"/></span>
+                              		</c:otherwise>
+                              	</c:choose>
                               </div>
                            </div>
                         </div>
@@ -254,7 +284,7 @@
 				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
 			</c:otherwise>
 			</c:choose>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<c:choose>
 				<c:when test="${ !empty loginVO }">
 					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>

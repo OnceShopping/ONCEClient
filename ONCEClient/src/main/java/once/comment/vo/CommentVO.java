@@ -5,11 +5,17 @@ import lombok.Data;
 @Data
 public class CommentVO {
 
-	private String commetNo;
+	private String commetNo;//
 	
-	private String id;
+	private String id;//
 	private String content;
 	private String date;
 	
-	private String itemName;
+	private String itemName;//
+	
+	private int commentNo;
+	private int memNo;
+	private int num;
+	
+	
 }
