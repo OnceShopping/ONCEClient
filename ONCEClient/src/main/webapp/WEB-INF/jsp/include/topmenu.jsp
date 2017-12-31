@@ -30,7 +30,7 @@
 					class="sidenav-control-left"><i class="fa fa-bars" style="color: #fff;"></i></a>
 			</div>
 			<div class="site-title">
-				<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
+				<a href="${pageContext.request.contextPath}/main" class="logo"><h1>ONCE</h1></a>
 			</div>
 			<div class="panel-control-right">
 			<c:choose>

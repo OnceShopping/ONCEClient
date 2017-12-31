@@ -305,7 +305,6 @@ function comma(obj){
 				<div class="collapsible-body">
 					<ul class="side-nav-panel">
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/menClothes">의류</a></li>
-						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/menShoes">신발</a></li>
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/menAccessories">패션 잡화</a></li>
 					</ul>
 				</div>
@@ -321,7 +320,6 @@ function comma(obj){
 				<div class="collapsible-body">
 					<ul class="side-nav-panel">
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/womenClothes">의류</a></li>
-						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/womenShoes">신발</a></li>
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/womenAccessories">패션 잡화</a></li>
 					</ul>
 				</div>
@@ -337,7 +335,6 @@ function comma(obj){
 				<div class="collapsible-body">
 					<ul class="side-nav-panel">
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/boysClothes">의류</a></li>
-						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/boysShoes">신발</a></li>
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/boysAccessories">패션 잡화</a></li>
 					</ul>
 				</div>
@@ -353,7 +350,6 @@ function comma(obj){
 				<div class="collapsible-body">
 					<ul class="side-nav-panel">
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/girlsClothes">의류</a></li>
-						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/girlsShoes">신발</a></li>
 						<li><a href="${ pageContext.request.contextPath }/store/${ storeVO.storeName }/girlsAccessories">패션 잡화</a></li>
 					</ul>
 				</div>
@@ -394,25 +390,33 @@ function comma(obj){
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
-	
+		
 	<!-- 하단 navbar -->
-		<div class="w3-bottom" style="background-color: #d0c5ff;">
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
 		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
 			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-      		<c:choose>
-				<c:when test="${ not empty loginVO }">			
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
 				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/login/login" style="width: 20% color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
+			</c:otherwise>
+			</c:choose>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<c:choose>
+				<c:when test="${ !empty loginVO }">
+					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+				</c:when>
+				<c:otherwise>				
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
+					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
 				</c:otherwise>
-			</c:choose> 		
+			</c:choose>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
-	
+
 </body>
 </html>

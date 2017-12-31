@@ -46,7 +46,7 @@ public class ItemController {
   private CustomerService cusService;
   
   
-	@RequestMapping("/")
+	@RequestMapping("main")
 	public String indexItem (CustomerVO loginVO, HttpServletRequest request, HttpSession session, Model model) throws IOException {
 	
 		List<ItemVO> itemList = service.selectItemList();
@@ -157,7 +157,7 @@ public class ItemController {
 
 
 	@RequestMapping(value="/item/{num}", method = RequestMethod.GET)
-	public ModelAndView indexItemDetail(@PathVariable int num, ItemContentsVO itemContentsVO) {
+	public ModelAndView indexItemDetail(@PathVariable int num, ItemContentsVO itemContentsVO, HttpSession session) {
 		itemContentsVO = service.selectOneItem(num);
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
 		List<ItemImgVO> imgList = service.selectByNum(num);
@@ -178,6 +178,9 @@ public class ItemController {
 		//스토어 정보를 알아오기 위함
 		StoreVO storeVO = Sservice.selectOneStore(storeName);
 		
+		//댓글을 위한 로그인 설정을 알아보기 위함
+		CustomerVO loginVO=(CustomerVO)session.getAttribute("loginVO");
+		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("itemContentsVO", itemContentsVO);
@@ -186,6 +189,7 @@ public class ItemController {
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
 		mav.addObject("storeVO", storeVO);
+		mav.addObject("loginVO", loginVO);
 		
 		Gson gson = new Gson();
 		String itemJSON = gson.toJson(itemVO);
@@ -274,4 +278,5 @@ public class ItemController {
 		mav.addObject("imgList", imgList);
 		return mav;
 	}
+
 }

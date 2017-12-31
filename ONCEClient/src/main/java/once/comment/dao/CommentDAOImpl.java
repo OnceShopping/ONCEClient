@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import once.comment.vo.CommentVO;
+import once.order.vo.OrderVO;
 
 @Repository
 public class CommentDAOImpl implements CommentDAO {
@@ -29,4 +30,24 @@ public class CommentDAOImpl implements CommentDAO {
 		return sqlSession.selectList("once.comment.dao.CommentDAO.list", num);
 	}
 
+	@Override
+	public void addComment(CommentVO comment) {
+		sqlSession.insert("once.comment.dao.CommentDAO.addComment", comment);
+	}
+	
+	@Override
+	public List<CommentVO> selectByNum(int num) {
+		return sqlSession.selectList("once.comment.dao.CommentDAO.selectByNum", num);
+	}
+	
+	@Override
+	public boolean checkComment(CommentVO comment) {
+		
+		List<OrderVO> orderVO = sqlSession.selectList("once.comment.dao.CommentDAO.checkComment", comment);
+
+		if(orderVO.isEmpty()) 
+			return false;
+		else
+			return true;
+	}
 }

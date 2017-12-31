@@ -12,4 +12,9 @@ public interface CommentDAO {
 
 	List<CommentVO> list(int num);
 
+	void addComment(CommentVO comment);
+	
+	List<CommentVO> selectByNum(int num);
+	
+	boolean checkComment(CommentVO comment);
 }
