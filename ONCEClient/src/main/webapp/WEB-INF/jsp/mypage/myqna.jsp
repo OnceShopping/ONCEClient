@@ -57,6 +57,11 @@
 			-webkit-text-stroke: 1px #000;
 		}
 	</style>
+	<script type="text/javascript">
+	function login(){
+		alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
+	}
+	</script>
 </head>
 <body>
 
