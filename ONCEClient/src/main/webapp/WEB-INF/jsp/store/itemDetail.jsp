@@ -114,6 +114,12 @@
 	      inset 0 0 20px #E9E8ED,
 	      inset 0px -5px 20px #fff;
 	}
+	#review td,tr{
+		padding:0px;
+		margin:0px;
+		padding-bottom: 5px;
+		padding-top: 5px;
+	}
 </style>
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -224,44 +230,103 @@ var storeName;
 			}
 		});
 		
-	
-		$('#addCmt').submit(function() {
-			var content = $('#insertCmt').val();
-			var num = '${num}';
-			var cmtNo = ++cnt;
+		//리뷰 등록
+	    $('#sbmCmt').click(function(){
+			var text = $('#comment').val();
+			var memNo = $('#memNo').val();
+			var num = $('#itemNum').val();
+			var check;
 			
-			if(checkCmt == '') {
-				alert('상품평을 입력해 주세요');
-			} else {
-				$.ajax({
-					url : "${ pageContext.request.contextPath }/comment/add",
-					data: {"content" : content},
-					type: "post",
-					cache: false,
-					contentType : "application/json; charset=UTF-8",
-					success : function(data) {
-						$('#cmtList').prepend('<li class="item">' +
-												'<div id="cmtNo' + cmtNo + '" class="item-swipe">' +
-												'</div>' +
-												'<div class="item-back">' +
-													'<div class="delCmt"> 삭 제 </div>' +
-												'</div>' +
-											  '</li>');
-						
-						$('#insertCmt').val('');
-						
-						
-						history.go(0);
-					}
-				});
-				
-				$('#cmtNo')   
+			if(memNo==""){
+				('로그인 후 이용 가능합니다.');
+				location.href="${ pageContext.request.contextPath }/login/loginForm";
+				return false;
 			}
-			
-			return false;
+			else if(text==""){
+				alert("상품평을 입력해주세요.");
+				$('#comment').focus();
+				return false;
+			}
+			else{
+				$.ajax({
+		   			url : "${ pageContext.request.contextPath }/comment/check",
+		   			type : "get",
+		   			dataType : "json",
+		   			contentType : "Content-Type:application/json; charset=utf-8",
+		   			data : {
+		   				'memNo'	: memNo,
+		   				'num': num
+		   			},
+		   			success : function(data) {
+		   				check = data;
+		   			
+		   				if(check==true){
+		   					$.ajax({
+		   						url : "${ pageContext.request.contextPath }/comment/item",
+		   						type : "get",
+		   						dataType : "json",
+		   						contentType : "Content-Type:application/json; charset=utf-8",
+		   						data : {
+		   					   		'memNo'	: memNo,
+		   					   		'content': text,
+		   					   		'num': num
+		   					   	},
+		   					   	success : function(data) {
+		   					   		print(data);
+		   					   	}
+		   					});
+		   				}else{
+		  					alert('해당 상품을 구매해야만 리뷰 작성이 가능합니다.');
+ 						}		
+		   			}
+		   		});
+								
+			}
+		});
 		
+		 var num = $('#itemNum').val();
+		 
+		 $.ajax({
+			url : "${ pageContext.request.contextPath }/comment/show",
+			type : "get",
+		   	dataType : "json",
+		   	contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		   	data : {
+		   		'num': num
+		   	},
+		   	success : function(data) {
+		   		
+		   		print(data);
+		   		
+		   	},error : function(request, status, error) {
+				alert("에러 발생! : " + request.status + "message : "+ request.responseText+ "\n"+ "error : "+ error);
+			}
 		});
 	});
+	
+	function print(data){
+
+		row = "<table id='review'>";
+		row += "<tr style='border-bottom: 1px solid #E3E3E3;'>";
+		row += "<td style='width:50%; text-align: center; font-size: 12px;'>내용</td>";
+		row += "<td style='width:20%; text-align: center; font-size: 12px;'>작성자</td>";
+		row += "<td style='width:30%; text-align: center; font-size: 12px;'>작성일<td>";
+		row += "</tr>"; 
+		
+		$.each(data,function(index,item){
+			
+			row += "<tr>";
+			row += "<td style='text-align: left; padding-left: 10px; font-size: 11.5px;'>" + item.content + "</td>";
+			row += "<td style='text-align: center; font-size: 11.5px;'>" + item.id + "</td>";
+			row += "<td style='text-align: center; font-size: 11.5px;'>" + item.date + "</td>";
+			row += "</tr>";
+			
+		});
+		
+		row += "</table>";
+
+		$('#cmtList').html(row);
+	}
 	
 	function cartFunc() {      
 	      var listJSON = '${sessionScope.listJSON}';
@@ -561,7 +626,7 @@ var storeName;
 									</c:if>
 								</c:forEach>
 								<form action="${pageContext.request.contextPath}/store/imgDetail" method="post">
-									<input type="hidden" name="num" value="${ itemContentsVO.num }">
+									<input type="hidden" id="itemNum" name="num" value="${ itemContentsVO.num }">
 									<input type="submit" id="imgDetail" value="이미지 더 보기+" style="border: 0.5px solid black; padding:5px;"/>
 								</form>
 								<br/>
@@ -605,22 +670,21 @@ var storeName;
 						    <div class="row">
 							  <!-- 상품평 입력 시작 -->
 						      <div class="input-field col s12" id="cmtTab">
-						      	<form action="" name="addCmt" id="addCmt">
-									<!-- <textarea id="insertCmt" class="materialize-textarea" wrap="soft"></textarea> -->
-							        <input type="text" placeholder="상품평을 입력해 주세요." id="comment" style="width: 65%; float: left; font-size: 11.5px; margin-left: 5px;"><span style="float: right;"><input type="submit" class="button" id="sbmCmt" value="등록"/></span>
+						      	<form name="addCmt" id="addCmt">
+							        <input type="text" placeholder="상품평을 입력해 주세요." id="comment" style="width: 65%; float: left; font-size: 11.5px; margin-left: 5px;">
+							        <input type="hidden" name="memNo" id="memNo" value="${loginVO.memNo }">
+							        <span style="float: right;">
+							       		<input type="submit" class="button" id="sbmCmt" value="등록"/>
+							       	</span>
 						      	</form>
 						      </div>
 							  <!-- 상품평 입력 끝 -->
 							  <!-- 상품평 리스트 시작 -->
-						     <!--  <div class="col s12">
-						      	<ul id="cmtList">
-						      		<li>
-						      			<div>댓글 내용</div>
-						      			<div>삭제 버튼</div>
-						      			<div>float 클리어 부분</div>
-						      		</li>
-						      	</ul>
-						      </div> -->
+						      <div class="col s12">
+						      	<div id="cmtList" style='margin-top: 20px;'>
+						      		
+						      	</div>
+						      </div>
 							  <!-- 상품평 리스트 끝 -->
 						    </div>
 						</div>
