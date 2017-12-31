@@ -227,7 +227,6 @@ function login(){
 					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->

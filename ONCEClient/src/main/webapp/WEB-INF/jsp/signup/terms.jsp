@@ -21,14 +21,9 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
  	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
  	
- 	<style type="text/css">
- 		.button {
- 			width: 100px;
- 		}
- 		
+ 	<style type="text/css">		
  		.normal {
   			font-weight: 400
 		}
@@ -44,6 +39,23 @@
 		.light {
 		   font-weight: 300
 		}
+		
+		input[type="button"], input[type="submit"], button {
+			font-size: inherit;
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}
+		
+		button:hover {
+			background-color: #fff;
+		}
  	</style>
  	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -51,7 +63,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<script type="text/javascript">
 	$(document).ready(function () {
@@ -67,27 +78,15 @@
 		
 		$("#nextBtn").click(function(){    
             if(($("#checkbox1").is(":checked") == false)||($("#checkbox2").is(":checked") == false) ){
-                infoAlert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다..");
+                alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다..");
                 return;
             }else {
             	location.href = '${pageContext.request.contextPath}/signup/signupMain';
             }
         });     
-		
-		// 다이얼로그 format 정의
-		$("#dialog").dialog({
-			autoOpen : false,
-			modal : true,
-			width : '300',
-			height : '150'
-		});
 		 
 	});	
 	
-	function infoAlert(str){
-		$('#dialog').html("<div style='text-align:center; margin:auto;'><p>"+str+"</p></div>");
-		$("#dialog").dialog("open");
-	}
 	function login(){
 		alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
 	}
@@ -103,22 +102,19 @@
 	</header>
 	
 	<section>
-		<!-- Modal --> 						
-		<div id="dialog" title="ALERT DIALOG"></div>
-		
 		<div class="table-app app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">회원가입</h3>
-					<img src="${ pageContext.request.contextPath }/resources/img/heartline.png" width="15%"> 
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%"> 
 				</div>
-				<div align="center"><h4 class="light">약관동의</h4></div>
+				<div align="center"><h5 class="normal">약관동의</h5></div>
 				<br/>
 				<div>
 				<input type="checkbox" id="checkbox" /> <label for="checkbox">전체동의</label><br>
 				<input type="checkbox" id="checkbox1" /> <label for="checkbox1">이용약관 동의 (필수)</label>
 				<br>
-				<div style="overflow: scroll; overflow-X: hidden; width: 100%; height: 230px; border: 0.5px solid black;padding: 20px; background: #e0e0e0;">
+				<div style="overflow: scroll; overflow-X: hidden; width: 100%; height: 230px; border: 0.5px solid black; padding: 20px; background: #e5fffd; font-size: 10pt;">
 					<h6>제1조(목적)</h6>
 					<br/>
 					이 약관은 ONCE가 운영하는 홈페이지(이하 "쇼핑몰"이라 한다)에서 제공하는 인터넷 관련 서비스(이하 "서비스"라 한다)를 이용함에 있어 ONCE와 이용자의 권리·의무 및 책임사항을 규정함을 목적으로 합니다. 
@@ -306,7 +302,7 @@
 				<br/>
 				<input type="checkbox" id="checkbox2" /> <label for="checkbox2">개인정보 처리방침 동의 (필수)</label>
 				<br>
-				<div style="overflow: scroll; overflow-X: hidden; width: 100%; height: 230px; border: 0.5px solid black;padding: 20px; background: #e0e0e0;">
+				<div style="overflow: scroll; overflow-X: hidden; width: 100%; height: 230px; border: 0.5px solid black;padding: 20px; background: #e5fffd; font-size: 10pt;">
 					개인정보보호표준포럼(이하 ‘포럼’이라 함)는 정보주체의 개인정보를 중시하며,「정보통신망 이용촉진 및 정보보호에 관한 법률」및「개인정보보호법」을 준수합니다.
 					포럼은 개인정보 처리방침을 통해 포럼이 정보주체로부터 제공받은 개인정보를 어떠한 용도와 방식으로 이용하고 있으며, 개인정보를 위해 어떠한 조치를 취하고 있는지 알려드립니다.
 					개인정보 처리방침 개정 시에는 웹사이트를 통하여 공시하겠습니다.<br/>
@@ -411,8 +407,8 @@
 				<br>
 				
 				<div align="center" style="margin-top: 20px;">
-				<button class="button" onclick="location.href='${pageContext.request.contextPath}'">이전</button>
-				<button class="button" id="nextBtn">다음</button>
+				<button onclick="location.href='${pageContext.request.contextPath}'">이전</button>
+				<button id="nextBtn">다음</button>
 				</div>	
 					</div>	
 			</div>
