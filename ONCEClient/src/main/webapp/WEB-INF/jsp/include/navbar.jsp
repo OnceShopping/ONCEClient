@@ -6,7 +6,7 @@
 		<div class="w3-bar w3-light-grey w3-border w3-xlarge">
 			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-search"></i></a> 
 			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-star"></i></a> 
-			<a href="#" style="width: 20%" class="w3-bar-item w3-button w3-green"><i class="fa fa-home"></i></a> 
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a> 
 			<a href="#" style="width: 20%" class="w3-bar-item w3-button"><i class="fa fa-truck"></i></a>
 			<c:choose>
 				<c:when test="${ not empty loginId or not empty loginVO }">

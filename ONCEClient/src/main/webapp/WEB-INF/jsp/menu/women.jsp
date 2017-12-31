@@ -273,7 +273,7 @@ function settingPrice(obj, count){
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	</footer>
-		
+	
 	<!-- 하단 navbar -->
 	<div class="w3-bottom" style="background-color: #d0c5ff;">
 		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
@@ -286,7 +286,7 @@ function settingPrice(obj, count){
 				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
 			</c:otherwise>
 			</c:choose>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
 			<c:choose>
 				<c:when test="${ !empty loginVO }">
 					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>

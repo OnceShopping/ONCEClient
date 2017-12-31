@@ -238,29 +238,34 @@ var storeName;
 			var check;
 			
 			if(memNo==""){
-				('로그인 후 이용 가능합니다.');
+				alert('로그인 후 이용 가능합니다.');
 				location.href="${ pageContext.request.contextPath }/login/loginForm";
 				return false;
 			}
 			else if(text==""){
 				alert("상품평을 입력해주세요.");
 				$('#comment').focus();
-				return false;
-			}
-			else{
+			}else{
+				alert('comment check');/////
+				
 				$.ajax({
 		   			url : "${ pageContext.request.contextPath }/comment/check",
 		   			type : "get",
-		   			dataType : "json",
+		   			dataType:"json",
 		   			contentType : "Content-Type:application/json; charset=utf-8",
 		   			data : {
-		   				'memNo'	: memNo,
-		   				'num': num
+		   				"memNo"	: memNo,
+		   				"num": num
 		   			},
 		   			success : function(data) {
+
+		   				alert("check :" + check );
+		   				alert('comment check 완료'); ////////
 		   				check = data;
 		   			
 		   				if(check==true){
+		   					alert('item');
+		   					
 		   					$.ajax({
 		   						url : "${ pageContext.request.contextPath }/comment/item",
 		   						type : "get",
@@ -272,12 +277,15 @@ var storeName;
 		   					   		'num': num
 		   					   	},
 		   					   	success : function(data) {
+		   					   	alert('작성하는 순간');
 		   					   		print(data);
 		   					   	}
 		   					});
 		   				}else{
 		  					alert('해당 상품을 구매해야만 리뷰 작성이 가능합니다.');
  						}		
+		   			}, error:function(data){
+		   				alert('처음 ajax 에러.. 우엑');
 		   			}
 		   		});
 								

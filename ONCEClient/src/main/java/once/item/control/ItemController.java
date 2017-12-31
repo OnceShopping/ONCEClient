@@ -46,7 +46,7 @@ public class ItemController {
   private CustomerService cusService;
   
   
-	@RequestMapping("/")
+	@RequestMapping("main")
 	public String indexItem (CustomerVO loginVO, HttpServletRequest request, HttpSession session, Model model) throws IOException {
 	
 		List<ItemVO> itemList = service.selectItemList();
