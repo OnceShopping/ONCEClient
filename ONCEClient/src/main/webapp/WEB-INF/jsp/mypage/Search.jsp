@@ -204,7 +204,7 @@ function comma(obj){
 	<!-- 하단 navbar -->
 	<div class="w3-bottom" style="background-color: #d0c5ff;">
 		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #fff;" class="w3-bar-item"><i class="fa fa-search"></i></a>
 			<c:choose>
 				<c:when test="${ !empty loginVO }">
 					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
