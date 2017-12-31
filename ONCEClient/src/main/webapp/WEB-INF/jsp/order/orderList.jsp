@@ -276,10 +276,15 @@ function optionChange(obj){
 							<span style=" color: #9e9e9e">수량 : </span><span id="count_${loop.index}_${status.index}" style=" color: #9e9e9e">${itemContents.count}</span><br>
 							<span id="oriPrice_${loop.index}_${status.index}" style=" color: #9e9e9e"><span id="price_${loop.index}_${status.index}">${itemContents.price * itemContents.count }</span>원</span>
 						<input type="hidden" name="orderDetails[${ status.index }].itemName" value="${ itemContents.itemName }" />
+						<input type="hidden" name="orderDetails[${ status.index }].color" value="${ itemContents.color }" />
+						<input type="hidden" name="orderDetails[${ status.index }].size" value="${ itemContents.size }" />
+						<input type="hidden" name="orderDetails[${ status.index }].count" value="${ itemContents.count }" />
 						<input type="hidden" name="orderDetails[${ status.index }].storeNo" value="${ itemContents.storeNo }" />
 						<input type="hidden" name="orderDetails[${ status.index }].storeName" value="${ itemContents.storeName }" />
 						<input type="hidden" name="orderDetails[${ status.index }].detailNo" value="${ itemContents.detailNo }" />
 						<input type="hidden" name="orderDetails[${ status.index }].imgSaveName" value="${ itemContents.imgSaveName }" />
+						<input type="hidden" name="orderDetails[${ status.index }].price" value="${itemContents.price}"/>
+						<input type="hidden" name="orderDetails[${ status.index }].salePrice" value="${itemContents.salePrice}"/>
 						</div>
 					</div>
 				</div>
