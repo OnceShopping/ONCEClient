@@ -35,6 +35,18 @@
 	padding: 2px;
 	background-color: #e5e5e5;
 }
+
+input[type="button"], input[type="submit"] {
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}
 </style>
 
 <script>
@@ -71,7 +83,7 @@
 	 <div class="team-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3>층별 매장</h3>
+				<h3 style="font-weight: bold;">${ floor }</h3>
 			</div>
 			<div class="row">
 				<%-- <c:forEach var="" items=""> --%>
@@ -79,15 +91,17 @@
 					
 				<div class="col s6">
 					<div class="entry">
-						<head>
-							<a href="${pageContext.request.contextPath}/store/${store.storeName }"><img src="/image/${store.imgSaveName}" alt=""></a>
-						</head>
-						
+						<div style="width: 157px; height: 157px; ">
+							<a href="${pageContext.request.contextPath}/store/${store.storeName }">
+							<img src="/image/${store.imgSaveName}" alt="" style="width: 100%; height: auto; position: relative;
+            				top: 50%; left: 50%; transform: translate(-50%, -50%); -webkit-transform: translate(-50%, -50%);">
+							</a>
+						</div>
 						<div class="content" >
-							<h6 id="${store.storeName }" class="test">${store.storeName }</h6>
-							<p>${store.storeCategory }</p>
+							<h6 id="${store.storeName }" class="test" style="font-weight: bold;">${store.storeName }</h6>
+							<p style="color: #9e9e9e; font-size: 10px">${store.storeCategory }</p>
 							<ul>
-								<ll><i class="fa fa-phone-square"></i>${store.phone }</ll>
+								<li style="font-size: 10px"><i class="fa fa-phone-square"></i>${store.phone }</li>
 							</ul>
 							<input class="button" type="button" value="즐겨찾기 추가" onclick="addlikeStore('${store.storeName }')"></input>
 						</div>
@@ -105,17 +119,18 @@
 	<!-- end footer -->
 	</footer>
 	
-	<!-- 하단 navbar -->
-	<div class="w3-bottom">
-		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
-			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<a href="#" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-user"></i></a>
+		<!-- 하단 navbar -->
+	<div class="w3-bottom" style="background-color: #d0c5ff;">
+		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
+
 	
 </body>
 </html>
