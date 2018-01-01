@@ -132,7 +132,8 @@
 var iPrice=0;
 var itName;
 var storeName;
-
+var itemNum;
+var main;
 	$(document).ready(function() {
 		
 		var cnt = 0;
@@ -140,7 +141,9 @@ var storeName;
 		
 		iPrice = $('#itemPrice').text();
 		itName = $('#itName').text(); //아이템 이름
-		storeName = $('#storeName').text(); //매장 이름
+		storeName = $('#stName').val(); //매장 이름
+		itemNum = $('#itemNum').val();//아이템 번호
+		main = $('#main').val(); //메인 이미지 이름
 		
 		// 첫 화면에 표시되는 모든 가격에 comma 설정
 		var settings = document.getElementsByClassName("setting");
@@ -246,7 +249,6 @@ var storeName;
 				alert("상품평을 입력해주세요.");
 				$('#comment').focus();
 			}else{
-				alert('comment check');/////
 				
 				$.ajax({
 		   			url : "${ pageContext.request.contextPath }/comment/check",
@@ -259,8 +261,6 @@ var storeName;
 		   			},
 		   			success : function(data) {
 
-		   				alert("check :" + check );
-		   				alert('comment check 완료'); ////////
 		   				check = data;
 		   			
 		   				if(check==true){
@@ -277,15 +277,12 @@ var storeName;
 		   					   		'num': num
 		   					   	},
 		   					   	success : function(data) {
-		   					   	alert('작성하는 순간');
 		   					   		print(data);
 		   					   	}
 		   					});
 		   				}else{
 		  					alert('해당 상품을 구매해야만 리뷰 작성이 가능합니다.');
  						}		
-		   			}, error:function(data){
-		   				alert('처음 ajax 에러.. 우엑');
 		   			}
 		   		});
 								
@@ -509,13 +506,13 @@ var storeName;
 		Kakao.Link.sendTalkLink({
 			label:'이 상품 어때요?',
 			image:{
-				src:'http://13.124.194.6:8080/image/ONCE-846dcdc8-01a1-41d2-a7a4-2d25d213f439.png',
+				src:'http://13.124.194.6:8080/image/'+main,
 				width:'300',
 				height:'200'
 			},
 			webButton:{
 				text:'#'+storeName+' #'+itName,
-				url:'http://13.124.194.6:8080/ONCEAdmin/'
+				url:'http://13.124.194.6:8080/ONCEClient/item/'+itemNum
 			}
 		});
 	}
@@ -578,7 +575,8 @@ var storeName;
 					<c:forEach items="${ imgList }" var="list" varStatus="status">
 						<c:if test="${status.count eq 1}">
 							<div style="width: 100%; line-height: 100px;">
-								<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;" >
+								<img src="/image/${list.imgSaveName}" alt="" style="width: 100%; max-width: 760px; vertical-align: middle; height:auto;">
+								<input type="hidden" value="${list.imgSaveName}" id="main">
 							</div>
 						</c:if>
 					</c:forEach>
@@ -586,6 +584,7 @@ var storeName;
 			<div class="container" style="margin-top:20px; margin-bottom:20px;">
 				<div id="mainDescription">
 					<h6 id="storeName"><span style='color: #9E9E9E; font-style: oblique;'>${ storeName }</span>
+					<input type="hidden" value="${storeName }" id="stName">
 					<a id="kakao-link-btn" href="javascript:share();"><span style='color: #3B1E1E; float: right; font-size: 22px;'><i class="fa fa-share-alt"></i></span></a></h6>
 					<h4><b><span id="itName">${ itemContentsVO.itemName }</span></b></h4>
 					<h5>
