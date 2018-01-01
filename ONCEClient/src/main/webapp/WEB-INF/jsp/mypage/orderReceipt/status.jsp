@@ -234,7 +234,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td>구매 수량 : ${order.count}</td>
+										<td>구매 수량 : ${ order.totalCount }</td>
 									</tr>
 									<tr>
 										<td>구매 일자  : ${order.date}</td>
