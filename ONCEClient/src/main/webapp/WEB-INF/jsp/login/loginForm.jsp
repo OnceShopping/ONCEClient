@@ -29,8 +29,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </head>
-<style>
-	<style type="text/css">
+<style type="text/css">
 	.normal {
 	   font-weight: 400
 	}
