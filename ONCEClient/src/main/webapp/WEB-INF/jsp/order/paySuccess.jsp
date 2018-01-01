@@ -145,28 +145,22 @@ $(document).ready(function(){
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
 				<h3 class="bold">결 제 완 료</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
-			<div class="order">
-				<h5 class="title">${order.storeName}</h5>
-				<br/>
+			<div class="order" style="border: none; margin: 0px;">
+				<h5 class="title" style="text-align: left; margin: 0px;font-weight: bold;">[${order.storeName}]</h5>
 				<c:forEach var="detail" items="${order.orderDetails}" varStatus="status">
 					<div class="row" style="margin: 10px;">
-						<h6>${detail.itemName}<br/><span style="font-size:12px; margin-left: 5px;">(${detail.count}개&nbsp;|&nbsp;${detail.color}&nbsp;|&nbsp;${detail.size})</span></h6>
-						<div class="col s8">
-						</div>
-						<div id="price_${status.index}" class="col s4 text-right">
-							<h6><span id="detailPrice_${status.index}">${detail.price}</span>원</h6>
+						<span style="font-size: 12px;">${detail.itemName}<br/>(${detail.count}개&nbsp;|&nbsp;${detail.color}&nbsp;|&nbsp;${detail.size})</span></span>
+						<div id="price_${status.index}" class="col s4 text-right" style="float: right; ">
+							<h6 style="padding-bottom: 3px;"><span id="detailPrice_${status.index}">${detail.price}</span>원</h6>
 						</div>
 					</div>
-					<hr/><br/>
 				</c:forEach>
-				<div class="order">
-					<div class="col s8">
-						<h5><span style="font-size: 15px;">총 결재금액</span></h5>
-					</div>
-					<div class="col s4 text-right">
-						<h5><span id="totalPrice">${order.totalPrice}</span>원</h5>
-					</div>
+				<hr/>
+				<div class="order" style="border: none; padding: 0px; margin-top: 20px;">
+						<h5 style="font-weight: bold;"><span style="font-size: 15px; margin: 0px; padding: 0px;">총 결재금액</span>
+						<span style="float: right;"><span id="totalPrice">${order.totalPrice}</span> 원</span></h5>
 				</div>
 			</div>
 		</div>
