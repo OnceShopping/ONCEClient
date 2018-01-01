@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
@@ -32,6 +33,21 @@
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 <style type="text/css">
+.normal {
+   font-weight: 400
+}
+
+.bold {
+   font-weight: 700
+}
+
+.bolder {
+   font-weight: 800
+}
+
+.light {
+   font-weight: 300
+}
 .menuSpace {
 	padding: 2px;
 	background-color: #e5e5e5;
@@ -46,6 +62,36 @@
 }
 .fa-search {
 	cursor:pointer;
+}
+#navbar2Main {
+	background: #ffffff;
+	border-bottom: #e5e5e5;
+	box-shadow: 0px 2px 1px #e5e5e5;
+}
+#storeTitle {
+	color: #000000;
+	font-style: normal;
+	font-weight: 650;
+}
+#storeImg {
+	text-align: center;
+	vertical-align: middle;
+	margin-bottom: 30px;
+}
+#storeImg img {
+	width: 130px;
+	height: 130px;
+	object-fit: cover;
+}
+#search {
+	position:relative;
+	border-radius: 50px;
+	background: #e2e2e2;
+	height: 30px;
+	padding-left:20px;
+	box-shadow: none;
+	border-bottom: none;
+	width: 89%
 }
 </style>
 
@@ -167,7 +213,9 @@ function comma(obj){
 	}	
 	return array.join(",");
 }
-
+function login(){
+	alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
+}
 </script>
 
 </head>
@@ -253,23 +301,22 @@ function comma(obj){
 	
 	<section>
 	 <div class="team-app app-pages app-section" style="margin-top: 0px">
-			<div class="col s12" style="text-align: center; vertical-align: middle; margin-bottom: 30px" >
-				<img alt="상표 이미지 ${ storeVO.storeName}" src="/image/${storeVO.imgSaveName }" style="width: 157.5px;">
+			<div id="storeImg" class="col s12">
+				<img class="circle" alt="상표 이미지 ${ storeVO.storeName}" src="/image/${storeVO.imgSaveName }">
 			</div>
-			<div class="navbar" id="navbar2Main" style="background: #ffffff; border-bottom: #ffffff; box-shadow: none">
+			<div class="navbar" id="navbar2Main">
 				<div class="container">
 					<div class="panel-control-left" id="navbar2">
 						<a href="#" data-activates="slide-out-left-2"
 							class="sidenav-control-left"><i class="fa fa-bars"></i></a>
 					</div>
 					<div class="site-title" id="navbar2Logo" >
-						<a href="${pageContext.request.contextPath}/store/${ storeVO.storeName}" class="logo"><h1 style="color: #000000; -webkit-text-stroke: #000000;">${ storeVO.floor } ${ storeVO.storeName}</h1></a>
+						<a href="${pageContext.request.contextPath}/store/${ storeVO.storeName}" class="logo"><h1 id="storeTitle">${ storeVO.floor } ${ storeVO.storeName}</h1></a>
 					</div>
 					
 					<div id="input-field">
 						<form class="selectSubmit" action="">
-						<input class="form-control" id="search" type="search" required style="position:relative; border-radius: 50px;  background: #c0c0c0; height: 30px;
-						 padding-left:20px; box-shadow: none; border-bottom: none; width: 89%" placeholder="물품 검색">
+						<input class="form-control" id="search" type="search" required placeholder="물품 검색">
 						<input type="button" value="&#xf00d;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: transparent; border: 0; box-shadow: none; 
 						outline: none; padding: 0px; width: 30px; height: 30px; left:155px; top:-50px">
 						<i class="fa fa-search fa-lg" aria-hidden="true" id="storeSelect" style="position: relative; top: -50px; left: 160px"></i>
@@ -361,8 +408,8 @@ function comma(obj){
 		<div class="tabs-app app-pages app-section" id="mainProduct" style="margin-top: 0px">
 			<div class="container">
 				<div class="pages-title">
-					<h6 class="bold" style="text-align: left; margin: 0px">신상품</h6>
-					<h6 class="bold" style="text-align: left; margin: 0px">(${fn:length(storeItem) })</h6> 
+					<h6 style="text-align: left; margin: 0px">신상품</h6>
+					<h6 style="text-align: left; margin: 0px">(${fn:length(storeItem) })</h6> 
 				</div>
 				<div class="row">
 					<c:forEach items="${ storeItem }" varStatus="status" var="itemVO">

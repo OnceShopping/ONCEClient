@@ -463,8 +463,19 @@ public class OrderController {
 		
 		List<OrderVO> orderList = new ArrayList<>();
 		
-		if(login!=null)
+		if(login!=null) {
 			orderList = service.showOrderList(login.getMemNo());
+			
+			for(int i=0; i<orderList.size(); i++) {
+				orderList.get(i).setOrderDetails(service.showDetailList(orderList.get(i).getOrderNo()));
+				 
+				int count = 0;
+				for(int j=0; j<orderList.get(i).getOrderDetails().size(); j++) {
+					count += orderList.get(i).getOrderDetails().get(j).getCount();
+				}
+				orderList.get(i).setTotalCount(count);
+			}
+		}
 				
 		ModelAndView mav = new ModelAndView();
 		

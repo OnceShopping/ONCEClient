@@ -44,6 +44,22 @@
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	<style type="text/css">
+	.normal {
+	   font-weight: 400
+	}
+	
+	.bold {
+	   font-weight: 700
+	}
+	
+	.bolder {
+	   font-weight: 800
+	}
+	
+	.light {
+	   font-weight: 300
+	}
+		
 	.detailTable{
 		border-color: #EBEBEB;
 		border-radius: 5px !important;
@@ -147,7 +163,9 @@
 			}	
 			return array.join(",");
 		}
-		
+		function login(){
+			alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
+		}
 	</script>
 </head>
 <body>
@@ -163,6 +181,7 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문 / 수령</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
 				<div class="detailTable">
 				<c:forEach var="detail" items="${detailList}" varStatus="index">				

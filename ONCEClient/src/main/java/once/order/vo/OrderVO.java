@@ -38,4 +38,7 @@ public class OrderVO {
 	//store
 	private String imgSaveName;
 	
+	//status - totalCount
+	private int totalCount;
+	
 }
