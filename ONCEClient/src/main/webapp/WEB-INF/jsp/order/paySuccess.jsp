@@ -41,19 +41,42 @@
 	.light {
 	   font-weight: 300
 	}
+	
+	.orderSucess{
+		border: 1px solid #ddd;
+		padding-top: 30px;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+
+
+	td, th {
+	    padding: 5px 5px;
+	    display: table-cell;
+	    text-align: left;
+	    vertical-align: middle;
+	    border-radius: 2px;
+	}
+	
+	.OKBtn {
+	   font-size: inherit;
+	   background-color:#fff;
+	   color: #999cff;
+	   padding: 5px 30px 5px 30px;
+	   border: solid #a8b2ff 2px;
+	}
+	
 	</style>
 
- 
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	
-
 <script type="text/javascript">
 $(document).ready(function(){
-	
+
 	<c:forEach var="detail" items="${order.orderDetails}" varStatus="status">
 		settingPrice($('#detailPrice_'+${status.index}).text(), ${status.index});
 	</c:forEach>
@@ -127,9 +150,7 @@ $(document).ready(function(){
 	
 		$('#totalPrice').html(totalPrice);
 	}
-	function login(){
-		alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
-	}
+	
 	
 </script>
 </head>
@@ -147,63 +168,59 @@ $(document).ready(function(){
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
 				<h3 class="bold">결 제 완 료</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
-			<div class="order">
-				<h5 class="title">${order.storeName}</h5>
-				<br/>
-				<c:forEach var="detail" items="${order.orderDetails}" varStatus="status">
-					<div class="row" style="margin: 10px;">
-						<h6>${detail.itemName}<br/><span style="font-size:12px; margin-left: 5px;">(${detail.count}개&nbsp;|&nbsp;${detail.color}&nbsp;|&nbsp;${detail.size})</span></h6>
-						<div class="col s8">
-						</div>
-						<div id="price_${status.index}" class="col s4 text-right">
-							<h6><span id="detailPrice_${status.index}">${detail.price}</span>원</h6>
-						</div>
-					</div>
-					<hr/><br/>
-				</c:forEach>
-				<div class="order">
-					<div class="col s8">
-						<h5><span style="font-size: 15px;">총 결재금액</span></h5>
-					</div>
-					<div class="col s4 text-right">
-						<h5><span id="totalPrice">${order.totalPrice}</span>원</h5>
-					</div>
-				</div>
+			<div class="orderSucess" style="text-align: center">
+				<img src="${ pageContext.request.contextPath }/resources/img/orderSuccess.png" width="40%" height="50%">
+				<h5 style="font-weight: 550; margin-top: 20px;">상품 결제가 완료되었습니다.</h5>
+			</div>
+			<table class="payTable">
+				<tr>
+					<td width="40%" style="text-align: center; background-color: #f4f4f4;  border-bottom: 1px solid white;">스토어</td>
+					<td style="border-bottom: 1px solid #f4f4f4;">${order.storeName}</td>
+				</tr>
+				<tr>
+					<td style="text-align: center; background-color: #f4f4f4; border-bottom: 1px solid white;">상품</td>
+					<td style="border-bottom: 1px solid #f4f4f4;">
+					<c:forEach var="detail" items="${order.orderDetails}" varStatus="status">
+					<h6 style="margin: 0px;">${detail.itemName}</h6><h6 style="font-size:11px;">(${detail.count}개|${detail.color}|${detail.size})<br/></h6>
+					</c:forEach>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center; background-color: #f4f4f4;">총 결제금액</td>
+					<td><span id="totalPrice">${order.totalPrice}</span>원</td>
+				</tr>
+			</table>
+			<div style="margin-top: 10px; width: 100%; text-align: center;">
+				<span style="font-size: 11px;">구매하신 상품은 mypage > <strong class="bold">주문/수령</strong>에서 확인 가능합니다.</span>
+			</div>
+			<div id="entry" style="margin-top: 20px; width: 100%; margin-bottom: 30px;">
+				<button type="button" class="button OKBtn" onclick="location.href='${ pageContext.request.contextPath }/main'" style=" width: 100%;">확 인</button>
 			</div>
 		</div>
 	</div>
-	<!-- end product cart -->
 	</section>
-
+	
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
 	<!-- end footer -->
 	
 	<!-- 하단 navbar -->
-	<div class="w3-bottom" style="background-color: #d0c5ff;">
-		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">
-			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-search"></i></a>
-			<c:choose>
-				<c:when test="${ !empty loginVO }">
-					<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+	<div class="w3-bottom">
+		<div class="w3-bar w3-white w3-border w3-xlarge" style="text-align: center;">
+			<a href="${pageContext.request.contextPath}/item/serach" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-search"></i></a>
+			<a href="${pageContext.request.contextPath}/mypage/likeStore" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-star"></i></a>
+			<a href="${pageContext.request.contextPath}" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-home"></i></a>
+			<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2b2;" class="w3-bar-item"><i class="fa fa-truck"></i></a>      
+      <c:choose>
+				<c:when test="${ not empty loginVO }">
+					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
 				</c:when>
-			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-star"></i></a>
-			</c:otherwise>
-			</c:choose>
-			<a href="${pageContext.request.contextPath}/main" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-home"></i></a>
-			<c:choose>
-				<c:when test="${ !empty loginVO }">
-					<a href="${pageContext.request.contextPath}/order/status" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-truck"></i></a>
-					<a href="${pageContext.request.contextPath}/mypage/mypageMain" style="width: 20%; color: #b2b2e8;" class="w3-bar-item"><i class="fa fa-user"></i></a>
-				</c:when>
-				<c:otherwise>				
-					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-truck"></i></a>
-					<a href="${pageContext.request.contextPath}/login/loginForm" style="width: 20%; color: #b2b2e8;" class="w3-bar-item" onclick="login()"><i class="fa fa-user"></i></a>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/login/login" style="width: 20%" class="w3-bar-item"><i class="fa fa-user"></i></a>
 				</c:otherwise>
-			</c:choose>
-
+			</c:choose>      
 		</div>
 	</div>
 	<!-- 하단 navbar 끝 -->
