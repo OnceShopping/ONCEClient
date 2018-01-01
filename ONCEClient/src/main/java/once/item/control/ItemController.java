@@ -201,7 +201,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value="/store/item/{num}", method = RequestMethod.GET)
-	public ModelAndView itemDetail(@PathVariable int num, ItemContentsVO itemContentsVO, Model model) {
+	public ModelAndView itemDetail(@PathVariable int num, ItemContentsVO itemContentsVO, Model model, HttpSession session) {
 		itemContentsVO = service.selectOneItem(num);
 		
 		String storeName = service.selectByStoreNo(itemContentsVO.getStoreNo());
@@ -219,6 +219,12 @@ public class ItemController {
 		itemVO.setColorList(colorList);
 		itemVO.setSizeList(sizeList);
 		itemVO.setStoreNo(itemContentsVO.getStoreNo());
+
+		//스토어 정보를 알아오기 위함
+		StoreVO storeVO = Sservice.selectOneStore(storeName);
+		
+		//댓글을 위한 로그인 설정을 알아보기 위함
+		CustomerVO loginVO=(CustomerVO)session.getAttribute("loginVO");
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -227,6 +233,8 @@ public class ItemController {
 		mav.addObject("storeName", storeName);
 		mav.addObject("imgList", imgList);
 		mav.addObject("newItemList", newItemList);
+		mav.addObject("storeVO", storeVO);
+		mav.addObject("loginVO", loginVO);
 		
 		System.out.println("itemDetail_imgList: "+imgList);
 		System.out.println("itemDetail_newItemList: "+newItemList);
