@@ -76,6 +76,11 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+	<script type="text/javascript">
+	function login(){
+		alert('로그인이 필요한 메뉴입니다. 로그인 화면으로 이동합니다.');
+	}
+	</script>
 </head>
 <body>
    <header>
