@@ -44,6 +44,22 @@
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	<style type="text/css">
+	.normal {
+	   font-weight: 400
+	}
+	
+	.bold {
+	   font-weight: 700
+	}
+	
+	.bolder {
+	   font-weight: 800
+	}
+	
+	.light {
+	   font-weight: 300
+	}
+	
 	.orderTable{
 		border: 1px solid #EBEBEB;
 		border-radius: 5px !important;
@@ -172,11 +188,12 @@
 	<!-- end navbar -->
 	</header>
 		
-	<section>
+	<section style="padding-bottom: 40px;">
 		<div class="app-pages app-section">
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문 / 수령</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
 				<div>
 				<c:choose>

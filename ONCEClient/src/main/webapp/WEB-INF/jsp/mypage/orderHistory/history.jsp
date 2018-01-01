@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 	
+ 	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
@@ -252,7 +252,21 @@
 	}
 </script>
 <style type="text/css">
-
+	.normal {
+		font-weight: 400
+	}
+	
+	.bold {
+		font-weight: 700
+	}
+	
+	.bolder {
+		font-weight: 800
+	}
+	
+	.light {
+		font-weight: 300
+	}
 	table, tr, td{
 		padding: 5px;
 	}
@@ -292,105 +306,38 @@
 		border:1px solid #EBEBEB; 
 		background-color:#EEE9FE;
 	}
+	input[type="text"]:focus:not([readonly]), input[type=text].valid, input[type=text]:focus.valid, input[type="password"]:focus:not([readonly]), input[type=password].valid,  input[type=password]:focus.valid {
+     	border-bottom: 1px solid #d1b2ff;
+     	box-shadow: 0 1px 0 0 #d1b2ff;
+    }
+     
+    input[type="text"]:focus:not([readonly])+label, input[type="password"]:focus:not([readonly])+label {
+     	color: #d1b2ff;
+    }
+	input[type="button"], input[type="submit"] {
+		margin-left: 10px;
+		margin-right: 10px;
+		-webkit-border-radius: 28;
+		-moz-border-radius: 28;
+		border-radius: 28px;
+		background-color:#fff;
+		color: #999cff;
+		padding: 5px 30px 5px 30px;
+		border: solid #a8b2ff 2px;
+	}
 </style>
 </head>
 <body>
-<header>
-		<!-- 상단 navbar -->
-		<div class="navbar">
-		<div class="container">
-			<div class="panel-control-left">
-				<a href="#" data-activates="slide-out-left"
-					class="sidenav-control-left"><i class="fa fa-bars"></i></a>
-			</div>
-			<div class="site-title">
-				<a href="${pageContext.request.contextPath}" class="logo"><h1>ONCE</h1></a>
-			</div>
-			<div class="panel-control-right">
-				<a href="contact.html"><i class="fa fa-shopping-cart"></i></a>
-			</div>
-		</div>
-	</div>
-	<!-- 상단 navbar 끝 -->
-
-	<!-- 좌측 메뉴패널 -->
-	<div class="panel-control-right">
-		<ul id="slide-out-left" class="side-nav collapsible"
-			data-collapsible="accordion">
-			<li>
-				<div class="photos">
-					<h3>cus1</h3>
-				</div>
-			</li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fa fa-map-signs"></i>층별 매장 보기<span><i
-						class="fa fa-chevron-right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul class="side-nav-panel">
-						<li><a href="${pageContext.request.contextPath}/menu/1F">1F</a></li>
-						<li><a href="${pageContext.request.contextPath}/menu/2F">2F</a></li>
-						<li><a href="${pageContext.request.contextPath}/menu/3F">3F</a></li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<i class="fa fa-th"></i>상품별 보기 <span><i class="fa fa-chevron-right"></i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul class="side-nav-panel">
-						<li class="tileList">
-							<table>
-								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/men" class="tileMenu"><i class="fa fa-male"></i><br/>남성
-											의류</a></td>
-									<td class="menuSpace"></td>
-									<td><a href="${pageContext.request.contextPath}/menu/women" class="tileMenu"><i class="fa fa-female"></i><br/>여성 의류</a></td>
-								</tr>
-							</table>
-						</li>
-						<li>
-							<div class="menuSpace"></div>
-						</li>
-						<li class="tileList">
-							<table class="tileMenu">
-								<tr>
-									<td><a href="${pageContext.request.contextPath}/menu/kids" class="tileMenu"><i class="fa fa-child"></i><br/>유·아동복</a></td>
-									<td class="menuSpace"></td>
-									<td><a href="${pageContext.request.contextPath}/menu/general" class="tileMenu"><i class="fa fa-briefcase"></i><br/>패션 잡화</a></td>
-								</tr>
-							</table>
-						</li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li><a href="${pageContext.request.contextPath}/login/login"><i class="fa fa-sign-in"></i>로그인</a></li>
-			<li>
-				<div class="menuSpace"></div>
-			</li>
-			<li><a href="register.html"><i class="fa fa-user-plus"></i>회원가입</a>
-			</li>
-		</ul>
-	</div>
-		<!-- 좌측 메뉴패널 끝 -->
-	</header>
-	
+   <header>
+      <jsp:include page="/WEB-INF/jsp/include/topmenu.jsp"></jsp:include>
+   </header>
+   	
 	<section>
 	<div class="grid-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
 				<h3 class="bold">구매 내역</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
 			<div>
 				<table class="selectTimes">

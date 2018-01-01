@@ -62,6 +62,21 @@
 			padding: 5px 15px 5px 15px;
 			font-size: 10pt;
 		}
+		
+		input[type="text"]:focus:not([readonly]), input[type=text].valid, input[type=text]:focus.valid,
+		input[type="password"]:focus:not([readonly]), input[type=password].valid, input[type=password]:focus.valid,
+		input[type="tel"]:focus:not([readonly]), input[type="tel"].valid, input[type="tel"]:focus.valid,
+		input[type="email"]:focus:not([readonly]), input[type="email"].valid, input[type="email"]:focus.valid {
+	      	border-bottom: 1px solid #d1b2ff;
+	      	box-shadow: 0 1px 0 0 #d1b2ff;
+      	}
+      
+		input[type="text"]:focus:not([readonly])+label,
+		input[type="password"]:focus:not([readonly])+label,
+		input[type="tel"]:focus:not([readonly])+label,
+		input[type="email"]:focus:not([readonly])+label {
+			color: #d1b2ff;
+		}
  	</style>
  
    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>

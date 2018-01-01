@@ -49,7 +49,23 @@
 	color: #999cff;
 	padding: 5px 30px 5px 30px;
 	border: solid #a8b2ff 2px;
-}
+	}
+	
+	input[type="button"]:hover, input[type="submit"]:hover, button:hover {
+		background-color: #fff;
+	}
+
+	[type="radio"]:not(:checked)+label:before, [type="radio"]:not(:checked)+label:after, [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+      	border: 2px solid #9E9E9E;
+	}
+    
+    [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    	background-color: #d1b2ff;
+    }
+    
+    footer {
+		padding-bottom: 70px;
+	}
 	</style>
 	 
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -257,6 +273,7 @@ function login(){
 		<div id="shoppingCart" class="container">
 			<div class="pages-title">
 				<h3 class="bold">주문목록</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
 				<c:forEach var="storeVO" items="${ preStoreList }" varStatus="loop">
 				<form id="orderVO" name="orderVO" action="${ pageContext.request.contextPath }/orderList/checkCnt" method="post">

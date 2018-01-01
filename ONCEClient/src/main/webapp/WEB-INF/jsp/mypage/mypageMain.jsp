@@ -57,6 +57,9 @@
 		-webkit-text-stroke: 1px #000;
 	}
 	
+	footer {
+		padding-bottom: 70px;
+	}
 </style>
 <script type="text/javascript">
 function login(){

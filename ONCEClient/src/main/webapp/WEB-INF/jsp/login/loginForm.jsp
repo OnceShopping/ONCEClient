@@ -21,7 +21,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
@@ -29,8 +30,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </head>
-<style>
-	<style type="text/css">
+<style type="text/css">
 	.normal {
 	   font-weight: 400
 	}
@@ -74,6 +74,10 @@
       .login [type="checkbox"]:checked+label::before {
 	    border-right: 2px solid #d1b2ff;
 	    border-bottom: 2px solid #d1b2ff;
+	}
+	
+	footer {
+		padding-bottom: 70px;
 	}
 </style>
 <script type="text/javascript">

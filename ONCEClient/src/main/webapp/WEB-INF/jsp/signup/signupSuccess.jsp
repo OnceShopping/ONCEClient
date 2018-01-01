@@ -61,6 +61,9 @@ input[type="button"], input[type="submit"], button {
 	padding: 5px 30px 5px 30px;
 	border: solid #a8b2ff 2px;
 }
+input[type="button"]:hover, input[type="submit"]:hover, button:hover {
+	background-color: #fff;
+}
 </style>
 <script type="text/javascript">
 function login(){
