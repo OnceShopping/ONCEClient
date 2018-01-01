@@ -660,7 +660,7 @@ var storeName;
 										<c:if test="${ status.index % 2 eq 0 }">
 											<c:forEach items="${ newItemList }" var="newItemList" begin="${ status.index }" end="${ status.count + status.step }">
 												<c:if test="${status.count <= 4}">
-													<a href="${ pageContext.request.contextPath}/store/item/${newItemList.num}"><img src="/image/${ newItemList.imgSaveName }" alt="" style="width: 40%; vertical-align: middle; height:auto;"></a>
+													<a href="${ pageContext.request.contextPath}/item/${newItemList.num}"><img src="/image/${ newItemList.imgSaveName }" alt="" style="width: 40%; vertical-align: middle; height:auto;"></a>
 												</c:if>
 											</c:forEach>
 										</c:if>
