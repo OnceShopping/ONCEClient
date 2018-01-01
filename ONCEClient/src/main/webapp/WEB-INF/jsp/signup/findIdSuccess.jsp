@@ -20,20 +20,51 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 
+
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">   
+
+	<style type="text/css">		
+ 		.normal {
+  			font-weight: 400
+		}
+		
+		.bold {
+		   font-weight: 700
+		}
+		
+		.bolder {
+		   font-weight: 800
+		}
+		
+		.light {
+		   font-weight: 300
+		}
+		input[type="button"], input[type="submit"] {
+         font-size: inherit;
+         -webkit-border-radius: 28;
+         -moz-border-radius: 28;
+         border-radius: 28px;
+         background-color:#fff;
+         color: #999cff;
+         padding: 5px 30px 5px 30px;
+         border: solid #a8b2ff 2px;
+      }
+	</style>
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-	$(function(){
-		$("#loginBtn").click(function(){
-			location.href='${pageContext.request.contextPath}/login/loginForm';
-		})
-	})
-</script> 
+	
+	<script>
+		$(document).ready(function(){
+			$("#loginBtn").click(function(){
+				location.href='${pageContext.request.contextPath}/login/loginForm';
+			})
+		});
+	</script> 
 <title>아이디 찾기</title>
 </head>
 <body>
@@ -47,22 +78,25 @@
 	<div class="table-app app-pages app-section" style="margin-top: 30px;">
 		<div class="container">
 			<div class="pages-title">
-				<h3>아이디 찾기 검색결과</h3>
+				<h3 class="bold">아이디 조회 결과</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%"> 
 			</div>
 			<div>
-				<h3 style="text-align: center;">
-					${ id }
-				</h3>
+				<h6 style="text-align: center;">
+					조회하신 회원님의 아이디는 ${ id }입니다.
+				</h6>
 				<br>
 				<p class="w3-center">
-					<input type="button" id="loginBtn" class="button" value="Login" style="width: 48%">
-					<input type="button" onclick="history.go(-1);" class="button" value="Cancel" style="width: 48%">
+					<input type="button" id="loginBtn" value="로그인 페이지로" style="width: 100%">
 				</p>
 			</div>
 		</div>
 	</div>
 	</section>
 	
+	<footer>
+		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	</footer>
 		<!-- 하단 navbar -->
 	<div class="w3-bottom" style="background-color: #d0c5ff;">
 		<div class="w3-bar w3-border w3-xlarge" style="text-align: center;">

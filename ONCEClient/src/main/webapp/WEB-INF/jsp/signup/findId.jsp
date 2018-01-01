@@ -22,25 +22,67 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- 
+ 	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">   
+
+	<style type="text/css">		
+ 		.normal {
+  			font-weight: 400
+		}
+		
+		.bold {
+		   font-weight: 700
+		}
+		
+		.bolder {
+		   font-weight: 800
+		}
+		
+		.light {
+		   font-weight: 300
+		}
+		
+		input[type="button"], input[type="submit"], button {
+			font-size: inherit;
+			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-border-radius: 28;
+			-moz-border-radius: 28;
+			border-radius: 28px;
+			background-color:#fff;
+			color: #999cff;
+			padding: 5px 30px 5px 30px;
+			border: solid #a8b2ff 2px;
+		}
+		
+		input[type="button"]:hover, input[type="submit"]:hover, button:hover {
+			background-color: #fff;
+		}
+		
+		input[type="text"]:focus:not([readonly]), input[type=text].valid, input[type=text]:focus.valid,
+		input[type="password"]:focus:not([readonly]), input[type=password].valid, input[type=password]:focus.valid,
+		input[type="tel"]:focus:not([readonly]), input[type="tel"].valid, input[type="tel"]:focus.valid,
+		input[type="email"]:focus:not([readonly]), input[type="email"].valid, input[type="email"]:focus.valid {
+	      	border-bottom: 1px solid #d1b2ff;
+	      	box-shadow: 0 1px 0 0 #d1b2ff;
+      	}
+      
+		input[type="text"]:focus:not([readonly])+label,
+		input[type="password"]:focus:not([readonly])+label,
+		input[type="tel"]:focus:not([readonly])+label,
+		input[type="email"]:focus:not([readonly])+label {
+			color: #d1b2ff;
+		}
+	</style>
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var requiredCheckEmail = false;
-			// 다이얼로그 format 정의
-			$("#dialog").dialog({
-				autoOpen : false,
-				modal : true,
-				width : '300',
-				height : '150'
-			});
 			
 			// 이메일 중복 검사
 			$("#email2").keyup(function(){
@@ -52,10 +94,10 @@
 					contentType : "application/json; charset=UTF-8",
 					success : function(data) {
 						if(data=="true"){ // 해당 email이 존재하는 경우
-							$("#alert2").text('작성하신 email이 존재합니다.');
+							alert('작성하신 email이 존재합니다.');
 							requiredCheckEmail = true;
 						}else{ // 해당 email이가 존재하지 않는 경우
-							$("#alert2").text('작성하신 email이 존재하지 않습니다.');
+							alert('작성하신 email이 존재하지 않습니다.');
 							requiredCheckEmail = false;
 						}
 					}						
@@ -64,17 +106,17 @@
 			
 			$("#findBtn").click(function() {
 				if($("#email").val() == "") {
-					infoAlert("이메일을 입력하세요.");
+					alert("이메일을 입력하세요.");
 					return false;
 				}
 			});
 			
 			$("#findBtn2").click(function() {
 				if($("#email2").val() == "") {
-					infoAlert("이메일을 입력하세요.");
+					alert("이메일을 입력하세요.");
 					return false;
 				} else if(requiredCheckEmail == false) {
-					infoAlert("가입하신 이메일을 입력하세요.");
+					alert("가입하신 이메일을 입력하세요.");
 					return false;
 				} else {
 					$.ajax({
@@ -84,7 +126,7 @@
 							email : $("#email2").val()
 						},
 						success : function(result) {
-							infoAlert("임시 비밀번호가 해당 이메일로 전송되었습니다.");
+							alert("임시 비밀번호가 해당 이메일로 전송되었습니다.");
 						},
 					})
 					
@@ -93,10 +135,6 @@
 			});
 		})
 		
-		function infoAlert(str){
-			$('#dialog').html("<div style='text-align:center; margin:auto;'><p>"+str+"</p></div>");
-			$("#dialog").dialog("open");
-		}
 	</script>
 </head>
 
@@ -108,23 +146,23 @@
 	</header>
 	
 	<section>
-	<!-- Modal --> 						
-	<div id="dialog" title="ALERT DIALOG"></div>
-	
 	<div class="table-app app-pages app-section" style="margin-bottom: 0px; padding-bottom: 0px;">
 		<div class="container">
 			<div class="pages-title">
-				<h3>아이디 찾기</h3>
+				<h3 class="bold">아이디 / 비밀번호 찾기</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
+			</div> 
+			<div class="pages-title">
+				<h4 class="normal">아이디 조회</h4>
 			</div> 
 			<form action="${pageContext.request.contextPath}/signup/findIdSuccess" method="post">
-				<div>
-					<div class="input-field">
+				<div style="padding-bottom: 70px;">
+					<div class="input-field" style="width: 70%; float: left;">
 						<input class="validate" type="text" id="email" name="email" style="margin-bottom: 0px" required>
 						<label for="email"> Email  </label>
 					</div>
-					<p class="w3-center">
-						<input type="submit" id="findBtn" class="button" value="find" style="width: 48%">
-						<input type="button" onclick="history.go(-1);" class="button" value="Cancel" style="width: 48%">
+					<p style="width: 30%; float: left; margin-top: 25px;">
+						<input type="submit" id="findBtn" value="조회">
 					</p>
 				</div>
 			</form>
@@ -135,21 +173,16 @@
 	<div class="table-app app-pages app-section" style="margin-top: 30px;">
 		<div class="container">
 			<div class="pages-title">
-				<h3>임시 비밀번호 발송</h3>
+				<h4 class="normal">임시 비밀번호</h4>
 			</div>
 		
 			<div>
-				<div class="input-field">
+				<div class="input-field" style="width: 70%; float: left;">
 					<input class="validate" type="text" id="email2" name="email2" style="margin-bottom: 0px" required>
 					<label for="email2"> Email  </label>
 				</div>
-				
-				<!-- email체크  -->
-					<font color="red" id="alert2" class="input-field" style="font-style:oblique; margin:0px; font-size:15px;"></font>
-				
-				<p class="validate">
-					<input type="submit" id="findBtn2" class="button" value="find" style="width: 48%">
-					<input type="button" onclick="history.go(-1);" class="button" value="Cancel" style="width: 48%">
+				<p style="width: 30%; float: left; margin-top: 25px;">
+					<input type="submit" id="findBtn2" value="발송">
 				</p>
 			</div>
 		</div>
@@ -159,7 +192,9 @@
 	<br>
 	<br>
 	</section>
-	<!-- footer 끝 -->
+	<footer>
+		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp"></jsp:include>
+	</footer>
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 		<!-- 하단 navbar -->
 	<div class="w3-bottom" style="background-color: #d0c5ff;">
