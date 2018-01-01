@@ -56,6 +56,15 @@
 		button:hover {
 			background-color: #fff;
 		}
+		
+		[type="checkbox"]+label:before, [type="checkbox"]:not(.filled-in)+label:after{
+      		border: 2px solid #9E9E9E;
+        }
+      
+      	[type="checkbox"]:checked+label::before {
+	 	   border-right: 2px solid #d1b2ff;
+	 	   border-bottom: 2px solid #d1b2ff;
+		}
  	</style>
  	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
