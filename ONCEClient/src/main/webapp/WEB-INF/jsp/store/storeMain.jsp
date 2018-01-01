@@ -93,6 +93,9 @@
 	border-bottom: none;
 	width: 89%
 }
+footer {
+	padding-bottom: 70px;
+}
 </style>
 
 <script>

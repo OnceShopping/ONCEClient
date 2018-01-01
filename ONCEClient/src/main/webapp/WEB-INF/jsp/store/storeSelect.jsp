@@ -35,6 +35,29 @@
 .fa-search {
    cursor:pointer;
 }
+#navbar2Main {
+	background: #ffffff;
+	border-bottom: #e5e5e5;
+	box-shadow: 0px 2px 1px #e5e5e5;
+}
+#storeTitle {
+	color: #000000;
+	font-style: normal;
+	font-weight: 650;
+}
+#search {
+	position:relative;
+	border-radius: 50px;
+	background: #e2e2e2;
+	height: 30px;
+	padding-left:20px;
+	box-shadow: none;
+	border-bottom: none;
+	width: 89%
+}
+footer {
+	padding-bottom: 70px;
+}
 </style>
 
 <script>
@@ -122,8 +145,7 @@ function comma(obj){
 
 <body>
 <header>
-      <div class="navbar" id="navbar2Main"
-         style="background: #ffffff; border-bottom: #ffffff; box-shadow: none">
+      <div class="navbar" id="navbar2Main">
          <div class="container">
             <div class="panel-control-left" id="navbar2">
                <a href="#" data-activates="slide-out-left-2"
@@ -131,14 +153,13 @@ function comma(obj){
             </div>
             <div class="site-title" id="navbar2Logo">
                <a href="${pageContext.request.contextPath}/store/${ storeVO.storeName}" class="logo">
-              	<h1 style="color: #000000; -webkit-text-stroke: #000000;">${ storeVO.floor } ${ storeVO.storeName}</h1>
+              	<h1 id="storeTitle">${ storeVO.floor } ${ storeVO.storeName}</h1>
                </a>
             </div>
 
             <div id="input-field">
 						<form class="selectSubmit" action="">
-						<input class="form-control" id="search" type="search" required style="position:relative; border-radius: 50px;  background: #c0c0c0; height: 30px;
-						 padding-left:20px; box-shadow: none; border-bottom: none; width: 89%" placeholder="물품 검색">
+						<input class="form-control" id="search" type="search" required placeholder="물품 검색">
 						<input type="button" value="&#xf00d;" class="exitSearch" style="font-family: FontAwesome; position:relative; background: transparent; border: 0; box-shadow: none; 
 						outline: none; padding: 0px; width: 30px; height: 30px; left:155px; top:-50px">
 						<i class="fa fa-search fa-lg" aria-hidden="true" id="storeSelect" style="position: relative; top: -50px; left: 160px"></i>
@@ -232,7 +253,7 @@ function comma(obj){
       <div class="tabs-app app-pages app-section" id="mainProduct" style="margin-top: 0px">
          <div class="container">
             <div class="row">
-               <div class="col s12">
+               <div class="col s12  app-pages">
                   <c:choose>
                   <c:when test="${ category2 eq '의류' and (category1 eq '남성' or category1 eq '남아')}">
                   <ul class="tabs">
