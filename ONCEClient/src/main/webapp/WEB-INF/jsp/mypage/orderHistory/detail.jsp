@@ -34,6 +34,7 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet"
 	href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script
@@ -44,36 +45,51 @@
 		src="${pageContext.request.contextPath}/resources/js/owl.carousel.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	<style type="text/css">
-	.detailTable{
-		border-color: #EBEBEB;
-		border-radius: 5px !important;
-	}
-	td{
-		font-size: 12px !important;
-		padding: 3px !important;	
-	}
-	#nothing{
-		font-size: 12px;
-		color: #CCCCCC;
-		text-align: center;
-		padding-top: auto;
-		padding-bottom: auto; 
-		margin-top: 50px;
-	}
-	.semi{
-		font-weight: bold;
-	}
-	
-	.total{
-		font-size: 12px !important;
-		margin-top: 10px;
-		text-align: right;
-	}
-	#PriceInfo p{
-		margin-left:30px; 
-		margin-right:30px;
-		font-size: 12px;
-	}
+		.normal {
+			font-weight: 400
+		}
+		
+		.bold {
+			font-weight: 700
+		}
+		
+		.bolder {
+			font-weight: 800
+		}
+		
+		.light {
+			font-weight: 300
+		}
+		.detailTable{
+			border-color: #EBEBEB;
+			border-radius: 5px !important;
+		}
+		td{
+			font-size: 12px !important;
+			padding: 3px !important;	
+		}
+		#nothing{
+			font-size: 12px;
+			color: #CCCCCC;
+			text-align: center;
+			padding-top: auto;
+			padding-bottom: auto; 
+			margin-top: 50px;
+		}
+		.semi{
+			font-weight: bold;
+		}
+		
+		.total{
+			font-size: 12px !important;
+			margin-top: 10px;
+			text-align: right;
+		}
+		#PriceInfo p{
+			margin-left:30px; 
+			margin-right:30px;
+			font-size: 12px;
+		}
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -170,6 +186,7 @@
 			<div class="container">
 				<div class="pages-title">
 					<h3 class="bold">주문 상세 정보</h3>
+					<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 				</div>
 				<div class="detailTable">
 				<c:forEach var="detail" items="${detailList}" varStatus="index">				
