@@ -75,6 +75,10 @@
 	    border-right: 2px solid #d1b2ff;
 	    border-bottom: 2px solid #d1b2ff;
 	}
+	
+	footer {
+		padding-bottom: 70px;
+	}
 </style>
 
 <body>
