@@ -182,7 +182,7 @@ public class CustomerController {
 		
 		System.out.println("로그아웃 성공");
 		
-		return "redirect:/";
+		return "redirect:/main";
 	}
 
 	@RequestMapping(value = "/mypage/mypageMain")
