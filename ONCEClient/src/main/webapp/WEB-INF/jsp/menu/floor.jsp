@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
@@ -31,6 +32,21 @@
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 <style type="text/css">
+.normal {
+   font-weight: 400
+}
+
+.bold {
+   font-weight: 700
+}
+
+.bolder {
+   font-weight: 800
+}
+
+.light {
+   font-weight: 300
+}
 .menuSpace {
 	padding: 2px;
 	background-color: #e5e5e5;
@@ -79,11 +95,12 @@ input[type="button"], input[type="submit"] {
 	<!-- end navbar -->
 	</header>
 	
-	<section>
+	<section style="padding-bottom: 40px;">
 	 <div class="team-app app-pages app-section">
 		<div class="container">
 			<div class="pages-title">
-				<h3 style="font-weight: bold;">${ floor }</h3>
+				<h3 class="bold">${ floor }</h3>
+				<img src="${ pageContext.request.contextPath }/resources/img/moon.png" width="30%">
 			</div>
 			<div class="row">
 				<%-- <c:forEach var="" items=""> --%>
@@ -98,11 +115,9 @@ input[type="button"], input[type="submit"] {
 							</a>
 						</div>
 						<div class="content" >
-							<h6 id="${store.storeName }" class="test" style="font-weight: bold;">${store.storeName }</h6>
-							<p style="color: #9e9e9e; font-size: 10px">${store.storeCategory }</p>
-							<ul>
-								<li style="font-size: 10px"><i class="fa fa-phone-square"></i>${store.phone }</li>
-							</ul>
+							<h5 id="${store.storeName }" class="test bold">${store.storeName }</h5>
+							<p style="color: #9e9e9e; font-size: 12px">${store.storeCategory }</p>
+							<p style="font-size: 12px"><i class="fa fa-phone"></i>${store.phone }</p>
 							<input class="button" type="button" value="즐겨찾기 추가" onclick="addlikeStore('${store.storeName }')"></input>
 						</div>
 					</div>
