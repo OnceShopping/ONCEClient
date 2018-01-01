@@ -21,7 +21,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
