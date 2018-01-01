@@ -21,7 +21,7 @@
 				<p style="text-align: left; font-size: 7pt;">
 					(주)ONCE는 결제 정보의 중개 서비스 또는 통신 판매 중개 시스템의 제공자로서, 통신 판매의 당사자가 아니며 상품의 주문, 배송 및 환불 등과 관련된 의무와 책임은 각 판매자에게 있습니다......
 				</p>
-				<span>Copyright © 2017 All Rights Reserved </span>
+				<span style="font-size: 11pt;">Copyright © 2018 All Rights Reserved </span>
 			</div>
 		</div>
 	</footer>
