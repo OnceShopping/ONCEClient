@@ -22,7 +22,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/lightbox.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
+	<link rel="stylesheet" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+	 
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/materialize.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
@@ -30,19 +31,45 @@
 	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 	
 	<style type="text/css">
-.menuSpace {
-	padding: 2px;
-	background-color: #e5e5e5;
-}
-
-.button {
-    text-align: center;
-    line-height: 50px;
-    height: 60px;
-    font-size: 12px;
-}
-
-</style>
+		.normal {
+		   font-weight: 400
+		}
+		
+		.bold {
+		   font-weight: 700
+		}
+		
+		.bolder {
+		   font-weight: 800
+		}
+		
+		.light {
+		   font-weight: 300
+		}
+		.menuSpace {
+			padding: 2px;
+			background-color: #e5e5e5;
+		}
+		
+		.button {
+		    text-align: center;
+		    line-height: 50px;
+		    height: 60px;
+		    font-size: 12px;
+		}
+		
+		.adList {
+			padding-left: 8%;
+		}
+		
+		.adList .ad {
+			height: 70px;
+			border-radius: 20px;
+			margin-top: 3%;
+			padding: 10px;
+			text-align: center;
+		}
+	</style>
 
 
 <script>
@@ -54,6 +81,10 @@
 	 
 	var item = '${itemList}';
 	 
+	if(item != '') {
+		$('#advertise').hide();
+	}
+	
 	$('.exitSearch').click(function() {
 		$('#search').val("");
 	});
@@ -67,6 +98,7 @@
 		if($('#search').val().length < 2) {
 			alert("두자 이상 입력하세요");
 		} else {
+			
 			location.href="${pageContext.request.contextPath}/item/search/"+$('#search').val();
 		}
 	});
@@ -155,14 +187,58 @@ function login(){
 	</header>
               
 	<section>
-	<div class="grid-app app-pages app-section">
-		<div class="container">
-			<div class="pages-title">
-			</div>
-		</div>
+	<div class="app-pages" id="advertise">
+		<p style="padding-top: 20px; padding-left: 8%;"><i class="fa fa-ellipsis-h"></i> ONCE'S PICK</p>
+		<div class="row adList">
+	      <div class="col s11 ad" style="margin-top: 0px; background-color: #fdc15e;">
+	      	<span class="bold" style="color: #fff; font-size: large;">
+		      	<img src="${ pageContext.request.contextPath }/resources/img/dog.png" width="15%">
+		      	어서오개, 2018
+	      	</span>
+	      </div>
+	      <div class="col s5 ad bold" style="background-color: #fcf9cc; font-size: large; color: #704821;">
+	      	2017<br/>
+	      	<span class="light" style="font-size: 7pt;">
+		      	WHAT WE LOVE
+	      	</span>
+	      </div>
+	      <div class="col s6 ad bolder" style="background-color: #b0db53; font-size: x-large; color: #203d2a; padding-top: 5%;">
+	      	STYLE TIP
+	      </div>
+	      <div class="col s11 ad bold" style="background-color: #0d311a; font-size: large; color: #b0db53; padding: 2px; padding-left: 30px; text-align: left;">
+	      	<span class="light" style="font-size: 7pt;">
+	      		HOW TO DRESS
+	      	</span><br/>
+	      	하이부츠를 신다
+	      </div>
+	      <div class="col s11 ad bold" style="border: 3px solid #95958a; font-size: large; padding: 2px;">
+	      	<span class="light" style="font-size: 7pt;">
+		      	HOLIDAY LAND
+	      	</span><br/>
+	      	X-MAS FESTIVAL
+	      </div>
+	      <div class="col s11 ad bold" style="background-color: #83533f; color: #ffebc9; font-size: large; padding: 2px;">
+	      	<span class="light" style="font-size: 7pt;">
+		      	ONCE'S CHOICE
+	      	</span><br/>
+	      	하나 더 사고 싶은
+	      </div>
+	      <div class="col s6 ad bold" style="background-color: #edcdfc; color: #8c77ff; font-size: large; padding: 2px;">
+	      	<span class="light" style="font-size: 7pt;">
+		      	HOLIDAY LAND
+	      	</span><br/>
+	      	컬러 레시피
+	      </div>
+	      <div class="col s5 ad bold" style="background-color: #e5004f; color: #fff; font-size: large; padding: 2px;">
+	      	<span class="light" style="font-size: 7pt;">
+		      	HOLIDAY LAND
+	      	</span><br/>
+	      	GIFT
+	      </div>
+    	</div>
 	</div>
 	<!-- 인기상품 리스트 -->
-      <div class="tabs-app app-pages app-section" id="mainProduct" style="margin-top: 0px;">
+      <div class="tabs-app app-pages app-section" id="mainProduct">
          <div class="container">
             <div class="row">
                <div class="col s12">
