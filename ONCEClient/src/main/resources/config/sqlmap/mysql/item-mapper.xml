@@ -218,7 +218,7 @@
 	
 	<!-- 아이템 이름으로 전체 매장에서 검색 -->
 	<select id="searchItems" parameterType="itemVO" resultType="itemVO">
-		select * from itemContents where itemName like '%${itemName}%'
+		select * from itemContents where itemName like '%${itemName}%' group by itemName having max(detailNo)
   </select>
     
 	<select id="selectImgByNum" parameterType="int" resultType="ItemImgVO">
