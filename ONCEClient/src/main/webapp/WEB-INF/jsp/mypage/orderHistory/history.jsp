@@ -164,7 +164,7 @@
 			
 			if(index!=0){
 				if(item.date!=distinct)
-					row += "<div class='dateStyle'>"+item.date+"</div>";			
+					row += "<div class='dateStyle'>주문일자: "+item.date+"</div>";			
 			}else
 				row += "<div  class='dateStyle'>주문일자: "+item.date+"</div>";
 			
